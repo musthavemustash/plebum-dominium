@@ -367,6 +367,12 @@ def build_sheet(slug, num, title):
     return page
 
 
+# ---------------------------------------------------------------- home sections
+def home_section(name):
+    with open(f"templates/{name}.html") as f:
+        return f.read().replace("{BASE}", BASE)
+
+
 def build_home():
     with open("content/index.md") as f:
         src = f.read()
@@ -413,21 +419,11 @@ def build_home():
         '<p class="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
         "</div></div>"
         .replace("{BASE}", BASE)
-        + (
-            '<section class="why" id="why">'
-            '<p class="why-kicker">Why this guide</p>'
-            "<h2>Eliminate single points of failure</h2>"
-            "<p>This guide does that &mdash; securely and privately. "
-            "None of these can take your money:</p>"
-            '<ul class="threats">'
-            "<li><span>\u2715</span>One seed that can spend by itself</li>"
-            "<li><span>\u2715</span>An app or an exchange</li>"
-            "<li><span>\u2715</span>One place</li>"
-            "<li><span>\u2715</span>One device, one company</li>"
-            "<li><span>\u2715</span>A photo, a note, or a password manager</li>"
-            "</ul></section>"
-        )
+        + home_section("home-why")
+        + home_section("home-process")
         + "\n".join(cards)
+        + home_section("home-rules")
+        + home_section("home-resources")
     )
     page = (
         tpl.replace("{{title}}", f"{SITE_NAME} — {SITE_TAGLINE}")
