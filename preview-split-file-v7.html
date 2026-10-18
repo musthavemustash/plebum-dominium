@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice Spend — graphic concepts</title>
+<style>
+  :root {
+    --paper: #0b0a08; --card: #14110d; --ink: #f0e8d6; --muted: #9a8f78;
+    --line: #2b251b; --accent: #c9a35c; --accent-soft: #231b0f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-size: 17px; line-height: 1.65; padding: 2rem 1.25rem 4rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  .kicker {
+    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--accent); margin: 0 0 0.5rem;
+  }
+  h1 { font-size: 2rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
+  .intro { color: var(--muted); max-width: 64ch; margin: 0 0 3rem; }
+  .concept {
+    border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.75rem; margin: 0 0 2.5rem; background: var(--card);
+  }
+  .concept h2 { margin: 0 0 0.25rem; font-size: 1.4rem; }
+  .concept .desc { color: var(--muted); font-size: 0.95rem; margin: 0 0 1.5rem; max-width: 62ch; }
+  .stage {
+    position: relative; border: 1px solid var(--line); border-radius: 12px;
+    background: #0e0c09; overflow: hidden;
+    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+  }
+  .pick { margin-top: 1.25rem; font-size: 0.92rem; color: var(--muted); }
+  .pick strong { color: var(--accent); }
+  .lbl { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* ================= A · the split file (revised) ================= */
+  #v-a .stage { height: 360px; }
+  #v-a .zone-on {
+    position: absolute; top: 0; left: 0; right: 0; height: 34%;
+    background: #12100c; border-bottom: 2px dashed var(--accent);
+  }
+  #v-a .zone-off { position: absolute; bottom: 0; left: 0; right: 0; height: 66%; background: #0e0c09; }
+  #v-a .zlabel {
+    position: absolute; left: 16px; font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.18em; color: var(--muted);
+  }
+  #v-a .zone-on .zlabel { top: 12px; }
+  #v-a .zone-off .zlabel { top: 12px; color: var(--accent); }
+  #v-a .gaplabel {
+    position: absolute; left: 50%; top: 34%; transform: translate(-50%, -50%);
+    background: var(--paper); border: 1px solid var(--accent); color: var(--accent);
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em;
+    padding: 3px 12px; border-radius: 999px; z-index: 3;
+  }
+  #v-a .buildnode {
+    position: absolute; left: 14%; top: 17%; transform: translate(-50%, -50%);
+    text-align: center; z-index: 1;
+  }
+  #v-a .buildnode .dot {
+    width: 18px; height: 18px; border-radius: 50%; margin: 0 auto 4px;
+    border: 2px solid var(--muted); background: var(--card);
+  }
+  #v-a .buildnode span { font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); font-weight: 700; }
+  /* the file assembly: carries half A; half B waits below the line */
+  #v-a .fileasm { position: absolute; width: 34px; height: 44px; z-index: 2; }
+  #v-a .half {
+    position: absolute; top: 0; width: 17px; height: 44px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+  }
+  #v-a .ha { left: 0; background: var(--ink); border-radius: 3px 0 0 3px; }
+  #v-a .hb {
+    left: 0; background: #8a6a2f; border-radius: 0 3px 3px 0;
+    border: 1px dashed var(--accent);
+  }
+  #v-a .whole {
+    position: absolute; inset: 0; background: var(--ink); border-radius: 3px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.6); opacity: 0;
+  }
+  #v-a .whole::after {
+    content: ""; position: absolute; top: 0; right: 0;
+    border: 9px solid transparent; border-top-color: #0e0c09; border-right-color: #0e0c09;
+  }
+  #v-a .halfb-wait {
+    position: absolute; width: 17px; height: 44px; z-index: 2;
+    background: #8a6a2f; border-radius: 0 3px 3px 0; border: 1px dashed var(--accent);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+  }
+  #v-a .halfb-wait span {
+    position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+    font-size: 0.6rem; letter-spacing: 0.1em; color: var(--accent); font-weight: 700; white-space: nowrap;
+  }
+  #v-a .ped { position: absolute; width: 110px; text-align: center; z-index: 1; }
+  #v-a .ped .k {
+    width: 50px; height: 50px; margin: 0 auto 6px; border-radius: 50%;
+    border: 3px solid var(--muted); display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.8rem; color: var(--muted); background: var(--card);
+  }
+  #v-a .ped span { font-size: 0.64rem; color: var(--muted); letter-spacing: 0.08em; font-weight: 700; }
+  #v-a .ped1 { left: 40%; bottom: 12%; transform: translateX(-50%); }
+  #v-a .ped2 { left: 68%; bottom: 12%; transform: translateX(-50%); }
+  #v-a .stamp {
+    position: absolute; font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em;
+    color: var(--accent); border: 2px solid var(--accent); border-radius: 5px;
+    padding: 2px 8px; transform: rotate(-8deg); opacity: 0; background: rgba(11,10,8,0.9); z-index: 3;
+  }
+  #v-a .stamp1 { left: 40%; bottom: 30%; transform: translateX(-50%) rotate(-8deg); }
+  #v-a .stamp2 { left: 68%; bottom: 30%; transform: translateX(-50%) rotate(-8deg); }
+  #v-a .ccap {
+    position: absolute; left: 0; right: 0; bottom: 10px; text-align: center;
+    font-family: Georgia, serif; font-style: italic; font-size: 0.86rem;
+    color: var(--ink); opacity: 0; z-index: 4; padding: 0 1rem;
+  }
+  #v-a .ccap small {
+    display: block; font-style: normal; font-family: -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.64rem; color: var(--muted); letter-spacing: 0.12em; margin-top: 2px;
+  }
+  #v-a .barcs { position: absolute; left: 86%; top: 17%; opacity: 0; z-index: 3; }
+  #v-a .barcs i {
+    position: absolute; border: 2px solid var(--accent); border-radius: 50%;
+    border-left-color: transparent; border-bottom-color: transparent; transform: rotate(-45deg);
+  }
+  #v-a .barcs i:nth-child(1) { width: 36px; height: 36px; left: -18px; top: -18px; }
+  #v-a .barcs i:nth-child(2) { width: 56px; height: 56px; left: -28px; top: -28px; }
+  #v-a .barcs i:nth-child(3) { width: 76px; height: 76px; left: -38px; top: -38px; }
+  @media (prefers-reduced-motion: no-preference) {
+    #v-a .fileasm { animation: a2Asm 16s ease-in-out infinite; }
+    #v-a .ha { animation: a2Ha 16s linear infinite; }
+    #v-a .halfb-wait { animation: a2Hb 16s ease-in-out infinite; }
+    #v-a .whole { animation: a2Whole 16s linear infinite; }
+    #v-a .ped1 .k { animation: a2K1 16s linear infinite; }
+    #v-a .ped2 .k { animation: a2K2 16s linear infinite; }
+    #v-a .stamp1 { animation: a2S1 16s linear infinite; }
+    #v-a .stamp2 { animation: a2S2 16s linear infinite; }
+    #v-a .barcs { animation: a2Barcs 16s linear infinite; }
+    #v-a .c1 { animation: a2C1 16s linear infinite; }
+    #v-a .c2 { animation: a2C2 16s linear infinite; }
+    #v-a .c3 { animation: a2C3 16s linear infinite; }
+    #v-a .c4 { animation: a2C4 16s linear infinite; }
+  }
+  @keyframes a2Asm {
+    0% { left: 14%; top: 17%; opacity: 0; transform: translate(-50%, -50%); }
+    3%, 9% { left: 14%; top: 17%; opacity: 1; transform: translate(-50%, -50%); }
+    15% { left: 20%; top: 58%; opacity: 1; transform: translate(-50%, -50%); }
+    21%, 29% { left: 20%; top: 58%; opacity: 1; transform: translate(-50%, -50%); }
+    35%, 43% { left: 40%; top: 66%; opacity: 1; transform: translate(-50%, -50%); }
+    49%, 57% { left: 68%; top: 66%; opacity: 1; transform: translate(-50%, -50%); }
+    63% { left: 80%; top: 17%; opacity: 1; transform: translate(-50%, -50%); }
+    69%, 83% { left: 86%; top: 17%; opacity: 1; transform: translate(-50%, -50%); }
+    90%, 100% { left: 86%; top: 17%; opacity: 0; transform: translate(-50%, -50%); }
+  }
+  @keyframes a2Ha { 0%, 20% { opacity: 1; } 22%, 100% { opacity: 0; } }
+  @keyframes a2Hb {
+    0%, 13% { left: calc(20% + 70px); top: 58%; opacity: 1; transform: translateY(-50%); }
+    19%, 20% { left: 20%; top: 58%; opacity: 1; transform: translateY(-50%); }
+    22%, 100% { left: 20%; top: 58%; opacity: 0; transform: translateY(-50%); }
+  }
+  @keyframes a2Whole {
+    0%, 20% { opacity: 0; transform: scale(1); box-shadow: 0 4px 14px rgba(0,0,0,0.6); }
+    22% { opacity: 1; transform: scale(1.35); box-shadow: 0 0 34px rgba(201,163,92,0.95); }
+    26%, 88% { opacity: 1; transform: scale(1); box-shadow: 0 4px 14px rgba(0,0,0,0.6); }
+    90%, 100% { opacity: 0; transform: scale(1); }
+  }
+  @keyframes a2K1 {
+    0%, 33% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+    39%, 45% { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 18px rgba(201,163,92,0.5); }
+    51%, 100% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+  }
+  @keyframes a2K2 {
+    0%, 47% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+    53%, 59% { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 18px rgba(201,163,92,0.5); }
+    65%, 100% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+  }
+  @keyframes a2S1 { 0%, 41% { opacity: 0; } 45%, 88% { opacity: 1; } 93%, 100% { opacity: 0; } }
+  @keyframes a2S2 { 0%, 55% { opacity: 0; } 59%, 88% { opacity: 1; } 93%, 100% { opacity: 0; } }
+  @keyframes a2Barcs { 0%, 71% { opacity: 0; transform: scale(0.7); } 78%, 86% { opacity: 1; transform: scale(1.12); } 92%, 100% { opacity: 0; } }
+  @keyframes a2C1 { 0%, 3% { opacity: 0; } 6%, 12% { opacity: 1; } 15%, 100% { opacity: 0; } }
+  @keyframes a2C2 { 0%, 18% { opacity: 0; } 22%, 30% { opacity: 1; } 34%, 100% { opacity: 0; } }
+  @keyframes a2C3 { 0%, 38% { opacity: 0; } 42%, 60% { opacity: 1; } 64%, 100% { opacity: 0; } }
+  @keyframes a2C4 { 0%, 70% { opacity: 0; } 75%, 86% { opacity: 1; } 91%, 100% { opacity: 0; } }
+/* ================= A2 · the commuter ================= */
+  #v-a2 .stage { height: 360px; }
+  #v-a2 .zone-on { position: absolute; top: 0; left: 0; right: 0; height: 34%; background: #12100c; border-bottom: 2px dashed var(--accent); }
+  #v-a2 .zone-off { position: absolute; bottom: 0; left: 0; right: 0; height: 66%; background: #0e0c09; }
+  #v-a2 .zlabel { position: absolute; left: 16px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; color: var(--muted); }
+  #v-a2 .zone-on .zlabel { top: 12px; }
+  #v-a2 .zone-off .zlabel { top: 12px; color: var(--accent); }
+  #v-a2 .gaplabel { position: absolute; left: 50%; top: 34%; transform: translate(-50%, -50%); background: var(--paper); border: 1px solid var(--accent); color: var(--accent); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; padding: 3px 12px; border-radius: 999px; z-index: 3; }
+  #v-a2 .buildnode { position: absolute; left: 14%; top: 17%; transform: translate(-50%, -50%); text-align: center; }
+  #v-a2 .buildnode .dot { width: 18px; height: 18px; border-radius: 50%; margin: 0 auto 4px; border: 2px solid var(--muted); background: var(--card); }
+  #v-a2 .buildnode span { font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); font-weight: 700; }
+  #v-a2 .fileasm { position: absolute; width: 34px; height: 44px; z-index: 2; }
+  #v-a2 .half { position: absolute; top: 0; width: 17px; height: 44px; box-shadow: 0 4px 14px rgba(0,0,0,0.6); }
+  #v-a2 .ha { left: 0; background: var(--ink); border-radius: 3px 0 0 3px; }
+  #v-a2 .whole { position: absolute; inset: 0; background: var(--ink); border-radius: 3px; box-shadow: 0 4px 14px rgba(0,0,0,0.6); opacity: 0; }
+  #v-a2 .whole::after { content: ""; position: absolute; top: 0; right: 0; border: 9px solid transparent; border-top-color: #0e0c09; border-right-color: #0e0c09; }
+  #v-a2 .halfb-wait { position: absolute; width: 17px; height: 44px; z-index: 2; background: #8a6a2f; border-radius: 0 3px 3px 0; border: 1px dashed var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,0.6); }
+  #v-a2 .halfb-wait span { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--accent); font-weight: 700; white-space: nowrap; }
+  #v-a2 .ped { position: absolute; width: 110px; text-align: center; }
+  #v-a2 .ped .k { width: 50px; height: 50px; margin: 0 auto 6px; border-radius: 50%; border: 3px solid var(--muted); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; color: var(--muted); background: var(--card); }
+  #v-a2 .ped span { font-size: 0.64rem; color: var(--muted); letter-spacing: 0.08em; font-weight: 700; }
+  #v-a2 .ped1 { left: 40%; bottom: 12%; transform: translateX(-50%); }
+  #v-a2 .ped2 { left: 68%; bottom: 12%; transform: translateX(-50%); }
+  #v-a2 .stamp { position: absolute; font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em; color: var(--accent); border: 2px solid var(--accent); border-radius: 5px; padding: 2px 8px; opacity: 0; background: rgba(11,10,8,0.9); z-index: 3; }
+  #v-a2 .stamp1 { left: 40%; bottom: 30%; transform: translateX(-50%) rotate(-8deg); }
+  #v-a2 .stamp2 { left: 68%; bottom: 30%; transform: translateX(-50%) rotate(-8deg); }
+  #v-a2 .ccap { position: absolute; left: 0; right: 0; bottom: 10px; text-align: center; font-family: Georgia, serif; font-style: italic; font-size: 0.86rem; color: var(--ink); opacity: 0; z-index: 4; padding: 0 1rem; }
+  #v-a2 .ccap small { display: block; font-style: normal; font-family: -apple-system, "Segoe UI", sans-serif; font-size: 0.64rem; color: var(--muted); letter-spacing: 0.12em; margin-top: 2px; }
+  #v-a2 .barcs { position: absolute; left: 86%; top: 17%; opacity: 0; z-index: 3; }
+  #v-a2 .barcs i { position: absolute; border: 2px solid var(--accent); border-radius: 50%; border-left-color: transparent; border-bottom-color: transparent; transform: rotate(-45deg); }
+  #v-a2 .barcs i:nth-child(1) { width: 36px; height: 36px; left: -18px; top: -18px; }
+  #v-a2 .barcs i:nth-child(2) { width: 56px; height: 56px; left: -28px; top: -28px; }
+  #v-a2 .barcs i:nth-child(3) { width: 76px; height: 76px; left: -38px; top: -38px; }
+  @media (prefers-reduced-motion: no-preference) {
+    #v-a2 .fileasm { animation: b2Asm 17s ease-in-out infinite; }
+    #v-a2 .ha { animation: b2Ha 17s linear infinite; }
+    #v-a2 .halfb-wait { animation: b2Hb 17s ease-in-out infinite; }
+    #v-a2 .whole { animation: b2Whole 17s linear infinite; }
+    #v-a2 .ped1 .k { animation: b2K1 17s linear infinite; }
+    #v-a2 .ped2 .k { animation: b2K2 17s linear infinite; }
+    #v-a2 .stamp1 { animation: b2S1 17s linear infinite; }
+    #v-a2 .stamp2 { animation: b2S2 17s linear infinite; }
+    #v-a2 .barcs { animation: b2Barcs 17s linear infinite; }
+    #v-a2 .c1 { animation: b2C1 17s linear infinite; }
+    #v-a2 .c2 { animation: b2C2 17s linear infinite; }
+    #v-a2 .c3 { animation: b2C3 17s linear infinite; }
+    #v-a2 .c4 { animation: b2C4 17s linear infinite; }
+    #v-a2 .c5 { animation: b2C5 17s linear infinite; }
+  }
+  @keyframes b2Asm {
+    0% { left: 14%; top: 17%; opacity: 0; transform: translate(-50%, -50%); }
+    3%, 8% { left: 14%; top: 17%; opacity: 1; transform: translate(-50%, -50%); }
+    13% { left: 20%; top: 58%; opacity: 1; transform: translate(-50%, -50%); }
+    17%, 20% { left: 20%; top: 58%; opacity: 1; transform: translate(-50%, -50%); }
+    25%, 29% { left: 32%; top: 17%; opacity: 1; transform: translate(-50%, -50%); }
+    34% { left: 40%; top: 68%; opacity: 1; transform: translate(-50%, -50%); }
+    38%, 44% { left: 40%; top: 68%; opacity: 1; transform: translate(-50%, -50%); }
+    48% { left: 40%; top: 17%; opacity: 1; transform: translate(-50%, -50%); }
+    52% { left: 68%; top: 68%; opacity: 1; transform: translate(-50%, -50%); }
+    56%, 62% { left: 68%; top: 68%; opacity: 1; transform: translate(-50%, -50%); }
+    66% { left: 68%; top: 17%; opacity: 1; transform: translate(-50%, -50%); }
+    70%, 72% { left: 86%; top: 17%; opacity: 1; transform: translate(-50%, -50%); }
+    76%, 86% { left: 86%; top: 17%; opacity: 1; transform: translate(-50%, -50%); }
+    91%, 100% { left: 86%; top: 17%; opacity: 0; transform: translate(-50%, -50%); }
+  }
+  @keyframes b2Ha { 0%, 16% { opacity: 1; } 18%, 100% { opacity: 0; } }
+  @keyframes b2Hb {
+    0%, 11% { left: calc(20% + 70px); top: 58%; opacity: 1; transform: translateY(-50%); }
+    15%, 16% { left: 20%; top: 58%; opacity: 1; transform: translateY(-50%); }
+    18%, 100% { left: 20%; top: 58%; opacity: 0; transform: translateY(-50%); }
+  }
+  @keyframes b2Whole {
+    0%, 16% { opacity: 0; transform: scale(1); box-shadow: 0 4px 14px rgba(0,0,0,0.6); }
+    18% { opacity: 1; transform: scale(1.35); box-shadow: 0 0 34px rgba(201,163,92,0.95); }
+    22%, 87% { opacity: 1; transform: scale(1); box-shadow: 0 4px 14px rgba(0,0,0,0.6); }
+    91%, 100% { opacity: 0; transform: scale(1); }
+  }
+  @keyframes b2K1 {
+    0%, 36% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+    40%, 46% { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 18px rgba(201,163,92,0.5); }
+    50%, 100% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+  }
+  @keyframes b2K2 {
+    0%, 54% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+    58%, 64% { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 18px rgba(201,163,92,0.5); }
+    68%, 100% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+  }
+  @keyframes b2S1 { 0%, 42% { opacity: 0; } 46%, 88% { opacity: 1; } 92%, 100% { opacity: 0; } }
+  @keyframes b2S2 { 0%, 60% { opacity: 0; } 64%, 88% { opacity: 1; } 92%, 100% { opacity: 0; } }
+  @keyframes b2Barcs { 0%, 74% { opacity: 0; transform: scale(0.7); } 80%, 86% { opacity: 1; transform: scale(1.12); } 91%, 100% { opacity: 0; } }
+  @keyframes b2C1 { 0%, 3% { opacity: 0; } 6%, 10% { opacity: 1; } 13%, 100% { opacity: 0; } }
+  @keyframes b2C2 { 0%, 14% { opacity: 0; } 17%, 22% { opacity: 1; } 25%, 100% { opacity: 0; } }
+  @keyframes b2C3 { 0%, 26% { opacity: 0; } 29%, 33% { opacity: 1; } 36%, 100% { opacity: 0; } }
+  @keyframes b2C4 { 0%, 37% { opacity: 0; } 41%, 66% { opacity: 1; } 70%, 100% { opacity: 0; } }
+  @keyframes b2C5 { 0%, 72% { opacity: 0; } 77%, 87% { opacity: 1; } 92%, 100% { opacity: 0; } }
+
+/* ================= A3 · the filling file (v2: slow, red shutdown line) ================= */
+  #v-a3 .stage { height: 380px; }
+  #v-a3 .zone-on { position: absolute; top: 0; left: 0; right: 0; height: 34%; background: #12100c; border-bottom: 2px dashed var(--accent); }
+  #v-a3 .zone-off { position: absolute; bottom: 0; left: 0; right: 0; height: 66%; background: #0e0c09; }
+  #v-a3 .zlabel { position: absolute; left: 16px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; color: var(--muted); }
+  #v-a3 .zone-on .zlabel { top: 12px; }
+  #v-a3 .zone-off .zlabel { top: 12px; color: var(--accent); }
+  #v-a3 .gaplabel { position: absolute; left: 50%; top: 34%; transform: translate(-50%, -50%); background: var(--paper); border: 1px solid var(--accent); color: var(--accent); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; padding: 3px 12px; border-radius: 999px; z-index: 3; }
+  #v-a3 .redline {
+    position: absolute; left: 50%; top: calc(34% + 82px); bottom: 0; width: 3px;
+    background: #c0392b; z-index: 3;
+    box-shadow: 0 0 12px rgba(192, 57, 43, 0.55);
+  }
+  #v-a3 .redline-tag {
+    position: absolute; left: 50%; top: calc(34% + 52px); transform: translateX(-50%); z-index: 3;
+    background: rgba(192, 57, 43, 0.12); border: 1px solid #c0392b; color: #e08070;
+    font-size: 0.6rem; font-weight: 800; letter-spacing: 0.14em;
+    padding: 3px 10px; border-radius: 4px; white-space: nowrap;
+  }
+  #v-a3 .usb {
+    position: absolute; left: 50%; top: calc(34% + 22px); transform: translateX(-50%);
+    width: 16px; height: 24px; background: #3a3530; border: 1px solid var(--muted);
+    border-radius: 3px; z-index: 3;
+  }
+  #v-a3 .usb i {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    width: 8px; height: 10px; background: #3a3530; border: 1px solid var(--muted);
+    border-bottom: 0; border-radius: 2px 2px 0 0;
+  }
+  #v-a3 .ct-label {
+    position: absolute; left: 14%; top: 8%; transform: translateX(-50%);
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.22em; color: var(--accent);
+    opacity: 0; z-index: 2; white-space: nowrap;
+  }
+  #v-a3 .bc-label {
+    position: absolute; right: 14%; top: 5%; transform: translateX(50%);
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.22em; color: var(--accent);
+    opacity: 0; z-index: 2; white-space: nowrap;
+  }
+  #v-a3 .filebox {
+    position: absolute; width: 36px; height: 46px; z-index: 4;
+    background: transparent; overflow: hidden; border-radius: 6px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+  }
+  #v-a3 .filebox .fill {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 0%;
+    background: var(--accent);
+  }
+  #v-a3 .filebox .outline { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #v-a3 .filebox .outline rect {
+    fill: none; stroke: var(--ink); stroke-width: 2.5;
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+  }
+  #v-a3 .ped { position: absolute; width: 110px; text-align: center; }
+  #v-a3 .ped .plate {
+    width: 88px; height: 56px; margin: 0 auto 6px; border-radius: 8px;
+    background: linear-gradient(135deg, #7a746e 0%, #b8b2ab 25%, #8a847e 50%, #6b6560 78%, #57534e 100%);
+    border: 1px solid #44403c; position: relative;
+  }
+  #v-a3 .ped .plate i {
+    display: block; height: 3px; margin: 7px 12px 0; background: rgba(0,0,0,0.35);
+    border-radius: 2px; box-shadow: inset 0 1px 1px rgba(0,0,0,0.5);
+  }
+  #v-a3 .ped .plate i:first-child { margin-top: 10px; }
+  #v-a3 .ped span { font-size: 0.64rem; color: var(--muted); letter-spacing: 0.08em; font-weight: 700; }
+  #v-a3 .ped1 { left: 35%; bottom: 14%; transform: translateX(-50%); }
+  #v-a3 .ped2 { left: 65%; bottom: 14%; transform: translateX(-50%); }
+  #v-a3 .stamp { position: absolute; font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em; color: var(--accent); border: 2px solid var(--accent); border-radius: 5px; padding: 2px 8px; opacity: 0; background: rgba(11,10,8,0.9); z-index: 3; }
+  #v-a3 .stamp1 { left: 35%; bottom: 32%; transform: translateX(-50%) rotate(-8deg); }
+  #v-a3 .stamp2 { left: 65%; bottom: 32%; transform: translateX(-50%) rotate(-8deg); }
+  #v-a3 .barcs { position: absolute; left: 86%; top: 17%; opacity: 0; z-index: 3; }
+  #v-a3 .barcs i { position: absolute; border: 2px solid var(--accent); border-radius: 50%; border-left-color: transparent; border-bottom-color: transparent; transform: rotate(-45deg); }
+  #v-a3 .barcs i:nth-child(1) { width: 36px; height: 36px; left: -18px; top: -18px; }
+  #v-a3 .barcs i:nth-child(2) { width: 56px; height: 56px; left: -28px; top: -28px; }
+  #v-a3 .barcs i:nth-child(3) { width: 76px; height: 76px; left: -38px; top: -38px; }
+  #v-a3 .legend { margin: 1.1rem 0 0; padding: 0; list-style: none; }
+  #v-a3 .legend li {
+    position: relative; padding: 0.3rem 0 0.3rem 2rem; font-size: 0.9rem; color: var(--muted);
+    border-top: 1px solid var(--line);
+  }
+  #v-a3 .legend li:first-child { border-top: 0; }
+  #v-a3 .legend li b { color: var(--ink); }
+  #v-a3 .legend li .n {
+    position: absolute; left: 0; top: 0.35rem; width: 1.4rem; height: 1.4rem;
+    border: 1px solid var(--accent); border-radius: 50%; color: var(--accent);
+    font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, "Segoe UI", sans-serif;
+  }
+  #v-a3 .legend li i { color: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    #v-a3 .ct-label { animation: e3Ct 22s linear infinite; }
+    #v-a3 .bc-label { animation: e3Bc 22s linear infinite; }
+    #v-a3 .filebox .outline rect { animation: e3Draw 22s linear infinite; }
+    #v-a3 .filebox { animation: e3Box 22s ease-in-out infinite; }
+    #v-a3 .filebox .fill { animation: e3Fill 22s linear infinite; }
+    #v-a3 .ped1 .plate { animation: e3P1 22s ease-in-out infinite; }
+    #v-a3 .ped2 .plate { animation: e3P2 22s ease-in-out infinite; }
+    #v-a3 .stamp1 { animation: e3S1 22s linear infinite; }
+    #v-a3 .stamp2 { animation: e3S2 22s linear infinite; }
+    #v-a3 .barcs { animation: e3Barcs 22s linear infinite; }
+    #v-a3 .usb, #v-a3 .usb i { animation: e3Usb 22s linear infinite; }
+  }
+  @keyframes e3Ct {
+    0% { opacity: 0; } 1% { opacity: 1; } 2% { opacity: 0.25; } 3% { opacity: 1; }
+    4% { opacity: 0.25; } 5%, 100% { opacity: 1; }
+  }
+  @keyframes e3Bc {
+    0% { opacity: 0; }
+    3%, 100% { opacity: 1; }
+  }
+  @keyframes e3Draw {
+    0% { stroke-dashoffset: 1; }
+    7%, 100% { stroke-dashoffset: 0; }
+  }
+  @keyframes e3Box {
+    0% { left: 14%; top: 23%; opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+    2%, 8% { left: 14%; top: 23%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    12% { left: 35%; top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    16%, 26% { left: 35%; top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    30% { left: calc(50% - 34px); top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    34%, 42% { left: calc(50% - 34px); top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    48% { left: 65%; top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    52%, 62% { left: 65%; top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    68% { left: 86%; top: 17%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    72%, 84% { left: 86%; top: 17%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    89%, 100% { left: 86%; top: 17%; opacity: 0; transform: translate(-50%, -50%) scale(1); }
+  }
+  @keyframes e3Fill {
+    0%, 19% { width: 0%; }
+    25%, 47% { width: 50%; }
+    55%, 100% { width: 100%; }
+  }
+  @keyframes e3P1 {
+    0%, 14% { transform: translateY(0); border-color: #44403c; box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 4px 10px rgba(0,0,0,0.5); }
+    18%, 26% { transform: translateY(-8px); border-color: var(--accent); box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 0 26px rgba(201,163,92,0.7); }
+    30%, 100% { transform: translateY(0); border-color: #44403c; box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 4px 10px rgba(0,0,0,0.5); }
+  }
+  @keyframes e3P2 {
+    0%, 50% { transform: translateY(0); border-color: #44403c; box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 4px 10px rgba(0,0,0,0.5); }
+    54%, 62% { transform: translateY(-8px); border-color: var(--accent); box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 0 26px rgba(201,163,92,0.7); }
+    66%, 100% { transform: translateY(0); border-color: #44403c; box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 4px 10px rgba(0,0,0,0.5); }
+  }
+  @keyframes e3S1 { 0%, 23% { opacity: 0; } 27%, 88% { opacity: 1; } 92%, 100% { opacity: 0; } }
+  @keyframes e3S2 { 0%, 57% { opacity: 0; } 61%, 88% { opacity: 1; } 92%, 100% { opacity: 0; } }
+  @keyframes e3Barcs { 0%, 70% { opacity: 0; transform: scale(0.7); } 76%, 84% { opacity: 1; transform: scale(1.12); } 89%, 100% { opacity: 0; } }
+  @keyframes e3Usb {
+    0%, 32% { background: #3a3530; border-color: var(--muted); box-shadow: none; }
+    35%, 37% { background: #c0392b; border-color: #e08070; box-shadow: 0 0 16px rgba(192, 57, 43, 0.9); }
+    39%, 41% { background: #3a3530; border-color: var(--muted); box-shadow: none; }
+    43%, 45% { background: #c0392b; border-color: #e08070; box-shadow: 0 0 16px rgba(192, 57, 43, 0.9); }
+    47%, 100% { background: #3a3530; border-color: var(--muted); box-shadow: none; }
+  }
+/* ================= B · two keys turn ================= */
+  #v-b .stage { height: 300px; }
+  #v-b .lock {
+    position: absolute; left: 50%; top: 150px; transform: translate(-50%, -50%);
+    width: 110px; height: 92px;
+  }
+  #v-b .shackle {
+    position: absolute; left: 50%; top: -34px; width: 62px; height: 56px;
+    transform: translateX(-50%);
+    border: 9px solid var(--muted); border-bottom: 0;
+    border-radius: 31px 31px 0 0;
+  }
+  #v-b .lbody {
+    position: absolute; inset: 22px 0 0 0;
+    border: 3px solid var(--muted); border-radius: 12px; background: var(--card);
+  }
+  #v-b .lface {
+    position: absolute; left: 50%; top: 62px; width: 14px; height: 14px;
+    transform: translateX(-50%); border-radius: 50%; background: var(--muted);
+  }
+  #v-b .key { position: absolute; top: 150px; width: 150px; height: 40px; transform: translateY(-50%); }
+  #v-b .key .bow {
+    position: absolute; width: 40px; height: 40px; border-radius: 50%;
+    border: 7px solid var(--accent);
+  }
+  #v-b .key .shaft { position: absolute; top: 16px; height: 8px; background: var(--accent); }
+  #v-b .key .teeth { position: absolute; top: 24px; width: 10px; height: 12px; background: var(--accent); }
+  #v-b .ka { left: 0; transform-origin: right 50%; }
+  #v-b .ka .bow { left: 0; }
+  #v-b .ka .shaft { left: 40px; right: 0; }
+  #v-b .ka .teeth { right: 18px; }
+  #v-b .kb { right: 0; transform: translateY(-50%) scaleX(-1); transform-origin: right 50%; }
+  #v-b .kb .bow { left: 0; }
+  #v-b .kb .shaft { left: 40px; right: 0; }
+  #v-b .kb .teeth { right: 18px; }
+  #v-b .sig {
+    position: absolute; top: 34px; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.1em; color: var(--accent); opacity: 0;
+  }
+  #v-b .sig1 { left: 12%; } #v-b .sig2 { right: 12%; }
+  #v-b .cap {
+    position: absolute; bottom: 22px; left: 0; right: 0; text-align: center;
+    font-size: 0.85rem; color: var(--muted); font-family: Georgia, serif; font-style: italic;
+  }
+  #v-b .burst { position: absolute; left: 50%; top: 150px; opacity: 0; }
+  #v-b .burst i {
+    position: absolute; border: 2px solid var(--accent); border-radius: 50%;
+    left: -60px; top: -60px; width: 120px; height: 120px;
+  }
+  #v-b .burst i:nth-child(2) { left: -90px; top: -90px; width: 180px; height: 180px; }
+  @media (prefers-reduced-motion: no-preference) {
+    #v-b .ka { animation: bKeyA 12s ease-in-out infinite; }
+    #v-b .kb { animation: bKeyB 12s ease-in-out infinite; }
+    #v-b .sig1 { animation: bSig1 12s linear infinite; }
+    #v-b .sig2 { animation: bSig2 12s linear infinite; }
+    #v-b .shackle { animation: bShackle 12s linear infinite; }
+    #v-b .lbody, #v-b .lface { animation: bLockGold 12s linear infinite; }
+    #v-b .burst { animation: bBurst 12s linear infinite; }
+  }
+  @keyframes bKeyA {
+    0%, 6% { left: -160px; }
+    16%, 26% { left: calc(50% - 205px); }
+    30%, 36% { left: calc(50% - 205px); transform: translateY(-50%) rotate(90deg); }
+    40%, 100% { left: calc(50% - 205px); transform: translateY(-50%) rotate(90deg); opacity: 0; }
+  }
+  @keyframes bKeyB {
+    0%, 38% { right: -160px; opacity: 1; }
+    48%, 58% { right: calc(50% - 205px); opacity: 1; }
+    62%, 68% { right: calc(50% - 205px); opacity: 1; transform: translateY(-50%) scaleX(-1) rotate(90deg); }
+    72%, 100% { right: calc(50% - 205px); opacity: 0; transform: translateY(-50%) scaleX(-1) rotate(90deg); }
+  }
+  @keyframes bSig1 { 0%, 28% { opacity: 0; } 34%, 92% { opacity: 1; } 97%, 100% { opacity: 0; } }
+  @keyframes bSig2 { 0%, 60% { opacity: 0; } 66%, 92% { opacity: 1; } 97%, 100% { opacity: 0; } }
+  @keyframes bShackle {
+    0%, 68% { transform: translateX(-50%); border-color: var(--muted); }
+    76%, 92% { transform: translate(-30%, -16px); border-color: var(--accent); }
+    97%, 100% { transform: translateX(-50%); border-color: var(--muted); }
+  }
+  @keyframes bLockGold {
+    0%, 68% { border-color: var(--muted); }
+    76%, 92% { border-color: var(--accent); box-shadow: 0 0 24px rgba(201,163,92,0.35); }
+    97%, 100% { border-color: var(--muted); box-shadow: none; }
+  }
+  @keyframes bBurst { 0%, 74% { opacity: 0; transform: scale(0.6); } 82%, 90% { opacity: 1; transform: scale(1.15); } 96%, 100% { opacity: 0; } }
+
+  /* ================= C · split world ================= */
+  #v-c .stage { height: 340px; }
+  #v-c .zone-on {
+    position: absolute; top: 0; left: 0; right: 0; height: 38%;
+    background: #12100c; border-bottom: 2px dashed var(--accent);
+  }
+  #v-c .zone-off { position: absolute; bottom: 0; left: 0; right: 0; height: 62%; background: #0e0c09; }
+  #v-c .zlabel {
+    position: absolute; left: 16px; font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.18em; color: var(--muted);
+  }
+  #v-c .zone-on .zlabel { top: 12px; }
+  #v-c .zone-off .zlabel { top: 12px; color: var(--accent); }
+  #v-c .gaplabel {
+    position: absolute; left: 50%; top: 38%; transform: translate(-50%, -50%);
+    background: var(--paper); border: 1px solid var(--accent); color: var(--accent);
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em;
+    padding: 3px 12px; border-radius: 999px;
+  }
+  #v-c .ped {
+    position: absolute; bottom: 26px; width: 120px; text-align: center;
+  }
+  #v-c .ped .k {
+    width: 54px; height: 54px; margin: 0 auto 6px; border-radius: 50%;
+    border: 3px solid var(--muted); display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.85rem; color: var(--muted); background: var(--card);
+  }
+  #v-c .ped span { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; }
+  #v-c .ped1 { left: 14%; } #v-c .ped2 { right: 14%; }
+  #v-c .file {
+    position: absolute; width: 30px; height: 38px; background: var(--ink);
+    border-radius: 3px; transform: translate(-50%, -50%);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.6); z-index: 2;
+  }
+  #v-c .file::after {
+    content: ""; position: absolute; top: 0; right: 0;
+    border: 8px solid transparent; border-top-color: #0e0c09; border-right-color: #0e0c09;
+  }
+  #v-c .ccap {
+    position: absolute; left: 0; right: 0; text-align: center;
+    font-family: Georgia, serif; font-style: italic; font-size: 0.88rem;
+    color: var(--ink); opacity: 0;
+  }
+  #v-c .ccap small { display: block; font-style: normal; font-family: -apple-system, "Segoe UI", sans-serif; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; margin-top: 2px;}
+  #v-c .bc { position: absolute; right: 8%; top: 19%; transform: translate(50%, -50%); opacity: 0; }
+  #v-c .bc i {
+    position: absolute; border: 2px solid var(--accent); border-radius: 50%;
+    left: -44px; top: -44px; width: 88px; height: 88px;
+  }
+  #v-c .bc i:nth-child(2) { left: -66px; top: -66px; width: 132px; height: 132px; }
+  @media (prefers-reduced-motion: no-preference) {
+    #v-c .file { animation: cFile 14s ease-in-out infinite; }
+    #v-c .ped1 .k { animation: cKey1 14s linear infinite; }
+    #v-c .ped2 .k { animation: cKey2 14s linear infinite; }
+    #v-c .c1 { animation: cCap1 14s linear infinite; }
+    #v-c .c2 { animation: cCap2 14s linear infinite; }
+    #v-c .c3 { animation: cCap3 14s linear infinite; }
+    #v-c .c4 { animation: cCap4 14s linear infinite; }
+    #v-c .bc { animation: cBc 14s linear infinite; }
+  }
+  #v-c .ccap { bottom: 8px; }
+  @keyframes cFile {
+    0% { left: 14%; top: 19%; opacity: 0; }
+    4%, 12% { left: 14%; top: 19%; opacity: 1; }
+    18%, 30% { left: 20%; top: 68%; opacity: 1; }
+    36%, 40% { left: 14%; top: 19%; opacity: 1; }
+    46%, 58% { left: 80%; top: 68%; opacity: 1; }
+    64%, 68% { left: 86%; top: 19%; opacity: 1; }
+    74%, 86% { left: 86%; top: 19%; opacity: 1; }
+    92%, 100% { left: 86%; top: 19%; opacity: 0; }
+  }
+  @keyframes cKey1 {
+    0%, 16% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+    22%, 30% { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 18px rgba(201,163,92,0.5); }
+    36%, 100% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+  }
+  @keyframes cKey2 {
+    0%, 44% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+    50%, 58% { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 18px rgba(201,163,92,0.5); }
+    64%, 100% { border-color: var(--muted); color: var(--muted); box-shadow: none; }
+  }
+  @keyframes cCap1 { 0%, 4% { opacity: 0; } 8%, 14% { opacity: 1; } 18%, 100% { opacity: 0; } }
+  @keyframes cCap2 { 0%, 20% { opacity: 0; } 24%, 32% { opacity: 1; } 36%, 100% { opacity: 0; } }
+  @keyframes cCap3 { 0%, 48% { opacity: 0; } 52%, 60% { opacity: 1; } 64%, 100% { opacity: 0; } }
+  @keyframes cCap4 { 0%, 70% { opacity: 0; } 76%, 88% { opacity: 1; } 93%, 100% { opacity: 0; } }
+  @keyframes cBc { 0%, 72% { opacity: 0; transform: translate(50%,-50%) scale(0.7); } 80%, 88% { opacity: 1; transform: translate(50%,-50%) scale(1.1); } 94%, 100% { opacity: 0; } }
+
+  @media (max-width: 640px) {
+    #v-a .st .t b { font-size: 0.62rem; }
+    #v-a .st .sub { font-size: 0.6rem; }
+    #v-a3 .ct-label { font-size: 0.58rem; letter-spacing: 0.14em; left: 20%; }
+    #v-a3 .bc-label { font-size: 0.56rem; letter-spacing: 0.12em; right: 22%; top: 4%; }
+    #v-a3 .redline-tag { font-size: 0.52rem; letter-spacing: 0.1em; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Preview — not on the site yet</p>
+  <h1>Practice spend, three ways to move</h1>
+  <p class="intro">Three animated concepts for the signing graphic — the dust payment that takes two signatures before it broadcasts. <strong>A</strong> splits the file in half across the airgap <em>(revised per your note)</em> — now in three versions: <strong>A</strong> the join, <strong>A2</strong> the commuter, <strong>A3</strong> merge on the line. <strong>B</strong> turns two physical keys in a lock. <strong>C</strong> dives the file across the airgap twice. Tell me which one lands — or what to steal from each.</p>
+
+  <!-- ============ A · revised ============ -->
+  <section class="concept" id="v-a">
+    <p class="kicker">Concept A · revised</p>
+    <h2>The split file</h2>
+    <p class="desc">The conveyor, rebuilt around your idea: the PSBT starts as <em>half</em> a file up in the online world. It dives across the airgap line — the offline half slides in, the file locks whole with a flash — then it visits each seed for its signature before rising back up to broadcast.</p>
+    <div class="stage">
+      <div class="zone-on"><span class="zlabel">ONLINE</span></div>
+      <div class="zone-off"><span class="zlabel">OFFLINE · TAILS</span></div>
+      <div class="gaplabel">THE AIRGAP</div>
+      <div class="buildnode"><div class="dot"></div><span>BUILD</span></div>
+      <div class="fileasm"><div class="half ha"></div><div class="whole"></div></div>
+      <div class="halfb-wait"><span>signature half</span></div>
+      <div class="ped ped1"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 1</span></div>
+      <div class="ped ped2"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 2</span></div>
+      <div class="stamp stamp1">1 OF 2</div>
+      <div class="stamp stamp2">2 OF 2</div>
+      <div class="barcs"><i></i><i></i><i></i></div>
+      <div class="ccap c1">Watch-only builds the unsigned file — half the story.<small>STEP 1 · ONLINE</small></div>
+      <div class="ccap c2">Across the airgap, the offline half attaches. The file locks whole.<small>STEP 2 · THE JOIN</small></div>
+      <div class="ccap c3">Seed 1 signs. Shutdown. Seed 2 signs. Shutdown.<small>STEP 3 · OFFLINE</small></div>
+      <div class="ccap c4">Back over the line — broadcast the twice-signed file.<small>STEP 4 · ONLINE</small></div>
+    </div>
+    <p class="pick"><strong>Best if:</strong> you want the PSBT's real nature on screen — incomplete until the offline world completes it.</p>
+  </section>
+
+<!-- ============ A2 ============ -->
+  <section class="concept" id="v-a2">
+    <p class="kicker">Concept A2</p>
+    <h2>The commuter</h2>
+    <p class="desc">Same split file, but the file <em>commutes</em>: down across the line to become whole, back up to show itself complete, then down-up-down-up — one crossing per signature. Every trip over the airgap is deliberate.</p>
+    <div class="stage">
+      <div class="zone-on"><span class="zlabel">ONLINE</span></div>
+      <div class="zone-off"><span class="zlabel">OFFLINE · TAILS</span></div>
+      <div class="gaplabel">THE AIRGAP</div>
+      <div class="buildnode"><div class="dot"></div><span>BUILD</span></div>
+      <div class="fileasm"><div class="half ha"></div><div class="whole"></div></div>
+      <div class="halfb-wait"><span>signature half</span></div>
+      <div class="ped ped1"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 1</span></div>
+      <div class="ped ped2"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 2</span></div>
+      <div class="stamp stamp1">1 OF 2</div>
+      <div class="stamp stamp2">2 OF 2</div>
+      <div class="barcs"><i></i><i></i><i></i></div>
+      <div class="ccap c1">Watch-only builds the unsigned file — half the story.<small>STEP 1 · ONLINE</small></div>
+      <div class="ccap c2">Down across the airgap — the offline half attaches. Flash: whole.<small>STEP 2 · THE JOIN</small></div>
+      <div class="ccap c3">Back up — complete, but still unsigned.<small>STEP 3 · ONLINE</small></div>
+      <div class="ccap c4">Down for seed 1. Up. Down for seed 2. Up. The seeds never leave.<small>STEP 4 · THE COMMUTE</small></div>
+      <div class="ccap c5">Broadcast the twice-signed file.<small>STEP 5 · ONLINE</small></div>
+    </div>
+    <p class="pick"><strong>Best if:</strong> you want the airgap crossings themselves to feel like the security — nothing crosses by accident.</p>
+  </section>
+
+  <!-- ============ A3 · v2 ============ -->
+  <section class="concept" id="v-a3">
+    <p class="kicker">Concept A3 · v2</p>
+    <h2>The filling file</h2>
+    <p class="desc">Slower loop, stationary text, and the shutdown is now a <strong style="color:#e08070">solid red line</strong>: the file stops at it, waits out the shutdown beat, then crosses deliberately. The fill level is the signature count — outline, half, whole.</p>
+    <div class="stage">
+      <div class="zone-on"><span class="zlabel">ONLINE</span></div>
+      <div class="zone-off"><span class="zlabel">OFFLINE · TAILS</span></div>
+      <div class="gaplabel">THE AIRGAP</div>
+      <div class="redline"></div>
+      <div class="redline-tag">SHUTDOWN &middot; NEW SESSION</div>
+      <div class="usb"><i></i></div>
+      <div class="ct-label">CREATE TRANSACTION</div>
+      <div class="filebox"><div class="fill"></div><svg class="outline" viewBox="0 0 36 46"><rect x="2.5" y="2.5" width="31" height="41" rx="4" pathLength="1"/></svg></div>
+      <div class="bc-label">BROADCAST TRANSACTION</div>
+      <div class="ped ped1"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 1</span></div>
+      <div class="ped ped2"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 2</span></div>
+      <div class="stamp stamp1">1 OF 2</div>
+      <div class="stamp stamp2">2 OF 2</div>
+      <div class="barcs"><i></i><i></i><i></i></div>
+    </div>
+    <ol class="legend">
+      <li><span class="n">1</span><b>Create.</b> Watch-only builds the transaction — the file is an empty outline.</li>
+      <li><span class="n">2</span><b>Seed 1 signs.</b> The file fills halfway. <i>1 of 2.</i></li>
+      <li><span class="n">3</span><b>Shutdown.</b> The file stops at the red line — full shutdown, new session — then crosses deliberately.</li>
+      <li><span class="n">4</span><b>Seed 2 signs.</b> The file fills whole. <i>2 of 2.</i></li>
+      <li><span class="n">5</span><b>Broadcast.</b> Up and right, across the airgap — the twice-signed file goes out.</li>
+    </ol>
+    <p class="pick"><strong>Best if:</strong> you want the signature count visible at a glance — outline, half, whole — at a pace nobody has to chase.</p>
+  </section>
+
+<!-- ============ B ============ -->
+  <section class="concept" id="v-b">
+    <p class="kicker">Concept B</p>
+    <h2>Two keys turn</h2>
+    <p class="desc">Two physical keys slide in and turn, one after the other. The shackle lifts only when both have turned — then the broadcast goes out. The 2-of-3 idea, made literal.</p>
+    <div class="stage">
+      <div class="sig sig1 lbl">Signature 1 of 2</div>
+      <div class="sig sig2 lbl">Signature 2 of 2</div>
+      <div class="key ka"><div class="bow"></div><div class="shaft"></div><div class="teeth"></div></div>
+      <div class="lock"><div class="shackle"></div><div class="lbody"></div><div class="lface"></div></div>
+      <div class="key kb"><div class="bow"></div><div class="shaft"></div><div class="teeth"></div></div>
+      <div class="burst"><i></i><i></i></div>
+      <div class="cap">A dust payment first — two signatures, then broadcast.</div>
+    </div>
+    <p class="pick"><strong>Best if:</strong> you want the gut-level feeling of "two separate somethings must agree."</p>
+  </section>
+
+  <!-- ============ C ============ -->
+  <section class="concept" id="v-c">
+    <p class="kicker">Concept C</p>
+    <h2>Across the airgap, twice</h2>
+    <p class="desc">The file dives from the online world into the offline vault for each signature and climbs back out — the airgap itself becomes the main character.</p>
+    <div class="stage">
+      <div class="zone-on"><span class="zlabel">ONLINE</span></div>
+      <div class="zone-off"><span class="zlabel">OFFLINE · TAILS</span></div>
+      <div class="gaplabel">THE AIRGAP</div>
+      <div class="ped ped1"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 1</span></div>
+      <div class="ped ped2"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 2</span></div>
+      <div class="file"></div>
+      <div class="bc"><i></i><i></i></div>
+      <div class="ccap c1">The watch-only wallet builds the payment.<small>STEP 1 · ONLINE</small></div>
+      <div class="ccap c2">Seed 1 signs. Full shutdown.<small>STEP 2 · OFFLINE</small></div>
+      <div class="ccap c3">Seed 2 signs. Full shutdown.<small>STEP 3 · OFFLINE</small></div>
+      <div class="ccap c4">Broadcast the twice-signed file.<small>STEP 4 · ONLINE</small></div>
+    </div>
+    <p class="pick"><strong>Best if:</strong> you want the airgap — the dives up and down — to be what the reader remembers.</p>
+  </section>
+</div>
+</body>
+</html>
