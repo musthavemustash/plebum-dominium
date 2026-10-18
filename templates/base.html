@@ -28,7 +28,7 @@
 (function(){try{var t=localStorage.getItem('pd-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
 </head>
-<body class="{{is_home}}">
+<body class="{{is_home}}" id="top">
 <div class="progress" aria-hidden="true"><span></span></div>
 
 <header class="site-header">
@@ -81,5 +81,10 @@
 </footer>
 
 <script src="{{base}}assets/js/main.js" defer></script>
+<div id="newbie-banner" class="newbie-banner" role="dialog" aria-label="New to Bitcoin?" hidden>
+  <p><strong>New to Bitcoin?</strong> This guide assumes you already want self-custody.</p>
+  <a href="{{base}}#new-to-bitcoin" class="newbie-go">Start here &rarr;</a>
+  <button type="button" class="newbie-close" aria-label="Dismiss">&times;</button>
+</div>
 </body>
 </html>
