@@ -1,1 +1,33 @@
-
+name: Decode kit binaries
+"on":
+  push:
+    branches: [main]
+    paths:
+      - 'kit-b64/**'
+      - '.github/workflows/decode-kit.yml'
+permissions:
+  contents: write
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode binaries
+        run: |
+          set -e
+          for f in kit-b64/kit/*; do
+            base64 -d "$f" > "kit/$(basename "$f" .b64)"
+          done
+          for f in kit-b64/assets/img/*; do
+            base64 -d "$f" > "assets/img/$(basename "$f" .b64)"
+          done
+          mkdir -p docs/kit docs/assets/img
+          cp kit/* docs/kit/ 2>/dev/null || true
+          cp assets/img/*.png docs/assets/img/ 2>/dev/null || true
+      - name: Commit decoded binaries
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add kit docs/kit assets/img docs/assets/img
+          git diff --cached --quiet || git commit -m "decode kit binaries from kit-b64 snapshots"
+          git push
