@@ -1095,3 +1095,18 @@ pre code { background: none; color: inherit; padding: 0; }
 .hstep p { margin: 0; color: var(--muted); max-width: 60ch; }
 .hstep p strong { color: var(--ink); }
 @media (max-width: 640px) { .terms { grid-template-columns: 1fr; } }
+
+/* ---------- footer: contact + lightning donate ---------- */
+.footer-contact { margin-top: 1rem; }
+.footer-contact a { color: var(--accent); }
+.btn-lightning {
+  display: inline-block; margin-top: 0.5rem; padding: 0.65rem 1.4rem;
+  border-radius: 999px; text-decoration: none; font-weight: 800;
+  font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.95rem; letter-spacing: 0.02em;
+  color: #1a1206; background: linear-gradient(180deg, #ffd75e, #f5a623);
+  border: 1px solid #d18f1a;
+  box-shadow: 0 2px 12px rgba(245,166,35,0.25);
+}
+.btn-lightning:hover { filter: brightness(1.06); }
+.btn-lightning span { margin-right: 0.4rem; }
