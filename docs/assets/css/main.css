@@ -931,3 +931,47 @@ pre code { background: none; color: inherit; padding: 0; }
     .dice-anim .tray1, .dice-anim .r1l { opacity: 1 !important; }
     .dice-anim .pbits .sg { opacity: 1 !important; }
   }
+
+/* ---------- titanium sheet: three plates, three places (always dark) ---------- */
+  .metal-anim .stage {
+    position: relative; height: 340px;
+    border: 1px solid var(--line); border-radius: 12px;
+    background: #0e0c09; overflow: hidden;
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif;
+  }
+  .metal-anim .plate {
+    border-radius: 8px; border: 2px solid #44403c;
+    background: linear-gradient(135deg, #7a746e, #b8b2ab 30%, #8a847e 55%, #6b6560 80%, #57534e);
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 4px 10px rgba(0,0,0,0.5);
+    position: relative;
+  }
+  .metal-anim .plate i { display: block; height: 3px; margin: 7px 12px 0; background: rgba(0,0,0,0.35); border-radius: 2px; }
+  .metal-anim .plate .tag {
+    position: absolute; top: -13px; left: 8px; font-size: 0.6rem; font-weight: 800;
+    letter-spacing: 0.14em; color: var(--ink); background: #2b251b;
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 7px;
+  }
+
+  
+  .metal-anim .mapline { position: absolute; left: 6%; right: 6%; top: 58%; height: 2px; background: var(--line); }
+  .metal-anim .place { position: absolute; top: 58%; transform: translate(-50%, -100%); text-align: center; width: 130px; }
+  .metal-anim .p1 { left: 20%; } .metal-anim .p2 { left: 50%; } .metal-anim .p3 { left: 80%; }
+  .metal-anim .house { font-size: 2rem; margin-bottom: 2px; }
+  .metal-anim .place span { font-size: 0.64rem; font-weight: 800; letter-spacing: 0.16em; color: var(--muted); }
+  .metal-anim .plate { width: 96px; height: 60px; margin: 0 auto 6px; }
+  .metal-anim .plate { animation: aPlateIn 18s ease-out infinite; }
+  .metal-anim .pa1 { animation-delay: 0s; } .metal-anim .pa2 { animation-delay: 0s; } .metal-anim .pa3 { animation-delay: 0s; }
+  @keyframes aPlateIn {
+    0% { transform: translateY(-160px); opacity: 0; }
+    8% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  .metal-anim .stamp { position: absolute; left: 50%; top: 16%; transform: translateX(-50%) rotate(-6deg);
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; color: var(--accent);
+    border: 2px solid var(--accent); border-radius: 6px; padding: 4px 12px; opacity: 0;
+    animation: aStamp 18s linear infinite; white-space: nowrap; }
+  @keyframes aStamp { 0%, 30% { opacity: 0; } 36%, 90% { opacity: 1; } 96%, 100% { opacity: 0; } }
+  .metal-anim .cap { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%);
+    font-size: 0.7rem; letter-spacing: 0.2em; color: var(--muted); font-weight: 700; white-space: nowrap; }
+
+  

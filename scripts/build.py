@@ -265,13 +265,12 @@ def prev_next(active_slug):
 # airgap uses the animated two-boots loop instead of the static PNG.
 # signing uses the animated filling-file loop instead of the static PNG.
 # dice uses the animated three-shakes loop instead of the static PNG.
+# titanium uses the animated three-plates loop instead of the static PNG.
 SHEET_DIAGRAMS = {
     "sparrow": ("diagram-04_two_of_three.png",
                 "The 2-of-3 lock: any two keys spend, one key alone cannot."),
     "encryption": ("diagram-06_split_map.png",
                    "Geography: three plates in three places — one fire cannot finish you."),
-    "titanium": ("diagram-07_house_rules.png",
-                 "House rules: no photos, networking off before the seed, one seed per boot."),
 }
 
 
@@ -307,6 +306,11 @@ def dice_animation():
         return f.read()
 
 
+def titanium_animation():
+    with open("templates/metal-animation.html") as f:
+        return f.read()
+
+
 def sheet_diagram(slug):
     if slug == "airgap":
         return airgap_animation()
@@ -314,6 +318,8 @@ def sheet_diagram(slug):
         return signing_animation()
     if slug == "dice":
         return dice_animation()
+    if slug == "titanium":
+        return titanium_animation()
     if slug not in SHEET_DIAGRAMS:
         return ""
     img, caption = SHEET_DIAGRAMS[slug]
