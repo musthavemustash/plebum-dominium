@@ -1,0 +1,28 @@
+/* Plebum Dominium — print stylesheet. The bench sheets are the product. */
+@page { size: Letter; margin: 2cm 1.8cm; }
+
+html, body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.5; }
+
+/* hide everything that is not sheet content */
+.site-header, .sidebar, .scrim, .toc-col, .mobilebar, .site-footer,
+.progress, .prevnext-row, .copy-btn { display: none !important; }
+
+.layout { display: block; max-width: none; padding: 0; }
+main { padding: 0; }
+article { max-width: none; }
+
+h1 { font-size: 20pt; line-height: 1.2; break-before: page; margin: 0 0 12pt; }
+h1:first-child { break-before: auto; }
+h2 { font-size: 15pt; break-after: avoid; margin: 18pt 0 6pt; }
+h3 { font-size: 12pt; break-after: avoid; }
+
+p, li { orphans: 3; widows: 3; }
+pre, .callout, .you-need, img { break-inside: avoid; }
+pre { background: #f5f5f5 !important; color: #000 !important; border: 1pt solid #ccc; font-size: 9pt; }
+code { background: #f0f0f0 !important; color: #000 !important; }
+
+.callout { border: 1pt solid #000; border-left-width: 4pt; background: #fff !important; }
+
+/* print link targets so a paper sheet stays useful */
+article a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #333; }
+article a { color: #000 !important; text-decoration: underline; }

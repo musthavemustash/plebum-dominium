@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08 · Practice spend — Plebum Dominium</title>
+<meta name="description" content="Plebum Dominium — build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/print.css" media="print">
+</head>
+<body class="">
+<div class="progress" aria-hidden="true"><span></span></div>
+
+<header class="site-header">
+  <button class="menu-btn" aria-label="Open guide navigation" aria-expanded="false">☰</button>
+  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">◈</span> Plebum Dominium</a>
+  <span class="header-sheet">08 · Plebum Dominium</span>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Guide sheets">
+    <p class="sidebar-label">The bench sheets</p>
+    <ul>
+<li><a href="/handouts/terms.html" class="" data-sheet="terms"><span class="sheet-num">T</span><span class="sheet-title">Terms</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/checklist.html" class="" data-sheet="checklist"><span class="sheet-num">03</span><span class="sheet-title">Checklist</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/airgap.html" class="" data-sheet="airgap"><span class="sheet-num">04</span><span class="sheet-title">Two boots</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/verify.html" class="" data-sheet="verify"><span class="sheet-num">05</span><span class="sheet-title">Check the files</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/dice.html" class="" data-sheet="dice"><span class="sheet-num">06</span><span class="sheet-title">Make the three keys</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/sparrow.html" class="" data-sheet="sparrow"><span class="sheet-num">07</span><span class="sheet-title">Build the 2-of-3</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/signing.html" class="active" data-sheet="signing"><span class="sheet-num">08</span><span class="sheet-title">Practice spend</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/titanium.html" class="" data-sheet="titanium"><span class="sheet-num">09</span><span class="sheet-title">Metal and the map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">11</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">12</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">13</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/briefing.html" class="" data-sheet="briefing"><span class="sheet-num">14</span><span class="sheet-title">If someone challenges it</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+    </ul>
+    <p class="sidebar-note">Check off sheets as you finish them — progress is saved on this device.</p>
+  </nav>
+  <div class="scrim" aria-hidden="true"></div>
+
+  <main id="content">
+    <article>
+      <p class="kicker">08 · Plebum Dominium</p>
+      <h1>Practice spend</h1>
+<p>A small amount is used, enough to pay a fee, and not savings. The destination, the amount, and the fee are written on paper before the file is exported. Those notes are read again before each signature. The first seed signs on Tails. The computer is shut down fully. The second seed signs on a new boot. Then the payment is broadcast.</p>
+<h2 id="step-1-build-the-spend-online-watch-only">Step 1 — Build the spend (online watch-only)</h2>
+<ol>
+<li>01 · Watch-only Sparrow is opened. The receive history is checked again so the wallet is the right one.</li>
+<li>02 · Send tab: destination, amount, fee. Read every field against a written note.</li>
+<li>03 · Finalize for signing. Export tx-unsigned.psbt to the data USB.</li>
+</ol>
+<h2 id="step-2-first-signature-tails-session-1-or-hardware-a">Step 2 — First signature (Tails session 1, or hardware A)</h2>
+<ol>
+<li>01 · Boot Tails, networking disabled. Do not unlock Persistent Storage. Launch verified Sparrow. Or unlock hardware wallet A that already holds Seed 1.</li>
+<li>02 · Restore Seed 1 only (Tails) — or confirm Seed 1 is the only key on that device. Open tx-unsigned.psbt. Confirm fields. Sign.</li>
+<li>03 · Export tx-partial-s1.psbt. Full shutdown of Tails, or unplug the hardware signer.</li>
+</ol>
+<h2 id="step-3-second-signature-tails-session-2-or-hardware-b">Step 3 — Second signature (Tails session 2, or hardware B)</h2>
+<ol>
+<li>01 · Fresh Tails boot, networking disabled. Do not unlock Persistent Storage. Restore Seed 2 only. Or unlock hardware wallet B from a different vendor.</li>
+<li>02 · Open tx-partial-s1.psbt. Confirm the first signature and unchanged spend. Sign.</li>
+<li>03 · Export tx-signed.psbt. Full shutdown.</li>
+</ol>
+<h2 id="step-4-broadcast-online-computer">Step 4 — Broadcast (online computer)</h2>
+<ol>
+<li>01 · Watch-only Sparrow: File → Open Transaction → fully signed file.</li>
+<li>02 · Confirm fully signed and fields unchanged. Broadcast. Record the txid in the recovery workbook — not in this site.</li>
+</ol>
+<h2 id="if-a-key-is-later-put-on-hardware">If a key is later put on hardware</h2>
+<ul>
+<li>Generate the seed on airgapped Tails first. Import the finished 24 words. Do not let the device roll its own entropy for this stack.</li>
+<li>Multi-vendor examples (not a ranking): Foundation Passport, Blockstream Jade, BitBox02, SeedSigner / Krux. Official shops only.</li>
+<li>Two keys on two brands. Never three of the same box. A bricked vendor is one lost key — plates and geography still hold the wallet.</li>
+<li>If Sparrow and Electrum disagree about the PSBT, stop. Do not sign. Test with a small amount first.</li>
+</ul>
+<p>Next. The plates are stamped next. A plate is not stamped until a small payment has gone out and come back.</p>
+      <nav class="prevnext-row" aria-label="Previous and next sheets">
+<a class="prevnext prev" href="/handouts/sparrow.html"><span>← 07 · Build the 2-of-3</span></a>
+<a class="prevnext next" href="/handouts/titanium.html"><span>09 · Metal and the map →</span></a>
+      </nav>
+    </article>
+  </main>
+
+  <aside class="toc-col">
+<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#step-1-build-the-spend-online-watch-only" data-toc="step-1-build-the-spend-online-watch-only">Step 1 — Build the spend (online watch-only)</a></li><li><a href="#step-2-first-signature-tails-session-1-or-hardware-a" data-toc="step-2-first-signature-tails-session-1-or-hardware-a">Step 2 — First signature (Tails session 1, or hardware A)</a></li><li><a href="#step-3-second-signature-tails-session-2-or-hardware-b" data-toc="step-3-second-signature-tails-session-2-or-hardware-b">Step 3 — Second signature (Tails session 2, or hardware B)</a></li><li><a href="#step-4-broadcast-online-computer" data-toc="step-4-broadcast-online-computer">Step 4 — Broadcast (online computer)</a></li><li><a href="#if-a-key-is-later-put-on-hardware" data-toc="if-a-key-is-later-put-on-hardware">If a key is later put on hardware</a></li></ul></nav>
+  </aside>
+</div>
+
+<div class="mobilebar" aria-label="Sheet navigation">
+  <span class="mobilebar-pos">08 · Plebum Dominium</span>
+</div>
+
+<footer class="site-footer">
+  <p><strong>Plebum Dominium</strong> — independent at-home Bitcoin self-custody.</p>
+  <p>Educational material. Not financial advice. Verify every download from its original source.</p>
+  <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/kit/">Download kit</a></p>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

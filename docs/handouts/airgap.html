@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04 · Two boots — Plebum Dominium</title>
+<meta name="description" content="Plebum Dominium — build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/print.css" media="print">
+</head>
+<body class="">
+<div class="progress" aria-hidden="true"><span></span></div>
+
+<header class="site-header">
+  <button class="menu-btn" aria-label="Open guide navigation" aria-expanded="false">☰</button>
+  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">◈</span> Plebum Dominium</a>
+  <span class="header-sheet">04 · Plebum Dominium</span>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Guide sheets">
+    <p class="sidebar-label">The bench sheets</p>
+    <ul>
+<li><a href="/handouts/terms.html" class="" data-sheet="terms"><span class="sheet-num">T</span><span class="sheet-title">Terms</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/checklist.html" class="" data-sheet="checklist"><span class="sheet-num">03</span><span class="sheet-title">Checklist</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/airgap.html" class="active" data-sheet="airgap"><span class="sheet-num">04</span><span class="sheet-title">Two boots</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/verify.html" class="" data-sheet="verify"><span class="sheet-num">05</span><span class="sheet-title">Check the files</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/dice.html" class="" data-sheet="dice"><span class="sheet-num">06</span><span class="sheet-title">Make the three keys</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/sparrow.html" class="" data-sheet="sparrow"><span class="sheet-num">07</span><span class="sheet-title">Build the 2-of-3</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/signing.html" class="" data-sheet="signing"><span class="sheet-num">08</span><span class="sheet-title">Practice spend</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/titanium.html" class="" data-sheet="titanium"><span class="sheet-num">09</span><span class="sheet-title">Metal and the map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">11</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">12</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">13</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/briefing.html" class="" data-sheet="briefing"><span class="sheet-num">14</span><span class="sheet-title">If someone challenges it</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+    </ul>
+    <p class="sidebar-note">Check off sheets as you finish them — progress is saved on this device.</p>
+  </nav>
+  <div class="scrim" aria-hidden="true"></div>
+
+  <main id="content">
+    <article>
+      <p class="kicker">04 · Plebum Dominium</p>
+      <h1>Two boots</h1>
+<p>It is critical that each key is made on a computer that is offline. Tails OS is installed on one of the two USB drives. It can be booted on any computer, and it is designed to forget the session when the machine shuts down. When Tails is booted, networking is set to Disabled. This is the offline computer. The other USB drive carries only files that have already been checked. The household computer is used first, on the network, and it never holds a seed. It is shut down fully before Tails is booted.</p>
+<h2 id="airgap-does-mean">Airgap does mean</h2>
+<ul>
+<li>Networking is set to Disabled on the Tails welcome screen, before the desktop appears.</li>
+<li>The seed exists in memory only. Shutdown wipes it.</li>
+<li>Files cross on a clean USB. Those files are the payment file, the wallet map, and the checked programs.</li>
+<li>The household computer stays watch-only. It holds the map, and it never holds a seed.</li>
+<li>A stronger setup removes the Wi-Fi card. Ethernet is never plugged. Tails is still used.</li>
+</ul>
+<h2 id="airgap-does-not-mean">Airgap does not mean</h2>
+<ul>
+<li>Networking turned off after Sparrow has already opened.</li>
+<li>Unplugging the cable on a disk that was online yesterday.</li>
+<li>Photographing a seed.</li>
+<li>A password manager, a printer, or a cloud note used as the backup.</li>
+</ul>
+<h2 id="prepare-tails-on-a-trusted-online-computer">Prepare Tails on a trusted online computer</h2>
+<ol>
+<li>01 · The Tails file is downloaded only from the official Tails site. The signing key is fetched from more than one published source.</li>
+<li>02 · The signature and the checksum are checked before the drive is written. If the check fails, the work stops.</li>
+<li>03 · Tails is written to its own USB with the official installer. The drive is labeled TAILS. It is not mixed with the data USB.</li>
+<li>04 · Persistent Storage is not created. The passphrase is skipped. The drive stays amnesic.</li>
+<li>05 · The data USB receives only files that have already passed. The Sparrow file has to be named sparrowwallet-2.5.5-x86_64.tar.gz. That is the Linux file. The Windows installer and the Mac installer do not go on this drive. The drive is labeled DATA.</li>
+</ol>
+<h2 id="every-offline-session-at-home">Every offline session at home</h2>
+<ol>
+<li>01 · The Tails drive is inserted and the computer is booted. Networking is set to Disabled. Persistent Storage is not unlocked. Tails is started.</li>
+<li>02 · The data USB is plugged in. Only the file needed for that session is copied onto the live session.</li>
+<li>03 · The session converts the dice, restores one seed, signs one payment file, or exports the wallet map.</li>
+<li>04 · The result is copied back to the data USB. Tails is shut down fully. The screen goes dark before the drive is unplugged.</li>
+<li>05 · Two seeds are never loaded in one session. Networking is never turned on while a seed is in memory.</li>
+</ol>
+<h2 id="do-not-use-persistent-storage">Do not use Persistent Storage</h2>
+<ul>
+<li>Tails will offer an encrypted area on the same USB. It is not created, and an existing one is not unlocked.</li>
+<li>It is not hidden. Anyone holding the USB can see that it exists, and the passphrase can be forced or tricked out.</li>
+<li>The Electrum feature writes the wallet onto the stick. That file contains the seed, protected only by the wallet password. That is a spending convenience, not this setup.</li>
+<li>Extra software and saved settings can undo choices Tails already tested.</li>
+<li>It stays off. The seed stays in memory. Shutdown wipes the session. That is why this USB exists.</li>
+</ul>
+<h2 id="stronger-chassis-optional">Stronger chassis (optional)</h2>
+<ul>
+<li>An old laptop can be the dedicated Tails machine. The Wi-Fi card is pulled. Bluetooth usually leaves with it. Leaving the card in the slot and marking it disabled is not the same thing.</li>
+<li>Ethernet is often still on the board. It is never plugged. It is disabled in the BIOS when that option exists.</li>
+<li>The previous owner’s disk is ignored or removed. Tails does not use it. That operating system is not booted.</li>
+<li>The Tails file is still checked. Networking is still set to Disabled. A clean data USB is still used. That stick is the remaining wire.</li>
+</ul>
+<p>One computer is used twice. The first boot watches the wallet and broadcasts a finished payment. It never holds a seed, and it is shut down fully. The second boot is the Tails USB on that same computer, with networking off. It loads exactly one seed, signs, copies the payment file out, and shuts down. The second USB carries files only. The only secret that crosses is a signature file, not a seed. A networked machine with a seed loaded is a single point of failure. That session is treated as burned.</p>
+<p>Next. The three keys are made next. A word is not written until Tails is running with networking turned off.</p>
+      <nav class="prevnext-row" aria-label="Previous and next sheets">
+<a class="prevnext prev" href="/handouts/checklist.html"><span>← 03 · Checklist</span></a>
+<a class="prevnext next" href="/handouts/verify.html"><span>05 · Check the files →</span></a>
+      </nav>
+    </article>
+  </main>
+
+  <aside class="toc-col">
+<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#airgap-does-mean" data-toc="airgap-does-mean">Airgap does mean</a></li><li><a href="#airgap-does-not-mean" data-toc="airgap-does-not-mean">Airgap does not mean</a></li><li><a href="#prepare-tails-on-a-trusted-online-computer" data-toc="prepare-tails-on-a-trusted-online-computer">Prepare Tails on a trusted online computer</a></li><li><a href="#every-offline-session-at-home" data-toc="every-offline-session-at-home">Every offline session at home</a></li><li><a href="#do-not-use-persistent-storage" data-toc="do-not-use-persistent-storage">Do not use Persistent Storage</a></li><li><a href="#stronger-chassis-optional" data-toc="stronger-chassis-optional">Stronger chassis (optional)</a></li></ul></nav>
+  </aside>
+</div>
+
+<div class="mobilebar" aria-label="Sheet navigation">
+  <span class="mobilebar-pos">04 · Plebum Dominium</span>
+</div>
+
+<footer class="site-footer">
+  <p><strong>Plebum Dominium</strong> — independent at-home Bitcoin self-custody.</p>
+  <p>Educational material. Not financial advice. Verify every download from its original source.</p>
+  <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/kit/">Download kit</a></p>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

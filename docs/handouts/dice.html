@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06 · Make the three keys — Plebum Dominium</title>
+<meta name="description" content="Plebum Dominium — build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/print.css" media="print">
+</head>
+<body class="">
+<div class="progress" aria-hidden="true"><span></span></div>
+
+<header class="site-header">
+  <button class="menu-btn" aria-label="Open guide navigation" aria-expanded="false">☰</button>
+  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">◈</span> Plebum Dominium</a>
+  <span class="header-sheet">06 · Plebum Dominium</span>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Guide sheets">
+    <p class="sidebar-label">The bench sheets</p>
+    <ul>
+<li><a href="/handouts/terms.html" class="" data-sheet="terms"><span class="sheet-num">T</span><span class="sheet-title">Terms</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/checklist.html" class="" data-sheet="checklist"><span class="sheet-num">03</span><span class="sheet-title">Checklist</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/airgap.html" class="" data-sheet="airgap"><span class="sheet-num">04</span><span class="sheet-title">Two boots</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/verify.html" class="" data-sheet="verify"><span class="sheet-num">05</span><span class="sheet-title">Check the files</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/dice.html" class="active" data-sheet="dice"><span class="sheet-num">06</span><span class="sheet-title">Make the three keys</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/sparrow.html" class="" data-sheet="sparrow"><span class="sheet-num">07</span><span class="sheet-title">Build the 2-of-3</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/signing.html" class="" data-sheet="signing"><span class="sheet-num">08</span><span class="sheet-title">Practice spend</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/titanium.html" class="" data-sheet="titanium"><span class="sheet-num">09</span><span class="sheet-title">Metal and the map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">11</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">12</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">13</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/briefing.html" class="" data-sheet="briefing"><span class="sheet-num">14</span><span class="sheet-title">If someone challenges it</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+    </ul>
+    <p class="sidebar-note">Check off sheets as you finish them — progress is saved on this device.</p>
+  </nav>
+  <div class="scrim" aria-hidden="true"></div>
+
+  <main id="content">
+    <article>
+      <p class="kicker">06 · Plebum Dominium</p>
+      <h1>Make the three keys</h1>
+<p>This work starts after Tails has booted with networking set to Disabled, and before any plate is stamped. Five casino dice are required, and every face has to be readable. Faces 1 through 4 are kept. Faces 5 and 6 are rolled again. The work is done three times, for three keys, and the computer is shut down fully between them. An established private setting is required, and there cannot be a camera in the room.</p>
+<h2 id="the-faces">The faces</h2>
+<ul>
+<li>1 is 00. 2 is 01. 3 is 10. 4 is 11.</li>
+<li>5 and 6 are not bits. Roll those dice again.</li>
+<li>Read the dice left to right, the same way every shake.</li>
+<li>Example: 4, 6, 1, 3, 2 becomes 11, skip the 6, then 00, 10, 01.</li>
+<li>Write only 0 and 1. Roll exactly 256 bits — 128 pairs, about 32 shakes — then stop. More bits do not add security (everything folds down to 256), and extra bits make the two tools below disagree, which stops the work for no reason.</li>
+</ul>
+<h2 id="turn-the-bits-into-24-words">Turn the bits into 24 words</h2>
+<ol>
+<li>01 · Boot Tails. Networking Disabled. Copy the checked converter and the Ian Coleman page from the data USB to the Desktop.</li>
+<li>02 · Run the converter. Paste the bits. It prints 24 words. Word 24 is the check. Do not invent it. Do not “fix” it.</li>
+<li>03 · Open the Ian Coleman page in the offline browser. Entropy type: Binary. 24 words. Paste the same bits. The 24 words must match. If they differ, stop. Do not pick the prettier list.</li>
+<li>04 · Write the 24 words on the grid. Read them back out loud once.</li>
+<li>05 · Shut Tails down. Wait until the screen is dark. Then start the next key. Seed 2 is a new set of rolls. Seed 3 is a new set of rolls. Never continue a list from the previous boot.</li>
+</ol>
+<pre><code>
+$ cd ~/Desktop$ python3 bip39_dice_converter.py
+
+</code></pre>
+<h2 id="the-last-word-is-a-check">The last word is a check</h2>
+<p>The 24 words are not 24 free choices. The last word carries a short check so a copying mistake is caught before metal is stamped. At least two of these checks are used. If they disagree, the work stops.</p>
+<ul>
+<li>Two tools, same bits, same 24 words. Converter, then the offline Ian Coleman page. Do not pick the prettier list.</li>
+<li>Let the wallet refuse a bad list. Sparrow or Electrum, networking off, will open a valid list and reject a broken one. If it will not open, do not change a word to force it.</li>
+<li>The math, if it needs to be seen. Twenty-four words are 264 bits. The first 256 are the dice. The last 8 are the check. Only word 24 can change to make that true. It is not chosen. The converter appends it after the file has been checked.</li>
+</ul>
+<h2 id="practice-grid">Practice grid</h2>
+<p>Use the printed recording grid in the bench sheet PDF — each seed needs about 32 shakes for 256 bits. Count the pairs as you go and stop at 128.</p>
+<p>Next. The 2-of-3 is built next. One seed is loaded per boot. Two lists are never loaded in one session.</p>
+      <nav class="prevnext-row" aria-label="Previous and next sheets">
+<a class="prevnext prev" href="/handouts/verify.html"><span>← 05 · Check the files</span></a>
+<a class="prevnext next" href="/handouts/sparrow.html"><span>07 · Build the 2-of-3 →</span></a>
+      </nav>
+    </article>
+  </main>
+
+  <aside class="toc-col">
+<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#the-faces" data-toc="the-faces">The faces</a></li><li><a href="#turn-the-bits-into-24-words" data-toc="turn-the-bits-into-24-words">Turn the bits into 24 words</a></li><li><a href="#the-last-word-is-a-check" data-toc="the-last-word-is-a-check">The last word is a check</a></li><li><a href="#practice-grid" data-toc="practice-grid">Practice grid</a></li></ul></nav>
+  </aside>
+</div>
+
+<div class="mobilebar" aria-label="Sheet navigation">
+  <span class="mobilebar-pos">06 · Plebum Dominium</span>
+</div>
+
+<footer class="site-footer">
+  <p><strong>Plebum Dominium</strong> — independent at-home Bitcoin self-custody.</p>
+  <p>Educational material. Not financial advice. Verify every download from its original source.</p>
+  <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/kit/">Download kit</a></p>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

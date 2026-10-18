@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="Plebum Dominium — build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/print.css" media="print">
+</head>
+<body class="{{is_home}}">
+<div class="progress" aria-hidden="true"><span></span></div>
+
+<header class="site-header">
+  <button class="menu-btn" aria-label="Open guide navigation" aria-expanded="false">☰</button>
+  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">◈</span> Plebum Dominium</a>
+  <span class="header-sheet">{{kicker}}</span>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Guide sheets">
+    <p class="sidebar-label">The bench sheets</p>
+    <ul>
+{{sidebar}}
+    </ul>
+    <p class="sidebar-note">Check off sheets as you finish them — progress is saved on this device.</p>
+  </nav>
+  <div class="scrim" aria-hidden="true"></div>
+
+  <main id="content">
+    <article>
+      <p class="kicker">{{kicker}}</p>
+      <h1>{{heading}}</h1>
+{{content}}
+      <nav class="prevnext-row" aria-label="Previous and next sheets">
+{{prev}}
+{{next}}
+      </nav>
+    </article>
+  </main>
+
+  <aside class="toc-col">
+{{toc}}
+  </aside>
+</div>
+
+<div class="mobilebar" aria-label="Sheet navigation">
+  <span class="mobilebar-pos">{{kicker}}</span>
+</div>
+
+<footer class="site-footer">
+  <p><strong>Plebum Dominium</strong> — independent at-home Bitcoin self-custody.</p>
+  <p>Educational material. Not financial advice. Verify every download from its original source.</p>
+  <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/kit/">Download kit</a></p>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>
