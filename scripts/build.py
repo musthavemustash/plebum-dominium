@@ -261,6 +261,34 @@ def prev_next(active_slug):
     return prev_link, next_link
 
 
+# diagrams that belong to specific sheets (file, caption)
+SHEET_DIAGRAMS = {
+    "airgap": ("diagram-02_two_boots.png",
+               "One computer, two boots: this computer watches and builds, the Tails USB signs offline."),
+    "dice": ("diagram-03_dice.png",
+             "Casino dice: keep faces 1–4 as two bits each, re-roll 5 and 6."),
+    "sparrow": ("diagram-04_two_of_three.png",
+                "The 2-of-3 lock: any two keys spend, one key alone cannot."),
+    "signing": ("diagram-05_spend_path.png",
+                "A practice spend: the payment file walks, the seed stays seated."),
+    "encryption": ("diagram-06_split_map.png",
+                   "Geography: three plates in three places — one fire cannot finish you."),
+    "titanium": ("diagram-07_house_rules.png",
+                 "House rules: no photos, networking off before the seed, one seed per boot."),
+}
+
+
+def sheet_diagram(slug):
+    if slug not in SHEET_DIAGRAMS:
+        return ""
+    img, caption = SHEET_DIAGRAMS[slug]
+    return (
+        f'<figure class="sheet-diagram">'
+        f'<img src="{BASE}assets/img/{img}" alt="{esc(caption)}" loading="lazy">'
+        f"<figcaption>{esc(caption)}</figcaption></figure>"
+    )
+
+
 def build_sheet(slug, num, title):
     with open(f"content/handouts/{slug}.md") as f:
         src = f.read()
@@ -280,7 +308,7 @@ def build_sheet(slug, num, title):
         .replace("{{heading}}", esc(title))
         .replace("{{sidebar}}", sidebar_html(slug))
         .replace("{{toc}}", toc_html(rendered))
-        .replace("{{content}}", rendered)
+        .replace("{{content}}", sheet_diagram(slug) + rendered)
         .replace("{{prev}}", prev_link)
         .replace("{{next}}", next_link)
         .replace("{{is_home}}", "")
@@ -319,7 +347,14 @@ def build_home():
         "no company, no app, no custodian. Generate entropy with dice, import it into verified software, "
         "and stamp a 2-of-3 multisig wallet into titanium. Hardware wallets are completely optional.</p>"
         '<p><a class="btn" href="{BASE}handouts/terms.html">Start with the terms</a> '
-        '<a class="btn btn-ghost" href="{BASE}kit/02_Print_Packet.pdf">Download the print packet</a></p></div>'
+        '<a class="btn btn-ghost" href="{BASE}kit/02_Print_Packet.pdf">Download the print packet</a></p>'
+        '<div class="keyring" aria-label="Animation: any two of the three keys open the lock">'
+        '<div class="keys" aria-hidden="true">'
+        '<span class="key key-a">A</span><span class="key key-b">B</span><span class="key key-c">C</span>'
+        "</div>"
+        '<div class="lockwrap" aria-hidden="true"><div class="shackle"></div><div class="lockbody">2-of-3</div></div>'
+        '<p class="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
+        "</div></div>"
         .replace("{BASE}", BASE)
         + "\n".join(cards)
     )
