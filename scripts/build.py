@@ -380,6 +380,28 @@ def build_sheet(slug, num, title):
     return page
 
 
+def build_downloads():
+    tpl = load_template()
+    with open("templates/downloads.html") as f:
+        rendered = f.read().replace("{BASE}", BASE)
+    page = (
+        tpl.replace("{{title}}", f"Downloads — {SITE_NAME}")
+        .replace("{{base}}", BASE)
+        .replace("{{kicker}}", "Plebum Dominium")
+        .replace("{{heading}}", "Downloads")
+        .replace("{{sidebar}}", sidebar_html("__downloads__"))
+        .replace("{{toc}}", "")
+        .replace("{{content}}", rendered)
+        .replace("{{prev}}", "")
+        .replace("{{next}}", "")
+        .replace("{{is_home}}", "")
+        .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
+        .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
+        .replace("{{canonical}}", "https://plebumbtc.io/downloads.html")
+    )
+    return page
+
+
 # ---------------------------------------------------------------- home sections
 def home_section(name):
     with open(f"templates/{name}.html") as f:
@@ -469,6 +491,10 @@ def main():
     with open("docs/index.html", "w") as f:
         f.write(build_home())
     print("  index.html")
+    # downloads
+    with open("docs/downloads.html", "w") as f:
+        f.write(build_downloads())
+    print("  downloads.html")
     # static assets
     shutil.copytree("assets", "docs/assets")
     # kit downloads
