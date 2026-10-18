@@ -29,6 +29,8 @@ if "--base" in sys.argv:
 SITE_URL = "https://plebumbtc.io"
 SITE_NAME = "Plebum Dominium"
 SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
+# Lightning address for the footer donate button. Set to the real address when known.
+LIGHTNING_ADDRESS = "REPLACE_WITH_LIGHTNING_ADDRESS"
 
 # (slug, number, title) in workflow order
 SHEETS = [
@@ -369,6 +371,7 @@ def build_sheet(slug, num, title):
         .replace("{{prev}}", prev_link)
         .replace("{{next}}", next_link)
         .replace("{{is_home}}", "")
+        .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
     )
     return page
 
@@ -442,6 +445,7 @@ def build_home():
         .replace("{{prev}}", "")
         .replace("{{next}}", "")
         .replace("{{is_home}}", "home")
+        .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
     )
     return page
 
