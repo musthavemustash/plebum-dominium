@@ -3,11 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>14 · If someone challenges it — Plebum Dominium</title>
+<title>14 · Tough questions — Plebum Dominium</title>
 <meta name="description" content="Plebum Dominium — build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
 <link rel="icon" href="/plebum-dominium/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/plebum-dominium/assets/css/main.css">
 <link rel="stylesheet" href="/plebum-dominium/assets/css/print.css" media="print">
+<script>
+/* set theme before first paint: saved choice wins, else the visitor's OS setting */
+(function(){try{var t=localStorage.getItem('pd-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
 </head>
 <body class="">
 <div class="progress" aria-hidden="true"><span></span></div>
@@ -16,6 +20,10 @@
   <button class="menu-btn" aria-label="Open guide navigation" aria-expanded="false">☰</button>
   <a class="brand" href="/plebum-dominium/"><span class="brand-mark" aria-hidden="true">◈</span> Plebum Dominium</a>
   <span class="header-sheet">14 · Plebum Dominium</span>
+  <button class="theme-btn" id="theme-btn" aria-label="Toggle light and dark mode">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  </button>
 </header>
 
 <div class="layout">
@@ -33,7 +41,7 @@
 <li><a href="/plebum-dominium/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">11</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
 <li><a href="/plebum-dominium/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">12</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
 <li><a href="/plebum-dominium/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">13</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li><a href="/plebum-dominium/handouts/briefing.html" class="active" data-sheet="briefing"><span class="sheet-num">14</span><span class="sheet-title">If someone challenges it</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/plebum-dominium/handouts/briefing.html" class="active" data-sheet="briefing"><span class="sheet-num">14</span><span class="sheet-title">Tough questions</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
     </ul>
     <p class="sidebar-note">Check off sheets as you finish them — progress is saved on this device.</p>
   </nav>
@@ -42,14 +50,21 @@
   <main id="content">
     <article>
       <p class="kicker">14 · Plebum Dominium</p>
-      <h1>If someone challenges it</h1>
-<p>These are the three questions people use to poke a hole in the method. The answer is only what is true. A step that is not on the sheets is not added.</p>
-<h2 id="the-words-were-typed-on-a-laptop">The words were typed on a laptop.</h2>
-<p>Yes. On Tails, with networking off, one seed, then a full shutdown. Tails runs from memory and forgets the session. That does not stop a hardware keylogger. One captured seed still cannot spend. The fund needs two keys. Never type two seeds on the same boot.</p>
-<h2 id="why-not-start-with-a-seedsigner">Why not start with a SeedSigner?</h2>
-<p>SeedSigner is a signer that can be added later. It is not how these keys are made. The randomness is dice. The computer is ordinary, and it is offline. The inheritance sheet is not a SeedSigner guide. It is the letter for heirs: one plate in a Jade, one plate in a BitBox.</p>
+      <h1>Tough questions</h1>
+<p>These are the questions people use to poke a hole in the method. The answer is only what is true. A step that is not on the sheets is not added.</p>
+<h2 id="you-typed-the-seed-words-on-a-laptop-isn-t-that-exposed">You typed the seed words on a laptop. Isn&#x27;t that exposed?</h2>
+<p>Yes — typed, on Tails, with networking off, one seed per boot, then a full shutdown. Tails runs from memory and forgets the session. That does not stop a hardware keylogger. But one captured seed still cannot spend: the fund needs two keys. Never type two seeds on the same boot.</p>
+<h2 id="why-not-just-start-with-a-seedsigner-or-a-hardware-wallet">Why not just start with a SeedSigner or a hardware wallet?</h2>
+<p>A signer can be added later. It is not how these keys are made. The randomness is dice. The computer is ordinary and offline. The inheritance sheet is not a signer guide — it is the letter for heirs: one plate in a Jade, one plate in a BitBox.</p>
+<h2 id="is-dice-randomness-weaker-than-a-hardware-wallet-s-rng">Is dice randomness weaker than a hardware wallet&#x27;s RNG?</h2>
+<p>No. 256 bits is 256 bits, whatever made them. Casino dice are a randomness source you can watch with your own eyes — no chip to trust, no firmware to audit.</p>
 <h2 id="if-the-map-passphrase-is-lost-are-the-coins-gone">If the map passphrase is lost, are the coins gone?</h2>
-<p>No. That passphrase hides the map. It does not spend. Two plates can rebuild the map if the path is known: 2-of-3, native SegWit, m/48&#x27;/0&#x27;/0&#x27;/2&#x27;. Keep that path outside the encrypted file. Do not use a homemade cipher.</p>
+<p>Not if all three plates still exist — three seeds rebuild the map exactly. But two seeds cannot: the third key cannot be derived from the other two. So a lost passphrase plus only two plates means the addresses are unrecoverable. Back up the passphrase paper in two separate places, away from the plates and the USB drives. The path is 2-of-3, native SegWit, m/48&#x27;/0&#x27;/0&#x27;/2&#x27;. Write that path on the inheritance sheet. It is not a secret.</p>
+<h2 id="what-if-someone-finds-one-plate">What if someone finds one plate?</h2>
+<p>They cannot spend. One key alone opens nothing — that is the point of 2-of-3. But do not keep two plates in the same drawer: two plates in one place is the whole lock in one place.</p>
+<h2 id="shouldn-t-i-add-a-passphrase-to-the-multisig-for-extra-security">Shouldn&#x27;t I add a passphrase to the multisig for extra security?</h2>
+<p>No. The security here comes from distribution, not from one more secret. A passphrase on the 2-of-3 is a single point of failure wearing a disguise: lose it and two plates are not enough. The home plate can carry a small decoy single-sig with its own optional passphrase — that is a separate choice, on the metal sheet.</p>
+<p>That is the whole method. Everything else is commentary.</p>
       <nav class="prevnext-row" aria-label="Previous and next sheets">
 <a class="prevnext prev" href="/plebum-dominium/handouts/faq.html"><span>← 13 · If you get stuck</span></a>
 
@@ -58,7 +73,7 @@
   </main>
 
   <aside class="toc-col">
-<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#the-words-were-typed-on-a-laptop" data-toc="the-words-were-typed-on-a-laptop">The words were typed on a laptop.</a></li><li><a href="#why-not-start-with-a-seedsigner" data-toc="why-not-start-with-a-seedsigner">Why not start with a SeedSigner?</a></li><li><a href="#if-the-map-passphrase-is-lost-are-the-coins-gone" data-toc="if-the-map-passphrase-is-lost-are-the-coins-gone">If the map passphrase is lost, are the coins gone?</a></li></ul></nav>
+<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#you-typed-the-seed-words-on-a-laptop-isn-t-that-exposed" data-toc="you-typed-the-seed-words-on-a-laptop-isn-t-that-exposed">You typed the seed words on a laptop. Isn&amp;#x27;t that exposed?</a></li><li><a href="#why-not-just-start-with-a-seedsigner-or-a-hardware-wallet" data-toc="why-not-just-start-with-a-seedsigner-or-a-hardware-wallet">Why not just start with a SeedSigner or a hardware wallet?</a></li><li><a href="#is-dice-randomness-weaker-than-a-hardware-wallet-s-rng" data-toc="is-dice-randomness-weaker-than-a-hardware-wallet-s-rng">Is dice randomness weaker than a hardware wallet&amp;#x27;s RNG?</a></li><li><a href="#if-the-map-passphrase-is-lost-are-the-coins-gone" data-toc="if-the-map-passphrase-is-lost-are-the-coins-gone">If the map passphrase is lost, are the coins gone?</a></li><li><a href="#what-if-someone-finds-one-plate" data-toc="what-if-someone-finds-one-plate">What if someone finds one plate?</a></li><li><a href="#shouldn-t-i-add-a-passphrase-to-the-multisig-for-extra-security" data-toc="shouldn-t-i-add-a-passphrase-to-the-multisig-for-extra-security">Shouldn&amp;#x27;t I add a passphrase to the multisig for extra security?</a></li></ul></nav>
   </aside>
 </div>
 
