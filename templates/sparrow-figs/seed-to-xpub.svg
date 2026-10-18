@@ -1,0 +1,15 @@
+<svg width="460" height="170" viewBox="0 0 460 170" font-family="IBM Plex Sans, sans-serif">
+        <rect x="20" y="35" width="130" height="100" rx="8" fill="#f3eee4"/>
+        <text x="38" y="60" fill="#161410" font-size="11" font-weight="700" letter-spacing="1">SEED 1</text>
+        <line x1="38" y1="72" x2="132" y2="72" stroke="#b9ae99" stroke-width="3"/>
+        <line x1="38" y1="86" x2="132" y2="86" stroke="#b9ae99" stroke-width="3"/>
+        <line x1="38" y1="100" x2="110" y2="100" stroke="#b9ae99" stroke-width="3"/>
+        <text x="38" y="122" fill="#6f6a5f" font-size="10">24 words</text>
+        <path d="M170 85 h40 m-12 -12 l12 12 l-12 12" stroke="#c9a35c" stroke-width="4" fill="none"/>
+        <text x="165" y="60" fill="#9a8f78" font-size="11" letter-spacing="1">SPARROW</text>
+        <rect x="230" y="35" width="210" height="100" rx="8" fill="#14110d" stroke="#c9a35c"/>
+        <text x="250" y="62" fill="#c9a35c" font-size="12" font-weight="700" letter-spacing="1">s1-xpub.txt</text>
+        <text x="250" y="88" fill="#9a8f78" font-size="11" font-family="IBM Plex Mono, monospace">xpub6C...9f2k</text>
+        <text x="250" y="110" fill="#6f6a5f" font-size="11">→ data USB</text>
+        <text x="230" y="160" fill="#6f6a5f" font-size="11" letter-spacing="1">THEN: CLOSE · SHUT DOWN · DARK SCREEN</text>
+      </svg>
