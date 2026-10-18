@@ -28,7 +28,7 @@
 (function(){try{var t=localStorage.getItem('pd-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
 </head>
-<body class="home">
+<body class="home" id="top">
 <div class="progress" aria-hidden="true"><span></span></div>
 
 <header class="site-header">
@@ -120,6 +120,7 @@
 <a class="rescard" href="https://www.lopp.net/bitcoin-information.html" rel="noopener"><div class="tag">Reference</div><h3>Lopp&rsquo;s Bitcoin Resources</h3><p>The deep end: hundreds of curated links on security, privacy, running a node, and the history of the money.</p></a>
 </div>
 <p class="fine">These are independent educators, not sponsors. Nothing here sells you an account or a token.</p>
+<p class="back-top"><a href="#top">&uarr; Back to top</a></p>
 </section>
 
       <nav class="prevnext-row" aria-label="Previous and next sheets">
@@ -147,5 +148,10 @@
 </footer>
 
 <script src="/assets/js/main.js" defer></script>
+<div id="newbie-banner" class="newbie-banner" role="dialog" aria-label="New to Bitcoin?" hidden>
+  <p><strong>New to Bitcoin?</strong> This guide assumes you already want self-custody.</p>
+  <a href="/#new-to-bitcoin" class="newbie-go">Start here &rarr;</a>
+  <button type="button" class="newbie-close" aria-label="Dismiss">&times;</button>
+</div>
 </body>
 </html>

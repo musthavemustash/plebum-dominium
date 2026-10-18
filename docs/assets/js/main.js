@@ -153,3 +153,20 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     });
   });
 });
+
+/* --- first-visit "New to Bitcoin?" banner (homepage only) --- */
+(function () {
+  var banner = document.getElementById("newbie-banner");
+  if (!banner) return;
+  if (!document.body.classList.contains("home")) return;
+  var seen = false;
+  try { seen = localStorage.getItem("pd-newbie-seen") === "1"; } catch (e) {}
+  if (seen) return;
+  function dismiss() {
+    try { localStorage.setItem("pd-newbie-seen", "1"); } catch (e) {}
+    banner.hidden = true;
+  }
+  banner.querySelector(".newbie-close").addEventListener("click", dismiss);
+  banner.querySelector(".newbie-go").addEventListener("click", dismiss);
+  banner.hidden = false;
+})();
