@@ -1,0 +1,11 @@
+<svg width="440" height="210" viewBox="0 0 440 210" font-family="IBM Plex Sans, sans-serif">
+        <rect x="70" y="10" width="300" height="190" rx="12" fill="#14110d" stroke="#2b251b"/>
+        <text x="95" y="42" fill="#f0e8d6" font-size="15" font-weight="700">New Wallet</text>
+        <rect x="95" y="58" width="250" height="30" rx="6" fill="rgba(201,163,92,0.12)" stroke="#c9a35c"/>
+        <text x="108" y="78" fill="#c9a35c" font-size="13" font-weight="700">✓ Multi Signature</text>
+        <rect x="95" y="96" width="250" height="30" rx="6" fill="rgba(201,163,92,0.12)" stroke="#c9a35c"/>
+        <text x="108" y="116" fill="#c9a35c" font-size="13" font-weight="700">✓ Native Segwit</text>
+        <rect x="95" y="134" width="250" height="30" rx="6" fill="rgba(201,163,92,0.12)" stroke="#c9a35c"/>
+        <text x="108" y="154" fill="#c9a35c" font-size="13" font-weight="700">✓ 2 of 3</text>
+        <text x="95" y="186" fill="#9a8f78" font-size="12" font-family="IBM Plex Mono, monospace">m/48'/0'/0'/2'</text>
+      </svg>
