@@ -54,54 +54,60 @@
     <article>
       <p class="kicker">04 · Plebum Dominium</p>
       <h1>Two boots</h1>
-<div class="boots-anim" role="img" aria-label="Animation: Boot 1 builds the payment online, the machine shuts down, Boot 2 signs offline on Tails."><div class="boot boot1"><div class="boot-label">Boot 1 · Network on</div><h4>This computer</h4><p>Watches balances. Builds a payment. Never holds a seed.</p><div class="laptop"><div class="screen">Network on</div></div><ul><li>Verify files</li><li>Watch-only wallet</li><li>Export unsigned file</li></ul></div><div class="then">then<br>shut down</div><div class="boot boot2"><div class="boot-label">Boot 2 · Networking off</div><h4>Tails USB</h4><p>This stick is the offline computer. It borrows the hardware, then forgets.</p><div class="laptop"><div class="screen">Networking off</div></div><ul><li>One seed in memory</li><li>Sign the file</li><li>Full shutdown after</li></ul></div></div><p>It is critical that each key is made on a computer that is offline. Tails OS is installed on one of the two USB drives. It can be booted on any computer, and it is designed to forget the session when the machine shuts down. When Tails is booted, networking is set to Disabled. This is the offline computer. The other USB drive carries only files that have already been checked. The household computer is used first, on the network, and it never holds a seed. It is shut down fully before Tails is booted.</p>
-<h2 id="airgap-does-mean">Airgap does mean</h2>
+<div class="boots-anim" role="img" aria-label="Animation: Boot 1 builds the payment online, the machine shuts down, Boot 2 signs offline on Tails."><div class="boot boot1"><div class="boot-label">Boot 1 · Network on</div><h4>This computer</h4><p>Watches balances. Builds a payment. Never holds a seed.</p><div class="laptop"><div class="screen">Network on</div></div><ul><li>Verify files</li><li>Watch-only wallet</li><li>Export unsigned file</li></ul></div><div class="then">then<br>shut down</div><div class="boot boot2"><div class="boot-label">Boot 2 · Networking off</div><h4>Tails USB</h4><p>This stick is the offline computer. It borrows the hardware, then forgets.</p><div class="laptop"><div class="screen">Networking off</div></div><ul><li>One seed in memory</li><li>Sign the file</li><li>Full shutdown after</li></ul></div></div><p>One computer, used twice. The first boot watches the wallet and broadcasts finished payments — it never holds a seed. The second boot is the Tails USB: networking off, exactly one seed, then a full shutdown. The seed lives in memory only. Shutdown wipes it.</p>
+<figure class="step-fig"><svg width="460" height="180" viewBox="0 0 460 180" font-family="IBM Plex Sans, sans-serif">
+      <rect x="20" y="30" width="180" height="110" rx="10" fill="#14110d" stroke="#2b251b"/>
+      <text x="110" y="56" fill="#9a8f78" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="2">BOOT 1 · ONLINE</text>
+      <rect x="45" y="70" width="130" height="50" rx="4" fill="#080706"/>
+      <text x="110" y="92" fill="#9a8f78" font-size="20" text-anchor="middle">👁</text>
+      <text x="110" y="112" fill="#6f6a5f" font-size="9" text-anchor="middle" letter-spacing="1">WATCH · NEVER A SEED</text>
+      <rect x="260" y="30" width="180" height="110" rx="10" fill="#14110d" stroke="#c9a35c"/>
+      <text x="350" y="56" fill="#c9a35c" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="2">BOOT 2 · TAILS</text>
+      <rect x="285" y="70" width="130" height="50" rx="4" fill="#080706"/>
+      <text x="350" y="92" fill="#c9a35c" font-size="13" font-weight="700" text-anchor="middle">1 SEED</text>
+      <text x="350" y="112" fill="#6f6a5f" font-size="9" text-anchor="middle" letter-spacing="1">NETWORK OFF · THEN ⏻</text>
+      <text x="230" y="90" fill="#6f6a5f" font-size="11" text-anchor="middle">⇄</text>
+      <text x="230" y="152" fill="#6f6a5f" font-size="11" text-anchor="middle" letter-spacing="1">SAME COMPUTER · SHUT DOWN FULLY BETWEEN</text>
+    </svg></figure>
+<h2 id="what-airgapped-means-here">What &quot;airgapped&quot; means here</h2>
+<p>Yes:</p>
 <ul>
-<li>Networking is set to Disabled on the Tails welcome screen, before the desktop appears.</li>
-<li>The seed exists in memory only. Shutdown wipes it.</li>
-<li>Files cross on a clean USB. Those files are the payment file, the wallet map, and the checked programs.</li>
-<li>The household computer stays watch-only. It holds the map, and it never holds a seed.</li>
-<li>A stronger setup removes the Wi-Fi card. Ethernet is never plugged. Tails is still used.</li>
+<li>Networking Disabled on the Tails welcome screen, before the desktop.</li>
+<li>Files cross on the data USB — payment files, the map, checked programs.</li>
+<li>The online computer stays watch-only.</li>
 </ul>
-<h2 id="airgap-does-not-mean">Airgap does not mean</h2>
+<p>Not airgapped:</p>
 <ul>
-<li>Networking turned off after Sparrow has already opened.</li>
-<li>Unplugging the cable on a disk that was online yesterday.</li>
-<li>Photographing a seed.</li>
-<li>A password manager, a printer, or a cloud note used as the backup.</li>
+<li>Turning networking off after Sparrow opened.</li>
+<li>Unplugging a disk that was online yesterday.</li>
+<li>A photo of a seed. A password manager, printer, or cloud note as backup.</li>
 </ul>
-<h2 id="prepare-tails-on-a-trusted-online-computer">Prepare Tails on a trusted online computer</h2>
+<h2 id="prepare-the-two-usbs">Prepare the two USBs</h2>
+<figure class="step-fig"><svg width="460" height="150" viewBox="0 0 460 150" font-family="IBM Plex Sans, sans-serif">
+      <rect x="40" y="25" width="160" height="90" rx="10" fill="#14110d" stroke="#c9a35c"/>
+      <text x="120" y="52" fill="#c9a35c" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="2">TAILS USB</text>
+      <text x="120" y="76" fill="#9a8f78" font-size="10" text-anchor="middle">checked file → written</text>
+      <text x="120" y="94" fill="#9a8f78" font-size="10" text-anchor="middle">with official installer</text>
+      <rect x="260" y="25" width="160" height="90" rx="10" fill="#14110d" stroke="#2b251b"/>
+      <text x="340" y="52" fill="#9a8f78" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="2">DATA USB</text>
+      <text x="340" y="76" fill="#9a8f78" font-size="10" text-anchor="middle">only checked files</text>
+      <text x="340" y="94" fill="#9a8f78" font-size="10" text-anchor="middle">labeled DATA</text>
+      <text x="230" y="140" fill="#c0392b" font-size="11" text-anchor="middle" letter-spacing="1">NO PERSISTENT STORAGE — THE DRIVE STAYS AMNESIC</text>
+    </svg></figure>
+<p>Download Tails only from the official site. Check the signature and checksum before writing. Write it with the official installer, label it TAILS. Do not create Persistent Storage — skip the passphrase. The data USB gets only files that already passed the checks.</p>
+<h2 id="every-offline-session">Every offline session</h2>
 <ol>
-<li>01 · The Tails file is downloaded only from the official Tails site. The signing key is fetched from more than one published source.</li>
-<li>02 · The signature and the checksum are checked before the drive is written. If the check fails, the work stops.</li>
-<li>03 · Tails is written to its own USB with the official installer. The drive is labeled TAILS. It is not mixed with the data USB.</li>
-<li>04 · Persistent Storage is not created. The passphrase is skipped. The drive stays amnesic.</li>
-<li>05 · The data USB receives only files that have already passed. The Sparrow file has to be named sparrowwallet-2.5.5-x86_64.tar.gz. That is the Linux file. The Windows installer and the Mac installer do not go on this drive. The drive is labeled DATA.</li>
+<li>Boot the Tails drive. Networking Disabled. Don&#x27;t unlock Persistent Storage.</li>
+<li>Copy only the file that session needs from the data USB.</li>
+<li>Do the work: convert dice, restore one seed, sign one file, or export the map.</li>
+<li>Copy the result back to the data USB. Shut down fully — dark screen before the drive comes out.</li>
 </ol>
-<h2 id="every-offline-session-at-home">Every offline session at home</h2>
-<ol>
-<li>01 · The Tails drive is inserted and the computer is booted. Networking is set to Disabled. Persistent Storage is not unlocked. Tails is started.</li>
-<li>02 · The data USB is plugged in. Only the file needed for that session is copied onto the live session.</li>
-<li>03 · The session converts the dice, restores one seed, signs one payment file, or exports the wallet map.</li>
-<li>04 · The result is copied back to the data USB. Tails is shut down fully. The screen goes dark before the drive is unplugged.</li>
-<li>05 · Two seeds are never loaded in one session. Networking is never turned on while a seed is in memory.</li>
-</ol>
-<h2 id="do-not-use-persistent-storage">Do not use Persistent Storage</h2>
-<ul>
-<li>Tails will offer an encrypted area on the same USB. It is not created, and an existing one is not unlocked.</li>
-<li>It is not hidden. Anyone holding the USB can see that it exists, and the passphrase can be forced or tricked out.</li>
-<li>The Electrum feature writes the wallet onto the stick. That file contains the seed, protected only by the wallet password. That is a spending convenience, not this setup.</li>
-<li>Extra software and saved settings can undo choices Tails already tested.</li>
-<li>It stays off. The seed stays in memory. Shutdown wipes the session. That is why this USB exists.</li>
-</ul>
-<h2 id="stronger-chassis-optional">Stronger chassis (optional)</h2>
-<ul>
-<li>An old laptop can be the dedicated Tails machine. The Wi-Fi card is pulled. Bluetooth usually leaves with it. Leaving the card in the slot and marking it disabled is not the same thing.</li>
-<li>Ethernet is often still on the board. It is never plugged. It is disabled in the BIOS when that option exists.</li>
-<li>The previous owner’s disk is ignored or removed. Tails does not use it. That operating system is not booted.</li>
-<li>The Tails file is still checked. Networking is still set to Disabled. A clean data USB is still used. That stick is the remaining wire.</li>
-</ul>
-<p>One computer is used twice. The first boot watches the wallet and broadcasts a finished payment. It never holds a seed, and it is shut down fully. The second boot is the Tails USB on that same computer, with networking off. It loads exactly one seed, signs, copies the payment file out, and shuts down. The second USB carries files only. The only secret that crosses is a signature file, not a seed. A networked machine with a seed loaded is a single point of failure. That session is treated as burned.</p>
+<aside class="callout callout-stop" role="alert"><p class="callout-label">Stop if</p><ul>
+<li>Two seeds in one session — never.</li>
+<li>Networking turns on while a seed is in memory — that session is burned.</li>
+<li>Tails offers Persistent Storage — don&#x27;t create it, don&#x27;t unlock it.</li>
+</ul></aside>
+<p>Stronger (optional): a dedicated old laptop with the Wi-Fi card physically pulled. Ethernet never plugged. The Tails file is still checked, networking still Disabled, data USB still clean — the stick remains the only wire.</p>
 <p>Next. The three keys are made next. A word is not written until Tails is running with networking turned off.</p>
       <nav class="prevnext-row" aria-label="Previous and next sheets">
 <a class="prevnext prev" href="/handouts/checklist.html"><span>← 03 · Checklist</span></a>
@@ -111,7 +117,7 @@
   </main>
 
   <aside class="toc-col">
-<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#airgap-does-mean" data-toc="airgap-does-mean">Airgap does mean</a></li><li><a href="#airgap-does-not-mean" data-toc="airgap-does-not-mean">Airgap does not mean</a></li><li><a href="#prepare-tails-on-a-trusted-online-computer" data-toc="prepare-tails-on-a-trusted-online-computer">Prepare Tails on a trusted online computer</a></li><li><a href="#every-offline-session-at-home" data-toc="every-offline-session-at-home">Every offline session at home</a></li><li><a href="#do-not-use-persistent-storage" data-toc="do-not-use-persistent-storage">Do not use Persistent Storage</a></li><li><a href="#stronger-chassis-optional" data-toc="stronger-chassis-optional">Stronger chassis (optional)</a></li></ul></nav>
+<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#what-airgapped-means-here" data-toc="what-airgapped-means-here">What &amp;quot;airgapped&amp;quot; means here</a></li><li><a href="#prepare-the-two-usbs" data-toc="prepare-the-two-usbs">Prepare the two USBs</a></li><li><a href="#every-offline-session" data-toc="every-offline-session">Every offline session</a></li></ul></nav>
   </aside>
 </div>
 
