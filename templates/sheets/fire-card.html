@@ -1,0 +1,56 @@
+<p class="lede">The thing your heir actually grabs on the way out the door. Not the full inheritance sheet — just the <strong>where-is-everything</strong> pointer: two plates, the wallet map, and this card. Fill in the locations by hand after the plates are stamped. This <strong>complements</strong> the inheritance sheet — it never replaces it.</p>
+
+<p class="nosecret-card">⛔ No seeds. No words. Nothing on this card can spend your bitcoin.</p>
+
+<div class="firecard">
+<div class="fc-side">
+<p class="fc-label">FRONT</p>
+<div class="fc-card">
+<div class="fc-brand">PLEBUM DOMINIUM<small>RECOVERY</small></div>
+<div class="fc-rule"><strong>2 plates + wallet map + this card = your bitcoin.</strong><br>The plates are useless without the map. The map is useless without two plates.</div>
+<div class="fc-path">Derivation path: <strong>m/48'/0'/0'/2'</strong><br><span class="fc-ns">(not a secret — it's how the wallet is shaped)</span></div>
+</div>
+</div>
+<div class="fc-side">
+<p class="fc-label">BACK</p>
+<div class="fc-card">
+<div>
+<h4>WHERE THINGS ARE</h4>
+<div class="fc-fill"><span class="fc-k">Plate A:</span><span class="fc-v"></span></div>
+<div class="fc-fill"><span class="fc-k">Plate B:</span><span class="fc-v"></span></div>
+<div class="fc-fill"><span class="fc-k">Plate C:</span><span class="fc-v"></span></div>
+<div class="fc-fill"><span class="fc-k">Wallet map:</span><span class="fc-v"></span></div>
+<div class="fc-fill"><span class="fc-k">Passphrase paper:</span><span class="fc-v"></span></div>
+</div>
+<div class="fc-foot">Full instructions: the inheritance sheet. This card is the map's map.</div>
+</div>
+</div>
+</div>
+
+<p class="fine">A print-ready PDF at true credit-card size (3.375 × 2.125 in) is in <a href="../kit/15_Fire_Card.pdf">the kit</a>. Print it, fill in the locations by hand, keep it with the inheritance sheet — never with a plate.</p>
+
+<style>
+.firecard { display: flex; gap: 2rem; flex-wrap: wrap; margin: 1.5rem 0 2rem; }
+.fc-label { text-align: left; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.14em; font-weight: 700; margin: 0 0 0.6rem; }
+.fc-card {
+  width: 430px; max-width: 100%; aspect-ratio: 85.6 / 53.98; border-radius: 14px;
+  background: #14110d; border: 1px solid var(--accent); color: #f0e8d6;
+  padding: 20px 24px; position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: space-between;
+  box-shadow: 0 10px 32px rgba(0,0,0,0.5);
+}
+.fc-card::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(196,164,132,0.4); border-radius: 9px; pointer-events: none; }
+.fc-brand { font-family: "Newsreader", Georgia, serif; font-weight: 700; font-size: 1.05rem; letter-spacing: 0.08em; color: var(--accent); }
+.fc-brand small { display: block; font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 0.58rem; letter-spacing: 0.28em; color: #9b9384; margin-top: 2px; }
+.fc-rule { border-top: 1px solid rgba(196,164,132,0.5); padding-top: 10px; font-size: 0.86rem; line-height: 1.5; }
+.fc-rule strong { color: var(--accent); }
+.fc-path { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; color: #9b9384; }
+.fc-path strong { color: #f0e8d6; font-weight: 500; }
+.fc-ns { color: #c9a35c; font-size: 0.72rem; }
+.fc-card h4 { font-family: "IBM Plex Sans", sans-serif; font-size: 0.62rem; letter-spacing: 0.22em; color: var(--accent); margin: 0 0 6px; font-weight: 700; }
+.fc-fill { display: flex; align-items: baseline; gap: 8px; margin: 7px 0; font-size: 0.82rem; }
+.fc-k { flex: none; color: #9b9384; }
+.fc-v { flex: 1; border-bottom: 1px dotted rgba(196,164,132,0.7); min-height: 1.2em; }
+.fc-foot { font-size: 0.68rem; color: #9b9384; }
+.nosecret-card { display: inline-block; border: 1px solid var(--stop); color: var(--stop); border-radius: 6px; padding: 0.5rem 1rem; font-size: 0.88rem; margin: 0 0 0.5rem; background: var(--stop-bg); }
+</style>
