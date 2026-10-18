@@ -375,6 +375,7 @@ def build_sheet(slug, num, title):
         .replace("{{is_home}}", "")
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
+        .replace("{{canonical}}", f"https://plebumbtc.io/handouts/{slug}.html")
     )
     return page
 
@@ -450,6 +451,7 @@ def build_home():
         .replace("{{is_home}}", "home")
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
+        .replace("{{canonical}}", "https://plebumbtc.io/")
     )
     return page
 
