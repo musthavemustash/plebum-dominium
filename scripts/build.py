@@ -377,11 +377,11 @@ def build_home():
     content = (
         '<div class="hero"><p class="hero-kicker">Independent At-Home Bitcoin Self-Custody</p>'
         '<div class="hero-title-row">'
-        f"<h1>{SITE_NAME}</h1>"
         '<div class="coin" aria-hidden="true"><span>\u20bf</span></div>'
+        f"<h1>{SITE_NAME}</h1>"
         "</div>"
-        '<p class="hero-sub">Absolute Ownership by the Common People</p>'
         '<p class="hero-pron">(PLAY-boom doh-MIN-ee-oom)</p>'
+        '<p class="hero-sub">Absolute Ownership by the Common People</p>'
         "<p>\u201cPleb\u201d is an everyday Bitcoiner. \u201cDominium\u201d is Latin for absolute ownership. "
         "This site is for the Bitcoiner who wants to build a secure, self-custody Bitcoin wallet from the ground up, "
         "bypassing the need for a company, an app, or a custodian to manage or store access to their funds.</p>"
