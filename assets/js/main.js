@@ -98,3 +98,41 @@
     }
   }
 })();
+
+/* ---------- theme: toggle + follow the OS when no saved choice ---------- */
+(function () {
+  var root = document.documentElement;
+  function setTheme(t) {
+    root.setAttribute("data-theme", t);
+    try { localStorage.setItem("pd-theme", t); } catch (e) {}
+  }
+  var btn = document.getElementById("theme-btn");
+  if (btn) {
+    btn.addEventListener("click", function () {
+      setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+    });
+  }
+  try {
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    mq.addEventListener("change", function (e) {
+      if (!localStorage.getItem("pd-theme")) setTheme(e.matches ? "dark" : "light");
+    });
+  } catch (e) {}
+})();
+
+/* ---------- reveal fallback (browsers without scroll timelines) ---------- */
+(function () {
+  if (window.CSS && CSS.supports && CSS.supports("animation-timeline: view()")) return;
+  var els = document.querySelectorAll(".card, .you-need, .sheet-diagram, .callout, .keyring");
+  els.forEach(function (el) { el.classList.add("reveal"); });
+  if (!("IntersectionObserver" in window)) {
+    els.forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(function (el) { io.observe(el); });
+})();

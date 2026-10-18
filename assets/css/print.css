@@ -5,7 +5,9 @@ html, body { background: #fff !important; color: #000 !important; font-size: 11p
 
 /* hide everything that is not sheet content */
 .site-header, .sidebar, .scrim, .toc-col, .mobilebar, .site-footer,
-.progress, .prevnext-row, .copy-btn { display: none !important; }
+.progress, .prevnext-row, .copy-btn, .keyring { display: none !important; }
+/* dark infographics would print as ink blobs; the kit PDFs carry the print versions */
+.sheet-diagram { display: none !important; }
 
 .layout { display: block; max-width: none; padding: 0; }
 main { padding: 0; }
