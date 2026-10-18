@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10 · Rehearse on testnet — Plebum Dominium</title>
+<meta name="description" content="Plebum Dominium — build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://plebumbtc.io/handouts/testnet.html">
+<meta property="og:site_name" content="Plebum Dominium">
+<meta property="og:title" content="10 · Rehearse on testnet — Plebum Dominium">
+<meta property="og:description" content="Build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
+<meta property="og:image" content="https://plebumbtc.io/assets/img/og-banner.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="10 · Rehearse on testnet — Plebum Dominium">
+<meta name="twitter:description" content="Build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
+<meta name="twitter:image" content="https://plebumbtc.io/assets/img/og-banner.png">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/print.css" media="print">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap">
+<script>
+/* set theme before first paint: saved choice wins, else the visitor's OS setting */
+(function(){try{var t=localStorage.getItem('pd-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+</head>
+<body class="" id="top">
+<div class="progress" aria-hidden="true"><span></span></div>
+
+<header class="site-header">
+  <button class="menu-btn" aria-label="Open guide navigation" aria-expanded="false">☰</button>
+  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">₿</span> Plebum Dominium</a>
+  <span class="header-sheet">10 · Plebum Dominium</span>
+  <button class="theme-btn" id="theme-btn" aria-label="Toggle light and dark mode">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  </button>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Guide sheets">
+    <p class="sidebar-label">The bench sheets</p>
+    <ul>
+<li><a href="/handouts/terms.html" class="" data-sheet="terms"><span class="sheet-num">T</span><span class="sheet-title">Terms</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/threat-model.html" class="" data-sheet="threat-model"><span class="sheet-num">02</span><span class="sheet-title">Before you begin</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/checklist.html" class="" data-sheet="checklist"><span class="sheet-num">03</span><span class="sheet-title">Checklist</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/airgap.html" class="" data-sheet="airgap"><span class="sheet-num">04</span><span class="sheet-title">Two boots</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/verify.html" class="" data-sheet="verify"><span class="sheet-num">05</span><span class="sheet-title">Check the files</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/dice.html" class="" data-sheet="dice"><span class="sheet-num">06</span><span class="sheet-title">Make the three keys</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/sparrow.html" class="" data-sheet="sparrow"><span class="sheet-num">07</span><span class="sheet-title">Build the 2-of-3</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/testnet.html" class="active" data-sheet="testnet"><span class="sheet-num">10</span><span class="sheet-title">Rehearse on testnet</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/signing.html" class="" data-sheet="signing"><span class="sheet-num">08</span><span class="sheet-title">Practice spend</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/titanium.html" class="" data-sheet="titanium"><span class="sheet-num">09</span><span class="sheet-title">Metal and the map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">11</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">12</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">13</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/briefing.html" class="" data-sheet="briefing"><span class="sheet-num">14</span><span class="sheet-title">Tough questions</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/handouts/fire-card.html" class="" data-sheet="fire-card"><span class="sheet-num">15</span><span class="sheet-title">Recovery card</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+    </ul>
+    <p class="sidebar-note">Check off sheets as you finish them — progress is saved on this device.</p>
+  </nav>
+  <div class="scrim" aria-hidden="true"></div>
+
+  <main id="content">
+    <article>
+      <p class="kicker">10 · Plebum Dominium</p>
+      <h1>Rehearse on testnet</h1>
+<p>Before any plate exists, do the <strong>entire flow with play money</strong>: build the 2-of-3, receive, sign with two keys, shut down between sessions, broadcast. <strong>The clicks are identical to mainnet.</strong> Mistakes here cost nothing and teach everything. This sheet exists so the first time you touch real bitcoin, it&#x27;s not the first time you&#x27;ve done this.</p>
+<aside class="callout callout-warning" role="note"><p class="callout-label">Warning</p><p><strong>Testnet coins are worthless.</strong> They cannot be sold, converted, or spent as real bitcoin. That is the point: there is nothing at stake except your learning. Do not &quot;test&quot; with real bitcoin.</p></aside>
+<h2 id="the-rehearsal">The rehearsal</h2>
+<ol>
+<li><strong>Get testnet coins from a faucet.</strong> Make a testnet address in Sparrow (network: <code>testnet</code>), paste it into a faucet, wait for confirmation. This is the only step that touches the internet with your test wallet — fine, it&#x27;s worthless.</li>
+<li><strong>Build the 2-of-3 in Sparrow on testnet.</strong> Generate three <strong>throwaway</strong> test seeds — roll dice if you like the ritual, but these get discarded afterward. Import them into Sparrow, build the 2-of-3, <strong>verify the first receiving address on a second screen</strong> (same as the mainnet sheet).</li>
+<li><strong>Receive the faucet coins.</strong> Send the tBTC to your test wallet&#x27;s first receiving address. Watch the transaction confirm. This is your first look at how receive works — on coins that don&#x27;t matter.</li>
+<li><strong>Two-key sign with a shutdown between.</strong> Build a small spend, sign with key 1, <strong>shut the machine down</strong>, boot fresh, sign with key 2, broadcast. This is the exact airgap shutdown ritual the mainnet practice spend demands — rehearse it here where a forgotten step costs nothing.</li>
+<li><strong>Broadcast and confirm.</strong> Send the test coins onward (back to the faucet if it accepts returns, or to a second test address you control). Watch it confirm on a testnet block explorer. You just completed the whole loop.</li>
+</ol>
+<aside class="callout callout-stop" role="note"><p class="callout-label">Stop</p><p><strong>Rule:</strong> never reuse test seeds on mainnet. When the rehearsal is done, the test seeds are burned — they do not get stamped, written down, or kept.</p></aside>
+<h2 id="graduate-when">Graduate when</h2>
+<p>You built, received, two-key-signed across a shutdown, and broadcast — without the sheet open. If any step felt shaky, repeat it on testnet. <strong>The plates come after you&#x27;re bored of succeeding on testnet.</strong></p>
+      <nav class="prevnext-row" aria-label="Previous and next sheets">
+<a class="prevnext prev" href="/handouts/sparrow.html"><span>← 07 · Build the 2-of-3</span></a>
+<a class="prevnext next" href="/handouts/signing.html"><span>08 · Practice spend →</span></a>
+      </nav>
+    </article>
+  </main>
+
+  <aside class="toc-col">
+<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#the-rehearsal" data-toc="the-rehearsal">The rehearsal</a></li><li><a href="#graduate-when" data-toc="graduate-when">Graduate when</a></li></ul></nav>
+  </aside>
+</div>
+
+<div class="mobilebar" aria-label="Sheet navigation">
+  <span class="mobilebar-pos">10 · Plebum Dominium</span>
+</div>
+
+<footer class="site-footer">
+  <p><strong>Plebum Dominium</strong> — independent at-home Bitcoin self-custody.</p>
+  <p>Educational material. Not financial advice. Verify every download from its original source.</p>
+  <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/downloads.html">Downloads</a></p>
+  <p class="footer-contact">Contact: <a href="mailto:Muststackmoresats@gmail.com">Muststackmoresats@gmail.com</a></p>
+  <p class="donate-row"><a class="btn-lightning" href="lightning:musthavemoresats@speed.app"><span aria-hidden="true">⚡</span> Donate with Lightning</a> <button type="button" class="btn-onchain" data-copy="bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"><span aria-hidden="true">₿</span> Donate Bitcoin</button></p>
+  <p class="donate-addr"><code>bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw</code></p>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+<script data-goatcounter="https://plebumbtc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<div id="newbie-banner" class="newbie-banner" role="dialog" aria-label="New to Bitcoin?" hidden>
+  <p><strong>New to Bitcoin?</strong><br><a href="/#new-to-bitcoin" class="newbie-go">Start here &rarr;</a></p>
+  <button type="button" class="newbie-close" aria-label="Dismiss">&times;</button>
+</div>
+</body>
+</html>
