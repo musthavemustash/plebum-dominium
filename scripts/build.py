@@ -263,13 +263,12 @@ def prev_next(active_slug):
 
 # diagrams that belong to specific sheets (file, caption).
 # airgap uses the animated two-boots loop instead of the static PNG.
+# signing uses the animated filling-file loop instead of the static PNG.
 SHEET_DIAGRAMS = {
     "dice": ("diagram-03_dice.png",
              "Casino dice: keep faces 1–4 as two bits each, re-roll 5 and 6."),
     "sparrow": ("diagram-04_two_of_three.png",
                 "The 2-of-3 lock: any two keys spend, one key alone cannot."),
-    "signing": ("diagram-05_spend_path.png",
-                "A practice spend: the payment file walks, the seed stays seated."),
     "encryption": ("diagram-06_split_map.png",
                    "Geography: three plates in three places — one fire cannot finish you."),
     "titanium": ("diagram-07_house_rules.png",
@@ -299,9 +298,16 @@ def airgap_animation():
     )
 
 
+def signing_animation():
+    with open("templates/signing-animation.html") as f:
+        return f.read()
+
+
 def sheet_diagram(slug):
     if slug == "airgap":
         return airgap_animation()
+    if slug == "signing":
+        return signing_animation()
     if slug not in SHEET_DIAGRAMS:
         return ""
     img, caption = SHEET_DIAGRAMS[slug]
