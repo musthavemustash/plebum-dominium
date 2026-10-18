@@ -29,8 +29,8 @@ if "--base" in sys.argv:
 SITE_URL = "https://plebumbtc.io"
 SITE_NAME = "Plebum Dominium"
 SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
-# Lightning address for the footer donate button. Set to the real address when known.
-LIGHTNING_ADDRESS = "REPLACE_WITH_LIGHTNING_ADDRESS"
+# Lightning address for the footer donate button.
+LIGHTNING_ADDRESS = "musthavemoresats@speed.app"
 
 # (slug, number, title) in workflow order
 SHEETS = [
