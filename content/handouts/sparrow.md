@@ -56,6 +56,16 @@ Boot again for Seed 2 → s2-xpub.txt. Shut down. Boot again for Seed 3 → s3-x
 
 Boot Tails again — do not type any seed. New wallet → Multi Signature → Native Segwit → 2 of 3 → import the three xpub files. Confirm the path. Export the output descriptor to the data USB. That file is the wallet map.
 
+> [!STOP] **Confirm the first address on a second screen.**
+>
+> Sparrow built your wallet from your seeds — but if malware sat on the build machine, it could show you **an address it controls** while you trust it. A second screen the malware can't reach closes that hole. **Do not fund the wallet until this matches.**
+>
+> **1 · Build in Sparrow.** Finish the 2-of-3 build on the airgapped machine as usual. Write down the **first receiving address** it shows — the full string, not the QR code.
+>
+> **2 · Cross-check in Electrum.** Rebuild the same 2-of-3 in Electrum offline from the same seeds and compare the first address. This catches entry mistakes.
+>
+> **3 · NEW — Display it on a second device.** Load the wallet as **watch-only** (xpubs / wallet descriptor only — never seeds) on your phone or a second computer. Compare the first receiving address **character for character**. If all three agree, the coordinator didn't lie. If anything differs, stop and rebuild.
+
 ## Step 7 · Watch-only on the everyday computer.
 
 ::fig sparrow/watch-only
