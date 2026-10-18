@@ -16,6 +16,16 @@ import html as htmlmod
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 os.chdir(ROOT)
 
+# Base path for all absolute URLs. GitHub Pages project sites live under a
+# subpath (/plebum-dominium/); the custom domain serves from root (/).
+#   preview:  python3 scripts/build.py --base /plebum-dominium/
+#   custom domain: python3 scripts/build.py --base /
+BASE = "/plebum-dominium/"
+if "--base" in sys.argv:
+    BASE = sys.argv[sys.argv.index("--base") + 1]
+    if not BASE.endswith("/"):
+        BASE += "/"
+
 SITE_URL = "https://plebumbtc.io"
 SITE_NAME = "Plebum Dominium"
 SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
@@ -51,6 +61,8 @@ def inline(md):
     md = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<em>\1</em>", md)
     md = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", r'<img src="\2" alt="\1" loading="lazy">', md)
     md = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', md)
+    # site-absolute paths must respect the base path (project pages live under a subpath)
+    md = re.sub(r'(href|src)="/(?!/)', rf"\1=\"{BASE}", md)
     return md
 
 
@@ -217,7 +229,7 @@ def sidebar_html(active_slug):
     for slug, num, title in SHEETS:
         cls = "active" if slug == active_slug else ""
         items.append(
-            f'<li><a href="/handouts/{slug}.html" class="{cls}" data-sheet="{slug}">'
+            f'<li><a href="{BASE}handouts/{slug}.html" class="{cls}" data-sheet="{slug}">'
             f'<span class="sheet-num">{num}</span>'
             f'<span class="sheet-title">{esc(title)}</span>'
             f'<span class="sheet-check" aria-hidden="true">✓</span>'
@@ -242,10 +254,10 @@ def prev_next(active_slug):
     prev_link, next_link = "", ""
     if idx > 0:
         s, n, t = SHEETS[idx - 1]
-        prev_link = f'<a class="prevnext prev" href="/handouts/{s}.html"><span>← {n} · {esc(t)}</span></a>'
+        prev_link = f'<a class="prevnext prev" href="{BASE}handouts/{s}.html"><span>← {n} · {esc(t)}</span></a>'
     if idx < len(SHEETS) - 1:
         s, n, t = SHEETS[idx + 1]
-        next_link = f'<a class="prevnext next" href="/handouts/{s}.html"><span>{n} · {esc(t)} →</span></a>'
+        next_link = f'<a class="prevnext next" href="{BASE}handouts/{s}.html"><span>{n} · {esc(t)} →</span></a>'
     return prev_link, next_link
 
 
@@ -263,6 +275,7 @@ def build_sheet(slug, num, title):
     prev_link, next_link = prev_next(slug)
     page = (
         tpl.replace("{{title}}", f"{num} · {title} — {SITE_NAME}")
+        .replace("{{base}}", BASE)
         .replace("{{kicker}}", f"{num} · Plebum Dominium")
         .replace("{{heading}}", esc(title))
         .replace("{{sidebar}}", sidebar_html(slug))
@@ -292,7 +305,7 @@ def build_home():
     lookup = {s: (n, t) for s, n, t in SHEETS}
     for stage, slugs in stages:
         items = "".join(
-            f'<a class="card" href="/handouts/{s}.html">'
+            f'<a class="card" href="{BASE}handouts/{s}.html">'
             f'<span class="card-num">{lookup[s][0]}</span>'
             f'<span class="card-title">{esc(lookup[s][1])}</span></a>'
             for s, _ in slugs
@@ -305,12 +318,14 @@ def build_home():
         "<p>Build a secure, self-custody Bitcoin wallet from the ground up — "
         "no company, no app, no custodian. Generate entropy with dice, import it into verified software, "
         "and stamp a 2-of-3 multisig wallet into titanium. Hardware wallets are completely optional.</p>"
-        '<p><a class="btn" href="/handouts/terms.html">Start with the terms</a> '
-        '<a class="btn btn-ghost" href="/kit/02_Print_Packet.pdf">Download the print packet</a></p></div>'
+        '<p><a class="btn" href="{BASE}handouts/terms.html">Start with the terms</a> '
+        '<a class="btn btn-ghost" href="{BASE}kit/02_Print_Packet.pdf">Download the print packet</a></p></div>'
+        .replace("{BASE}", BASE)
         + "\n".join(cards)
     )
     page = (
         tpl.replace("{{title}}", f"{SITE_NAME} — {SITE_TAGLINE}")
+        .replace("{{base}}", BASE)
         .replace("{{kicker}}", SITE_TAGLINE)
         .replace("{{heading}}", SITE_NAME)
         .replace("{{sidebar}}", sidebar_html("__home__"))
@@ -340,10 +355,14 @@ def main():
     shutil.copytree("assets", "docs/assets")
     # kit downloads
     shutil.copytree("kit", "docs/kit")
-    # GitHub Pages: skip Jekyll, set custom domain
+    # GitHub Pages: skip Jekyll; CNAME only for custom-domain builds (base "/").
+    # The github.io preview must NOT have it, or Pages redirects to the domain.
     open("docs/.nojekyll", "w").close()
-    with open("docs/CNAME", "w") as f:
-        f.write("plebumbtc.io\n")
+    if BASE == "/":
+        with open("docs/CNAME", "w") as f:
+            f.write("plebumbtc.io\n")
+    elif os.path.exists("docs/CNAME"):
+        os.remove("docs/CNAME")
     print("done -> docs/")
 
 
