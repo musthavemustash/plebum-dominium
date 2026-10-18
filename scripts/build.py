@@ -43,7 +43,7 @@ SHEETS = [
     ("encryption", "11", "Hide the wallet map"),
     ("inheritance", "12", "If I am gone"),
     ("faq", "13", "If you get stuck"),
-    ("briefing", "14", "If someone challenges it"),
+    ("briefing", "14", "Tough questions"),
 ]
 SLUG_TO_IDX = {slug: i for i, (slug, _, _) in enumerate(SHEETS)}
 
