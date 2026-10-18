@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stacked labels — 3 mockups</title>
+<style>
+  :root {
+    --paper: #0b0a08; --card: #14110d; --ink: #f0e8d6; --muted: #9a8f78;
+    --line: #2b251b; --accent: #c9a35c; --accent-soft: #231b0f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-size: 17px; line-height: 1.65; padding: 2rem 1.25rem 4rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  .kicker {
+    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--accent); margin: 0 0 0.5rem;
+  }
+  h1 { font-size: 2rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
+  .intro { color: var(--muted); max-width: 64ch; margin: 0 0 3rem; }
+  .concept { border: 1px solid var(--line); border-radius: 14px; padding: 1.75rem; margin: 0 0 2.5rem; background: var(--card); }
+  .concept h2 { margin: 0 0 0.25rem; font-size: 1.4rem; }
+  .concept .desc { color: var(--muted); font-size: 0.95rem; margin: 0 0 1.5rem; max-width: 62ch; }
+  .stage { position: relative; border: 1px solid var(--line); border-radius: 12px; background: #0e0c09; overflow: hidden; font-family: -apple-system, "Segoe UI", Inter, sans-serif; }
+  .pick { margin-top: 1.25rem; font-size: 0.92rem; color: var(--muted); }
+  .pick strong { color: var(--accent); }
+/* ================= A3 · the filling file (v2: slow, red shutdown line) ================= */
+  .fs .stage { height: 380px; }
+  .fs .zone-on { position: absolute; top: 0; left: 0; right: 0; height: 34%; background: #12100c; border-bottom: 2px dashed var(--accent); }
+  .fs .zone-off { position: absolute; bottom: 0; left: 0; right: 0; height: 66%; background: #0e0c09; }
+  .fs .gaplabel { position: absolute; left: 50%; top: 34%; transform: translate(-50%, -50%); background: var(--paper); border: 1px solid var(--accent); color: var(--accent); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; padding: 3px 12px; border-radius: 999px; z-index: 3; }
+  .fs .redline {
+    position: absolute; left: 50%; top: calc(34% + 82px); bottom: 42px; width: 3px;
+    background: #c0392b; z-index: 3;
+    box-shadow: 0 0 12px rgba(192, 57, 43, 0.55);
+  }
+  .fs .redline-tag {
+    position: absolute; left: 50%; top: calc(34% + 52px); transform: translateX(-50%); z-index: 3;
+    background: rgba(192, 57, 43, 0.12); border: 1px solid #c0392b; color: #e08070;
+    font-size: 0.6rem; font-weight: 800; letter-spacing: 0.14em;
+    padding: 3px 10px; border-radius: 4px; white-space: nowrap;
+  }
+  .fs .usb {
+    position: absolute; left: 50%; top: calc(34% + 22px); transform: translateX(-50%);
+    width: 16px; height: 24px; background: #3a3530; border: 1px solid var(--muted);
+    border-radius: 3px; z-index: 3;
+  }
+  .fs .usb i {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    width: 8px; height: 10px; background: #3a3530; border: 1px solid var(--muted);
+    border-bottom: 0; border-radius: 2px 2px 0 0;
+  }
+  .fs .stacklabel {
+    position: absolute; top: 15%; transform: translateX(-50%);
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.2em; color: var(--accent);
+    opacity: 0; z-index: 2; white-space: nowrap; text-align: center; line-height: 1.5;
+  }
+  .fs .ct-stack { left: 9%; }
+  .fs .bc-stack { left: 79%; }
+  .fs .filebox {
+    position: absolute; width: 36px; height: 46px; z-index: 4;
+    background: transparent; overflow: hidden; border-radius: 6px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+  }
+  .fs .filebox .fill {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 0%;
+    background: var(--accent);
+  }
+  .fs .filebox .outline { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .fs .filebox .outline rect {
+    fill: none; stroke: var(--ink); stroke-width: 2.5;
+    stroke-dasharray: 1; stroke-dashoffset: 1;
+  }
+  .fs .ped { position: absolute; width: 110px; text-align: center; }
+  .fs .ped .plate {
+    width: 88px; height: 56px; margin: 0 auto 6px; border-radius: 8px;
+    background: linear-gradient(135deg, #7a746e 0%, #b8b2ab 25%, #8a847e 50%, #6b6560 78%, #57534e 100%);
+    border: 1px solid #44403c; position: relative;
+  }
+  .fs .ped .plate i {
+    display: block; height: 3px; margin: 7px 12px 0; background: rgba(0,0,0,0.35);
+    border-radius: 2px; box-shadow: inset 0 1px 1px rgba(0,0,0,0.5);
+  }
+  .fs .ped .plate i:first-child { margin-top: 10px; }
+  .fs .ped span { font-size: 0.64rem; color: var(--muted); letter-spacing: 0.08em; font-weight: 700; }
+  .fs .ped1 { left: 35%; bottom: 14%; transform: translateX(-50%); }
+  .fs .ped2 { left: 65%; bottom: 14%; transform: translateX(-50%); }
+  .fs .stamp { position: absolute; font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em; color: var(--accent); border: 2px solid var(--accent); border-radius: 5px; padding: 2px 8px; opacity: 0; background: rgba(11,10,8,0.9); z-index: 3; }
+  .fs .stamp1 { left: 35%; bottom: 32%; transform: translateX(-50%) rotate(-8deg); }
+  .fs .stamp2 { left: 65%; bottom: 32%; transform: translateX(-50%) rotate(-8deg); }
+  .fs .barcs { position: absolute; left: 89%; top: 24%; opacity: 0; z-index: 3; }
+  .fs .barcs i { position: absolute; border: 2px solid var(--accent); border-radius: 50%; border-left-color: transparent; border-bottom-color: transparent; transform: rotate(-45deg); }
+  .fs .barcs i:nth-child(1) { width: 36px; height: 36px; left: -18px; top: -18px; }
+  .fs .barcs i:nth-child(2) { width: 56px; height: 56px; left: -28px; top: -28px; }
+  .fs .barcs i:nth-child(3) { width: 76px; height: 76px; left: -38px; top: -38px; }
+  .fs .legend { margin: 1.1rem 0 0; padding: 0; list-style: none; }
+  .fs .legend li {
+    position: relative; padding: 0.3rem 0 0.3rem 2rem; font-size: 0.9rem; color: var(--muted);
+    border-top: 1px solid var(--line);
+  }
+  .fs .legend li:first-child { border-top: 0; }
+  .fs .legend li b { color: var(--ink); }
+  .fs .legend li .n {
+    position: absolute; left: 0; top: 0.35rem; width: 1.4rem; height: 1.4rem;
+    border: 1px solid var(--accent); border-radius: 50%; color: var(--accent);
+    font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, "Segoe UI", sans-serif;
+  }
+  .fs .legend li i { color: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .fs .ct-stack { animation: e3Ct 22s linear infinite; }
+    .fs .bc-stack { animation: e3Bc 22s linear infinite; }
+    .fs .filebox .outline rect { animation: e3Draw 22s linear infinite; }
+    .fs .filebox { animation: e3Box 22s ease-in-out infinite; }
+    .fs .filebox .fill { animation: e3Fill 22s linear infinite; }
+    .fs .ped1 .plate { animation: e3P1 22s ease-in-out infinite; }
+    .fs .ped2 .plate { animation: e3P2 22s ease-in-out infinite; }
+    .fs .stamp1 { animation: e3S1 22s linear infinite; }
+    .fs .stamp2 { animation: e3S2 22s linear infinite; }
+    .fs .barcs { animation: e3Barcs 22s linear infinite; }
+    .fs .usb, .fs .usb i { animation: e3Usb 22s linear infinite; }
+  }
+  @keyframes e3Ct {
+    0% { opacity: 0; } 1% { opacity: 1; } 2% { opacity: 0.25; } 3% { opacity: 1; }
+    4% { opacity: 0.25; } 5%, 100% { opacity: 1; }
+  }
+  @keyframes e3Bc {
+    0% { opacity: 0; }
+    3%, 100% { opacity: 1; }
+  }
+  @keyframes e3Draw {
+    0% { stroke-dashoffset: 1; }
+    7%, 100% { stroke-dashoffset: 0; }
+  }
+  @keyframes e3Box {
+    0% { left: 14%; top: 23%; opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+    2%, 8% { left: 14%; top: 23%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    12% { left: 35%; top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    16%, 26% { left: 35%; top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    30% { left: calc(50% - 34px); top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    34%, 42% { left: calc(50% - 34px); top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    48% { left: 65%; top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    52%, 62% { left: 65%; top: 62%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    68% { left: 89%; top: 24%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    72%, 84% { left: 89%; top: 24%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    89%, 100% { left: 89%; top: 24%; opacity: 0; transform: translate(-50%, -50%) scale(1); }
+  }
+  @keyframes e3Fill {
+    0%, 19% { width: 0%; }
+    25%, 47% { width: 50%; }
+    55%, 100% { width: 100%; }
+  }
+  @keyframes e3P1 {
+    0%, 14% { transform: translateY(0); border-color: #44403c; box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 4px 10px rgba(0,0,0,0.5); }
+    18%, 26% { transform: translateY(-8px); border-color: var(--accent); box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 0 26px rgba(201,163,92,0.7); }
+    30%, 100% { transform: translateY(0); border-color: #44403c; box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 4px 10px rgba(0,0,0,0.5); }
+  }
+  @keyframes e3P2 {
+    0%, 50% { transform: translateY(0); border-color: #44403c; box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 4px 10px rgba(0,0,0,0.5); }
+    54%, 62% { transform: translateY(-8px); border-color: var(--accent); box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 0 26px rgba(201,163,92,0.7); }
+    66%, 100% { transform: translateY(0); border-color: #44403c; box-shadow: inset 0 1px 2px rgba(255,255,255,0.3), 0 4px 10px rgba(0,0,0,0.5); }
+  }
+  @keyframes e3S1 { 0%, 23% { opacity: 0; } 27%, 88% { opacity: 1; } 92%, 100% { opacity: 0; } }
+  @keyframes e3S2 { 0%, 57% { opacity: 0; } 61%, 88% { opacity: 1; } 92%, 100% { opacity: 0; } }
+  @keyframes e3Barcs { 0%, 70% { opacity: 0; transform: scale(0.7); } 76%, 84% { opacity: 1; transform: scale(1.12); } 89%, 100% { opacity: 0; } }
+  @keyframes e3Usb {
+    0%, 32% { background: #3a3530; border-color: var(--muted); box-shadow: none; }
+    35%, 37% { background: #c0392b; border-color: #e08070; box-shadow: 0 0 16px rgba(192, 57, 43, 0.9); }
+    39%, 41% { background: #3a3530; border-color: var(--muted); box-shadow: none; }
+    43%, 45% { background: #c0392b; border-color: #e08070; box-shadow: 0 0 16px rgba(192, 57, 43, 0.9); }
+    47%, 100% { background: #3a3530; border-color: var(--muted); box-shadow: none; }
+  }
+
+  
+  /* ===== mockup 1: full totem (pill + USB + tag + red line) ===== */
+  /* (default arrangement — no overrides) */
+
+  /* ===== mockup 2: clean divider ===== */
+  .n2 .gaplabel, .n2 .usb, .n2 .redline-tag { display: none; }
+  .n2 .redline { top: 34%; }
+  .n2 .redline-mini {
+    position: absolute; left: calc(50% + 10px); top: 52%; z-index: 3;
+    background: rgba(192, 57, 43, 0.12); border: 1px solid #c0392b; color: #e08070;
+    font-size: 0.58rem; font-weight: 800; letter-spacing: 0.14em;
+    padding: 2px 8px; border-radius: 4px; white-space: nowrap;
+  }
+
+  /* ===== mockup 3: USB gate (no pill; USB astride the divider) ===== */
+  .n3 .gaplabel { display: none; }
+  .n3 .usb { top: 34%; transform: translate(-50%, -50%) scale(1.35); }
+  .n3 .redline { top: calc(34% + 30px); }
+  .n3 .redline-tag { top: calc(34% + 36px); }
+
+  @media (max-width: 640px) {
+    .fs .stacklabel { font-size: 0.56rem; letter-spacing: 0.12em; }
+    .fs .bc-stack { left: 77%; }
+    .fs .zonelabel { font-size: 0.56rem; letter-spacing: 0.2em; }
+    .m1 .linetag { font-size: 0.52rem; padding: 2px 8px; }
+    .m2 .gaplabel { font-size: 0.54rem; padding: 4px 12px; }
+  }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Preview — not on the site yet</p>
+  <h1>Stacked labels, three treatments</h1>
+  <p class="intro">Same filling-file animation in all three. CREATE and BROADCAST TRANSACTION are now stacked two-line labels at identical heights, each with the file to its right. ONLINE sits top-center, OFFLINE bottom-center, and the red line stops short of the bottom label.</p>
+
+  <section class="concept n1 fs">
+    <p class="kicker">Mockup 1</p>
+    <h2>Full totem</h2>
+    <p class="desc">The complete center stack — THE AIRGAP pill, USB, SHUTDOWN tag, red line — with the new symmetric labels.</p>
+    <div class="stage">
+      <div class="zone-on"></div>
+      <div class="zone-off"></div>
+      <div class="zonelabel zone-top">ONLINE</div>
+      <div class="zonelabel zone-bottom">OFFLINE</div>
+      <div class="gaplabel">THE AIRGAP</div>
+      <div class="redline"></div>
+      <div class="redline-tag">SHUTDOWN &middot; NEW SESSION</div>
+      <div class="usb"><i></i></div>
+      <div class="stacklabel ct-stack">CREATE<br>TRANSACTION</div>
+      <div class="stacklabel bc-stack">BROADCAST<br>TRANSACTION</div>
+      <div class="filebox"><div class="fill"></div><svg class="outline" viewBox="0 0 36 46"><rect x="2.5" y="2.5" width="31" height="41" rx="4" pathLength="1"/></svg></div>
+      <div class="ped ped1"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 1</span></div>
+      <div class="ped ped2"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 2</span></div>
+      <div class="stamp stamp1">1 OF 2</div>
+      <div class="stamp stamp2">2 OF 2</div>
+      <div class="barcs"><i></i><i></i><i></i></div>
+    </div>
+    <ol class="legend">
+      <li><span class="n">1</span><b>Create.</b> Watch-only builds the transaction — the file is an empty outline.</li>
+      <li><span class="n">2</span><b>Seed 1 signs.</b> The file fills halfway. <i>1 of 2.</i></li>
+      <li><span class="n">3</span><b>Shutdown.</b> The file stops at the red line — full shutdown, new session — then crosses deliberately.</li>
+      <li><span class="n">4</span><b>Seed 2 signs.</b> The file fills whole. <i>2 of 2.</i></li>
+      <li><span class="n">5</span><b>Broadcast.</b> Up and right, across the airgap — the twice-signed file goes out.</li>
+    </ol>
+    <p class="pick"><strong>Best if:</strong> you want every beat labeled where it happens.</p>
+  </section>
+
+  <section class="concept n2 fs">
+    <p class="kicker">Mockup 2</p>
+    <h2>Clean divider</h2>
+    <p class="desc">The dashed threshold stands alone — no pill, no USB. The red line carries a small SHUTDOWN tag at its midpoint. Maximum air around the animation.</p>
+    <div class="stage">
+      <div class="zone-on"></div>
+      <div class="zone-off"></div>
+      <div class="zonelabel zone-top">ONLINE</div>
+      <div class="zonelabel zone-bottom">OFFLINE</div>
+      <div class="gaplabel">THE AIRGAP</div>
+      <div class="redline"></div>
+      <div class="redline-tag">SHUTDOWN &middot; NEW SESSION</div>
+      <div class="usb"><i></i></div>
+      <div class="redline-mini">SHUTDOWN</div>
+      <div class="stacklabel ct-stack">CREATE<br>TRANSACTION</div>
+      <div class="stacklabel bc-stack">BROADCAST<br>TRANSACTION</div>
+      <div class="filebox"><div class="fill"></div><svg class="outline" viewBox="0 0 36 46"><rect x="2.5" y="2.5" width="31" height="41" rx="4" pathLength="1"/></svg></div>
+      <div class="ped ped1"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 1</span></div>
+      <div class="ped ped2"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 2</span></div>
+      <div class="stamp stamp1">1 OF 2</div>
+      <div class="stamp stamp2">2 OF 2</div>
+      <div class="barcs"><i></i><i></i><i></i></div>
+    </div>
+    <ol class="legend">
+      <li><span class="n">1</span><b>Create.</b> Watch-only builds the transaction — the file is an empty outline.</li>
+      <li><span class="n">2</span><b>Seed 1 signs.</b> The file fills halfway. <i>1 of 2.</i></li>
+      <li><span class="n">3</span><b>Shutdown.</b> The file stops at the red line — full shutdown, new session — then crosses deliberately.</li>
+      <li><span class="n">4</span><b>Seed 2 signs.</b> The file fills whole. <i>2 of 2.</i></li>
+      <li><span class="n">5</span><b>Broadcast.</b> Up and right, across the airgap — the twice-signed file goes out.</li>
+    </ol>
+    <p class="pick"><strong>Best if:</strong> you want the calmest stage — the labels do the talking.</p>
+  </section>
+
+  <section class="concept n3 fs">
+    <p class="kicker">Mockup 3</p>
+    <h2>USB gate</h2>
+    <p class="desc">No pill — the USB itself straddles the dashed line like a gate, still flashing red at the shutdown beat, with the SHUTDOWN tag beneath it.</p>
+    <div class="stage">
+      <div class="zone-on"></div>
+      <div class="zone-off"></div>
+      <div class="zonelabel zone-top">ONLINE</div>
+      <div class="zonelabel zone-bottom">OFFLINE</div>
+      <div class="gaplabel">THE AIRGAP</div>
+      <div class="redline"></div>
+      <div class="redline-tag">SHUTDOWN &middot; NEW SESSION</div>
+      <div class="usb"><i></i></div>
+      <div class="stacklabel ct-stack">CREATE<br>TRANSACTION</div>
+      <div class="stacklabel bc-stack">BROADCAST<br>TRANSACTION</div>
+      <div class="filebox"><div class="fill"></div><svg class="outline" viewBox="0 0 36 46"><rect x="2.5" y="2.5" width="31" height="41" rx="4" pathLength="1"/></svg></div>
+      <div class="ped ped1"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 1</span></div>
+      <div class="ped ped2"><div class="plate"><i></i><i></i><i></i><i></i></div><span>SEED 2</span></div>
+      <div class="stamp stamp1">1 OF 2</div>
+      <div class="stamp stamp2">2 OF 2</div>
+      <div class="barcs"><i></i><i></i><i></i></div>
+    </div>
+    <ol class="legend">
+      <li><span class="n">1</span><b>Create.</b> Watch-only builds the transaction — the file is an empty outline.</li>
+      <li><span class="n">2</span><b>Seed 1 signs.</b> The file fills halfway. <i>1 of 2.</i></li>
+      <li><span class="n">3</span><b>Shutdown.</b> The file stops at the red line — full shutdown, new session — then crosses deliberately.</li>
+      <li><span class="n">4</span><b>Seed 2 signs.</b> The file fills whole. <i>2 of 2.</i></li>
+      <li><span class="n">5</span><b>Broadcast.</b> Up and right, across the airgap — the twice-signed file goes out.</li>
+    </ol>
+    <p class="pick"><strong>Best if:</strong> you want the USB to feel like the doorway between the worlds.</p>
+  </section>
+</div>
+</body>
+</html>
