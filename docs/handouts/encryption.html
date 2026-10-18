@@ -54,31 +54,88 @@
     <article>
       <p class="kicker">11 · Plebum Dominium</p>
       <h1>Hide the wallet map</h1>
-<figure class="sheet-diagram"><img src="/assets/img/diagram-06_split_map.png" alt="Geography: three plates in three places — one fire cannot finish you." loading="lazy"><figcaption>Geography: three plates in three places — one fire cannot finish you.</figcaption></figure><p>The wallet map exists before this work, and it is not left in a drawer as plain text. The map can watch the money. It cannot spend. Anyone who can read it can see the balance, so it is encrypted. The passphrase that opens the file is not a seed, and it is not a plate.</p>
+<figure class="sheet-diagram"><img src="/assets/img/diagram-06_split_map.png" alt="Geography: three plates in three places — one fire cannot finish you." loading="lazy"><figcaption>Geography: three plates in three places — one fire cannot finish you.</figcaption></figure><p>The map can watch the money. It cannot spend. Anyone who can read it can see the balance — so it never sits around as plain text.</p>
 <section class="you-need"><p class="you-need-label">What is required</p><ul>
-<li>The wallet map from the 2-of-3, on the data USB. It is called map.txt only while the work is happening.</li>
-<li><a href=\"/kit/descriptor_obfuscator.py">descriptor_obfuscator.py</a>. This is the tool. It calls GPG. It does not invent a cipher. It is checked before it is copied onto the drive.</li>
-<li>A passphrase that can be remembered and also written down. It is not one of the 24-word lists. It is not the decoy passphrase. It is not stamped on a plate.</li>
-<li>Tails, with networking set to Disabled. This is not done on the everyday computer.</li>
+<li>The wallet map on the data USB — called map.txt only while you work.</li>
+<li>descriptor_obfuscator.py from the kit. Checked before it&#x27;s copied.</li>
+<li>A passphrase — not a seed, not the decoy passphrase, never stamped on a plate.</li>
+<li>Tails, networking Disabled. Not the everyday computer.</li>
 </ul></section>
-<h2 id="the-steps">The steps</h2>
-<ol>
-<li>01 · Tails is booted. Networking is set to Disabled. The tool and map.txt are copied to the Desktop. The map is not opened on a phone.</li>
-<li>02 · Terminal is opened. The tool is run. E is chosen. The wallet map is pasted. The passphrase is entered. That passphrase is not a seed.</li>
-<li>03 · The tool writes map.txt.gpg. That file is copied to two USB drives. map.txt is deleted from the Desktop and from the USB. The trash is emptied.</li>
-<li>04 · The passphrase is written on paper. That paper is kept away from the plates and away from the USB drives.</li>
-<li>05 · On a later offline boot, D is chosen. The map has to open, and the first address has to match what was written down. If a plain copy was made, it is encrypted again. The plain copy is deleted.</li>
-</ol>
+<h2 id="step-1-boot-tails-copy-the-tool-and-the-map">Step 1 · Boot Tails. Copy the tool and the map.</h2>
+<figure class="step-fig"><svg width="460" height="150" viewBox="0 0 460 150" font-family="IBM Plex Sans, sans-serif">
+        <rect x="20" y="40" width="80" height="70" rx="10" fill="#14110d" stroke="#c9a35c"/>
+        <text x="60" y="68" fill="#c9a35c" font-size="11" font-weight="700" text-anchor="middle">TAILS</text>
+        <text x="60" y="88" fill="#9a8f78" font-size="9" text-anchor="middle">network off</text>
+        <path d="M112 75 h28 m-10 -10 l10 10 l-10 10" stroke="#c9a35c" stroke-width="3" fill="none"/>
+        <rect x="152" y="25" width="130" height="100" rx="8" fill="#14110d" stroke="#2b251b"/>
+        <text x="217" y="48" fill="#9a8f78" font-size="10" text-anchor="middle" letter-spacing="2">DESKTOP</text>
+        <rect x="166" y="60" width="102" height="26" rx="5" fill="#1d1a16" stroke="#2b251b"/>
+        <text x="217" y="77" fill="#9a8f78" font-size="9" text-anchor="middle" font-family="IBM Plex Mono, monospace">obfuscator.py</text>
+        <rect x="166" y="92" width="102" height="26" rx="5" fill="#1d1a16" stroke="#2b251b"/>
+        <text x="217" y="109" fill="#9a8f78" font-size="9" text-anchor="middle" font-family="IBM Plex Mono, monospace">map.txt</text>
+        <text x="340" y="152" fill="#6f6a5f" font-size="11" text-anchor="middle" letter-spacing="1" transform="translate(-40,0)">NEVER OPEN THE MAP ON A PHONE</text>
+      </svg></figure>
+<p>Boot Tails, networking Disabled. Copy the tool and map.txt to the Desktop.</p>
+<h2 id="step-2-run-the-tool-choose-e-enter-the-passphrase">Step 2 · Run the tool. Choose E. Enter the passphrase.</h2>
+<figure class="step-fig"><svg width="460" height="170" viewBox="0 0 460 170" font-family="IBM Plex Mono, monospace">
+        <rect x="20" y="15" width="420" height="140" rx="10" fill="#080706" stroke="#2b251b"/>
+        <text x="40" y="48" fill="#c9a35c" font-size="13">$ python3 descriptor_obfuscator.py</text>
+        <text x="40" y="76" fill="#9a8f78" font-size="12">[E]ncrypt / [D]ecrypt? <tspan fill="#4ade80" font-weight="700">E</tspan></text>
+        <text x="40" y="102" fill="#9a8f78" font-size="12">Paste wallet map: <tspan fill="#6f6a5f">wsh(sortedmulti(2,…))</tspan></text>
+        <text x="40" y="128" fill="#9a8f78" font-size="12">Passphrase: <tspan fill="#6f6a5f">••••••••••</tspan></text>
+        <text x="40" y="150" fill="#4ade80" font-size="12">wrote map.txt.gpg ✓</text>
+      </svg></figure>
+<p>Open the terminal. Run the tool. Choose E. Paste the wallet map. Enter the passphrase — it is not a seed.</p>
 <pre><code>
-$ cd ~/Desktop$ python3 descriptor_obfuscator.py
+$ python3 descriptor_obfuscator.py
 
 </code></pre>
+<h2 id="step-3-copy-the-locked-file-delete-the-plain-one">Step 3 · Copy the locked file. Delete the plain one.</h2>
+<figure class="step-fig"><svg width="460" height="160" viewBox="0 0 460 160" font-family="IBM Plex Sans, sans-serif">
+        <rect x="20" y="30" width="110" height="70" rx="8" fill="#14110d" stroke="#4ade80"/>
+        <text x="75" y="58" fill="#4ade80" font-size="11" font-weight="700" text-anchor="middle">map.txt.gpg</text>
+        <text x="75" y="80" fill="#9a8f78" font-size="10" text-anchor="middle">🔒 locked</text>
+        <path d="M142 65 h25 m-8 -8 l8 8 l-8 8" stroke="#4ade80" stroke-width="3" fill="none"/>
+        <rect x="179" y="30" width="60" height="70" rx="6" fill="#1d1a16" stroke="#2b251b"/>
+        <text x="209" y="62" fill="#9a8f78" font-size="10" text-anchor="middle">USB 1</text>
+        <rect x="249" y="30" width="60" height="70" rx="6" fill="#1d1a16" stroke="#2b251b"/>
+        <text x="279" y="62" fill="#9a8f78" font-size="10" text-anchor="middle">USB 2</text>
+        <rect x="340" y="30" width="100" height="70" rx="8" fill="rgba(192,57,43,0.08)" stroke="#c0392b"/>
+        <text x="390" y="58" fill="#c0392b" font-size="11" font-weight="700" text-anchor="middle">map.txt</text>
+        <text x="390" y="80" fill="#c0392b" font-size="16" text-anchor="middle">🗑</text>
+        <text x="230" y="140" fill="#6f6a5f" font-size="11" text-anchor="middle" letter-spacing="1">EMPTY THE TRASH</text>
+      </svg></figure>
+<p>Copy map.txt.gpg to two USB drives. Delete map.txt from the Desktop and the USB. Empty the trash.</p>
+<h2 id="step-4-write-the-passphrase-on-paper-twice">Step 4 · Write the passphrase on paper. Twice.</h2>
+<figure class="step-fig"><svg width="460" height="150" viewBox="0 0 460 150" font-family="IBM Plex Sans, sans-serif">
+        <rect x="60" y="25" width="150" height="90" rx="8" fill="#f3eee4"/>
+        <text x="135" y="52" fill="#161410" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">PASSPHRASE</text>
+        <line x1="80" y1="66" x2="190" y2="66" stroke="#b9ae99" stroke-width="3"/>
+        <line x1="80" y1="82" x2="190" y2="82" stroke="#b9ae99" stroke-width="3"/>
+        <text x="135" y="104" fill="#6f6a5f" font-size="10" text-anchor="middle">place #1</text>
+        <rect x="250" y="25" width="150" height="90" rx="8" fill="#f3eee4"/>
+        <text x="325" y="52" fill="#161410" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">PASSPHRASE</text>
+        <line x1="270" y1="66" x2="380" y2="66" stroke="#b9ae99" stroke-width="3"/>
+        <line x1="270" y1="82" x2="380" y2="82" stroke="#b9ae99" stroke-width="3"/>
+        <text x="325" y="104" fill="#6f6a5f" font-size="10" text-anchor="middle">place #2</text>
+        <text x="230" y="140" fill="#c0392b" font-size="11" text-anchor="middle" letter-spacing="1">AWAY FROM THE PLATES · AWAY FROM THE USBs</text>
+      </svg></figure>
+<p>Two copies, two separate places. This paper is a single point of failure for every encrypted copy of the map — treat it like a plate.</p>
+<h2 id="step-5-prove-it-opens-check-the-first-address">Step 5 · Prove it opens. Check the first address.</h2>
+<figure class="step-fig"><svg width="460" height="150" viewBox="0 0 460 150" font-family="IBM Plex Mono, monospace">
+        <rect x="20" y="15" width="420" height="120" rx="10" fill="#080706" stroke="#2b251b"/>
+        <text x="40" y="48" fill="#9a8f78" font-size="12">[E]ncrypt / [D]ecrypt? <tspan fill="#4ade80" font-weight="700">D</tspan>  <tspan fill="#6f6a5f" font-family="IBM Plex Sans, sans-serif">(later offline boot)</tspan></text>
+        <text x="40" y="76" fill="#9a8f78" font-size="12">Passphrase: <tspan fill="#6f6a5f">••••••••••</tspan></text>
+        <text x="40" y="104" fill="#d8cfae" font-size="11">first address: bc1q…7x2k</text>
+        <text x="300" y="104" fill="#4ade80" font-size="13" font-weight="700">✓ MATCHES</text>
+      </svg></figure>
+<p>On a later offline boot, choose D. The map must open, and the first address must match what you wrote down. If a plain copy was ever made — encrypt it again, then delete the plain one.</p>
+<p>If the passphrase is lost, the coins aren&#x27;t gone — as long as all three plates still exist. Three seeds rebuild the map exactly. Two seeds cannot. Write the path m/48&#x27;/0&#x27;/0&#x27;/2&#x27; on the inheritance sheet. It is not a secret.</p>
 <aside class="callout callout-stop" role="alert"><p class="callout-label">Stop if</p><ul>
-<li>The xpubs are not written on paper “just in case.”</li>
-<li>A letter code or a homemade cipher is not invented. The tool above is the one that is used.</li>
-<li>The passphrase is not one of the seeds, and it is not stamped on a plate. A different passphrase is chosen, and the work is started over.</li>
+<li>You want the xpubs on paper &quot;just in case&quot; — that&#x27;s a leak. Stop.</li>
+<li>You want to invent a homemade cipher — stop. Use the tool.</li>
+<li>The passphrase is a seed or is stamped on a plate — start over with a different one.</li>
 </ul></aside>
-<p>If this passphrase is lost, the coins are not gone — as long as all three plates still exist. Three seeds rebuild the map exactly. Two seeds cannot: the third key&#x27;s xpub cannot be derived from the other two. Treat this passphrase paper with the same care as a plate. It is a single point of failure for every encrypted copy of the map — back it up in two separate places, away from the plates and the USB drives. The path is m/48&#x27;/0&#x27;/0&#x27;/2&#x27;. Write that path on the inheritance sheet. It is not a secret.</p>
 <p>Next. If I am gone. That page is for a spouse. It does not contain words.</p>
       <nav class="prevnext-row" aria-label="Previous and next sheets">
 <a class="prevnext prev" href="/handouts/titanium.html"><span>← 09 · Metal and the map</span></a>
@@ -88,7 +145,7 @@ $ cd ~/Desktop$ python3 descriptor_obfuscator.py
   </main>
 
   <aside class="toc-col">
-<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#the-steps" data-toc="the-steps">The steps</a></li></ul></nav>
+<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#step-1-boot-tails-copy-the-tool-and-the-map" data-toc="step-1-boot-tails-copy-the-tool-and-the-map">Step 1 · Boot Tails. Copy the tool and the map.</a></li><li><a href="#step-2-run-the-tool-choose-e-enter-the-passphrase" data-toc="step-2-run-the-tool-choose-e-enter-the-passphrase">Step 2 · Run the tool. Choose E. Enter the passphrase.</a></li><li><a href="#step-3-copy-the-locked-file-delete-the-plain-one" data-toc="step-3-copy-the-locked-file-delete-the-plain-one">Step 3 · Copy the locked file. Delete the plain one.</a></li><li><a href="#step-4-write-the-passphrase-on-paper-twice" data-toc="step-4-write-the-passphrase-on-paper-twice">Step 4 · Write the passphrase on paper. Twice.</a></li><li><a href="#step-5-prove-it-opens-check-the-first-address" data-toc="step-5-prove-it-opens-check-the-first-address">Step 5 · Prove it opens. Check the first address.</a></li></ul></nav>
   </aside>
 </div>
 

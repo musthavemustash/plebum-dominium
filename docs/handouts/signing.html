@@ -80,37 +80,81 @@
       <li><span class="n">4</span><b>Seed 2 signs.</b> The file fills whole. <i>2 of 2.</i></li>
       <li><span class="n">5</span><b>Broadcast.</b> Up and right, across the airgap — the twice-signed file goes out.</li>
     </ol>
-</div><p>A small amount is used, enough to pay a fee, and not savings. The destination, the amount, and the fee are written on paper before the file is exported. Those notes are read again before each signature. The first seed signs on Tails. The computer is shut down fully. The second seed signs on a new boot. Then the payment is broadcast.</p>
-<h2 id="step-1-build-the-spend-online-watch-only">Step 1 — Build the spend (online watch-only)</h2>
-<ol>
-<li>01 · Watch-only Sparrow is opened. The receive history is checked again so the wallet is the right one.</li>
-<li>02 · Send tab: destination, amount, fee. Read every field against a written note.</li>
-<li>03 · Finalize for signing. Export tx-unsigned.psbt to the data USB.</li>
-</ol>
-<h2 id="step-2-first-signature-tails-session-1-or-hardware-a">Step 2 — First signature (Tails session 1, or hardware A)</h2>
-<ol>
-<li>01 · Boot Tails, networking disabled. Do not unlock Persistent Storage. Launch verified Sparrow. Or unlock hardware wallet A that already holds Seed 1.</li>
-<li>02 · Restore Seed 1 only (Tails) — or confirm Seed 1 is the only key on that device. Open tx-unsigned.psbt. Confirm fields. Sign.</li>
-<li>03 · Export tx-partial-s1.psbt. Full shutdown of Tails, or unplug the hardware signer.</li>
-</ol>
-<h2 id="step-3-second-signature-tails-session-2-or-hardware-b">Step 3 — Second signature (Tails session 2, or hardware B)</h2>
-<ol>
-<li>01 · Fresh Tails boot, networking disabled. Do not unlock Persistent Storage. Restore Seed 2 only. Or unlock hardware wallet B from a different vendor.</li>
-<li>02 · Open tx-partial-s1.psbt. Confirm the first signature and unchanged spend. Sign.</li>
-<li>03 · Export tx-signed.psbt. Full shutdown.</li>
-</ol>
-<h2 id="step-4-broadcast-online-computer">Step 4 — Broadcast (online computer)</h2>
-<ol>
-<li>01 · Watch-only Sparrow: File → Open Transaction → fully signed file.</li>
-<li>02 · Confirm fully signed and fields unchanged. Broadcast. Record the txid in the recovery workbook — not in this site.</li>
-</ol>
-<h2 id="if-a-key-is-later-put-on-hardware">If a key is later put on hardware</h2>
-<ul>
-<li>Generate the seed on airgapped Tails first. Import the finished 24 words. Do not let the device roll its own entropy for this stack.</li>
-<li>Multi-vendor examples (not a ranking): Foundation Passport, Blockstream Jade, BitBox02, SeedSigner / Krux. Official shops only.</li>
-<li>Two keys on two brands. Never three of the same box. A bricked vendor is one lost key — plates and geography still hold the wallet.</li>
-<li>If Sparrow and Electrum disagree about the PSBT, stop. Do not sign. Test with a small amount first.</li>
-</ul>
+</div><p>A small amount — enough to pay a fee, not savings. Write the destination, amount, and fee on paper before anything is exported. Read those notes again before each signature.</p>
+<h2 id="step-1-build-the-spend-online-watch-only">Step 1 · Build the spend — online, watch-only.</h2>
+<figure class="step-fig"><svg width="460" height="160" viewBox="0 0 460 160" font-family="IBM Plex Sans, sans-serif">
+        <rect x="20" y="25" width="150" height="100" rx="10" fill="#14110d" stroke="#2b251b"/>
+        <rect x="35" y="40" width="120" height="70" rx="4" fill="#080706"/>
+        <text x="95" y="66" fill="#9a8f78" font-size="22" text-anchor="middle">👁</text>
+        <text x="95" y="92" fill="#6f6a5f" font-size="10" text-anchor="middle" letter-spacing="2">WATCH ONLY</text>
+        <path d="M185 75 h35 m-10 -10 l10 10 l-10 10" stroke="#c9a35c" stroke-width="3" fill="none"/>
+        <rect x="230" y="25" width="90" height="100" rx="8" fill="#14110d" stroke="#c9a35c"/>
+        <text x="275" y="52" fill="#c9a35c" font-size="11" font-weight="700" text-anchor="middle">SEND</text>
+        <line x1="244" y1="66" x2="306" y2="66" stroke="#4a4438" stroke-width="4"/>
+        <line x1="244" y1="80" x2="306" y2="80" stroke="#4a4438" stroke-width="4"/>
+        <line x1="244" y1="94" x2="286" y2="94" stroke="#4a4438" stroke-width="4"/>
+        <path d="M330 75 h30 m-10 -10 l10 10 l-10 10" stroke="#c9a35c" stroke-width="3" fill="none"/>
+        <rect x="370" y="45" width="70" height="60" rx="6" fill="#1d1a16" stroke="#2b251b"/>
+        <text x="405" y="70" fill="#9a8f78" font-size="9" text-anchor="middle" font-family="IBM Plex Mono, monospace">tx-unsigned</text>
+        <text x="405" y="86" fill="#9a8f78" font-size="9" text-anchor="middle" font-family="IBM Plex Mono, monospace">.psbt</text>
+        <text x="230" y="148" fill="#6f6a5f" font-size="11" text-anchor="middle" letter-spacing="1">READ EVERY FIELD AGAINST THE PAPER NOTE</text>
+      </svg></figure>
+<p>Open watch-only Sparrow. Send tab: destination, amount, fee. Finalize for signing. Export tx-unsigned.psbt to the data USB.</p>
+<h2 id="step-2-seed-1-signs-tails-networking-off">Step 2 · Seed 1 signs — Tails, networking off.</h2>
+<figure class="step-fig"><svg width="460" height="160" viewBox="0 0 460 160" font-family="IBM Plex Sans, sans-serif">
+        <rect x="20" y="40" width="80" height="80" rx="10" fill="#14110d" stroke="#c9a35c"/>
+        <text x="60" y="68" fill="#c9a35c" font-size="11" font-weight="700" text-anchor="middle">TAILS</text>
+        <text x="60" y="88" fill="#9a8f78" font-size="9" text-anchor="middle">network off</text>
+        <text x="60" y="104" fill="#9a8f78" font-size="9" text-anchor="middle">SEED 1 only</text>
+        <path d="M112 80 h28 m-10 -10 l10 10 l-10 10" stroke="#c9a35c" stroke-width="3" fill="none"/>
+        <rect x="152" y="40" width="110" height="80" rx="8" fill="#14110d" stroke="#2b251b"/>
+        <text x="207" y="66" fill="#9a8f78" font-size="10" text-anchor="middle" font-family="IBM Plex Mono, monospace">tx-unsigned</text>
+        <text x="207" y="84" fill="#4ade80" font-size="16" text-anchor="middle">✍</text>
+        <text x="207" y="106" fill="#9a8f78" font-size="10" text-anchor="middle" font-family="IBM Plex Mono, monospace">tx-partial-s1</text>
+        <path d="M274 80 h28 m-10 -10 l10 10 l-10 10" stroke="#c9a35c" stroke-width="3" fill="none"/>
+        <text x="340" y="72" fill="#c0392b" font-size="26" text-anchor="middle">⏻</text>
+        <text x="340" y="104" fill="#9a8f78" font-size="10" text-anchor="middle" letter-spacing="1">FULL</text>
+        <text x="340" y="118" fill="#9a8f78" font-size="10" text-anchor="middle" letter-spacing="1">SHUTDOWN</text>
+      </svg></figure>
+<p>Boot Tails, networking disabled. Restore Seed 1 only. Open tx-unsigned.psbt, confirm the fields against the paper, sign. Export tx-partial-s1.psbt. Full shutdown.</p>
+<h2 id="step-3-seed-2-signs-fresh-boot">Step 3 · Seed 2 signs — fresh boot.</h2>
+<figure class="step-fig"><svg width="460" height="160" viewBox="0 0 460 160" font-family="IBM Plex Sans, sans-serif">
+        <rect x="20" y="40" width="80" height="80" rx="10" fill="#14110d" stroke="#c9a35c"/>
+        <text x="60" y="68" fill="#c9a35c" font-size="11" font-weight="700" text-anchor="middle">TAILS</text>
+        <text x="60" y="88" fill="#9a8f78" font-size="9" text-anchor="middle">fresh boot</text>
+        <text x="60" y="104" fill="#9a8f78" font-size="9" text-anchor="middle">SEED 2 only</text>
+        <path d="M112 80 h28 m-10 -10 l10 10 l-10 10" stroke="#c9a35c" stroke-width="3" fill="none"/>
+        <rect x="152" y="40" width="110" height="80" rx="8" fill="#14110d" stroke="#2b251b"/>
+        <text x="207" y="66" fill="#9a8f78" font-size="10" text-anchor="middle" font-family="IBM Plex Mono, monospace">tx-partial-s1</text>
+        <text x="207" y="84" fill="#4ade80" font-size="16" text-anchor="middle">✍</text>
+        <text x="207" y="106" fill="#4ade80" font-size="10" text-anchor="middle" font-family="IBM Plex Mono, monospace">tx-signed ✓✓</text>
+        <path d="M274 80 h28 m-10 -10 l10 10 l-10 10" stroke="#c9a35c" stroke-width="3" fill="none"/>
+        <text x="340" y="72" fill="#c0392b" font-size="26" text-anchor="middle">⏻</text>
+        <text x="340" y="104" fill="#9a8f78" font-size="10" text-anchor="middle" letter-spacing="1">FULL</text>
+        <text x="340" y="118" fill="#9a8f78" font-size="10" text-anchor="middle" letter-spacing="1">SHUTDOWN</text>
+      </svg></figure>
+<p>Fresh Tails boot. Restore Seed 2 only. Open tx-partial-s1.psbt — confirm the first signature and that the spend is unchanged — sign. Export tx-signed.psbt. Full shutdown.</p>
+<h2 id="step-4-broadcast-online-computer">Step 4 · Broadcast — online computer.</h2>
+<figure class="step-fig"><svg width="460" height="160" viewBox="0 0 460 160" font-family="IBM Plex Sans, sans-serif">
+        <rect x="20" y="30" width="150" height="100" rx="10" fill="#14110d" stroke="#2b251b"/>
+        <rect x="35" y="45" width="120" height="70" rx="4" fill="#080706"/>
+        <text x="95" y="72" fill="#9a8f78" font-size="22" text-anchor="middle">👁</text>
+        <text x="95" y="98" fill="#6f6a5f" font-size="10" text-anchor="middle" letter-spacing="2">WATCH ONLY</text>
+        <path d="M185 80 h30 m-10 -10 l10 10 l-10 10" stroke="#c9a35c" stroke-width="3" fill="none"/>
+        <text x="260" y="62" fill="#4ade80" font-size="30" text-anchor="middle">📡</text>
+        <text x="260" y="96" fill="#4ade80" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="2">BROADCAST</text>
+        <path d="M305 80 h30 m-10 -10 l10 10 l-10 10" stroke="#c9a35c" stroke-width="3" fill="none"/>
+        <rect x="345" y="45" width="95" height="70" rx="8" fill="#14110d" stroke="#4ade80"/>
+        <text x="392" y="72" fill="#4ade80" font-size="11" font-weight="700" text-anchor="middle">txid</text>
+        <text x="392" y="94" fill="#9a8f78" font-size="9" text-anchor="middle">→ workbook</text>
+      </svg></figure>
+<p>Watch-only Sparrow: open the fully signed file, confirm the fields are unchanged, broadcast. Record the txid in the recovery workbook.</p>
+<p>Keys on hardware later? Generate the seed on airgapped Tails first, then import the finished 24 words — never let the device roll its own entropy for this stack. Two keys on two brands (Foundation Passport, Blockstream Jade, BitBox02, SeedSigner/Krux — official shops only). Never three of the same box.</p>
+<aside class="callout callout-stop" role="alert"><p class="callout-label">Stop if</p><ul>
+<li>The fields don&#x27;t match the paper note — stop.</li>
+<li>Sparrow and Electrum disagree about the file — do not sign.</li>
+<li>Test with a small amount first. Always.</li>
+</ul></aside>
 <p>Next. The plates are stamped next. A plate is not stamped until a small payment has gone out and come back.</p>
       <nav class="prevnext-row" aria-label="Previous and next sheets">
 <a class="prevnext prev" href="/handouts/sparrow.html"><span>← 07 · Build the 2-of-3</span></a>
@@ -120,7 +164,7 @@
   </main>
 
   <aside class="toc-col">
-<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#step-1-build-the-spend-online-watch-only" data-toc="step-1-build-the-spend-online-watch-only">Step 1 — Build the spend (online watch-only)</a></li><li><a href="#step-2-first-signature-tails-session-1-or-hardware-a" data-toc="step-2-first-signature-tails-session-1-or-hardware-a">Step 2 — First signature (Tails session 1, or hardware A)</a></li><li><a href="#step-3-second-signature-tails-session-2-or-hardware-b" data-toc="step-3-second-signature-tails-session-2-or-hardware-b">Step 3 — Second signature (Tails session 2, or hardware B)</a></li><li><a href="#step-4-broadcast-online-computer" data-toc="step-4-broadcast-online-computer">Step 4 — Broadcast (online computer)</a></li><li><a href="#if-a-key-is-later-put-on-hardware" data-toc="if-a-key-is-later-put-on-hardware">If a key is later put on hardware</a></li></ul></nav>
+<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#step-1-build-the-spend-online-watch-only" data-toc="step-1-build-the-spend-online-watch-only">Step 1 · Build the spend — online, watch-only.</a></li><li><a href="#step-2-seed-1-signs-tails-networking-off" data-toc="step-2-seed-1-signs-tails-networking-off">Step 2 · Seed 1 signs — Tails, networking off.</a></li><li><a href="#step-3-seed-2-signs-fresh-boot" data-toc="step-3-seed-2-signs-fresh-boot">Step 3 · Seed 2 signs — fresh boot.</a></li><li><a href="#step-4-broadcast-online-computer" data-toc="step-4-broadcast-online-computer">Step 4 · Broadcast — online computer.</a></li></ul></nav>
   </aside>
 </div>
 
