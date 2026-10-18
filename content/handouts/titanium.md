@@ -2,58 +2,37 @@
 
 # Metal and the map
 
-A small payment has gone out and come back before the plates are stamped. Paper is not the backup. Three titanium plates are required, with one seed stamped on each plate. StampSeed is the recommended kit. Only one plate is included in the kit. Two more plates will have to be purchased additionally. Once all three keys are created and can be reproduced in an offline, air-gapped environment, they can be stamped into titanium. Those plates then have to be kept in three separate places. If two keys are stored in the same house, the separation is gone, and the setup has a single point of failure again.
+A small payment has gone out and come back. Now the keys leave paper for good.
+
+Three titanium plates. One seed per plate. Three separate places. If two plates sleep in the same house, the separation is gone — and the single point of failure is back.
 
 ## The plates
 
-- Three titanium plates are required, with one seed stamped on each plate.
-- StampSeed is the recommended kit. Only one plate is included in the kit. Two more plates will have to be purchased additionally.
-- Cryptotag is the other option. It punches the word numbers, and the kit includes two plates, so one more plate has to be purchased. One method is used on a plate, and the two methods are not mixed.
-- Regardless of the product used, three places are required, far enough apart that losing one place does not lose all three keys.
-- A photo, a note, a password manager, or an email is not a backup. That copy is a leak.
+- One seed per plate. Never two.
+- StampSeed (recommended): the kit holds 1 plate, buy 2 more. Cryptotag: the kit holds 2, buy 1 more. Pick one method; don't mix them.
+- Three places, far enough apart that one fire, flood, or burglary can't take all three.
+- No photo, no note, no password manager, no email. Any copy outside the plates is a leak.
 
-## How to stamp at home
+## How to stamp
 
-1. 01 · An established private setting is required, and there is no camera in the room. The plate sits on a solid block, and each letter is stamped deep.
-2. 02 · The words are numbered 1 through 24. The plate is labeled quietly, such as S1. A name is not used, and the word Bitcoin is not used.
-3. 03 · Read the plate back against the paper seed. A mis-stamped word is a bricked backup.
-4. 04 · Restore from the plate on offline Tails and confirm first addresses.
-5. 05 · Destroy the paper only after the plate-restore check passes. Destroy the bit notes in the same pass.
+1. 01 · Private room, no camera. Plate on a solid block, each letter stamped deep.
+2. 02 · Words numbered 1–24. Label the plate quietly — S1. No names, no "Bitcoin."
+3. 03 · Read the plate back against the paper. A mis-stamp is a bricked backup.
+4. 04 · Restore from the plate on offline Tails. First addresses must match.
+5. 05 · Only then destroy the paper — and the bit notes with it.
 
-## The plate that stays home
+## The home plate
 
-The 24 words on the home plate, alone, open one small wallet. Leave a little bitcoin there. A thief who loads only those words sees that balance and may stop.
+These 24 words, alone, open a small wallet. Leave a little bitcoin there: a thief who loads only those words may stop at what they find.
 
-The same words plus a passphrase open a different wallet for modest spending. Write the passphrase down. Do not stamp it on the plate. Do not keep it in the same drawer.
+The same words plus a written passphrase open a modest spending wallet. The passphrase lives on paper — never on the plate, never in the same drawer. No passphrase on the 2-of-3 itself.
 
-Those words are still one key of the long-term fund. The fund needs any two plates. Do not put a passphrase on the 2-of-3.
+## Where each plate lives
 
-## What goes on each plate
+- **Plate A** — Seed 1 — home safe. Never Seed 2 or 3 here.
+- **Plate B** — Seed 2 — off-site #1. Not the same address as A or C.
+- **Plate C** — Seed 3 — off-site #2. Not the same address as A or B.
 
-Plate A
-
-Seed 1 only
-
-Home safe / fire box
-
-Never Seed 2 or 3 here
-
-Plate B
-
-Seed 2 only
-
-Off-site #1
-
-Not the same address as A or C
-
-Plate C
-
-Seed 3 only
-
-Off-site #2
-
-Not the same address as A or B
-
-Print the output descriptor and keep the recovery workbook. Store that packet with Plate A and a copy at one off-site — never beside all three seeds. Hardware wallets do not replace these plates. Once a year at home: restore from plates, receive dust, spend dust, update locations. Write a letter that points to this packet and which two locations are needed — not the words.
+Print the output descriptor and keep it with Plate A, plus one copy off-site — never beside all three seeds. Hardware wallets don't replace these plates. Once a year: restore from the plates, receive dust, spend dust, update locations. Write a letter pointing to the packet and which two locations matter — not the words.
 
 Next. Hide the wallet map. The plates are not the map, and the map is not a seed.[← Practice spend](/handouts/signing)[Hide the wallet map →](/handouts/encryption)
