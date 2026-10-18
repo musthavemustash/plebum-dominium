@@ -31,6 +31,8 @@ SITE_NAME = "Plebum Dominium"
 SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
 # Lightning address for the footer donate button.
 LIGHTNING_ADDRESS = "musthavemoresats@speed.app"
+# On-chain Bitcoin address for the footer donate button. Set to the real address when known.
+ONCHAIN_ADDRESS = "REPLACE_WITH_ONCHAIN_ADDRESS"
 
 # (slug, number, title) in workflow order
 SHEETS = [
@@ -372,6 +374,7 @@ def build_sheet(slug, num, title):
         .replace("{{next}}", next_link)
         .replace("{{is_home}}", "")
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
+        .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
     )
     return page
 
@@ -446,6 +449,7 @@ def build_home():
         .replace("{{next}}", "")
         .replace("{{is_home}}", "home")
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
+        .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
     )
     return page
 
