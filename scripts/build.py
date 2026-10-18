@@ -31,8 +31,8 @@ SITE_NAME = "Plebum Dominium"
 SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
 # Lightning address for the footer donate button.
 LIGHTNING_ADDRESS = "musthavemoresats@speed.app"
-# On-chain Bitcoin address for the footer donate button. Set to the real address when known.
-ONCHAIN_ADDRESS = "REPLACE_WITH_ONCHAIN_ADDRESS"
+# On-chain Bitcoin address for the footer donate button.
+ONCHAIN_ADDRESS = "bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"
 
 # (slug, number, title) in workflow order
 SHEETS = [
