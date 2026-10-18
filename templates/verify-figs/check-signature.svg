@@ -1,0 +1,7 @@
+<svg width="460" height="150" viewBox="0 0 460 150" font-family="IBM Plex Mono, monospace">
+        <rect x="20" y="15" width="420" height="120" rx="10" fill="#080706" stroke="#2b251b"/>
+        <text x="40" y="50" fill="#9a8f78" font-size="12">$ gpg --verify sparrow-2.5.5-manifest.txt.asc</text>
+        <text x="40" y="80" fill="#4ade80" font-size="13" font-weight="700">gpg: Good signature</text>
+        <text x="40" y="106" fill="#6f6a5f" font-size="11">gpg: WARNING: This key is not certified with a trusted signature!</text>
+        <text x="40" y="126" fill="#6f6a5f" font-size="11" font-family="IBM Plex Sans, sans-serif">↑ that warning is normal — the fingerprint match is what matters</text>
+      </svg>
