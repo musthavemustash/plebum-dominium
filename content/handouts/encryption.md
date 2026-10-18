@@ -2,33 +2,55 @@
 
 # Hide the wallet map
 
-The wallet map exists before this work, and it is not left in a drawer as plain text. The map can watch the money. It cannot spend. Anyone who can read it can see the balance, so it is encrypted. The passphrase that opens the file is not a seed, and it is not a plate.
+The map can watch the money. It cannot spend. Anyone who can read it can see the balance — so it never sits around as plain text.
 
 ## What is required
 
-- The wallet map from the 2-of-3, on the data USB. It is called map.txt only while the work is happening.
-- [descriptor_obfuscator.py](/kit/descriptor_obfuscator.py). This is the tool. It calls GPG. It does not invent a cipher. It is checked before it is copied onto the drive.
-- A passphrase that can be remembered and also written down. It is not one of the 24-word lists. It is not the decoy passphrase. It is not stamped on a plate.
-- Tails, with networking set to Disabled. This is not done on the everyday computer.
+- The wallet map on the data USB — called map.txt only while you work.
+- descriptor_obfuscator.py from the kit. Checked before it's copied.
+- A passphrase — not a seed, not the decoy passphrase, never stamped on a plate.
+- Tails, networking Disabled. Not the everyday computer.
 
-## The steps
+## Step 1 · Boot Tails. Copy the tool and the map.
 
-1. 01 · Tails is booted. Networking is set to Disabled. The tool and map.txt are copied to the Desktop. The map is not opened on a phone.
-2. 02 · Terminal is opened. The tool is run. E is chosen. The wallet map is pasted. The passphrase is entered. That passphrase is not a seed.
-3. 03 · The tool writes map.txt.gpg. That file is copied to two USB drives. map.txt is deleted from the Desktop and from the USB. The trash is emptied.
-4. 04 · The passphrase is written on paper. That paper is kept away from the plates and away from the USB drives.
-5. 05 · On a later offline boot, D is chosen. The map has to open, and the first address has to match what was written down. If a plain copy was made, it is encrypted again. The plain copy is deleted.
+::fig encryption/encrypt-setup
+
+Boot Tails, networking Disabled. Copy the tool and map.txt to the Desktop.
+
+## Step 2 · Run the tool. Choose E. Enter the passphrase.
+
+::fig encryption/encrypt-run
+
+Open the terminal. Run the tool. Choose E. Paste the wallet map. Enter the passphrase — it is not a seed.
 
 ```
-$ cd ~/Desktop$ python3 descriptor_obfuscator.py
+$ python3 descriptor_obfuscator.py
 ```
+
+## Step 3 · Copy the locked file. Delete the plain one.
+
+::fig encryption/encrypt-distribute
+
+Copy map.txt.gpg to two USB drives. Delete map.txt from the Desktop and the USB. Empty the trash.
+
+## Step 4 · Write the passphrase on paper. Twice.
+
+::fig encryption/passphrase-paper
+
+Two copies, two separate places. This paper is a single point of failure for every encrypted copy of the map — treat it like a plate.
+
+## Step 5 · Prove it opens. Check the first address.
+
+::fig encryption/encrypt-verify
+
+On a later offline boot, choose D. The map must open, and the first address must match what you wrote down. If a plain copy was ever made — encrypt it again, then delete the plain one.
+
+If the passphrase is lost, the coins aren't gone — as long as all three plates still exist. Three seeds rebuild the map exactly. Two seeds cannot. Write the path m/48'/0'/0'/2' on the inheritance sheet. It is not a secret.
 
 ## Stop if
 
-- The xpubs are not written on paper “just in case.”
-- A letter code or a homemade cipher is not invented. The tool above is the one that is used.
-- The passphrase is not one of the seeds, and it is not stamped on a plate. A different passphrase is chosen, and the work is started over.
-
-If this passphrase is lost, the coins are not gone — as long as all three plates still exist. Three seeds rebuild the map exactly. Two seeds cannot: the third key's xpub cannot be derived from the other two. Treat this passphrase paper with the same care as a plate. It is a single point of failure for every encrypted copy of the map — back it up in two separate places, away from the plates and the USB drives. The path is m/48'/0'/0'/2'. Write that path on the inheritance sheet. It is not a secret.
+- You want the xpubs on paper "just in case" — that's a leak. Stop.
+- You want to invent a homemade cipher — stop. Use the tool.
+- The passphrase is a seed or is stamped on a plate — start over with a different one.
 
 Next. If I am gone. That page is for a spouse. It does not contain words.[← Metal and the map](/handouts/titanium)[If I am gone →](/handouts/inheritance)

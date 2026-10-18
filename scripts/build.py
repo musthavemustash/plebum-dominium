@@ -147,15 +147,15 @@ def render_markdown(src):
             out.append("<hr>")
             i += 1
             continue
-        m = re.match(r"^::fig\s+([a-z0-9-]+)$", stripped)
+        m = re.match(r"^::fig\s+([a-z0-9-]+)/([a-z0-9-]+)$", stripped)
         if m:
             close_list(); close_callout()
             try:
-                with open(f"templates/sparrow-figs/{m.group(1)}.svg") as f:
+                with open(f"templates/{m.group(1)}-figs/{m.group(2)}.svg") as f:
                     svg = f.read()
                 out.append(f'<figure class="step-fig">{svg}</figure>')
             except FileNotFoundError:
-                out.append(f'<!-- missing figure {m.group(1)} -->')
+                out.append(f'<!-- missing figure {m.group(1)}/{m.group(2)} -->')
             i += 1
             continue
         m = re.match(r"^(#{1,3})\s+(.*)$", stripped)

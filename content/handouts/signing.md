@@ -2,36 +2,38 @@
 
 # Practice spend
 
-A small amount is used, enough to pay a fee, and not savings. The destination, the amount, and the fee are written on paper before the file is exported. Those notes are read again before each signature. The first seed signs on Tails. The computer is shut down fully. The second seed signs on a new boot. Then the payment is broadcast.
+A small amount — enough to pay a fee, not savings. Write the destination, amount, and fee on paper before anything is exported. Read those notes again before each signature.
 
-## Step 1 — Build the spend (online watch-only)
+## Step 1 · Build the spend — online, watch-only.
 
-1. 01 · Watch-only Sparrow is opened. The receive history is checked again so the wallet is the right one.
-2. 02 · Send tab: destination, amount, fee. Read every field against a written note.
-3. 03 · Finalize for signing. Export tx-unsigned.psbt to the data USB.
+::fig signing/build-spend
 
-## Step 2 — First signature (Tails session 1, or hardware A)
+Open watch-only Sparrow. Send tab: destination, amount, fee. Finalize for signing. Export tx-unsigned.psbt to the data USB.
 
-1. 01 · Boot Tails, networking disabled. Do not unlock Persistent Storage. Launch verified Sparrow. Or unlock hardware wallet A that already holds Seed 1.
-2. 02 · Restore Seed 1 only (Tails) — or confirm Seed 1 is the only key on that device. Open tx-unsigned.psbt. Confirm fields. Sign.
-3. 03 · Export tx-partial-s1.psbt. Full shutdown of Tails, or unplug the hardware signer.
+## Step 2 · Seed 1 signs — Tails, networking off.
 
-## Step 3 — Second signature (Tails session 2, or hardware B)
+::fig signing/seed1-signs
 
-1. 01 · Fresh Tails boot, networking disabled. Do not unlock Persistent Storage. Restore Seed 2 only. Or unlock hardware wallet B from a different vendor.
-2. 02 · Open tx-partial-s1.psbt. Confirm the first signature and unchanged spend. Sign.
-3. 03 · Export tx-signed.psbt. Full shutdown.
+Boot Tails, networking disabled. Restore Seed 1 only. Open tx-unsigned.psbt, confirm the fields against the paper, sign. Export tx-partial-s1.psbt. Full shutdown.
 
-## Step 4 — Broadcast (online computer)
+## Step 3 · Seed 2 signs — fresh boot.
 
-1. 01 · Watch-only Sparrow: File → Open Transaction → fully signed file.
-2. 02 · Confirm fully signed and fields unchanged. Broadcast. Record the txid in the recovery workbook — not in this site.
+::fig signing/seed2-signs
 
-## If a key is later put on hardware
+Fresh Tails boot. Restore Seed 2 only. Open tx-partial-s1.psbt — confirm the first signature and that the spend is unchanged — sign. Export tx-signed.psbt. Full shutdown.
 
-- Generate the seed on airgapped Tails first. Import the finished 24 words. Do not let the device roll its own entropy for this stack.
-- Multi-vendor examples (not a ranking): Foundation Passport, Blockstream Jade, BitBox02, SeedSigner / Krux. Official shops only.
-- Two keys on two brands. Never three of the same box. A bricked vendor is one lost key — plates and geography still hold the wallet.
-- If Sparrow and Electrum disagree about the PSBT, stop. Do not sign. Test with a small amount first.
+## Step 4 · Broadcast — online computer.
+
+::fig signing/broadcast
+
+Watch-only Sparrow: open the fully signed file, confirm the fields are unchanged, broadcast. Record the txid in the recovery workbook.
+
+Keys on hardware later? Generate the seed on airgapped Tails first, then import the finished 24 words — never let the device roll its own entropy for this stack. Two keys on two brands (Foundation Passport, Blockstream Jade, BitBox02, SeedSigner/Krux — official shops only). Never three of the same box.
+
+## Stop if
+
+- The fields don't match the paper note — stop.
+- Sparrow and Electrum disagree about the file — do not sign.
+- Test with a small amount first. Always.
 
 Next. The plates are stamped next. A plate is not stamped until a small payment has gone out and come back.[← Build the 2-of-3](/handouts/sparrow)[Metal and the map →](/handouts/titanium)

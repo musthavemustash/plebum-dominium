@@ -2,56 +2,48 @@
 
 # Check the files
 
-The files have to be verified before the computer is taken offline. A file that fails this check is deleted. These files must be downloaded from their original sources. Tails, Sparrow 2.5.5, Electrum, and the Ian Coleman page are not supplied by this site. The dice converter is the one file this site provides. A compromised file compromises the funds.
+Every file gets checked before the computer goes offline. A file that fails is deleted. No exceptions — a compromised file compromises the funds.
 
-## The files this kit checks
+## What is required
 
-- Tails 7.13. The file is tails-amd64-7.13.img or tails-amd64-7.13.iso. From tails.net only. Wait until that page says the check passed.
-- Sparrow 2.5.5. For Tails, sparrowwallet-2.5.5-x86_64.tar.gz. A newer download will not match. That is a stop, not an upgrade. The Windows or Mac installer is only for the computer that watches.
-- Electrum 4.8.2. The file is electrum-4.8.2-x86_64.AppImage. From electrum.org. Not a look-alike page.
-- Ian Coleman. Save bip39-standalone.html from the official GitHub repo. Open it only while offline.
-- The dice converter is already in this kit. Its fingerprint is in VERIFY.md.
-[Verify package integrity](/verify-software)
+- The downloads from the checklist: Tails 7.13, Sparrow 2.5.5, Electrum 4.8.2, the Ian Coleman page, and the dice converter from this kit.
 
-## Exact download locations
+## Step 1 · Download only from the real sites.
 
-- **Sparrow:** `https://github.com/sparrowwallet/sparrow/releases/download/2.5.5/sparrowwallet-2.5.5-x86_64.tar.gz`, plus `sparrow-2.5.5-manifest.txt` and `sparrow-2.5.5-manifest.txt.asc` from the same release page. Import the signing key with `curl https://keybase.io/craigraw/pgp_keys.asc | gpg --import` and confirm the fingerprint `D4D0D3202FC06849A257B38DE94618334C674B40`.
-- **Electrum:** `https://download.electrum.org/4.8.2/Electrum-4.8.2.tar.gz` plus the `.asc` signature file. Import the signing key from `https://raw.githubusercontent.com/spesmilo/electrum/master/pubkeys/ThomasV.asc` and confirm the fingerprint `6694D8DE7BE8EE5631BED9502BD5824B7F9470E6`.
-- **Ian Coleman:** do not use the browser's save-as on the live page — that yields a different file. Download `bip39-standalone.html` from `https://github.com/iancoleman/bip39/releases/latest` and compare its SHA-256 against the PGP-signed hash printed on that release page.
+::fig verify/download-sources
 
-Expect this warning from `gpg --verify` on a first import: "WARNING: This key is not certified with a trusted signature!" That is normal. What matters is the line above it: `Good signature`, and the fingerprint matching the one published above.
+Sparrow must be 2.5.5 exactly. A newer download will not match — that is a stop, not an upgrade. The dice converter is the one file this site provides; its fingerprint is in VERIFY.md.
 
-## Compare the fingerprint
+## Step 2 · Compare the fingerprint. Every character.
 
-One window is opened, one line is pasted, and the result is compared to the fingerprint on the project’s own site. Every character. One difference means the file is deleted.
+::fig verify/compare-hash
 
-Windows. Start menu, PowerShell.
+Windows: PowerShell → Get-FileHash. Mac: Terminal → shasum -a 256. Paste the result next to the fingerprint published on the project's own site.
 
-```
-$ cd $ Get-FileHash .\filename -Algorithm SHA256
-```
+## Step 3 · Check the signature. Want: "Good signature".
 
-cd is typed, then a space, then the folder is dragged in. Enter is pressed. The second line is pasted with the real file name.
+::fig verify/check-signature
 
-Mac. Spotlight, Terminal.
+Import the signing key, confirm its fingerprint, then verify. The "not certified" warning is normal on first import. What matters: the line says Good signature and the fingerprint matches.
 
-```
-$ cd $ shasum -a 256 filename
-```
+Sparrow signing key fingerprint: D4D0D3202FC06849A257B38DE94618334C674B40. Electrum (ThomasV): 6694D8DE7BE8EE5631BED9502BD5824B7F9470E6.
 
-## Then the kit check
+## Step 4 · Run the kit check.
 
-The downloads are placed next to verify_kit.sh. It checks the pinned fingerprints. It does not check signatures. One failure means the work stops. That file is not copied.
+::fig verify/kit-check
 
-```
-$ chmod +x verify_kit.sh$ ./verify_kit.sh
-```
+Put the downloads next to verify_kit.sh and run it. It checks the pinned fingerprints. One failure — the work stops.
 
-## Later, two tools must agree
+## Later · Two tools must agree. Every time.
 
-- The same dice bits have to print the same 24 words in the converter and on the offline Ian Coleman page.
-- The same seed has to show the same first addresses in Sparrow and Electrum. If they differ, the work stops.
-- The wallet map, imported with no seed, has to show those same addresses.
-- Before a payment is signed, both tools have to show the same destination, amount, change, and fee.
+::fig verify/two-tools-agree
+
+Same dice bits → same 24 words in both tools. Same seed → same first addresses in Sparrow and Electrum. The wallet map shows those same addresses. Before signing, both tools show the same destination, amount, change, and fee. If they differ — stop.
+
+## Stop if
+
+- A fingerprint differs by one character — delete the file.
+- The signature isn't Good — delete the file.
+- The two tools disagree — stop.
 
 Next. Two boots. Flash Tails only after this page is done.[← Checklist](/handouts/checklist)[Two boots →](/handouts/airgap)
