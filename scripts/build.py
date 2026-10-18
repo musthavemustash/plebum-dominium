@@ -341,10 +341,16 @@ def build_home():
         cards.append(f'<section class="stage"><h2>{stage}</h2><div class="cards">{items}</div></section>')
     content = (
         '<div class="hero"><p class="hero-kicker">Independent At-Home Bitcoin Self-Custody</p>'
+        '<div class="hero-title-row">'
         f"<h1>{SITE_NAME}</h1>"
+        '<div class="coin" aria-hidden="true"><span>\u20bf</span></div>'
+        "</div>"
         '<p class="hero-sub">Absolute Ownership by the Common People</p>'
-        "<p>Build a secure, self-custody Bitcoin wallet from the ground up — "
-        "no company, no app, no custodian. Generate entropy with dice, import it into verified software, "
+        '<p class="hero-pron">(PLAY-boom doh-MIN-ee-oom)</p>'
+        "<p>\u201cPleb\u201d is an everyday Bitcoiner. \u201cDominium\u201d is Latin for absolute ownership. "
+        "This site is for the Bitcoiner who wants to build a secure, self-custody Bitcoin wallet from the ground up, "
+        "bypassing the need for a company, an app, or a custodian to manage or store access to their funds.</p>"
+        "<p>This guide shows you how to generate entropy with dice, import it into verified software, "
         "and stamp a 2-of-3 multisig wallet into titanium. Hardware wallets are completely optional.</p>"
         '<p><a class="btn" href="{BASE}handouts/terms.html">Start with the terms</a> '
         '<a class="btn btn-ghost" href="{BASE}kit/02_Print_Packet.pdf">Download the print packet</a></p>'
