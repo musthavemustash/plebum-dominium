@@ -413,6 +413,20 @@ def build_home():
         '<p class="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
         "</div></div>"
         .replace("{BASE}", BASE)
+        + (
+            '<section class="why" id="why">'
+            '<p class="why-kicker">Why this guide</p>'
+            "<h2>Eliminate single points of failure</h2>"
+            "<p>This guide does that &mdash; securely and privately. "
+            "None of these can take your money:</p>"
+            '<ul class="threats">'
+            "<li><span>\u2715</span>One seed that can spend by itself</li>"
+            "<li><span>\u2715</span>An app or an exchange</li>"
+            "<li><span>\u2715</span>One place</li>"
+            "<li><span>\u2715</span>One device, one company</li>"
+            "<li><span>\u2715</span>A photo, a note, or a password manager</li>"
+            "</ul></section>"
+        )
         + "\n".join(cards)
     )
     page = (

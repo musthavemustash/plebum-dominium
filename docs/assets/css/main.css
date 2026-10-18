@@ -981,3 +981,31 @@ pre code { background: none; color: inherit; padding: 0; }
   margin: 1.25rem 0; padding: 1.5rem; display: flex; justify-content: center;
 }
 .step-fig svg { max-width: 100%; height: auto; display: block; }
+
+/* ---------- homepage: why this guide ---------- */
+.why {
+  border: 1px solid var(--line); border-radius: 14px;
+  background: linear-gradient(180deg, rgba(192,57,43,0.07), rgba(192,57,43,0.02));
+  padding: 2rem 2rem 1.5rem; margin: 2.5rem 0;
+}
+.why-kicker {
+  font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.24em; color: var(--accent); margin: 0 0 0.5rem;
+}
+.why h2 { font-size: 1.7rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
+.why > p { color: var(--muted); max-width: 60ch; margin: 0 0 1.25rem; }
+.threats { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.threats li {
+  display: flex; align-items: center; gap: 0.9rem;
+  background: rgba(11,10,8,0.6); border: 1px solid var(--line);
+  border-radius: 10px; padding: 0.8rem 1.1rem;
+  font-size: 1.05rem; color: var(--ink);
+}
+.threats li span {
+  flex: 0 0 2rem; height: 2rem; border-radius: 50%;
+  border: 2px solid var(--red); color: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 1rem;
+}
+@media (max-width: 640px) { .why { padding: 1.5rem 1.25rem 1.25rem; } .why h2 { font-size: 1.4rem; } }
