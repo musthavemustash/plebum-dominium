@@ -33,31 +33,35 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.kicker, .hero-kicker, .sidebar-label, .toc p, .header-sheet,
+.callout-label, .you-need-label, .stage h2, .sheet-num, .card-num {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  font-size: 17px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
 }
 
 
 /* ---------- dark mode: follows the visitor, toggle overrides ---------- */
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #16120d;
-    --header-bg: rgba(22, 18, 13, 0.92);
-    --hover-bg: #2a2318;
-    --code-inline-bg: #2a2318;
-    --code-inline-ink: #f0b46a;
-    --card: #201a13;
-    --ink: #ece2cd;
-    --muted: #ab9c82;
-    --line: #342a1e;
-    --accent: #d98f2b;
-    --accent-soft: #2e2313;
+    --paper: #0b0a08;
+    --header-bg: rgba(11, 10, 8, 0.93);
+    --hover-bg: #1c1712;
+    --code-inline-bg: #1c1712;
+    --code-inline-ink: #d9b06a;
+    --card: #14110d;
+    --ink: #f0e8d6;
+    --muted: #9a8f78;
+    --line: #2b251b;
+    --accent: #c9a35c;
+    --accent-soft: #231b0f;
     --stop: #f87171;
     --stop-bg: #2b1414;
-    --warn: #d98f2b;
+    --warn: #c9a35c;
     --warn-bg: #2b2212;
     --tip: #4ade80;
     --tip-bg: #122419;
@@ -91,20 +95,20 @@ body {
   --code-ink: #f5f0e8;
 }
 :root[data-theme="dark"] {
-  --paper: #16120d;
-  --header-bg: rgba(22, 18, 13, 0.92);
-  --hover-bg: #2a2318;
-  --code-inline-bg: #2a2318;
-  --code-inline-ink: #f0b46a;
-  --card: #201a13;
-  --ink: #ece2cd;
-  --muted: #ab9c82;
-  --line: #342a1e;
-  --accent: #d98f2b;
-  --accent-soft: #2e2313;
+  --paper: #0b0a08;
+  --header-bg: rgba(11, 10, 8, 0.93);
+  --hover-bg: #1c1712;
+  --code-inline-bg: #1c1712;
+  --code-inline-ink: #d9b06a;
+  --card: #14110d;
+  --ink: #f0e8d6;
+  --muted: #9a8f78;
+  --line: #2b251b;
+  --accent: #c9a35c;
+  --accent-soft: #231b0f;
   --stop: #f87171;
   --stop-bg: #2b1414;
-  --warn: #d98f2b;
+  --warn: #c9a35c;
   --warn-bg: #2b2212;
   --tip: #4ade80;
   --tip-bg: #122419;
@@ -306,7 +310,7 @@ pre code { background: none; color: inherit; padding: 0; }
   letter-spacing: 0.2em; color: var(--accent); margin: 0 0 0.75rem;
 }
 .hero h1 { display: block; font-size: 3rem; margin: 0 0 0.5rem; }
-.hero-sub { font-size: 1.25rem; color: var(--muted); margin: 0 0 1rem; }
+.hero-sub { font-size: 1.25rem; color: var(--accent); margin: 0 0 1rem; }
 .btn {
   display: inline-block; background: var(--accent); color: #fff;
   padding: 0.7rem 1.4rem; border-radius: 9px; font-weight: 700;
