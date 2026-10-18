@@ -2,62 +2,70 @@
 
 # Build the 2-of-3
 
-Sparrow 2.5.5 is the required version, and the signing is done on the Tails USB. Networking stays turned off for the entire session. The file on the data USB has to be named sparrowwallet-2.5.5-x86_64.tar.gz. That is the Linux file. The Windows installer and the Mac installer do not belong on that drive. The fingerprint and the signature are checked on the online computer first. Sparrow is not downloaded from inside Tails.
+Three public keys go in. No seed ever touches this build. What comes out is the wallet map — it can watch the money, never spend it.
 
-## The terminal is not a test
+You will boot Tails four times: once per seed to copy its public key, then once more with no seed to build the vault.
 
-A few lines that are printed here have to be typed. In Tails the Terminal is opened from the Applications menu at the top left. The screen shows something likeamnesia@amnesia:~$. The computer printed that. The line is typed after it. Enter is pressed. The prompt has to come back before the next line.
+## What is required
 
-- The line is typed exactly. Spaces count.
-- The ./ in front of Sparrow is not skipped.
-- Zero and the letter O are not the same. Lowercase L and the number 1 are not the same.
-- If the next line is red or says “No such file”, the work stops. A fix is not invented.
-- Backspace is allowed. These lines cannot break Tails.
+- The data USB with the checked Sparrow file (sparrowwallet-2.5.5-x86_64.tar.gz)
+- The three paper seeds. Only one comes out per boot.
 
-## Launch Sparrow offline
+## Step 1 · Boot Tails. Networking stays off.
 
-1. 01 · Tails is booted with networking set to Disabled. Tails is started.
-2. 02 · The archive is copied from the data USB to the Desktop.
-3. 03 · Terminal is opened. These four lines are typed, one at a time, with Enter after each:
+::fig networking
+
+The entire sheet happens with networking Disabled. Check it on every boot.
+
+## Step 2 · Open the terminal. Launch Sparrow.
+
+::fig terminal
+
+Type these four lines, one at a time. Wait for the prompt to come back after each.
 
 ```
-$ cd ~/Desktop$ tar -xvf sparrowwallet-2.5.5-x86_64.tar.gz$ cd Sparrow$ ./bin/Sparrow
+$ cd ~/Desktop
+$ tar -xvf sparrowwallet-2.5.5-x86_64.tar.gz
+$ cd Sparrow
+$ ./bin/Sparrow
 ```
 
-Wait 15–30 seconds. A Sparrow window should open. If it does, the terminal is finished for this session.
+Wait 15–30 seconds. Sparrow opens. Type exactly — spaces count. If a line turns red, stop.
 
-## One seed per boot, then the public key
+## Step 3 · New wallet: 2 of 3, native Segwit.
 
-The vault is not built in this step. One public key is copied per boot. A public key is not the 24 words. It still shows the money later, so it goes on the data USB, not in a photo.
+::fig wallet-settings
 
-1. 01 · Boot with networking off. Launch Sparrow. File → New Wallet.
-2. 02 · Multi Signature. Native Segwit. 2 of 3. This sets the path. It must read m/48'/0'/0'/2'. If it shows anything else, stop. Do not type a different path.
-3. 03 · Keystore 1 → New or Imported Software Wallet. Enter the 24 words for this seed only. Confirm the path again.
-4. 04 · On that keystore, export the xpub. Save it on the data USB as s1-xpub.txt, then s2, then s3. Do not Apply a finished wallet. Close Sparrow. Shut down. Wait for a dark screen.
-5. 05 · Repeat for Seed 2. Then for Seed 3. Three boots. One seed each. Never continue from the previous boot.
+File → New Wallet. Pick Multi Signature, Native Segwit, 2 of 3. The path must read m/48'/0'/0'/2'. Anything else — stop.
 
-## Build the 2-of-3 with no seed loaded
+## Step 4 · Keystore 1: Seed 1 in, public key out.
 
-1. 01 · Fresh Tails boot. Networking off. Launch Sparrow. Do not type a seed.
-2. 02 · File → New Wallet. Multi-signature. Native Segwit. 2 of 3.
-3. 03 · Import the three public keys from the data USB. Confirm the path still reads m/48'/0'/0'/2'.
-4. 04 · Export the output descriptor to the data USB. This is the wallet map. It watches. It cannot spend. Shut down.
-5. 05 · On the everyday computer, import that map into Sparrow as watch-only. This computer never holds a seed.
-6. 06 · Still offline, on a later boot, open the same map in Electrum with one seed. The first addresses must match Sparrow. If they differ, stop.
+::fig seed-to-xpub
 
-## Sign in the airgap session
+Keystore 1 → New or Imported Software Wallet → type Seed 1's 24 words. Export the xpub. Save it to the data USB as s1-xpub.txt. Close Sparrow. Shut down. Wait for a dark screen.
 
-1. 01 · Import the 2-of-3 wallet from the output descriptor, or restore one software keystore from one seed.
-2. 02 · File → Open Transaction → From File → select the .psbt.
-3. 03 · Read destination, amount, change, and fee against the written notes. Then sign.
-4. 04 · Export with a new filename such as tx-partial-s1.psbt. Close Sparrow. Shut Tails down fully.
+## Step 5 · Twice more. One seed per boot.
 
-## Safety at home
+::fig three-boots
 
-- Keep networking disabled. If it is on, shut down and treat the session as burned.
-- Load only one seed at a time. Seed 3 stays boxed unless Seed 1 or 2 is gone.
-- The computer is shut down fully before the data USB is carried back to the online computer.
-- Do not unlock Persistent Storage on a spend. Restore the one seed into RAM, sign, and shut down. Do not let Electrum keep the wallet on the USB.
-- Test the whole path with a small amount before savings touch this wallet.
+Boot again for Seed 2 → s2-xpub.txt. Shut down. Boot again for Seed 3 → s3-xpub.txt. Shut down.
 
-Next. Practice spend. Dust only. Savings stay where they are until dust has moved both ways.[← Make the three keys](/handouts/dice)[Practice spend →](/handouts/signing)
+## Step 6 · Fresh boot. No seed. Build the vault.
+
+::fig build-vault
+
+Boot Tails again — do not type any seed. New wallet → Multi Signature → Native Segwit → 2 of 3 → import the three xpub files. Confirm the path. Export the output descriptor to the data USB. That file is the wallet map.
+
+## Step 7 · Watch-only on the everyday computer.
+
+::fig watch-only
+
+On the everyday computer, open Sparrow and import the map as a watch-only wallet. It can see the money. It can never spend it.
+
+## Stop if
+
+- The path doesn't read m/48'/0'/0'/2' — stop, don't type a different path.
+- Networking is on at any point — stop.
+- You're tempted to type a second seed without shutting down — stop. One seed per boot.
+
+Next. Practice spend. A small payment goes out and comes back before the plates are stamped.[← Make the keys](/handouts/dice)[Practice spend →](/handouts/signing)

@@ -975,3 +975,9 @@ pre code { background: none; color: inherit; padding: 0; }
     font-size: 0.7rem; letter-spacing: 0.2em; color: var(--muted); font-weight: 700; white-space: nowrap; }
 
   
+/* ---------- inline step figures (sparrow sheet) ---------- */
+.step-fig {
+  border: 1px solid var(--line); border-radius: 12px; background: #0e0c09;
+  margin: 1.25rem 0; padding: 1.5rem; display: flex; justify-content: center;
+}
+.step-fig svg { max-width: 100%; height: auto; display: block; }
