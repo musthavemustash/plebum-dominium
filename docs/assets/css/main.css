@@ -1009,3 +1009,47 @@ pre code { background: none; color: inherit; padding: 0; }
   font-weight: 800; font-size: 1rem;
 }
 @media (max-width: 640px) { .why { padding: 1.5rem 1.25rem 1.25rem; } .why h2 { font-size: 1.4rem; } }
+
+/* ---------- homepage: process / house rules / resources ---------- */
+.section-sub { color: var(--muted); max-width: 62ch; margin: 0 0 1.75rem; }
+.process { margin: 2.5rem 0; }
+.process h2, .rules h2, .resources h2 { font-size: 1.7rem; margin: 0 0 0.25rem; letter-spacing: -0.01em; }
+.pstep {
+  display: flex; gap: 1.25rem; align-items: flex-start;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--card);
+  padding: 1.25rem 1.5rem; margin: 0 0 0.75rem; text-decoration: none; color: inherit;
+}
+.pstep:hover { border-color: var(--accent); }
+.pstep .num {
+  flex: 0 0 46px; height: 46px; border-radius: 50%;
+  border: 2px solid var(--accent); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+  font-weight: 800; font-size: 1rem;
+}
+.pstep h3 { margin: 0.15rem 0 0.25rem; font-size: 1.2rem; }
+.pstep p { margin: 0; color: var(--muted); font-size: 0.95rem; max-width: 58ch; }
+.pstep p strong { color: var(--ink); }
+.pstep .go { margin-left: auto; flex: 0 0 auto; align-self: center; color: var(--accent); font-size: 1.3rem; }
+.rules { margin: 3rem 0; }
+.rcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem; }
+.rcard { border: 1px solid var(--line); border-radius: 12px; background: var(--card); padding: 1.1rem 1rem; }
+.rcard .ic { font-size: 1.4rem; color: var(--accent); margin-bottom: 0.6rem;
+  font-family: "IBM Plex Sans", sans-serif; font-weight: 800; }
+.rcard h3 { margin: 0 0 0.35rem; font-size: 1rem; font-family: "IBM Plex Sans", sans-serif; }
+.rcard p { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.resources { margin: 3rem 0 1rem; }
+.rescards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; }
+.rescard { display: block; text-decoration: none; color: inherit;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--card);
+  padding: 1.25rem 1.25rem 1.1rem; }
+.rescard:hover { border-color: var(--accent); }
+.rescard .tag { font-family: "IBM Plex Sans", sans-serif; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+.rescard h3 { margin: 0 0 0.35rem; font-size: 1.1rem; }
+.rescard p { margin: 0; font-size: 0.9rem; color: var(--muted); }
+.resources .fine { margin-top: 1.25rem; font-size: 0.85rem; color: var(--muted); }
+@media (max-width: 640px) {
+  .process h2, .rules h2, resources h2 { font-size: 1.4rem; }
+  .pstep { padding: 1rem 1.1rem; gap: 0.9rem; }
+}

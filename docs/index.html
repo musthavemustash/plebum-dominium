@@ -54,12 +54,62 @@
     <article>
       <p class="kicker">Independent At-Home Bitcoin Self-Custody</p>
       <h1>Plebum Dominium</h1>
-<div class="hero"><p class="hero-kicker">Independent At-Home Bitcoin Self-Custody</p><div class="hero-title-row"><div class="coin" aria-hidden="true"><span>₿</span></div><h1>Plebum Dominium</h1></div><p class="hero-pron">(PLAY-boom doh-MIN-ee-oom)</p><p class="hero-sub">Absolute Ownership by the Common People</p><p>“Pleb” is an everyday Bitcoiner. “Dominium” is Latin for absolute ownership. This site is for the Bitcoiner who wants to build a secure, self-custody Bitcoin wallet from the ground up, bypassing the need for a company, an app, or a custodian to manage or store access to their funds.</p><p>This guide shows you how to generate entropy with dice, import it into verified software, and stamp a 2-of-3 multisig wallet into titanium. Hardware wallets are completely optional.</p><p><a class="btn" href="/handouts/terms.html">Start with the terms</a> <a class="btn btn-ghost" href="/kit/02_Print_Packet.pdf">Download the print packet</a></p><div class="keyring" aria-label="Animation: any two of the three keys open the lock"><div class="keys" aria-hidden="true"><span class="key key-a">A</span><span class="key key-b">B</span><span class="key key-c">C</span></div><div class="lockwrap" aria-hidden="true"><div class="shackle"></div><div class="lockbody">2-of-3</div></div><p class="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p></div></div><section class="why" id="why"><p class="why-kicker">Why this guide</p><h2>Eliminate single points of failure</h2><p>This guide does that &mdash; securely and privately. None of these can take your money:</p><ul class="threats"><li><span>✕</span>One seed that can spend by itself</li><li><span>✕</span>An app or an exchange</li><li><span>✕</span>One place</li><li><span>✕</span>One device, one company</li><li><span>✕</span>A photo, a note, or a password manager</li></ul></section><section class="stage"><h2>Get ready</h2><div class="cards"><a class="card" href="/handouts/terms.html"><span class="card-num">T</span><span class="card-title">Terms</span></a><a class="card" href="/handouts/checklist.html"><span class="card-num">03</span><span class="card-title">Checklist</span></a><a class="card" href="/handouts/airgap.html"><span class="card-num">04</span><span class="card-title">Two boots</span></a><a class="card" href="/handouts/verify.html"><span class="card-num">05</span><span class="card-title">Check the files</span></a></div></section>
+<div class="hero"><p class="hero-kicker">Independent At-Home Bitcoin Self-Custody</p><div class="hero-title-row"><div class="coin" aria-hidden="true"><span>₿</span></div><h1>Plebum Dominium</h1></div><p class="hero-pron">(PLAY-boom doh-MIN-ee-oom)</p><p class="hero-sub">Absolute Ownership by the Common People</p><p>“Pleb” is an everyday Bitcoiner. “Dominium” is Latin for absolute ownership. This site is for the Bitcoiner who wants to build a secure, self-custody Bitcoin wallet from the ground up, bypassing the need for a company, an app, or a custodian to manage or store access to their funds.</p><p>This guide shows you how to generate entropy with dice, import it into verified software, and stamp a 2-of-3 multisig wallet into titanium. Hardware wallets are completely optional.</p><p><a class="btn" href="/handouts/terms.html">Start with the terms</a> <a class="btn btn-ghost" href="/kit/02_Print_Packet.pdf">Download the print packet</a></p><div class="keyring" aria-label="Animation: any two of the three keys open the lock"><div class="keys" aria-hidden="true"><span class="key key-a">A</span><span class="key key-b">B</span><span class="key key-c">C</span></div><div class="lockwrap" aria-hidden="true"><div class="shackle"></div><div class="lockbody">2-of-3</div></div><p class="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p></div></div><section class="why" id="why">
+<p class="why-kicker">Why this guide</p>
+<h2>Eliminate single points of failure</h2>
+<p>This guide does that &mdash; securely and privately. None of these can take your money:</p>
+<ul class="threats">
+<li><span>&#10015;</span>One seed that can spend by itself</li>
+<li><span>&#10015;</span>An app or an exchange</li>
+<li><span>&#10015;</span>One place</li>
+<li><span>&#10015;</span>One device, one company</li>
+<li><span>&#10015;</span>A photo, a note, or a password manager</li>
+</ul>
+</section>
+<section class="process" id="process">
+<p class="why-kicker">The method</p>
+<h2>The process, start to finish</h2>
+<p class="section-sub">Seven steps. Each one links to its sheet. Nothing is skipped, nothing is reordered.</p>
+<a class="pstep" href="/handouts/airgap.html"><span class="num">1</span><div><h3>Two boots</h3><p>The same computer, used twice. The <strong>first boot</strong> stays on the network and only watches. The <strong>second boot</strong> is Tails &mdash; network off, one seed, then a full shutdown.</p></div><span class="go">&rarr;</span></a>
+<a class="pstep" href="/handouts/verify.html"><span class="num">2</span><div><h3>Check the files</h3><p>Every file comes from <strong>its own site</strong>. Hash and signature are checked &mdash; if either fails, the file is <strong>deleted</strong>. Two tools must agree before the work continues.</p></div><span class="go">&rarr;</span></a>
+<a class="pstep" href="/handouts/dice.html"><span class="num">3</span><div><h3>Make the keys</h3><p>Casino dice make the randomness. Faces <strong>1&ndash;4 are kept</strong>, 5 and 6 are rolled again. The computer shuts down between keys. <strong>Two programs must print the same 24 words.</strong></p></div><span class="go">&rarr;</span></a>
+<a class="pstep" href="/handouts/sparrow.html"><span class="num">4</span><div><h3>Two of three</h3><p>The wallet needs <strong>any two of the three keys</strong> to spend. One key alone cannot move the long-term fund.</p></div><span class="go">&rarr;</span></a>
+<a class="pstep" href="/handouts/signing.html"><span class="num">5</span><div><h3>Practice spend</h3><p>A <strong>small amount</strong> comes in. The first seed signs, the computer shuts down, the second seed signs &mdash; then the payment is broadcast. Savings don&rsquo;t move until this works.</p></div><span class="go">&rarr;</span></a>
+<a class="pstep" href="/handouts/titanium.html"><span class="num">6</span><div><h3>Metal + map</h3><p>The three keys are <strong>stamped into titanium</strong> and kept at three addresses. The wallet map travels with the record of those places &mdash; and the map is <strong>not another key</strong>.</p></div><span class="go">&rarr;</span></a>
+<a class="pstep" href="#house-rules"><span class="num">7</span><div><h3>House rules</h3><p>The limits of the method. A convenience is <strong>never</strong> allowed to break one of them.</p></div><span class="go">&rarr;</span></a>
+</section>
+<section class="stage"><h2>Get ready</h2><div class="cards"><a class="card" href="/handouts/terms.html"><span class="card-num">T</span><span class="card-title">Terms</span></a><a class="card" href="/handouts/checklist.html"><span class="card-num">03</span><span class="card-title">Checklist</span></a><a class="card" href="/handouts/airgap.html"><span class="card-num">04</span><span class="card-title">Two boots</span></a><a class="card" href="/handouts/verify.html"><span class="card-num">05</span><span class="card-title">Check the files</span></a></div></section>
 <section class="stage"><h2>Make the keys</h2><div class="cards"><a class="card" href="/handouts/dice.html"><span class="card-num">06</span><span class="card-title">Make the three keys</span></a><a class="card" href="/handouts/sparrow.html"><span class="card-num">07</span><span class="card-title">Build the 2-of-3</span></a></div></section>
 <section class="stage"><h2>Prove it works</h2><div class="cards"><a class="card" href="/handouts/signing.html"><span class="card-num">08</span><span class="card-title">Practice spend</span></a></div></section>
 <section class="stage"><h2>Lock it in metal</h2><div class="cards"><a class="card" href="/handouts/titanium.html"><span class="card-num">09</span><span class="card-title">Metal and the map</span></a><a class="card" href="/handouts/encryption.html"><span class="card-num">11</span><span class="card-title">Hide the wallet map</span></a></div></section>
 <section class="stage"><h2>Plan for others</h2><div class="cards"><a class="card" href="/handouts/inheritance.html"><span class="card-num">12</span><span class="card-title">If I am gone</span></a></div></section>
-<section class="stage"><h2>Reference</h2><div class="cards"><a class="card" href="/handouts/faq.html"><span class="card-num">13</span><span class="card-title">If you get stuck</span></a><a class="card" href="/handouts/briefing.html"><span class="card-num">14</span><span class="card-title">Tough questions</span></a></div></section>
+<section class="stage"><h2>Reference</h2><div class="cards"><a class="card" href="/handouts/faq.html"><span class="card-num">13</span><span class="card-title">If you get stuck</span></a><a class="card" href="/handouts/briefing.html"><span class="card-num">14</span><span class="card-title">Tough questions</span></a></div></section><section class="rules" id="house-rules">
+<p class="why-kicker">The limits</p>
+<h2>House rules</h2>
+<p class="section-sub">Five rules. They hold for every sheet, every boot, every time.</p>
+<div class="rcards">
+<div class="rcard"><div class="ic">&#10015;</div><h3>No photos</h3><p>No seed, plate, or word-bearing screen on a camera.</p></div>
+<div class="rcard"><div class="ic">&#9199;</div><h3>Networking off before the seed</h3><p>A seed never sits on a machine that had the network up.</p></div>
+<div class="rcard"><div class="ic">1</div><h3>One seed / boot</h3><p>Load Seed 1. Sign. Full shutdown. Then Seed 2.</p></div>
+<div class="rcard"><div class="ic">=</div><h3>Hash fails &rarr; stop</h3><p>Do not improvise. Redownload from the project&rsquo;s own site.</p></div>
+<div class="rcard"><div class="ic">+</div><h3>Hardware later</h3><p>Optional signer. Different vendors if more than one.</p></div>
+</div>
+</section>
+<section class="resources" id="new-to-bitcoin">
+<p class="why-kicker">Start here</p>
+<h2>New to Bitcoin?</h2>
+<p class="section-sub">This guide assumes you already want self-custody. If you&rsquo;re still learning what Bitcoin <strong>is</strong>, start with these &mdash; then come back.</p>
+<div class="rescards">
+<a class="rescard" href="https://bitcoin.org/en/getting-started" rel="noopener"><div class="tag">First stop</div><h3>Bitcoin.org</h3><p>The official starting point: what Bitcoin is, how to use it, how to choose a wallet.</p></a>
+<a class="rescard" href="https://learnmeabitcoin.com/beginners/how-does-bitcoin-work/" rel="noopener"><div class="tag">How it works</div><h3>Learn Me a Bitcoin</h3><p>Plain-language explainer: the network, mining, keys, addresses. About an hour, no technical background needed.</p></a>
+<a class="rescard" href="https://www.lopp.net/bitcoin-information/getting-started.html" rel="noopener"><div class="tag">Go deeper</div><h3>Lopp&rsquo;s Getting Started</h3><p>Jameson Lopp&rsquo;s curated path: wallets, security, and the fundamentals before you store value.</p></a>
+<a class="rescard" href="https://www.btcsessions.ca/" rel="noopener"><div class="tag">Watch</div><h3>BTC Sessions</h3><p>Ben Perrin&rsquo;s step-by-step video tutorials &mdash; wallets, self-custody, and Sparrow, the software this guide uses.</p></a>
+<a class="rescard" href="https://river.com/learn/bitcoin-and-blockchain-technology" rel="noopener"><div class="tag">Read</div><h3>River Learn</h3><p>Clean short guides: blockchain, nodes, addresses, and reading what&rsquo;s happening on-chain.</p></a>
+<a class="rescard" href="https://www.lopp.net/bitcoin-information.html" rel="noopener"><div class="tag">Reference</div><h3>Lopp&rsquo;s Bitcoin Resources</h3><p>The deep end: hundreds of curated links on security, privacy, running a node, and the history of the money.</p></a>
+</div>
+<p class="fine">These are independent educators, not sponsors. Nothing here sells you an account or a token.</p>
+</section>
+
       <nav class="prevnext-row" aria-label="Previous and next sheets">
 
 
