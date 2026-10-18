@@ -1,0 +1,12 @@
+<svg width="460" height="170" viewBox="0 0 460 170" font-family="IBM Plex Sans, sans-serif">
+        <rect x="30" y="20" width="180" height="100" rx="10" fill="#14110d" stroke="#c9a35c"/>
+        <text x="120" y="48" fill="#c9a35c" font-size="12" font-weight="700" text-anchor="middle">DICE CONVERTER</text>
+        <text x="120" y="74" fill="#9a8f78" font-size="11" text-anchor="middle" font-family="IBM Plex Mono, monospace">abandon ability …</text>
+        <text x="120" y="96" fill="#9a8f78" font-size="11" text-anchor="middle" font-family="IBM Plex Mono, monospace">… art</text>
+        <rect x="250" y="20" width="180" height="100" rx="10" fill="#14110d" stroke="#c9a35c"/>
+        <text x="340" y="48" fill="#c9a35c" font-size="12" font-weight="700" text-anchor="middle">IAN COLEMAN (OFFLINE)</text>
+        <text x="340" y="74" fill="#9a8f78" font-size="11" text-anchor="middle" font-family="IBM Plex Mono, monospace">abandon ability …</text>
+        <text x="340" y="96" fill="#9a8f78" font-size="11" text-anchor="middle" font-family="IBM Plex Mono, monospace">… art</text>
+        <text x="230" y="62" fill="#4ade80" font-size="22" text-anchor="middle">=</text>
+        <text x="230" y="152" fill="#6f6a5f" font-size="11" text-anchor="middle" letter-spacing="1">SAME BITS → SAME WORDS · SAME SEED → SAME ADDRESSES · SAME PAYMENT DETAILS</text>
+      </svg>
