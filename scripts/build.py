@@ -341,15 +341,21 @@ def sheet_diagram(slug):
 
 
 def build_sheet(slug, num, title):
-    with open(f"content/handouts/{slug}.md") as f:
-        src = f.read()
-    # strip the scraped "NN · Plebum Dominium" kicker and duplicate H1 (template adds them)
-    src = re.sub(r"^[^\n]*Plebum Dominium\n\n", "", src, count=1)
-    src = re.sub(r"^# .+\n\n", "", src, count=1)
-    # strip prev/next links at the end (template adds them)
-    src = re.sub(r"\[.+?\]\((/handouts/[^)]+)\)\[.+?\]\((/handouts/[^)]+)\)\s*$", "", src)
-    src = re.sub(r"\[[^\]]+\]\(/handouts/[^)]+\)", "", src)
-    rendered = post_process(render_markdown(src))
+    custom = f"templates/sheets/{slug}.html"
+    if os.path.exists(custom):
+        # fully custom sheet body (approved preview HTML); diagram still prepended
+        with open(custom) as f:
+            rendered = f.read()
+    else:
+        with open(f"content/handouts/{slug}.md") as f:
+            src = f.read()
+        # strip the scraped "NN · Plebum Dominium" kicker and duplicate H1 (template adds them)
+        src = re.sub(r"^[^\n]*Plebum Dominium\n\n", "", src, count=1)
+        src = re.sub(r"^# .+\n\n", "", src, count=1)
+        # strip prev/next links at the end (template adds them)
+        src = re.sub(r"\[.+?\]\((/handouts/[^)]+)\)\[.+?\]\((/handouts/[^)]+)\)\s*$", "", src)
+        src = re.sub(r"\[[^\]]+\]\(/handouts/[^)]+\)", "", src)
+        rendered = post_process(render_markdown(src))
     tpl = load_template()
     prev_link, next_link = prev_next(slug)
     page = (
