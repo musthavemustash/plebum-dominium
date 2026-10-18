@@ -498,3 +498,27 @@ pre code { background: none; color: inherit; padding: 0; }
 .sheet-diagram figcaption {
   margin-top: 0.6rem; font-size: 0.88rem; color: var(--muted);
 }
+
+/* ---------- spinning bitcoin ---------- */
+.hero-title-row { display: flex; align-items: center; gap: 1.25rem; }
+.hero-title-row h1 { margin: 0; }
+.hero-pron { color: var(--muted); font-style: italic; margin: -0.25rem 0 1rem; }
+.coin { width: 88px; height: 88px; flex: none; perspective: 500px; }
+.coin span {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%; border-radius: 50%;
+  font-size: 2.5rem; font-weight: 800; color: #7c2d12;
+  background: radial-gradient(circle at 32% 28%, #ffedb8, #f6bd4a 52%, #c07a1a 78%, #8a4d0f);
+  box-shadow: 0 8px 22px rgba(180, 83, 9, 0.35),
+    inset 0 2px 5px rgba(255, 255, 255, 0.55),
+    inset 0 -4px 8px rgba(124, 45, 18, 0.4);
+  border: 2px solid rgba(124, 45, 18, 0.35);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .coin span { animation: coinspin 7s linear infinite; }
+  @keyframes coinspin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+}
+@media (max-width: 760px) {
+  .coin { width: 64px; height: 64px; }
+  .coin span { font-size: 1.8rem; }
+}
