@@ -24,10 +24,10 @@ No. A photo, a note, a password manager, or an email is one hacked account away 
 
 ## What if the map is lost, or its passphrase is lost?
 
-The coins are not gone. Two plates can rebuild the map. The path is 2-of-3, native SegWit, m/48'/0'/0'/2'. Write that path on the inheritance sheet. It is not a secret.
+Not necessarily. If all three plates still exist, three seeds rebuild the map exactly. But two plates cannot: the third key cannot be derived from the other two. So if the only copies of the map are encrypted and the passphrase is lost, two plates are not enough. Back up the passphrase paper in two separate places, away from the plates. The path is 2-of-3, native SegWit, m/48'/0'/0'/2'. Write that path on the inheritance sheet. It is not a secret.
 
 ## What does my family do?
 
 Give them the “If I am gone” sheet. They need two plates and the map. They buy a Jade and a BitBox from the makers’ own shops. One plate goes in each device. They do not boot Tails. They do not type the words into a phone.
 
-Next. The last sheet is only if someone challenges the method. It is not required to finish the setup.[← If I am gone](/handouts/inheritance)[If someone challenges it →](/handouts/briefing)
+Next. The last sheet answers the tough questions people raise about the method. It is not required to finish the setup.[← If I am gone](/handouts/inheritance)[Tough questions →](/handouts/briefing)
