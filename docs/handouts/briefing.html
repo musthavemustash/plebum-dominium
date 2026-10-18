@@ -54,20 +54,28 @@
     <article>
       <p class="kicker">14 · Plebum Dominium</p>
       <h1>Tough questions</h1>
-<p>These are the questions people use to poke a hole in the method. The answer is only what is true. A step that is not on the sheets is not added.</p>
-<h2 id="you-typed-the-seed-words-on-a-laptop-isn-t-that-exposed">You typed the seed words on a laptop. Isn&#x27;t that exposed?</h2>
-<p>Yes — typed, on Tails, with networking off, one seed per boot, then a full shutdown. Tails runs from memory and forgets the session. That does not stop a hardware keylogger. But one captured seed still cannot spend: the fund needs two keys. Never type two seeds on the same boot.</p>
-<h2 id="why-not-just-start-with-a-seedsigner-or-a-hardware-wallet">Why not just start with a SeedSigner or a hardware wallet?</h2>
-<p>A signer can be added later. It is not how these keys are made. The randomness is dice. The computer is ordinary and offline. The inheritance sheet is not a signer guide — it is the letter for heirs: one plate in a Jade, one plate in a BitBox.</p>
-<h2 id="is-dice-randomness-weaker-than-a-hardware-wallet-s-rng">Is dice randomness weaker than a hardware wallet&#x27;s RNG?</h2>
-<p>No. 256 bits is 256 bits, whatever made them. Casino dice are a randomness source you can watch with your own eyes — no chip to trust, no firmware to audit.</p>
-<h2 id="if-the-map-passphrase-is-lost-are-the-coins-gone">If the map passphrase is lost, are the coins gone?</h2>
-<p>Not if all three plates still exist — three seeds rebuild the map exactly. But two seeds cannot: the third key cannot be derived from the other two. So a lost passphrase plus only two plates means the addresses are unrecoverable. Back up the passphrase paper in two separate places, away from the plates and the USB drives. The path is 2-of-3, native SegWit, m/48&#x27;/0&#x27;/0&#x27;/2&#x27;. Write that path on the inheritance sheet. It is not a secret.</p>
-<h2 id="what-if-someone-finds-one-plate">What if someone finds one plate?</h2>
-<p>They cannot spend. One key alone opens nothing — that is the point of 2-of-3. But do not keep two plates in the same drawer: two plates in one place is the whole lock in one place.</p>
-<h2 id="shouldn-t-i-add-a-passphrase-to-the-multisig-for-extra-security">Shouldn&#x27;t I add a passphrase to the multisig for extra security?</h2>
-<p>No. The security here comes from distribution, not from one more secret. A passphrase on the 2-of-3 is a single point of failure wearing a disguise: lose it and two plates are not enough. The home plate can carry a small decoy single-sig with its own optional passphrase — that is a separate choice, on the metal sheet.</p>
-<p>That is the whole method. Everything else is commentary.</p>
+<p class="lede">The questions people use to poke holes in the method. Only what is true.</p>
+
+<div class="qa"><h3>You typed the seed on a laptop. Isn&rsquo;t that exposed?</h3>
+<p>Typed on Tails, networking off, one seed per boot, then a full shutdown &mdash; Tails forgets the session. A hardware keylogger is still possible. But one captured seed <strong>still can&rsquo;t spend</strong>: the fund needs two. Never type two seeds on one boot.</p></div>
+
+<div class="qa"><h3>Why not start with a hardware wallet?</h3>
+<p>A signer can join later; it is not how these keys are made. The randomness is <strong>dice you can watch</strong> &mdash; no chip to trust, no firmware to audit.</p></div>
+
+<div class="qa"><h3>Is dice randomness weaker than a hardware RNG?</h3>
+<p>No. <strong>256 bits is 256 bits</strong>, whatever made them.</p></div>
+
+<div class="qa"><h3>If the map passphrase is lost, are the coins gone?</h3>
+<p>Not with all three plates &mdash; they rebuild the map exactly. But two plates plus a lost passphrase means the addresses are <strong>unrecoverable</strong>. Back up the passphrase paper in two places, away from the plates and USBs.</p></div>
+
+<div class="qa"><h3>What if someone finds one plate?</h3>
+<p>They can&rsquo;t spend &mdash; one key alone opens nothing. But <strong>never keep two plates in one place</strong>: that&rsquo;s the whole lock in one drawer.</p></div>
+
+<div class="qa"><h3>Shouldn&rsquo;t I add a passphrase to the multisig?</h3>
+<p>No. The security is the <strong>distribution</strong>, not one more secret. A passphrase on the 2-of-3 is a single point of failure in disguise &mdash; lose it and two plates aren&rsquo;t enough. The home plate&rsquo;s small decoy wallet is the separate, optional place for a passphrase.</p></div>
+
+<p class="fine">That is the whole method. Everything else is commentary.</p>
+
       <nav class="prevnext-row" aria-label="Previous and next sheets">
 <a class="prevnext prev" href="/handouts/faq.html"><span>← 13 · If you get stuck</span></a>
 
@@ -76,7 +84,7 @@
   </main>
 
   <aside class="toc-col">
-<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#you-typed-the-seed-words-on-a-laptop-isn-t-that-exposed" data-toc="you-typed-the-seed-words-on-a-laptop-isn-t-that-exposed">You typed the seed words on a laptop. Isn&amp;#x27;t that exposed?</a></li><li><a href="#why-not-just-start-with-a-seedsigner-or-a-hardware-wallet" data-toc="why-not-just-start-with-a-seedsigner-or-a-hardware-wallet">Why not just start with a SeedSigner or a hardware wallet?</a></li><li><a href="#is-dice-randomness-weaker-than-a-hardware-wallet-s-rng" data-toc="is-dice-randomness-weaker-than-a-hardware-wallet-s-rng">Is dice randomness weaker than a hardware wallet&amp;#x27;s RNG?</a></li><li><a href="#if-the-map-passphrase-is-lost-are-the-coins-gone" data-toc="if-the-map-passphrase-is-lost-are-the-coins-gone">If the map passphrase is lost, are the coins gone?</a></li><li><a href="#what-if-someone-finds-one-plate" data-toc="what-if-someone-finds-one-plate">What if someone finds one plate?</a></li><li><a href="#shouldn-t-i-add-a-passphrase-to-the-multisig-for-extra-security" data-toc="shouldn-t-i-add-a-passphrase-to-the-multisig-for-extra-security">Shouldn&amp;#x27;t I add a passphrase to the multisig for extra security?</a></li></ul></nav>
+
   </aside>
 </div>
 

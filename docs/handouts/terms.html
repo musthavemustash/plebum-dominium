@@ -54,26 +54,20 @@
     <article>
       <p class="kicker">T · Plebum Dominium</p>
       <h1>Terms</h1>
-<p><strong>entropy</strong></p>
-<p>Entropy is the randomness that is made with the dice, and it is the material the 24 words are built from.</p>
-<p><strong>airgap / Tails, networking off</strong></p>
-<p>It is critical that each key is made on a computer that is offline. Tails OS is installed on one of the two USB drives. It can be booted on any computer, and it is designed to forget the session when the machine shuts down. When Tails is booted, networking is set to Disabled.</p>
-<p><strong>2-of-3 native SegWit (P2WSH)</strong></p>
-<p>This is a wallet that needs any two of three keys before it can spend. One key by itself cannot move the long-term fund.</p>
-<p><strong>m/48&#x27;/0&#x27;/0&#x27;/2&#x27;</strong></p>
-<p>This is the path Sparrow fills in for this kind of wallet. It is confirmed on the screen, and it is not typed from memory.</p>
-<p><strong>PSBT</strong></p>
-<p>A PSBT is an unsigned payment file that is carried on the USB drive. The seed stays on the offline computer.</p>
-<p><strong>descriptor / xpub</strong></p>
-<p>The descriptor is the wallet map, and an xpub is a public watch key. Either one can watch the money, and neither one can spend it.</p>
-<p><strong>BIP39</strong></p>
-<p>BIP39 is the standard list of 2,048 words that a seed is written in. This process uses 24 of those words.</p>
-<p><strong>hash</strong></p>
-<p>These files are downloaded from their original sources. The fingerprint on that source has to match the fingerprint the computer prints for the saved file. If the lines do not match, the file is deleted.</p>
-<p><strong>signature</strong></p>
-<p>A signature is the project confirming the file. If the signature fails, the file is deleted and downloaded again.</p>
-<p><strong>zero-trust</strong></p>
-<p>Zero-trust means a company’s word is not accepted for a download or for a key. Two tools have to agree.</p>
+<p class="lede">Ten words that carry the whole method. Everything else is built from these.</p>
+<dl class="terms">
+<div class="term"><dt>entropy</dt><dd>The randomness from the dice &mdash; the raw material the 24 words are built from.</dd></div>
+<div class="term"><dt>airgap</dt><dd>Tails booted with networking <strong>Disabled</strong>. The computer forgets the session on shutdown.</dd></div>
+<div class="term"><dt>2-of-3</dt><dd>Any two of three keys can spend. <strong>One alone cannot.</strong></dd></div>
+<div class="term"><dt>m/48'/0'/0'/2'</dt><dd>The wallet&rsquo;s path. <strong>Confirmed on screen</strong>, never typed from memory. Not a secret.</dd></div>
+<div class="term"><dt>PSBT</dt><dd>The unsigned payment file, carried on the USB. The seed never leaves the offline computer.</dd></div>
+<div class="term"><dt>descriptor / xpub</dt><dd>The wallet map / a watch key. Both <strong>watch</strong>, neither <strong>spends</strong>.</dd></div>
+<div class="term"><dt>BIP39</dt><dd>The 2,048-word list the 24 words come from.</dd></div>
+<div class="term"><dt>hash &middot; fingerprint</dt><dd>The file&rsquo;s fingerprint must match the project&rsquo;s published one &mdash; <strong>every character</strong>.</dd></div>
+<div class="term"><dt>signature</dt><dd>The project confirming the file. <strong>&ldquo;Good signature&rdquo;</strong> &mdash; or the file is deleted.</dd></div>
+<div class="term"><dt>zero-trust</dt><dd>Nobody&rsquo;s word is taken. <strong>Two tools must agree.</strong></dd></div>
+</dl>
+
       <nav class="prevnext-row" aria-label="Previous and next sheets">
 
 <a class="prevnext next" href="/handouts/checklist.html"><span>03 · Checklist →</span></a>
