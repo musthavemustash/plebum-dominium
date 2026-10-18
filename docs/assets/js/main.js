@@ -136,3 +136,20 @@
   }, { threshold: 0.1 });
   els.forEach(function (el) { io.observe(el); });
 })();
+
+/* --- on-chain donate: copy address --- */
+document.querySelectorAll(".btn-onchain").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var addr = btn.getAttribute("data-copy");
+    if (!addr || addr.indexOf("REPLACE_WITH") === 0) return;
+    navigator.clipboard.writeText(addr).then(function () {
+      var orig = btn.innerHTML;
+      btn.classList.add("copied");
+      btn.innerHTML = "\u2713 Address copied";
+      setTimeout(function () {
+        btn.classList.remove("copied");
+        btn.innerHTML = orig;
+      }, 2500);
+    });
+  });
+});
