@@ -2,18 +2,19 @@
    Warm paper, sober ink, one amber accent. Offline-first: no webfonts, no frameworks. */
 
 :root {
-  --paper: #faf7f2;
-  --header-bg: rgba(250, 247, 242, 0.92);
-  --hover-bg: #f1ece2;
-  --code-inline-bg: #f1ece2;
-  --code-inline-ink: #7c2d12;
+  --paper: #f6f3ec;
+  --header-bg: rgba(246, 243, 236, 0.92);
+  --hover-bg: #efe9db;
+  --code-inline-bg: #efe9db;
+  --code-inline-ink: #8a5a2a;
   --btn-ink: #ffffff;
   --card: #ffffff;
-  --ink: #1c1917;
-  --muted: #78716c;
-  --line: #e7e0d5;
-  --accent: #9a5f0a;
-  --accent-soft: #fef3e2;
+  --ink: #161410;
+  --muted: #5c564c;
+  --line: #e3d9cc;
+  --accent: #8a5a2a;
+  --accent-soft: #f3e8d6;
+  --accent-bright: #6e4528;
   --stop: #b91c1c;
   --stop-bg: #fef2f2;
   --warn: #9a5f0a;
@@ -34,14 +35,14 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  font-family: "Newsreader", Georgia, "Iowan Old Style", "Times New Roman", serif;
   font-size: 18px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 .kicker, .hero-kicker, .sidebar-label, .toc p, .header-sheet,
 .callout-label, .you-need-label, .stage h2, .sheet-num, .card-num {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
     "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -49,18 +50,19 @@ body {
 /* ---------- dark mode: follows the visitor, toggle overrides ---------- */
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #0b0a08;
-    --header-bg: rgba(11, 10, 8, 0.93);
-    --hover-bg: #1c1712;
-    --code-inline-bg: #1c1712;
-    --code-inline-ink: #d9b06a;
-    --btn-ink: #0b0a08;
-    --card: #14110d;
-    --ink: #f0e8d6;
-    --muted: #9a8f78;
-    --line: #2b251b;
-    --accent: #c9a35c;
+    --paper: #0e0d0b;
+    --header-bg: rgba(14, 13, 11, 0.93);
+    --hover-bg: #1d1a16;
+    --code-inline-bg: #1d1a16;
+    --code-inline-ink: #e4c6a4;
+    --btn-ink: #0e0d0b;
+    --card: #161411;
+    --ink: #efe9dc;
+    --muted: #9b9384;
+    --line: #2a2722;
+    --accent: #c4a484;
     --accent-soft: #231b0f;
+    --accent-bright: #e4c6a4;
     --stop: #f87171;
     --stop-bg: #2b1414;
     --warn: #c9a35c;
@@ -74,17 +76,18 @@ body {
   }
 }
 :root[data-theme="light"] {
-  --paper: #faf7f2;
-  --header-bg: rgba(250, 247, 242, 0.92);
-  --hover-bg: #f1ece2;
-  --code-inline-bg: #f1ece2;
-  --code-inline-ink: #7c2d12;
+  --paper: #f6f3ec;
+  --header-bg: rgba(246, 243, 236, 0.92);
+  --hover-bg: #efe9db;
+  --code-inline-bg: #efe9db;
+  --code-inline-ink: #8a5a2a;
   --card: #ffffff;
-  --ink: #1c1917;
-  --muted: #78716c;
-  --line: #e7e0d5;
-  --accent: #9a5f0a;
-  --accent-soft: #fef3e2;
+  --ink: #161410;
+  --muted: #5c564c;
+  --line: #e3d9cc;
+  --accent: #8a5a2a;
+  --accent-soft: #f3e8d6;
+  --accent-bright: #6e4528;
   --stop: #b91c1c;
   --stop-bg: #fef2f2;
   --warn: #9a5f0a;
@@ -97,18 +100,19 @@ body {
   --code-ink: #f5f0e8;
 }
 :root[data-theme="dark"] {
-  --paper: #0b0a08;
-  --header-bg: rgba(11, 10, 8, 0.93);
-  --hover-bg: #1c1712;
-  --code-inline-bg: #1c1712;
-  --code-inline-ink: #d9b06a;
-    --btn-ink: #0b0a08;
-  --card: #14110d;
-  --ink: #f0e8d6;
-  --muted: #9a8f78;
-  --line: #2b251b;
-  --accent: #c9a35c;
+  --paper: #0e0d0b;
+  --header-bg: rgba(14, 13, 11, 0.93);
+  --hover-bg: #1d1a16;
+  --code-inline-bg: #1d1a16;
+  --code-inline-ink: #e4c6a4;
+    --btn-ink: #0e0d0b;
+  --card: #161411;
+  --ink: #efe9dc;
+  --muted: #9b9384;
+  --line: #2a2722;
+  --accent: #c4a484;
   --accent-soft: #231b0f;
+  --accent-bright: #e4c6a4;
   --stop: #f87171;
   --stop-bg: #2b1414;
   --warn: #c9a35c;
@@ -240,7 +244,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 
 /* ---------- code ---------- */
 code {
-  font-family: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono",
+  font-family: "IBM Plex Mono", ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono",
     "IBM Plex Mono", Menlo, Consolas, monospace;
   font-size: 0.88em;
   background: var(--code-inline-bg); color: var(--code-inline-ink);
@@ -309,11 +313,12 @@ pre code { background: none; color: inherit; padding: 0; }
 .home h1 { display: none; }
 .hero { padding: 3rem 0 1rem; max-width: 60ch; }
 .hero-kicker {
-  font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.2em; color: var(--accent); margin: 0 0 0.75rem;
+  font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif;
+  font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.28em; color: var(--muted); margin: 0 0 1rem;
 }
 .hero h1 { display: block; font-size: 3rem; margin: 0 0 0.5rem; }
-.hero-sub { font-size: 1.25rem; color: var(--accent); margin: 0 0 1rem; }
+.hero-sub { font-size: 1.35rem; color: var(--accent); margin: 0 0 1rem; }
 .btn {
   display: inline-block; background: var(--accent); color: var(--btn-ink);
   padding: 0.75rem 1.5rem; border-radius: 9px; font-weight: 700;
@@ -511,17 +516,17 @@ pre code { background: none; color: inherit; padding: 0; }
 /* ---------- spinning bitcoin ---------- */
 .hero-title-row { display: flex; align-items: center; gap: 1.25rem; }
 .hero-title-row h1 { margin: 0; }
-.hero-pron { color: var(--muted); font-style: italic; margin: -0.25rem 0 1rem; }
+.hero-pron { color: var(--muted); margin: 0.35rem 0 0.35rem; font-size: 1.05rem; }
 .coin { width: 88px; height: 88px; flex: none; perspective: 500px; }
 .coin span {
   display: flex; align-items: center; justify-content: center;
   width: 100%; height: 100%; border-radius: 50%;
-  font-size: 2.5rem; font-weight: 800; color: #3d2c10;
-  background: radial-gradient(circle at 32% 28%, #ecd9a8, #c9a35c 52%, #96702e 78%, #6b4d1d);
-  box-shadow: 0 8px 22px rgba(180, 83, 9, 0.35),
+  font-size: 2.5rem; font-weight: 800; color: #2a1810;
+  background: radial-gradient(circle at 32% 28%, #f0d9b8, #c4a484 52%, #8a5f36 78%, #5e3f22);
+  box-shadow: 0 8px 22px rgba(124, 83, 52, 0.35),
     inset 0 2px 5px rgba(255, 255, 255, 0.55),
-    inset 0 -4px 8px rgba(124, 45, 18, 0.4);
-  border: 2px solid rgba(124, 45, 18, 0.35);
+    inset 0 -4px 8px rgba(94, 63, 34, 0.4);
+  border: 2px solid rgba(94, 63, 34, 0.35);
 }
 @media (prefers-reduced-motion: no-preference) {
   .coin span { animation: coinspin 7s linear infinite; }
@@ -542,7 +547,7 @@ pre code { background: none; color: inherit; padding: 0; }
   background: var(--card); transition: border-color 300ms, box-shadow 300ms, opacity 300ms;
 }
 .boots-anim .boot-label {
-  font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+  font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif;
   font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.16em; color: var(--accent); margin-bottom: 0.4rem;
 }
@@ -554,7 +559,7 @@ pre code { background: none; color: inherit; padding: 0; }
 }
 .boots-anim .laptop .screen {
   border: 1px solid var(--line); border-radius: 4px; padding: 0.6rem;
-  font-family: -apple-system, "Segoe UI", Inter, sans-serif; font-size: 0.8rem;
+  font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif; font-size: 0.8rem;
   color: var(--muted);
 }
 .boots-anim .laptop::after {
@@ -566,7 +571,7 @@ pre code { background: none; color: inherit; padding: 0; }
 .boots-anim .boot li::marker { color: var(--accent); }
 .boots-anim .then {
   align-self: center; text-align: center;
-  font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+  font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif;
   font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
   color: var(--btn-ink); background: var(--accent);
   border-radius: 8px; padding: 0.5rem 0.7rem; line-height: 1.5;
@@ -599,7 +604,7 @@ pre code { background: none; color: inherit; padding: 0; }
     position: relative; height: 380px;
     border: 1px solid var(--line); border-radius: 12px;
     background: #0e0c09; overflow: hidden;
-    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif;
   }
   .sign-anim .zone-on { position: absolute; top: 0; left: 0; right: 0; height: 34%; background: #12100c; border-bottom: 2px dashed var(--accent); }
   .sign-anim .zone-off { position: absolute; bottom: 0; left: 0; right: 0; height: 66%; background: #0e0c09; }
@@ -682,7 +687,7 @@ pre code { background: none; color: inherit; padding: 0; }
     position: absolute; left: 0; top: 0.35rem; width: 1.4rem; height: 1.4rem;
     border: 1px solid var(--accent); border-radius: 50%; color: var(--accent);
     font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
-    font-family: -apple-system, "Segoe UI", sans-serif;
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
   }
   .sign-anim .legend li i { color: var(--accent); }
   @media (prefers-reduced-motion: no-preference) {
@@ -775,7 +780,7 @@ pre code { background: none; color: inherit; padding: 0; }
   .dice-anim .stage {
     position: relative; height: 380px; border: 1px solid var(--line); border-radius: 12px;
     background: #0e0c09; overflow: hidden;
-    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif;
   }
   .dice-anim .round {
     position: absolute; left: 4%; top: 14px; z-index: 5;
@@ -870,7 +875,7 @@ pre code { background: none; color: inherit; padding: 0; }
   .dice-anim .phead { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.24em; color: var(--muted); margin-bottom: 10px; }
   .dice-anim .pbits {
     position: absolute; left: 16px; right: 16px; top: 44px;
-    font-family: ui-monospace, Menlo, monospace; font-size: 0.82rem; line-height: 1.9;
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 0.82rem; line-height: 1.9;
     letter-spacing: 0.08em; color: var(--ink); word-break: break-word;
   }
   .dice-anim .pbits .sg { opacity: 0; }
@@ -917,7 +922,7 @@ pre code { background: none; color: inherit; padding: 0; }
   }
   .dice-anim .note {
     margin-top: 1rem; text-align: center; font-size: 0.92rem; color: var(--muted);
-    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif;
   }
   .dice-anim .note strong { color: var(--accent); }
   @media (prefers-reduced-motion: reduce) {
