@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Make 3 keys — three shakes</title>
+<style>
+  :root {
+    --paper: #0b0a08; --card: #14110d; --ink: #f0e8d6; --muted: #9a8f78;
+    --line: #2b251b; --accent: #c9a35c; --red: #c0392b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-size: 17px; line-height: 1.65; padding: 2rem 1.25rem 4rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  .kicker {
+    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--accent); margin: 0 0 0.5rem;
+  }
+  h1 { font-size: 2rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
+  .intro { color: var(--muted); max-width: 64ch; margin: 0 0 3rem; }
+  .concept { border: 1px solid var(--line); border-radius: 14px; padding: 1.75rem; margin: 0 0 2.5rem; background: var(--card); }
+  .concept h2 { margin: 0 0 0.25rem; font-size: 1.4rem; }
+  .concept .desc { color: var(--muted); font-size: 0.95rem; margin: 0 0 1.5rem; max-width: 62ch; }
+
+  /* ================= stage ================= */
+  #v-d .stage {
+    position: relative; height: 380px; border: 1px solid var(--line); border-radius: 12px;
+    background: #0e0c09; overflow: hidden;
+    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+  }
+  #v-d .round {
+    position: absolute; left: 4%; top: 14px; z-index: 5;
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.22em; color: var(--accent);
+    opacity: 0;
+  }
+  #v-d .r1l { animation: win1 30s linear infinite; }
+  #v-d .r2l { animation: win2 30s linear infinite; }
+  #v-d .r3l { animation: win3 30s linear infinite; }
+  @keyframes win1 { 0%, 32% { opacity: 1; } 34%, 100% { opacity: 0; } }
+  @keyframes win2 { 0%, 32% { opacity: 0; } 34%, 66% { opacity: 1; } 68%, 100% { opacity: 0; } }
+  @keyframes win3 { 0%, 66% { opacity: 0; } 68%, 100% { opacity: 1; } }
+
+  /* ================= dice trays (one per round) ================= */
+  #v-d .tray { position: absolute; left: 4%; top: 46%; width: 46%; height: 120px; opacity: 0; }
+  #v-d .tray1 { animation: win1 30s linear infinite; }
+  #v-d .tray2 { animation: win2 30s linear infinite; }
+  #v-d .tray3 { animation: win3 30s linear infinite; }
+  #v-d .die {
+    position: absolute; top: 0; width: 54px; height: 54px; border-radius: 10px;
+    background: linear-gradient(135deg, #e8e2d4, #c9c2b0);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.55), inset 0 1px 2px rgba(255,255,255,0.7);
+    animation: dieRoll 10s ease-out infinite;
+  }
+  #v-d .d1 { left: 0; } #v-d .d2 { left: 66px; } #v-d .d3 { left: 132px; }
+  #v-d .d4 { left: 198px; } #v-d .d5 { left: 264px; }
+  @keyframes dieRoll {
+    0% { transform: translate(-190px, -52px) rotate(-400deg); opacity: 0; }
+    2% { opacity: 1; }
+    6% { transform: translate(-120px, -20px) rotate(-260deg); opacity: 1; }
+    10% { transform: translate(-52px, -6px) rotate(-115deg); opacity: 1; }
+    13% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    15% { transform: translate(0, -5px) rotate(0deg); opacity: 1; }
+    17%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  }
+  #v-d .die i { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #2b251b; }
+  #v-d .p-tl { left: 10px; top: 10px; } #v-d .p-tr { right: 10px; top: 10px; }
+  #v-d .p-ml { left: 10px; top: 22px; } #v-d .p-mr { right: 10px; top: 22px; }
+  #v-d .p-bl { left: 10px; bottom: 10px; } #v-d .p-br { right: 10px; bottom: 10px; }
+  #v-d .p-c { left: 22px; top: 22px; }
+
+  /* kept glow for all dice once calculated */
+  #v-d .die { animation: dieRoll 10s ease-out infinite, dieKept 10s linear infinite; }
+  @keyframes dieKept {
+    0%, 40% { outline: 3px solid transparent; outline-offset: 2px; }
+    46%, 100% { outline: 3px solid var(--accent); outline-offset: 2px; }
+  }
+  /* re-roll dice: red mark, shake, swap faces */
+  #v-d .die.re { animation: dieRoll 10s ease-out infinite, reMark 10s linear infinite, reShake 10s linear infinite; }
+  @keyframes reMark {
+    0%, 16% { outline: 3px solid transparent; outline-offset: 2px; }
+    20%, 38% { outline: 3px dashed var(--red); outline-offset: 2px; }
+    42%, 100% { outline: 3px solid var(--accent); outline-offset: 2px; }
+  }
+  @keyframes reShake {
+    0%, 24% { translate: 0 0; }
+    26% { translate: -5px 0; } 28% { translate: 5px 0; } 30% { translate: -5px 0; }
+    32% { translate: 5px 0; } 34% { translate: -4px 0; } 36% { translate: 4px 0; }
+    38%, 100% { translate: 0 0; }
+  }
+  #v-d .die.re .fb { position: absolute; inset: 0; animation: fbOut 10s linear infinite; }
+  #v-d .die.re .fa { position: absolute; inset: 0; animation: faIn 10s linear infinite; }
+  @keyframes fbOut { 0%, 36% { opacity: 1; } 40%, 100% { opacity: 0; } }
+  @keyframes faIn { 0%, 36% { opacity: 0; } 40%, 100% { opacity: 1; } }
+  #v-d .retag {
+    position: absolute; top: -24px; left: 50%; transform: translateX(-50%) rotate(-6deg);
+    font-size: 0.55rem; font-weight: 800; letter-spacing: 0.08em; white-space: nowrap;
+    color: #e08070; border: 2px solid var(--red); border-radius: 4px; padding: 1px 5px;
+    background: rgba(11,10,8,0.92); opacity: 0; animation: retagVis 10s linear infinite;
+  }
+  @keyframes retagVis { 0%, 18% { opacity: 0; } 22%, 36% { opacity: 1; } 40%, 100% { opacity: 0; } }
+
+  /* bit pairs under each die */
+  #v-d .bp {
+    position: absolute; top: 62px; left: 0; right: 0; text-align: center;
+    font-size: 0.8rem; font-weight: 800; letter-spacing: 0.12em; color: var(--accent);
+    opacity: 0; animation: bpFly 10s linear infinite;
+  }
+  @keyframes bpFly {
+    0%, 44% { opacity: 0; transform: translate(0, 0); }
+    52% { opacity: 1; transform: translate(0, 0); }
+    70% { opacity: 1; transform: translate(120px, -6px); }
+    78%, 100% { opacity: 0; transform: translate(200px, -10px); }
+  }
+
+  /* ================= bits panel ================= */
+  #v-d .panel {
+    position: absolute; right: 4%; top: 12%; bottom: 12%; width: 40%;
+    background: #12100c; border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; overflow: hidden;
+  }
+  #v-d .phead { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.24em; color: var(--muted); margin-bottom: 10px; }
+  #v-d .pbits {
+    position: absolute; left: 16px; right: 16px; top: 44px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 0.82rem; line-height: 1.9;
+    letter-spacing: 0.08em; color: var(--ink); word-break: break-word;
+  }
+  #v-d .pbits .sg { opacity: 0; }
+  #v-d .pbits b { color: var(--accent); }
+  #v-d .sg1 { animation: sg1 30s linear infinite; }
+  #v-d .sg2 { animation: sg2 30s linear infinite; }
+  #v-d .sg3 { animation: sg3 30s linear infinite; }
+  #v-d .sg4 { animation: sg4 30s linear infinite; }
+  @keyframes sg1 { 0%, 20% { opacity: 0; } 24%, 100% { opacity: 1; } }
+  @keyframes sg2 { 0%, 53% { opacity: 0; } 57%, 100% { opacity: 1; } }
+  @keyframes sg3 { 0%, 84% { opacity: 0; } 88%, 100% { opacity: 1; } }
+  @keyframes sg4 { 0%, 93% { opacity: 0; } 96%, 100% { opacity: 1; } }
+  #v-d .pbar { position: absolute; left: 16px; right: 16px; bottom: 52px; height: 8px; background: #1d1812; border-radius: 5px; border: 1px solid var(--line); }
+  #v-d .pbar i { display: block; height: 100%; width: 0; border-radius: 5px; background: var(--accent); animation: pbarFill 30s linear infinite; }
+  @keyframes pbarFill {
+    0%, 20% { width: 0; } 30%, 52% { width: 4%; } 62%, 84% { width: 8%; }
+    92%, 93% { width: 12%; } 97%, 100% { width: 100%; }
+  }
+  #v-d .pcount { position: absolute; left: 16px; bottom: 26px; font-size: 0.7rem; letter-spacing: 0.18em; color: var(--muted); opacity: 0; }
+  #v-d .c1 { animation: sg1 30s linear infinite; } #v-d .c2 { animation: sg2 30s linear infinite; }
+  #v-d .c3 { animation: sg3 30s linear infinite; } #v-d .c4 { animation: sg4 30s linear infinite; }
+  #v-d .pcount b { color: var(--accent); }
+  #v-d .wstamp {
+    position: absolute; right: 16px; bottom: 20px;
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; color: var(--accent);
+    border: 2px solid var(--accent); border-radius: 6px; padding: 4px 10px;
+    transform: rotate(-6deg); opacity: 0; background: rgba(11,10,8,0.9);
+    animation: wstampIn 30s linear infinite;
+  }
+  @keyframes wstampIn { 0%, 95% { opacity: 0; transform: rotate(-6deg) scale(1.4); } 98%, 100% { opacity: 1; transform: rotate(-6deg) scale(1); } }
+
+  @media (max-width: 640px) {
+    #v-d .stage { height: 520px; }
+    #v-d .tray { left: 6%; top: 14%; width: 88%; }
+    #v-d .die { width: 44px; height: 44px; }
+    #v-d .d2 { left: 54px; } #v-d .d3 { left: 108px; } #v-d .d4 { left: 162px; } #v-d .d5 { left: 216px; }
+    #v-d .die i { width: 8px; height: 8px; }
+    #v-d .p-tl { left: 8px; top: 8px; } #v-d .p-tr { right: 8px; top: 8px; }
+    #v-d .p-ml { left: 8px; top: 18px; } #v-d .p-mr { right: 8px; top: 18px; }
+    #v-d .p-bl { left: 8px; bottom: 8px; } #v-d .p-br { right: 8px; bottom: 8px; }
+    #v-d .p-c { left: 18px; top: 18px; }
+    #v-d .panel { left: 6%; right: 6%; top: auto; bottom: 5%; width: auto; height: 44%; }
+    #v-d .round { left: 6%; }
+  }
+  #v-d .note {
+    margin-top: 1rem; text-align: center; font-size: 0.92rem; color: var(--muted);
+    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+  }
+  #v-d .note strong { color: var(--accent); }
+  @media (prefers-reduced-motion: reduce) {
+    #v-d .die, #v-d .fb, #v-d .fa, #v-d .retag, #v-d .bp, #v-d .round,
+    #v-d .tray, #v-d .pbits, #v-d .pbar i, #v-d .pcount, #v-d .wstamp { animation: none !important; }
+    #v-d .tray1, #v-d .r1l { opacity: 1 !important; }
+    #v-d .pbits .sg { opacity: 1 !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Preview — not on the site yet</p>
+  <h1>Three shakes</h1>
+  <p class="intro">Five dice roll three times. Each landing, the 5s and 6s are marked and re-rolled; the kept faces turn into bit pairs that fly into the string panel on the right. After the third shake the string completes to 256 bits.</p>
+
+  <section class="concept" id="v-d">
+    <p class="kicker">Concept D</p>
+    <h2>Roll three times, build the string</h2>
+    <p class="desc">Watch a full shake: dice drop, 5/6 marked red and re-rolled, kept faces glow gold, bit pairs fly right into the accumulating 256-bit string.</p>
+    <div class="stage">
+      <div class="round r1l">SHAKE 1</div>
+      <div class="round r2l">SHAKE 2</div>
+      <div class="round r3l">SHAKE 3</div>
+
+      <!-- round 1: 4, 6->2, 1, 3, 2 -->
+      <div class="tray tray1">
+        <div class="die d1"><i class="p-tl"></i><i class="p-tr"></i><i class="p-bl"></i><i class="p-br"></i><span class="bp">11</span></div>
+        <div class="die re d2">
+          <div class="face fb"><i class="p-tl"></i><i class="p-ml"></i><i class="p-bl"></i><i class="p-tr"></i><i class="p-mr"></i><i class="p-br"></i></div>
+          <div class="face fa"><i class="p-tl"></i><i class="p-br"></i></div>
+          <span class="retag">RE-ROLL</span><span class="bp">01</span>
+        </div>
+        <div class="die d3"><i class="p-c"></i><span class="bp">00</span></div>
+        <div class="die d4"><i class="p-tl"></i><i class="p-c"></i><i class="p-br"></i><span class="bp">10</span></div>
+        <div class="die d5"><i class="p-tl"></i><i class="p-br"></i><span class="bp">01</span></div>
+      </div>
+
+      <!-- round 2: 2, 5->4, 4, 1, 3 -->
+      <div class="tray tray2">
+        <div class="die d1"><i class="p-tl"></i><i class="p-br"></i><span class="bp">01</span></div>
+        <div class="die re d2">
+          <div class="face fb"><i class="p-tl"></i><i class="p-tr"></i><i class="p-c"></i><i class="p-bl"></i><i class="p-br"></i></div>
+          <div class="face fa"><i class="p-tl"></i><i class="p-tr"></i><i class="p-bl"></i><i class="p-br"></i></div>
+          <span class="retag">RE-ROLL</span><span class="bp">11</span>
+        </div>
+        <div class="die d3"><i class="p-tl"></i><i class="p-tr"></i><i class="p-bl"></i><i class="p-br"></i><span class="bp">11</span></div>
+        <div class="die d4"><i class="p-c"></i><span class="bp">00</span></div>
+        <div class="die d5"><i class="p-tl"></i><i class="p-c"></i><i class="p-br"></i><span class="bp">10</span></div>
+      </div>
+
+      <!-- round 3: 1, 3, 6->1, 2, 5->3 -->
+      <div class="tray tray3">
+        <div class="die d1"><i class="p-c"></i><span class="bp">00</span></div>
+        <div class="die d2"><i class="p-tl"></i><i class="p-c"></i><i class="p-br"></i><span class="bp">10</span></div>
+        <div class="die re d3">
+          <div class="face fb"><i class="p-tl"></i><i class="p-ml"></i><i class="p-bl"></i><i class="p-tr"></i><i class="p-mr"></i><i class="p-br"></i></div>
+          <div class="face fa"><i class="p-c"></i></div>
+          <span class="retag">RE-ROLL</span><span class="bp">00</span>
+        </div>
+        <div class="die d4"><i class="p-tl"></i><i class="p-br"></i><span class="bp">01</span></div>
+        <div class="die re d5">
+          <div class="face fb"><i class="p-tl"></i><i class="p-tr"></i><i class="p-c"></i><i class="p-bl"></i><i class="p-br"></i></div>
+          <div class="face fa"><i class="p-tl"></i><i class="p-c"></i><i class="p-br"></i></div>
+          <span class="retag">RE-ROLL</span><span class="bp">10</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="phead">256-BIT STRING</div>
+        <div class="pbits"><span class="sg sg1">11 00 10 01 01</span> <span class="sg sg2">01 11 00 10 11</span> <span class="sg sg3">00 10 00 01 10</span> <span class="sg sg4"><br>…keep rolling… <b>256 / 256 BITS</b></span></div>
+        <div class="pbar"><i></i></div>
+        <div class="pcount c1"><b>10</b> / 256</div>
+        <div class="pcount c2"><b>20</b> / 256</div>
+        <div class="pcount c3"><b>30</b> / 256</div>
+        <div class="pcount c4"><b>256</b> / 256</div>
+        <div class="wstamp">24 WORDS</div>
+      </div>
+    </div>
+    <p class="note">Roll as many times as needed to get <strong>256 bits</strong> of entropy — about 32 shakes.</p>
+    <p class="pick"><strong>Reads as:</strong> shake → re-roll the 5s and 6s → kept faces become bits → the string grows and stays → 24 words.</p>
+  </section>
+</div>
+</body>
+</html>
