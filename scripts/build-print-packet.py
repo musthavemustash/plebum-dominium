@@ -317,9 +317,8 @@ def p_overview():
         *bullets([
             "<b>Terms</b> — the words used in this guide.",
             "<b>Checklist</b> — everything gathered before the first boot.",
-            "<b>Airgap</b> — one computer, two boots. Tails is the offline computer.",
             "<b>Check the files</b> — fingerprints and signatures before going offline.",
-            "<b>Two boots</b> — Tails with networking Disabled. No persistent storage.",
+            "<b>Two boots</b> — one computer, two boots; Tails with networking Disabled, no persistent storage.",
             "<b>Dice</b> — five casino dice make the randomness; 256 bits exactly.",
             "<b>Build the 2-of-3</b> — Sparrow 2.5.5. Export xpubs, build the wallet map.",
             "<b>Practice spend</b> — a dust payment, two signatures, then broadcast.",

@@ -43,8 +43,8 @@ SHEETS = [
     ("terms", "T", "Terms"),
     ("threat-model", "02", "Before you begin"),
     ("checklist", "03", "Checklist"),
-    ("airgap", "04", "Two boots"),
     ("verify", "05", "Check the files"),
+    ("airgap", "04", "Two boots"),
     ("dice", "06", "Make the three keys"),
     ("sparrow", "07", "Build the 2-of-3"),
     ("testnet", "10", "Rehearse on testnet"),
@@ -435,7 +435,7 @@ def build_home():
     # homepage uses a custom cards layout; keep the scraped intro, drop chrome junk
     cards = []
     stages = [
-        ("Get ready", [("threat-model", "02"), ("terms", "T"), ("checklist", "03"), ("airgap", "04"), ("verify", "05")]),
+        ("Get ready", [("threat-model", "02"), ("terms", "T"), ("checklist", "03"), ("verify", "05"), ("airgap", "04")]),
         ("Make the keys", [("dice", "06"), ("sparrow", "07")]),
         ("Prove it works", [("testnet", "10"), ("signing", "08")]),
         ("Lock it in metal", [("titanium", "09"), ("encryption", "11")]),
