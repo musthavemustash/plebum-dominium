@@ -771,3 +771,158 @@ pre code { background: none; color: inherit; padding: 0; }
     .sign-anim .stamp1, .sign-anim .stamp2, .sign-anim .ct-label, .sign-anim .bc-label,
     .sign-anim .barcs i, .sign-anim .usb, .sign-anim .filebox .outline rect { animation: none !important; }
   }
+/* ---------- dice sheet: three shakes (always dark) ---------- */
+  .dice-anim .stage {
+    position: relative; height: 380px; border: 1px solid var(--line); border-radius: 12px;
+    background: #0e0c09; overflow: hidden;
+    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+  }
+  .dice-anim .round {
+    position: absolute; left: 4%; top: 14px; z-index: 5;
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.22em; color: var(--accent);
+    opacity: 0;
+  }
+  .dice-anim .r1l { animation: win1 30s linear infinite; }
+  .dice-anim .r2l { animation: win2 30s linear infinite; }
+  .dice-anim .r3l { animation: win3 30s linear infinite; }
+  @keyframes win1 { 0%, 32% { opacity: 1; } 34%, 100% { opacity: 0; } }
+  @keyframes win2 { 0%, 32% { opacity: 0; } 34%, 66% { opacity: 1; } 68%, 100% { opacity: 0; } }
+  @keyframes win3 { 0%, 66% { opacity: 0; } 68%, 100% { opacity: 1; } }
+
+  /* ================= dice trays (one per round) ================= */
+  .dice-anim .tray { position: absolute; left: 4%; top: 46%; width: 46%; height: 120px; opacity: 0; }
+  .dice-anim .tray1 { animation: win1 30s linear infinite; }
+  .dice-anim .tray2 { animation: win2 30s linear infinite; }
+  .dice-anim .tray3 { animation: win3 30s linear infinite; }
+  .dice-anim .die {
+    position: absolute; top: 0; width: 54px; height: 54px; border-radius: 10px;
+    background: linear-gradient(135deg, #e8e2d4, #c9c2b0);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.55), inset 0 1px 2px rgba(255,255,255,0.7);
+    animation: dieRoll 10s ease-out infinite;
+  }
+  .dice-anim .d1 { left: 0; } .dice-anim .d2 { left: 66px; } .dice-anim .d3 { left: 132px; }
+  .dice-anim .d4 { left: 198px; } .dice-anim .d5 { left: 264px; }
+  @keyframes dieRoll {
+    0% { transform: translate(-190px, -52px) rotate(-400deg); opacity: 0; }
+    2% { opacity: 1; }
+    6% { transform: translate(-120px, -20px) rotate(-260deg); opacity: 1; }
+    10% { transform: translate(-52px, -6px) rotate(-115deg); opacity: 1; }
+    13% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    15% { transform: translate(0, -5px) rotate(0deg); opacity: 1; }
+    17%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  }
+  .dice-anim .die i { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #2b251b; }
+  .dice-anim .p-tl { left: 10px; top: 10px; } .dice-anim .p-tr { right: 10px; top: 10px; }
+  .dice-anim .p-ml { left: 10px; top: 22px; } .dice-anim .p-mr { right: 10px; top: 22px; }
+  .dice-anim .p-bl { left: 10px; bottom: 10px; } .dice-anim .p-br { right: 10px; bottom: 10px; }
+  .dice-anim .p-c { left: 22px; top: 22px; }
+
+  /* kept glow for all dice once calculated */
+  .dice-anim .die { animation: dieRoll 10s ease-out infinite, dieKept 10s linear infinite; }
+  @keyframes dieKept {
+    0%, 40% { outline: 3px solid transparent; outline-offset: 2px; }
+    46%, 100% { outline: 3px solid var(--accent); outline-offset: 2px; }
+  }
+  /* re-roll dice: red mark, shake, swap faces */
+  .dice-anim .die.re { animation: dieRoll 10s ease-out infinite, reMark 10s linear infinite, reShake 10s linear infinite; }
+  @keyframes reMark {
+    0%, 16% { outline: 3px solid transparent; outline-offset: 2px; }
+    20%, 38% { outline: 3px dashed var(--red); outline-offset: 2px; }
+    42%, 100% { outline: 3px solid var(--accent); outline-offset: 2px; }
+  }
+  @keyframes reShake {
+    0%, 24% { translate: 0 0; }
+    26% { translate: -5px 0; } 28% { translate: 5px 0; } 30% { translate: -5px 0; }
+    32% { translate: 5px 0; } 34% { translate: -4px 0; } 36% { translate: 4px 0; }
+    38%, 100% { translate: 0 0; }
+  }
+  .dice-anim .die.re .fb { position: absolute; inset: 0; animation: fbOut 10s linear infinite; }
+  .dice-anim .die.re .fa { position: absolute; inset: 0; animation: faIn 10s linear infinite; }
+  @keyframes fbOut { 0%, 36% { opacity: 1; } 40%, 100% { opacity: 0; } }
+  @keyframes faIn { 0%, 36% { opacity: 0; } 40%, 100% { opacity: 1; } }
+  .dice-anim .retag {
+    position: absolute; top: -24px; left: 50%; transform: translateX(-50%) rotate(-6deg);
+    font-size: 0.55rem; font-weight: 800; letter-spacing: 0.08em; white-space: nowrap;
+    color: #e08070; border: 2px solid var(--red); border-radius: 4px; padding: 1px 5px;
+    background: rgba(11,10,8,0.92); opacity: 0; animation: retagVis 10s linear infinite;
+  }
+  @keyframes retagVis { 0%, 18% { opacity: 0; } 22%, 36% { opacity: 1; } 40%, 100% { opacity: 0; } }
+
+  /* bit pairs under each die */
+  .dice-anim .bp {
+    position: absolute; top: 62px; left: 0; right: 0; text-align: center;
+    font-size: 0.8rem; font-weight: 800; letter-spacing: 0.12em; color: var(--accent);
+    opacity: 0; animation: bpFly 10s linear infinite;
+  }
+  @keyframes bpFly {
+    0%, 44% { opacity: 0; transform: translate(0, 0); }
+    52% { opacity: 1; transform: translate(0, 0); }
+    70% { opacity: 1; transform: translate(120px, -6px); }
+    78%, 100% { opacity: 0; transform: translate(200px, -10px); }
+  }
+
+  /* ================= bits panel ================= */
+  .dice-anim .panel {
+    position: absolute; right: 4%; top: 12%; bottom: 12%; width: 40%;
+    background: #12100c; border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; overflow: hidden;
+  }
+  .dice-anim .phead { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.24em; color: var(--muted); margin-bottom: 10px; }
+  .dice-anim .pbits {
+    position: absolute; left: 16px; right: 16px; top: 44px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 0.82rem; line-height: 1.9;
+    letter-spacing: 0.08em; color: var(--ink); word-break: break-word;
+  }
+  .dice-anim .pbits .sg { opacity: 0; }
+  .dice-anim .pbits b { color: var(--accent); }
+  .dice-anim .sg1 { animation: sg1 30s linear infinite; }
+  .dice-anim .sg2 { animation: sg2 30s linear infinite; }
+  .dice-anim .sg3 { animation: sg3 30s linear infinite; }
+  .dice-anim .sg4 { animation: sg4 30s linear infinite; }
+  @keyframes sg1 { 0%, 20% { opacity: 0; } 24%, 100% { opacity: 1; } }
+  @keyframes sg2 { 0%, 53% { opacity: 0; } 57%, 100% { opacity: 1; } }
+  @keyframes sg3 { 0%, 84% { opacity: 0; } 88%, 100% { opacity: 1; } }
+  @keyframes sg4 { 0%, 93% { opacity: 0; } 96%, 100% { opacity: 1; } }
+  .dice-anim .pbar { position: absolute; left: 16px; right: 16px; bottom: 52px; height: 8px; background: #1d1812; border-radius: 5px; border: 1px solid var(--line); }
+  .dice-anim .pbar i { display: block; height: 100%; width: 0; border-radius: 5px; background: var(--accent); animation: pbarFill 30s linear infinite; }
+  @keyframes pbarFill {
+    0%, 20% { width: 0; } 30%, 52% { width: 4%; } 62%, 84% { width: 8%; }
+    92%, 93% { width: 12%; } 97%, 100% { width: 100%; }
+  }
+  .dice-anim .pcount { position: absolute; left: 16px; bottom: 26px; font-size: 0.7rem; letter-spacing: 0.18em; color: var(--muted); opacity: 0; }
+  .dice-anim .c1 { animation: sg1 30s linear infinite; } .dice-anim .c2 { animation: sg2 30s linear infinite; }
+  .dice-anim .c3 { animation: sg3 30s linear infinite; } .dice-anim .c4 { animation: sg4 30s linear infinite; }
+  .dice-anim .pcount b { color: var(--accent); }
+  .dice-anim .wstamp {
+    position: absolute; right: 16px; bottom: 20px;
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; color: var(--accent);
+    border: 2px solid var(--accent); border-radius: 6px; padding: 4px 10px;
+    transform: rotate(-6deg); opacity: 0; background: rgba(11,10,8,0.9);
+    animation: wstampIn 30s linear infinite;
+  }
+  @keyframes wstampIn { 0%, 95% { opacity: 0; transform: rotate(-6deg) scale(1.4); } 98%, 100% { opacity: 1; transform: rotate(-6deg) scale(1); } }
+
+  @media (max-width: 640px) {
+    .dice-anim .stage { height: 520px; }
+    .dice-anim .tray { left: 6%; top: 14%; width: 88%; }
+    .dice-anim .die { width: 44px; height: 44px; }
+    .dice-anim .d2 { left: 54px; } .dice-anim .d3 { left: 108px; } .dice-anim .d4 { left: 162px; } .dice-anim .d5 { left: 216px; }
+    .dice-anim .die i { width: 8px; height: 8px; }
+    .dice-anim .p-tl { left: 8px; top: 8px; } .dice-anim .p-tr { right: 8px; top: 8px; }
+    .dice-anim .p-ml { left: 8px; top: 18px; } .dice-anim .p-mr { right: 8px; top: 18px; }
+    .dice-anim .p-bl { left: 8px; bottom: 8px; } .dice-anim .p-br { right: 8px; bottom: 8px; }
+    .dice-anim .p-c { left: 18px; top: 18px; }
+    .dice-anim .panel { left: 6%; right: 6%; top: auto; bottom: 5%; width: auto; height: 44%; }
+    .dice-anim .round { left: 6%; }
+  }
+  .dice-anim .note {
+    margin-top: 1rem; text-align: center; font-size: 0.92rem; color: var(--muted);
+    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+  }
+  .dice-anim .note strong { color: var(--accent); }
+  @media (prefers-reduced-motion: reduce) {
+    .dice-anim .die, .dice-anim .fb, .dice-anim .fa, .dice-anim .retag, .dice-anim .bp, .dice-anim .round,
+    .dice-anim .tray, .dice-anim .pbits, .dice-anim .pbar i, .dice-anim .pcount, .dice-anim .wstamp { animation: none !important; }
+    .dice-anim .tray1, .dice-anim .r1l { opacity: 1 !important; }
+    .dice-anim .pbits .sg { opacity: 1 !important; }
+  }
