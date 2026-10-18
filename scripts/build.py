@@ -33,21 +33,28 @@ SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
 LIGHTNING_ADDRESS = "musthavemoresats@speed.app"
 # On-chain Bitcoin address for the footer donate button.
 ONCHAIN_ADDRESS = "bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"
+# GoatCounter site code for private visitor counts. Empty = no tracking.
+# When set, fill in the code (the part before .goatcounter.com) after creating
+# the site at goatcounter.com; the dashboard is private by default (no badge).
+GOATCOUNTER_CODE = "plebumbtc"
 
 # (slug, number, title) in workflow order
 SHEETS = [
     ("terms", "T", "Terms"),
+    ("threat-model", "02", "Before you begin"),
     ("checklist", "03", "Checklist"),
     ("airgap", "04", "Two boots"),
     ("verify", "05", "Check the files"),
     ("dice", "06", "Make the three keys"),
     ("sparrow", "07", "Build the 2-of-3"),
+    ("testnet", "10", "Rehearse on testnet"),
     ("signing", "08", "Practice spend"),
     ("titanium", "09", "Metal and the map"),
     ("encryption", "11", "Hide the wallet map"),
     ("inheritance", "12", "If I am gone"),
     ("faq", "13", "If you get stuck"),
     ("briefing", "14", "Tough questions"),
+    ("fire-card", "15", "Recovery card"),
 ]
 SLUG_TO_IDX = {slug: i for i, (slug, _, _) in enumerate(SHEETS)}
 
@@ -239,6 +246,17 @@ def load_template():
         return f.read()
 
 
+def analytics_html():
+    """Private GoatCounter snippet (dashboard only, no public badge). Empty code = nothing."""
+    if not GOATCOUNTER_CODE:
+        return ""
+    code = GOATCOUNTER_CODE.strip()
+    return (
+        f'<script data-goatcounter="https://{code}.goatcounter.com/count" '
+        'async src="//gc.zgo.at/count.js"></script>'
+    )
+
+
 def sidebar_html(active_slug):
     items = []
     for slug, num, title in SHEETS:
@@ -376,6 +394,7 @@ def build_sheet(slug, num, title):
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", f"https://plebumbtc.io/handouts/{slug}.html")
+        .replace("{{analytics}}", analytics_html())
     )
     return page
 
@@ -398,6 +417,7 @@ def build_downloads():
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", "https://plebumbtc.io/downloads.html")
+        .replace("{{analytics}}", analytics_html())
     )
     return page
 
@@ -415,12 +435,12 @@ def build_home():
     # homepage uses a custom cards layout; keep the scraped intro, drop chrome junk
     cards = []
     stages = [
-        ("Get ready", [("terms", "T"), ("checklist", "03"), ("airgap", "04"), ("verify", "05")]),
+        ("Get ready", [("threat-model", "02"), ("terms", "T"), ("checklist", "03"), ("airgap", "04"), ("verify", "05")]),
         ("Make the keys", [("dice", "06"), ("sparrow", "07")]),
-        ("Prove it works", [("signing", "08")]),
+        ("Prove it works", [("testnet", "10"), ("signing", "08")]),
         ("Lock it in metal", [("titanium", "09"), ("encryption", "11")]),
         ("Plan for others", [("inheritance", "12")]),
-        ("Reference", [("faq", "13"), ("briefing", "14")]),
+        ("Reference", [("faq", "13"), ("briefing", "14"), ("fire-card", "15")]),
     ]
     lookup = {s: (n, t) for s, n, t in SHEETS}
     for stage, slugs in stages:
@@ -474,6 +494,7 @@ def build_home():
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", "https://plebumbtc.io/")
+        .replace("{{analytics}}", analytics_html())
     )
     return page
 
