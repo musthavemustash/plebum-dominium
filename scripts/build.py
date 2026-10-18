@@ -261,10 +261,9 @@ def prev_next(active_slug):
     return prev_link, next_link
 
 
-# diagrams that belong to specific sheets (file, caption)
+# diagrams that belong to specific sheets (file, caption).
+# airgap uses the animated two-boots loop instead of the static PNG.
 SHEET_DIAGRAMS = {
-    "airgap": ("diagram-02_two_boots.png",
-               "One computer, two boots: this computer watches and builds, the Tails USB signs offline."),
     "dice": ("diagram-03_dice.png",
              "Casino dice: keep faces 1–4 as two bits each, re-roll 5 and 6."),
     "sparrow": ("diagram-04_two_of_three.png",
@@ -278,7 +277,31 @@ SHEET_DIAGRAMS = {
 }
 
 
+def airgap_animation():
+    return (
+        '<div class="boots-anim" role="img" aria-label="Animation: Boot 1 builds the payment online, '
+        "the machine shuts down, Boot 2 signs offline on Tails.\">"
+        '<div class="boot boot1">'
+        '<div class="boot-label">Boot 1 · Network on</div>'
+        "<h4>This computer</h4>"
+        "<p>Watches balances. Builds a payment. Never holds a seed.</p>"
+        '<div class="laptop"><div class="screen">Network on</div></div>'
+        "<ul><li>Verify files</li><li>Watch-only wallet</li><li>Export unsigned file</li></ul>"
+        "</div>"
+        '<div class="then">then<br>shut down</div>'
+        '<div class="boot boot2">'
+        '<div class="boot-label">Boot 2 · Networking off</div>'
+        "<h4>Tails USB</h4>"
+        "<p>This stick is the offline computer. It borrows the hardware, then forgets.</p>"
+        '<div class="laptop"><div class="screen">Networking off</div></div>'
+        "<ul><li>One seed in memory</li><li>Sign the file</li><li>Full shutdown after</li></ul>"
+        "</div></div>"
+    )
+
+
 def sheet_diagram(slug):
+    if slug == "airgap":
+        return airgap_animation()
     if slug not in SHEET_DIAGRAMS:
         return ""
     img, caption = SHEET_DIAGRAMS[slug]
