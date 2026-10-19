@@ -137,6 +137,47 @@
   els.forEach(function (el) { io.observe(el); });
 })();
 
+/* --- "Pick your setup" chooser (homepage only, client-side only) --- */
+(function () {
+  var chooser = document.getElementById("chooser");
+  if (!chooser) return;
+  var result = document.getElementById("chooser-result");
+  if (!result) return;
+  var sel = {};
+  function link(slug, num, title) {
+    return '<a href="handouts/' + slug + '.html">Start with: ' + title + " (" + num + ")</a>";
+  }
+  function recommend() {
+    if (sel.exp === "new")
+      return link("terms", "T", "Terms") + " &mdash; learn the vocabulary first, then work the sheets in order.";
+    if (sel.offline === "notyet")
+      return link("airgap", "04", "Two boots") + " &mdash; get the offline computer ready before anything else.";
+    if (sel.keys === "hw")
+      return link("checklist", "03", "Checklist") + " &mdash; then read " + link("faq", "13", "If you get stuck") + " for hardware-wallet notes.";
+    if (sel.keys === "dice")
+      return link("dice", "06", "Make the three keys") + " &mdash; once you have worked sheets 03 through 05.";
+    if (sel.exp === "some")
+      return link("checklist", "03", "Checklist") + " &mdash; gather the kit, then work the sheets in order.";
+    return null;
+  }
+  chooser.querySelectorAll(".chooser-q").forEach(function (q) {
+    var key = q.getAttribute("data-q");
+    q.querySelectorAll(".chooser-tile").forEach(function (t) {
+      t.addEventListener("click", function () {
+        q.querySelectorAll(".chooser-tile").forEach(function (o) {
+          o.classList.remove("selected");
+          o.setAttribute("aria-pressed", "false");
+        });
+        t.classList.add("selected");
+        t.setAttribute("aria-pressed", "true");
+        sel[key] = t.getAttribute("data-val");
+        var r = recommend();
+        if (r) result.innerHTML = r;
+      });
+    });
+  });
+})();
+
 /* --- on-chain donate: copy address --- */
 document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   btn.addEventListener("click", function () {

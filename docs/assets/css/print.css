@@ -5,7 +5,10 @@ html, body { background: #fff !important; color: #000 !important; font-size: 11p
 
 /* hide everything that is not sheet content */
 .site-header, .sidebar, .scrim, .toc-col, .mobilebar, .site-footer,
-.progress, .prevnext-row, .copy-btn, .keyring { display: none !important; }
+.progress, .prevnext-row, .copy-btn, .keyring,
+.step-banner, .chooser { display: none !important; }
+/* the sheet overview card prints: time/difficulty/needs belong on paper */
+.sheet-meta { border: 1pt solid #000; background: #fff !important; break-inside: avoid; }
 /* dark infographics would print as ink blobs; the kit PDFs carry the print versions */
 .sheet-diagram { display: none !important; }
 

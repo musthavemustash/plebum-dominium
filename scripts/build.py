@@ -59,6 +59,84 @@ SHEETS = [
 SLUG_TO_IDX = {slug: i for i, (slug, _, _) in enumerate(SHEETS)}
 
 
+# (time, difficulty, needs, steps) for the iFixit-style overview card on each sheet
+SHEET_META = {
+    "terms":        ("10 min", "Easy", ["Nothing — just read"], "10 terms"),
+    "threat-model": ("15 min", "Easy", ["Pen and paper"], "1 worksheet"),
+    "checklist":    ("30 min + shopping", "Moderate", ["This sheet", "A budget for the kit"], "11 items"),
+    "verify":       ("30 min", "Careful", ["The downloaded files", "Two verification tools"], "7 sections"),
+    "airgap":       ("45 min", "Careful", ["Everyday computer", "Tails USB"], "4 sections"),
+    "dice":         ("30–45 min", "Moderate", ["5 dice", "Paper and pen", "The worksheet"], "4 sections"),
+    "sparrow":      ("45–60 min", "Careful", ["The three paper keys", "Verified Sparrow"], "9 sections"),
+    "testnet":      ("30 min", "Moderate", ["Sparrow", "Free testnet coins"], "2 sections"),
+    "signing":      ("45 min", "Careful", ["Two seeds", "Tails USB", "A small test amount"], "5 sections"),
+    "titanium":     ("1–2 hours", "Moderate", ["Titanium plates", "Metal stamp set", "The paper keys"], "4 sections"),
+    "encryption":   ("30 min", "Careful", ["descriptor_obfuscator.py (verified)", "A dice passphrase"], "7 sections"),
+    "inheritance":  ("1 hour", "Moderate", ["Your finished kit", "Your trusted person"], "6 sections"),
+    "faq":          ("10 min", "Easy", ["Nothing — find your question"], "7 questions"),
+    "briefing":     ("15 min", "Easy", ["Nothing — read and discuss"], "6 questions"),
+    "fire-card":    ("15 min", "Easy", ["Printer", "Scissors"], "3 steps"),
+}
+
+
+def step_banner_html(slug):
+    """Top banner: 'Step N of M — Title' with prev/next links, from SHEETS order."""
+    idx = SLUG_TO_IDX[slug]
+    n, m = idx + 1, len(SHEETS)
+    _, _, title = SHEETS[idx]
+    parts = [f'<nav class="step-banner" aria-label="Sheet {n} of {m}">']
+    if idx > 0:
+        s, pn, pt = SHEETS[idx - 1]
+        parts.append(
+            f'<a class="step-nav" href="{BASE}handouts/{s}.html" rel="prev">'
+            f"&larr; {pn} &middot; {esc(pt)}</a>"
+        )
+    else:
+        parts.append('<span class="step-nav step-none" aria-hidden="true"></span>')
+    parts.append(
+        f'<span class="step-pos"><strong>Step {n} of {m}</strong> &mdash; {esc(title)}</span>'
+    )
+    if idx < len(SHEETS) - 1:
+        s, nn, nt = SHEETS[idx + 1]
+        parts.append(
+            f'<a class="step-nav" href="{BASE}handouts/{s}.html" rel="next">'
+            f"{nn} &middot; {esc(nt)} &rarr;</a>"
+        )
+    else:
+        parts.append('<span class="step-nav step-none" aria-hidden="true"></span>')
+    parts.append("</nav>")
+    return "".join(parts)
+
+
+def step_pos_html(slug):
+    """Bottom-row position label: 'Step N of M — Title'."""
+    idx = SLUG_TO_IDX[slug]
+    _, _, title = SHEETS[idx]
+    return (
+        f'<span class="step-pos-bottom"><strong>Step {idx + 1} of {len(SHEETS)}</strong>'
+        f" &mdash; {esc(title)}</span>"
+    )
+
+
+def header_card_html(slug):
+    """iFixit-style overview card: time, difficulty, steps, you-will-need."""
+    time, diff, needs, steps = SHEET_META[slug]
+    diff_cls = {"Easy": "diff-easy", "Moderate": "diff-moderate", "Careful": "diff-careful"}[diff]
+    needs_html = " &middot; ".join(esc(x) for x in needs)
+    return (
+        '<section class="sheet-meta" aria-label="Sheet overview">'
+        f'<div class="meta-item"><span class="meta-label">Time</span>'
+        f'<span class="meta-val">{esc(time)}</span></div>'
+        f'<div class="meta-item"><span class="meta-label">Difficulty</span>'
+        f'<span class="meta-val {diff_cls}">{diff}</span></div>'
+        f'<div class="meta-item"><span class="meta-label">Steps</span>'
+        f'<span class="meta-val">{esc(steps)}</span></div>'
+        f'<div class="meta-item meta-needs"><span class="meta-label">You will need</span>'
+        f'<span class="meta-val">{needs_html}</span></div>'
+        "</section>"
+    )
+
+
 # ---------------------------------------------------------------- Markdown
 def esc(s):
     return htmlmod.escape(s)
@@ -390,6 +468,9 @@ def build_sheet(slug, num, title):
         .replace("{{content}}", sheet_diagram(slug) + rendered)
         .replace("{{prev}}", prev_link)
         .replace("{{next}}", next_link)
+        .replace("{{stepbanner}}", step_banner_html(slug))
+        .replace("{{steppos}}", step_pos_html(slug))
+        .replace("{{headercard}}", header_card_html(slug))
         .replace("{{is_home}}", "")
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
@@ -413,10 +494,39 @@ def build_downloads():
         .replace("{{content}}", rendered)
         .replace("{{prev}}", "")
         .replace("{{next}}", "")
+        .replace("{{stepbanner}}", "")
+        .replace("{{steppos}}", "")
+        .replace("{{headercard}}", "")
         .replace("{{is_home}}", "")
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", "https://plebumbtc.io/downloads.html")
+        .replace("{{analytics}}", analytics_html())
+    )
+    return page
+
+
+def build_beyond():
+    tpl = load_template()
+    with open("templates/beyond.html") as f:
+        rendered = f.read().replace("{BASE}", BASE)
+    page = (
+        tpl.replace("{{title}}", f"Beyond the kit — {SITE_NAME}")
+        .replace("{{base}}", BASE)
+        .replace("{{kicker}}", "Plebum Dominium")
+        .replace("{{heading}}", "Beyond the kit")
+        .replace("{{sidebar}}", sidebar_html("__beyond__"))
+        .replace("{{toc}}", "")
+        .replace("{{content}}", rendered)
+        .replace("{{prev}}", "")
+        .replace("{{next}}", "")
+        .replace("{{stepbanner}}", "")
+        .replace("{{steppos}}", "")
+        .replace("{{headercard}}", "")
+        .replace("{{is_home}}", "")
+        .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
+        .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
+        .replace("{{canonical}}", "https://plebumbtc.io/beyond.html")
         .replace("{{analytics}}", analytics_html())
     )
     return page
@@ -475,6 +585,7 @@ def build_home():
         "</div></div>"
         .replace("{BASE}", BASE)
         + home_section("home-why")
+        + home_section("home-chooser")
         + home_section("home-process")
         + "\n".join(cards)
         + home_section("home-rules")
@@ -490,6 +601,9 @@ def build_home():
         .replace("{{content}}", content)
         .replace("{{prev}}", "")
         .replace("{{next}}", "")
+        .replace("{{stepbanner}}", "")
+        .replace("{{steppos}}", "")
+        .replace("{{headercard}}", "")
         .replace("{{is_home}}", "home")
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
@@ -516,6 +630,13 @@ def main():
     with open("docs/downloads.html", "w") as f:
         f.write(build_downloads())
     print("  downloads.html")
+    # beyond the kit
+    with open("docs/beyond.html", "w") as f:
+        f.write(build_beyond())
+    print("  beyond.html")
+    # diceware passphrase mapper (standalone tool page, ships as-is)
+    shutil.copy("tools/diceware-mapper.html", "docs/diceware.html")
+    print("  diceware.html")
     # static assets
     shutil.copytree("assets", "docs/assets")
     # kit downloads
