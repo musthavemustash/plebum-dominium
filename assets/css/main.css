@@ -879,14 +879,14 @@ pre code { background: none; color: inherit; padding: 0; }
     background: #12100c; border: 1px solid var(--line); border-radius: 10px;
     padding: 14px 16px; overflow: hidden;
   }
-  .dice-anim .phead { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.24em; color: var(--muted); margin-bottom: 10px; }
+  .dice-anim .phead { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.24em; color: #9b9384; margin-bottom: 10px; }
   .dice-anim .pbits {
     position: absolute; left: 16px; right: 16px; top: 44px;
     font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 0.82rem; line-height: 1.9;
-    letter-spacing: 0.08em; color: var(--ink); word-break: break-word;
+    letter-spacing: 0.08em; color: #efe9dc; word-break: break-word;
   }
   .dice-anim .pbits .sg { opacity: 0; }
-  .dice-anim .pbits b { color: var(--accent); }
+  .dice-anim .pbits b { color: #e4c6a4; }
   .dice-anim .sg1 { animation: sg1 30s linear infinite; }
   .dice-anim .sg2 { animation: sg2 30s linear infinite; }
   .dice-anim .sg3 { animation: sg3 30s linear infinite; }
@@ -901,10 +901,10 @@ pre code { background: none; color: inherit; padding: 0; }
     0%, 20% { width: 0; } 30%, 52% { width: 4%; } 62%, 84% { width: 8%; }
     92%, 93% { width: 12%; } 97%, 100% { width: 100%; }
   }
-  .dice-anim .pcount { position: absolute; left: 16px; bottom: 26px; font-size: 0.7rem; letter-spacing: 0.18em; color: var(--muted); opacity: 0; }
+  .dice-anim .pcount { position: absolute; left: 16px; bottom: 26px; font-size: 0.7rem; letter-spacing: 0.18em; color: #9b9384; opacity: 0; }
   .dice-anim .c1 { animation: sg1 30s linear infinite; } .dice-anim .c2 { animation: sg2 30s linear infinite; }
   .dice-anim .c3 { animation: sg3 30s linear infinite; } .dice-anim .c4 { animation: sg4 30s linear infinite; }
-  .dice-anim .pcount b { color: var(--accent); }
+  .dice-anim .pcount b { color: #e4c6a4; }
   .dice-anim .wstamp {
     position: absolute; right: 16px; bottom: 20px;
     font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; color: var(--accent);
