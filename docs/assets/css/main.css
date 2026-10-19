@@ -1197,3 +1197,73 @@ pre code { background: none; color: inherit; padding: 0; }
   padding: 0.5rem 1rem; border-radius: 999px;
 }
 .dl-btn:hover { background: var(--accent); color: #1a1206; }
+
+/* ---------- step banner (top of each sheet) ---------- */
+.step-banner {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  flex-wrap: wrap;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 0.6rem 1rem; margin: 0 0 1.25rem; font-size: 0.92rem;
+}
+.step-banner .step-nav {
+  color: var(--accent); font-weight: 600; text-decoration: none; white-space: nowrap;
+}
+.step-banner .step-nav:hover { text-decoration: underline; }
+.step-banner .step-pos { color: var(--muted); text-align: center; }
+.step-banner .step-pos strong { color: var(--ink); }
+
+/* ---------- sheet header card (time / difficulty / steps / needs) ---------- */
+.sheet-meta {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem 1rem;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 0.9rem 1.1rem; margin: 0 0 1.5rem;
+}
+.sheet-meta .meta-item { display: flex; flex-direction: column; gap: 0.15rem; }
+.sheet-meta .meta-label {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.sheet-meta .meta-val { font-weight: 600; color: var(--ink); }
+.sheet-meta .meta-needs { grid-column: 1 / -1; }
+@media (max-width: 560px) {
+  .sheet-meta { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- homepage setup chooser ---------- */
+.chooser { margin: 2.5rem 0; }
+.chooser-q { margin: 0 0 1.25rem; }
+.chooser-q-label { font-weight: 600; margin: 0 0 0.5rem; }
+.chooser-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; }
+.chooser-tile {
+  display: flex; flex-direction: column; gap: 0.25rem; align-items: flex-start;
+  background: var(--card); border: 2px solid var(--line); border-radius: var(--radius);
+  padding: 0.9rem 1rem; font: inherit; font-weight: 600; color: var(--ink);
+  cursor: pointer; text-align: left;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+.chooser-tile span { font-weight: 400; font-size: 0.85rem; color: var(--muted); }
+.chooser-tile:hover { border-color: var(--accent); transform: translateY(-2px); }
+.chooser-tile[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.chooser-result {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 0.9rem 1.1rem; margin-top: 0.5rem; min-height: 3.2em;
+}
+.chooser-result a { color: var(--accent); font-weight: 600; }
+
+/* ---------- beyond-the-kit topic cards ---------- */
+.beyond-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.9rem; margin: 1.5rem 0; }
+.topic-card {
+  display: block; background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1.1rem 1.2rem;
+  text-decoration: none; color: var(--ink);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.topic-card:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(28,25,23,0.09); text-decoration: none; }
+.topic-card .tag {
+  display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--accent); background: var(--accent-soft);
+  border-radius: 999px; padding: 0.15rem 0.7rem; margin-bottom: 0.6rem;
+}
+.topic-card h3 { margin: 0 0 0.4rem; font-size: 1.15rem; }
+.topic-card .when { font-size: 0.88rem; color: var(--muted); font-style: italic; margin: 0 0 0.5rem; }
+.topic-card p:last-child { margin-bottom: 0; }
