@@ -31,6 +31,8 @@ SITE_NAME = "Plebum Dominium"
 SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
 # Lightning address for the footer donate button.
 LIGHTNING_ADDRESS = "musthavemoresats@speed.app"
+from datetime import date as _bdate
+LAST_UPDATED = _bdate.today().strftime("%B %-d, %Y")
 # On-chain Bitcoin address for the footer donate button.
 ONCHAIN_ADDRESS = "bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"
 # GoatCounter site code for private visitor counts. Empty = no tracking.
@@ -475,6 +477,7 @@ def build_sheet(slug, num, title):
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", f"https://plebumbtc.io/handouts/{slug}.html")
+        .replace("{{last_updated}}", LAST_UPDATED)
         .replace("{{analytics}}", analytics_html())
     )
     return page
@@ -501,6 +504,7 @@ def build_downloads():
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", "https://plebumbtc.io/downloads.html")
+        .replace("{{last_updated}}", LAST_UPDATED)
         .replace("{{analytics}}", analytics_html())
     )
     return page
@@ -527,6 +531,7 @@ def build_beyond():
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", "https://plebumbtc.io/beyond.html")
+        .replace("{{last_updated}}", LAST_UPDATED)
         .replace("{{analytics}}", analytics_html())
     )
     return page
@@ -608,6 +613,7 @@ def build_home():
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", "https://plebumbtc.io/")
+        .replace("{{last_updated}}", LAST_UPDATED)
         .replace("{{analytics}}", analytics_html())
     )
     return page

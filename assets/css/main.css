@@ -1267,3 +1267,6 @@ pre code { background: none; color: inherit; padding: 0; }
 .topic-card h3 { margin: 0 0 0.4rem; font-size: 1.15rem; }
 .topic-card .when { font-size: 0.88rem; color: var(--muted); font-style: italic; margin: 0 0 0.5rem; }
 .topic-card p:last-child { margin-bottom: 0; }
+
+/* ---------- footer last-updated line ---------- */
+.footer-updated { color: var(--muted); font-size: 0.85rem; }
