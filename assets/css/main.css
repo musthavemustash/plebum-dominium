@@ -1224,6 +1224,7 @@ pre code { background: none; color: inherit; padding: 0; }
   color: var(--muted);
 }
 .sheet-meta .meta-val { font-weight: 600; color: var(--ink); }
+.sheet-meta .meta-val a { color: inherit; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
 .sheet-meta .meta-needs { grid-column: 1 / -1; }
 @media (max-width: 560px) {
   .sheet-meta { grid-template-columns: 1fr 1fr; }

@@ -11,6 +11,7 @@ import os
 import re
 import shutil
 import sys
+import hashlib
 import html as htmlmod
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -81,6 +82,35 @@ SHEET_META = {
 }
 
 
+# Where each "You will need" item is sourced or checked. Items not listed
+# here stay plain text (household items, outputs of the reader's own work).
+NEED_LINKS = {
+    "5 dice": "handouts/checklist.html",
+    "Paper and pen": "handouts/checklist.html",
+    "Pen and paper": "handouts/checklist.html",
+    "Everyday computer": "handouts/checklist.html",
+    "Tails USB": "handouts/checklist.html",
+    "Titanium plates": "handouts/checklist.html",
+    "Metal stamp set": "handouts/checklist.html",
+    "The downloaded files": "handouts/verify.html",
+    "Two verification tools": "handouts/verify.html",
+    "Verified Sparrow": "handouts/verify.html",
+    "Sparrow": "handouts/verify.html",
+    "descriptor_obfuscator.py (verified)": "handouts/verify.html",
+    "The three paper keys": "handouts/dice.html",
+    "The paper keys": "handouts/dice.html",
+    "Two seeds": "handouts/dice.html",
+    "The worksheet": "downloads.html",
+}
+
+
+def need_html(item):
+    target = NEED_LINKS.get(item)
+    if target:
+        return f'<a href="{BASE}{target}">{esc(item)}</a>'
+    return esc(item)
+
+
 def step_banner_html(slug):
     """Top banner: 'Step N of M — Title' with prev/next links, from SHEETS order."""
     idx = SLUG_TO_IDX[slug]
@@ -124,7 +154,7 @@ def header_card_html(slug):
     """iFixit-style overview card: time, difficulty, steps, you-will-need."""
     time, diff, needs, steps = SHEET_META[slug]
     diff_cls = {"Easy": "diff-easy", "Moderate": "diff-moderate", "Careful": "diff-careful"}[diff]
-    needs_html = " &middot; ".join(esc(x) for x in needs)
+    needs_html = " &middot; ".join(need_html(x) for x in needs)
     return (
         '<section class="sheet-meta" aria-label="Sheet overview">'
         f'<div class="meta-item"><span class="meta-label">Time</span>'
@@ -468,6 +498,7 @@ def build_sheet(slug, num, title):
         .replace("{{sidebar}}", sidebar_html(slug))
         .replace("{{toc}}", toc_html(rendered))
         .replace("{{content}}", sheet_diagram(slug) + rendered)
+        # fingerprint the rendered content (card + diagram + body) for VERIFY.md
         .replace("{{prev}}", prev_link)
         .replace("{{next}}", next_link)
         .replace("{{stepbanner}}", step_banner_html(slug))
@@ -480,6 +511,8 @@ def build_sheet(slug, num, title):
         .replace("{{last_updated}}", LAST_UPDATED)
         .replace("{{analytics}}", analytics_html())
     )
+    fp_src = header_card_html(slug) + sheet_diagram(slug) + rendered
+    PAGE_FINGERPRINTS[slug] = hashlib.sha256(fp_src.encode("utf-8")).hexdigest()
     return page
 
 
@@ -619,6 +652,46 @@ def build_home():
     return page
 
 
+PAGE_FINGERPRINTS = {}
+
+
+def update_verify_page_fingerprints():
+    """Regenerate the sheet-page fingerprint table inside kit/VERIFY.md."""
+    path = "kit/VERIFY.md"
+    with open(path) as f:
+        text = f.read()
+    begin = "<!-- BEGIN GENERATED: PAGE FINGERPRINTS (scripts/build.py) -->"
+    end = "<!-- END GENERATED: PAGE FINGERPRINTS -->"
+    lines = [
+        begin,
+        "",
+        "## Sheet page fingerprints",
+        "",
+        "Each sheet page on plebumbtc.io is rendered from a fixed source. The",
+        "fingerprint below is the SHA-256 of that sheet's rendered content \u2014 the",
+        "overview card and the article body, without the site header and footer.",
+        "If a copy of a sheet does not hash to the value printed here, it is not",
+        "the sheet as published.",
+        "",
+        "| Sheet | Page | SHA-256 |",
+        "| --- | --- | --- |",
+    ]
+    for slug, num, title in SHEETS:
+        lines.append(
+            f"| {num} \u00b7 {title} | handouts/{slug}.html | `{PAGE_FINGERPRINTS.get(slug, '')}` |"
+        )
+    lines += ["", end]
+    block = "\n".join(lines)
+    if begin in text:
+        text = re.sub(re.escape(begin) + r".*?" + re.escape(end),
+                      lambda m: block, text, flags=re.S)
+    else:
+        text = text.rstrip() + "\n\n" + block + "\n"
+    with open(path, "w") as f:
+        f.write(text)
+    print("  kit/VERIFY.md (page fingerprints)")
+
+
 def main():
     shutil.rmtree("docs", ignore_errors=True)
     os.makedirs("docs/handouts", exist_ok=True)
@@ -645,6 +718,8 @@ def main():
     print("  diceware.html")
     # static assets
     shutil.copytree("assets", "docs/assets")
+    # VERIFY.md page fingerprints (must run before the kit copy)
+    update_verify_page_fingerprints()
     # kit downloads
     shutil.copytree("kit", "docs/kit")
     # robots.txt + sitemap.xml (generated so the sitemap never drifts)
