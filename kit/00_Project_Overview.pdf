@@ -1,111 +1,3232 @@
 %PDF-1.4
-%“Œ‹ž ReportLab Generated PDF document (opensource)
+%âãÏÓ
 1 0 obj
 <<
-/F1 2 0 R /F2 3 0 R /F3 4 0 R /F4 5 0 R /F5 7 0 R
+/Producer (pypdf)
 >>
 endobj
 2 0 obj
 <<
-/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+/Type /Pages
+/Count 2
+/Kids [ 4 0 R 13 0 R ]
 >>
 endobj
 3 0 obj
 <<
-/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+/Type /Catalog
+/Pages 2 0 R
 >>
 endobj
 4 0 obj
 <<
-/BaseFont /Times-Roman /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+/Contents 5 0 R
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 7 0 R
+/F2 8 0 R
+/F2-0 9 0 R
+/F3 10 0 R
+/F4 11 0 R
+/F5 12 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
 >>
 endobj
 5 0 obj
 <<
-/BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font
+/Length 19224
 >>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+BT /F2 10 Tf 12 TL ET
+.101961 .090196 .070588 rg
+BT 1 0 0 1 51.02362 752.315 Tm (PLEBUM DOMINIUM) Tj T* ET
+BT /F1 8 Tf 9.6 TL ET
+.360784 .337255 .298039 rg
+BT 1 0 0 1 153.2436 752.315 Tm (\267 PROJECT OVERVIEW) Tj T* ET
+q
+1 0 0 1 496.1764 690.3496 cm
+q
+1 0 0 1 0 0 cm
+0 0 0 RG
+1 w
+0 J
+0 j
+[] 0 d
+0 0 0 rg
+BT /F3 10 Tf 12 TL ET
+BT /F3 10 Tf 12 TL ET
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 0 0 cm
+q
+0 w
+0 J
+0 j
+[] 0 d
+n 0 0 64.8 64.8 re n
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 54.98182 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 54.98182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 54.98182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 54.98182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 54.98182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 54.98182 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 53.01818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 53.01818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 53.01818 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 53.01818 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 53.01818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 53.01818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 53.01818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 51.05455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 51.05455 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 51.05455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 51.05455 9.818182 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 51.05455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 51.05455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 51.05455 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 51.05455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 49.09091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 49.09091 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 49.09091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 49.09091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 49.09091 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 49.09091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 49.09091 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 49.09091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 47.12727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 47.12727 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 47.12727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 47.12727 7.854545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 47.12727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 47.12727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 47.12727 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 47.12727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 43.2 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 43.2 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 43.2 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 43.2 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 43.2 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 43.2 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 43.2 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 41.23636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 41.23636 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 41.23636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 41.23636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 39.27273 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 17.67273 39.27273 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 39.27273 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 39.27273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 41.23636 39.27273 7.854545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 39.27273 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 9.818182 37.30909 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 25.52727 37.30909 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 37.30909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 37.30909 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 37.30909 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 49.09091 37.30909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 37.30909 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 35.34545 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 35.34545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 35.34545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 35.34545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 45.16364 35.34545 7.854545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 35.34545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 9.818182 33.38182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 21.6 33.38182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 33.38182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 49.09091 33.38182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 31.41818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 17.67273 31.41818 9.818182 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 31.41818 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 31.41818 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 31.41818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 31.41818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 29.45455 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 17.67273 29.45455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 21.6 29.45455 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 29.45455 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 29.45455 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 29.45455 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 29.45455 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 27.49091 7.854545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 27.49091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 27.49091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 27.49091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 27.49091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 49.09091 27.49091 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 27.49091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 25.52727 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 25.52727 25.52727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 25.52727 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 25.52727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 25.52727 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 45.16364 25.52727 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 23.56364 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 13.74545 23.56364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 17.67273 23.56364 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 23.56364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 23.56364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 23.56364 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 23.56364 9.818182 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 23.56364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 21.6 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 21.6 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 21.6 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 21.6 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 21.6 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 19.63636 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 19.63636 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 19.63636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 19.63636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 19.63636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 19.63636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 17.67273 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 15.70909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 15.70909 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 15.70909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 25.52727 15.70909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 15.70909 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 15.70909 11.78182 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 15.70909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 13.74545 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 25.52727 13.74545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 41.23636 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 51.05455 13.74545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 11.78182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 11.78182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 11.78182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 11.78182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 11.78182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 11.78182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 11.78182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 45.16364 11.78182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 11.78182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 9.818182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 9.818182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 9.818182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 9.818182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 9.818182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 45.16364 9.818182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 7.854545 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 7.854545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 7.854545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 7.854545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 7.854545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 49.09091 7.854545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 7.854545 1.963636 1.963636 re f*
+Q
+Q
+Q
+Q
+Q
+BT /F1 6.5 Tf 7.8 TL ET
+.360784 .337255 .298039 rg
+BT 1 0 0 1 497.6851 686.0976 Tm (scan for the full sheet) Tj T* ET
+BT /F1 8 Tf 9.6 TL ET
+.360784 .337255 .298039 rg
+BT 1 0 0 1 51.02362 34.01575 Tm (Stop if a check fails. Do not skip ahead.) Tj T* ET
+BT 1 0 0 1 520.0564 34.01575 Tm (Page 1 of 2) Tj T* ET
+Q
+q
+1 0 0 1 57.02362 692.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 4 Tm /F1 10 Tf 14 TL (Independent At-Home Bitcoin Self-Custody) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 682.6299 cm
+Q
+q
+1 0 0 1 57.02362 656.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 4 Tm /F2 22 Tf 26 TL (Plebum Dominium) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 640.6299 cm
+q
+.360784 .337255 .298039 rg
+BT 1 0 0 1 0 3 Tm /F4 11 Tf 14 TL (\(PLAY-boom doh-MIN-ee-oom\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 616.6299 cm
+q
+.541176 .352941 .164706 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (Absolute Ownership by the Common People) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 566.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 32 Tm /F1 10 Tf 14 TL ("Pleb" is an everyday Bitcoiner. "Dominium" is Latin for absolute ownership. This guide is for the Bitcoiner who) Tj T* (wants to build a secure, self-custody Bitcoin wallet from the ground up \227 bypassing the need for a company, an) Tj T* (app, or a custodian to manage or store it.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 540.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (Why this guide: eliminate single points of failure) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 520.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 4 Tm /F1 10 Tf 14 TL (This guide does that \227 securely and privately. None of these can take your money:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 502.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 14 4 Tm /F1 10 Tf 14 TL (\177 One seed that can spend by itself) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 486.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 14 4 Tm /F1 10 Tf 14 TL (\177 An app or an exchange) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 470.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 14 4 Tm /F1 10 Tf 14 TL (\177 One place) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 454.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 14 4 Tm /F1 10 Tf 14 TL (\177 One device, one company) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 438.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 14 4 Tm /F1 10 Tf 14 TL (\177 A photo, a note, or a password manager) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 412.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (The process, start to finish) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 392.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 4 Tm /F1 10 Tf 14 TL (Seven steps. Each one links to its sheet. Nothing is skipped, nothing is reordered.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 374.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3.5 Tm /F2 10.5 Tf 14 TL (1. Check the files) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 348.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 16.5 Tm /F1 9.5 Tf 13 TL (Every file comes from its own site. Hash and signature are checked \227 if either fails, the file is deleted. Two tools must) Tj T* (agree before the work continues.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 328.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3.5 Tm /F2 10.5 Tf 14 TL (2. Two boots) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 302.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 16.5 Tm /F1 9.5 Tf 13 TL (The same computer, used twice. The first boot stays on the network and only watches. The second boot is Tails \227) Tj T* (network off, one seed, then a full shutdown.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 282.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3.5 Tm /F2 10.5 Tf 14 TL (3. Make the keys) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 256.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 16.5 Tm /F1 9.5 Tf 13 TL (Casino dice make the randomness. Faces 1\2264 are kept, 5 and 6 are rolled again. The computer shuts down between) Tj T* (keys. Two programs must print the same 24 words.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 236.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3.5 Tm /F2 10.5 Tf 14 TL (4. Two of three) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 223.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3.5 Tm /F1 9.5 Tf 13 TL (The wallet needs any two of the three keys to spend. One key alone cannot move the long-term fund.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 203.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3.5 Tm /F2 10.5 Tf 14 TL (5. Practice spend) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 177.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 16.5 Tm /F1 9.5 Tf 13 TL (A small amount comes in. The first seed signs, the computer shuts down, the second seed signs \227 then the payment) Tj T* (is broadcast. Savings don't move until this works.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 157.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3.5 Tm /F2 10.5 Tf 14 TL (6. Metal + map) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 131.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 16.5 Tm /F1 9.5 Tf 13 TL (The three keys are stamped into titanium and kept at three addresses. The wallet map travels with the record of those) Tj T* (places \227 and the map is not another key.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 111.6299 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3.5 Tm /F2 10.5 Tf 14 TL (7. House rules) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 98.62992 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3.5 Tm /F1 9.5 Tf 13 TL (The limits of the method. A convenience is never allowed to break one of them.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 72.62992 cm
+q
+.101961 .090196 .070588 rg
+BT 1 0 0 1 0 3 Tm /F2 13 Tf 16 TL (House rules) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 52.62992 cm
+q
+BT 1 0 0 1 14 4 Tm 14 TL /F1 10 Tf .101961 .090196 .070588 rg (\177 ) Tj /F2 10 Tf (No photos) Tj /F1 10 Tf ( \227 No seed, plate, or word-bearing screen on a camera.) Tj T* ET
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+0.435294 0.415686 0.372549 rg
+BT
+/F1-0 6.5 Tf
+7.8 TL
+ET
+BT
+1 0 0 1 192.3768 20 Tm
+(Plebum Dominium \267 plebumbtc\056io \267 Version 2026\05610\05620 \267 Built October 20\054 2026) Tj
+T*
+ET
+BT
+/F2-0 6 Tf
+7.2 TL
+ET
+BT
+1 0 0 1 160.2 10.5 Tm
+(Content SHA\055256\072 fafc377ca7ba7910de0100d4f5ebe83081384030fb80b9bdcbacc05eb84dc816) Tj
+T*
+ET
+Q
+
+endstream
 endobj
 6 0 obj
 <<
-/Contents 12 0 R /MediaBox [ 0 0 612 792 ] /Parent 11 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 7 0 obj
 <<
-/BaseFont /Symbol /Name /F5 /Subtype /Type1 /Type /Font
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 8 0 obj
 <<
-/Contents 13 0 R /MediaBox [ 0 0 612 792 ] /Parent 11 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 9 0 obj
 <<
-/PageMode /UseNone /Pages 11 0 R /Type /Catalog
+/BaseFont /Courier
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 10 0 obj
 <<
-/Author (\(anonymous\)) /CreationDate (D:20261019220317+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20261019220317+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
-  /Subject (\(unspecified\)) /Title (Plebum Dominium \204 Project Overview) /Trapped /False
+/BaseFont /Times-Roman
+/Encoding /WinAnsiEncoding
+/Name /F3
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 11 0 obj
 <<
-/Count 2 /Kids [ 6 0 R 8 0 R ] /Type /Pages
+/BaseFont /Helvetica-Oblique
+/Encoding /WinAnsiEncoding
+/Name /F4
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 12 0 obj
 <<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 3460
+/BaseFont /Symbol
+/Name /F5
+/Subtype /Type1
+/Type /Font
 >>
-stream
-Gau0H>Beg[&q9SYR$3kZ]/D.q`P+@3ZV=4JDPFRPcXn8,&[GMsUe4P9lJHdc&-G"[':Q]X*@j$$+$RnrErdO5J/Q'&otIL-?7t/kf)Z!t/63>#/;D,J\6PR%Fe[07&BrXlE&c-p=cfN^YZWT._1/do17pp\,B!hloH[hN0M4^RP)r*u!fIC\YMNU"r9YO&o\nVqpMYM-pDkgaKZ3ZuF<E<),NUI66Ug5jS&`==-ju4A=I@EI;?"O25n^FVNm\/"I1F^7Y!.=0jmpq'55]m*nb4u/J(u"4Y7ku(S>RpZdMUD[`Zk<gX`Em;2UfcArUTJcG^PR%r.7._T)@cdGcVb-Bi71.NkR@&nY;.73-&F#GcY)>9k-*5DlnQdjB$Kk5iV!%)4N!.^*&884qHf>eVIf%8AOdQ_O#pZI6Rc`N*(\`a7leH`:L6S-;!"Q'sTmF_CU!s<g99S*mSa\Y:+%PKa4[rjls\NeqXj,"UO8+.DR')2gE-DH8&G-S*-.Znd0IM=KEZ.@$(uUkGWgmN^GSkJ7\D(\Q/lrK,t)[BjM!Z]%sKsgj+SkMigD8Z#V`5*X:]sp#++glbNZu`WA`SLY])@gj,$ji`t&[FFXU5&XEZ=H/M-FnphHD/:':rl#f[6b6'-?Q3Y$c[QO&bg+ieZBSur6K=9Q\;,&;eRe?<e`WIlr/Ish:/U+g2D7T8Dg.GJ?*8mM\npk<EhuV$nbT=!q*o(b:&)FLl%ja4HlP,?=Th`,V:iGZW6i"M0a7M`Z3*J\`HkimT+Un[+)(^P#"PMM"QaO:a(<))HC8][sN26l5Ybq.Ij@9`nU5VP+:;V%uW%g;@9s;UEFRrln>0Y^A::GYg&lh+Y?r9-]=:Vni3psX[RdkqrD7]WBX<-/Bfsmp(/GFUZYT1#]H4Ig_Ta,dJe8>h`6X8(UV#)-K>an!Im`."hW=KtaD@17lnRJeNe2#Jq3V;Z;b7)tor?A:fKB6N[g2:k)p7ooam^BEIpL&3O%_"osCb,'"@6*t313W#>%.=#@*p,ugcNBK]Jd39q@32X$SuE<oSs-..&XJ4FQObY<Tf\S6Ta)R$P6oDu%jj5[i+6t^Bi#gbTn/kD4RAiq`n<MiHf.?9$4jeJ5Or3/)qVI<S"AZb:'"dKW;.KZ&VLBq'KR;>W6Ole8#n:q28)McFi/jFaS)XmF^Ma1*$91aL-s_LN]8pE]A_CWCl5:2^)`ID>&:e9ddhFZWBP:b,7/QFq\9Zd/F,Zer&fAPi;q-!!I$*,[.Jl;gH;i.S6f,c'CNO"f0J,rX<nRG3UUTYcUM"Xp7XV<ZL*n^/6ZAkcdD$9G``0-k6^lC>"q+OnID!A=?\S#cHBt>?oc^Zg'Vi_AMrG,ANqs@J49:W*Qro^aPHPjX,fTf6*'Xs2@iu6k@NtS#;#/Rgp*sKh<eeN3.p=$rT\s#XgRT08?7f<:=Jmt!UK9=cGO9Y*jB=-KWlHi^PsR&n01)GV,0A1p5c[EVoQ4N/F'"t#;,@Z1_3]q?g2!Ze2**"19]Z)PE[Ba_$n!H=\kU,3Hjc\"Rht\30,UjO.CAc?GidWTjQhn]?LPk[1L$L-XGr0ROH0TQ=ThhQVW%9KlR>:Q><b<KbZ7"*J9t&W1+j>gN![L/U5)QZ67M5L,E6(.,>-Ai\pp72Cf(%h'O..pLOGp1_3_-k.,qQA_c<31Pk-HlG4_D>`=!qkk%STLonJ%\qc4Cr9'pin?VDI9j,@]Z!!X4g3%gB*$0&[c>%6"*PW^gVpc,!<6n3kb(6Hl)f`Qld,\20Qb-u8]6JLKn58&76)4aPeaT0T5+c/p^%h?tFjj;d2!aaWDr.)oEK5Ntrb_k&i.2c/3!`@(/5!cA7WS]HSB]K[R)l[c@\V+dESWLA>qb-R^(tRp7cdnt<%,CoWiE&W8i5:^pbo)sS`6+e4K>@sdQ9+Tli:Nogkk`$n:OT'BGnH:IT%&rjaF+<R%*=sAi^>9CV8_?<u+,/CEf=b@)$U'oM5.nmQ9VO\DEL?!opU#b?ZXDn6]/c;Ce0r^#tlEk[E#9)^XW@g[+2,G$F_]@^CN3f^c0qlPjuP(8B.q@G+Ua?6@I3Fu1u3DU1S?<MPd<F6$3g>)"o+^k8!abFX^_`C$Vbou0dZr3;Q.0GaQu`25rGF#:.lfg`am/V,gtZm2mo)J]JjE!jA?l0"X^MajB.f"BVsf<3jJd)lN.g[YhGD[m342mn`hd4(UdRJhJ]/)\e@>!U&b_iH$S0RJ6M7Dd*Cn2\QFpjf/$.1nE<af:P-<CUKO9D*_&<'5YZ#_&>o71H1g,tj37s"2j8^)>m:bWl+4lYJM-3G*5H/Gp#bLq@\aGsH+W#i?4nU:G2t^inQ+%;$+'.>T-Wa>C5Ag1&,=m0I=?PQp&jL0.i(gU>@)F<0McT!uC,>UrLoh>5l",*/kI-S,uL2ndjQ1Ngg+CZV]n=l66LNcCkA4.-1)VdX&Sg`a;3XXMJj6-ZZ8TJ].gM@mrgb+>dq1aPf9Qo!RD%[./8]M_Itl:9$WkXKNIT.`&!8I^LVqc_5f;B.<#a]3sdZ"$g7,u3/)lRF7\?82/BGAEII]CH0l!N'&YpnJa29OfOU@uDj0S4BVAgbYC_1iabDGbU%'Z#@uPc)-+#9:r>B2m!X1/QT1FaW"+:\&bJe@_WT4(tXF>bjr,V6Hp8"[XO06-IdjT3CUqja"*^1YfCJ(@+WMPZ,b'6gDjq][d+Ym)2JN>=$?0s]eZ1$=&WU#h")R-e`j]M:c>W-aP5&p$gB/&5B;Ig^KI[\$C$fJGnUR==Z#OB!nB$B/`D(Tnp/Y8&VG;5K$0S=MSf_OKTd/a:V5a(a(D9$!ZchPGbEKZ[@=29[)h/_QEC]!1b,Z^A=2/0D1;bHnjod@ZjepWfQ,j<ZIXIZITEnrG`f7TNLg]u[Z,=A>*YJ,Dd$K3+Hl[5Y/bi5R4srS;iD#$I.QWo=OU1X(C'L;!b(.Vi)nV?NOirBjcT[,>/NmE<_><V7]<2BWKN<tJ8\E'kI"Q]=3[<0/0;Ga8&nRWrH_.s#\Qn2H=YKX_,\[F^!rN\r+uen4a<7i"`tJ_'mPFJSpi($7_(PjWHM<CLEZ10dBc"k,TqHIXr](+aR`VbW'kJQ""(#5[c,2gG?E$QnN/;V'!M;Ti$;i4DY15'k,gAD&!AC8H.k\9-7.(2%K$kq_KNlm;;f,kglo1j0N\r;lu^TI..k7?\QhD#$m`.kn:%lu(Ia6bbERc*G]4GF\,9!/ES+buf/X=(LOH'-V5C$G5#o;mi'o_W]N,*,6Y%H^fk[8mOP1Q'"B/"cZthF5?5bAcd-aAG=1R`C6B;FE/u&$5=]n4eoe>]:aR07:fM^3leKWOamfSd#VV0-ZO0(o&pat,%Cc0(W=ZD9;d9ciUG"WkbHt853rF+IUVn!8[+#Tqo%usEB2gRX:%4;S2WE((3er:$ZEEFd6.X6CoGUklSDM`D;AWt%ea&f"s?^_X'rWZ3+0VA~>endstream
 endobj
 13 0 obj
 <<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1979
+/Contents 14 0 R
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 7 0 R
+/F2 8 0 R
+/F2-0 9 0 R
+/F3 10 0 R
+/F4 11 0 R
+/F5 12 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+14 0 obj
+<<
+/Length 14737
 >>
 stream
-Gau12?!#c?&;KZF/*:a&?3j4'^>*U7QQ@P+Utpr?0AOJh!Ff!J^u)=H7l(InmK(XQE_7!,If*sQ8fGg6L;:O1q`@p^HlU&_Ym,&Q49HV'#f`c]1`lT4\MFG3i6I__EMWc.-Q5sGGAljJBb4np1cO4oH;0I.$;?g(87SD]*Q*+.#8a:.+2=D`Vt76Y0.1,QIYI;DN'DF2[>:or;m$a_X"Xk./-6Q@WJP+]-I78tIrQtZLWW"nZ?<3`PGE/;H2dX'pG&1f41b?5EqK+G%=a?7j\_TtSL+poH([M$a[Tk%F<@AWi8.`<@?3Y-&"i7(gX/7cg1/V)\R*eEEVM:sqiC1#@F'L4pKj+HRm\als"l$$UVGT.f-9opPc?9pljMfDjdFD1XbJ<J8$pF&d(VQjm)(>U-<.8KI^Hr^Lps^2eVVr*'rp&b-4SkX$=d:ggLVA+/'M"s6@]eRHV25Il7c1g[P3F_D&\nT5_):Pn>o`'\a:F.!HH^@l4F(KX@%FSq`<eZcisP&nq6=F>pEhR6*%BEj]TL]:>Y!r19$/4#YhC*AU:sS^>0<I?+h<_32t>s.#GHt\+mP]>>a7:o<n]']S.m;D[GVoD[EYb:kdY8*'TBCD[C)DD[F?&]d9>0]]B;hGRGIRJ@G<bE(iY8Q?md^,G;+3Q2h0'`K**+Mm&&O'eAZ$5TiQ0@$)N6=?^@5@.f!,F/TTE/?6T_SA77`k6R"[4:^M^>RpH49TIGSR%3##;K\h$fp9IQ0@++O+Y_Jp>nh3@$ekq5[DU%u<$`$*XPp\tet[bu0NFgY&m5X(qN)q;piq`r2h?54Ck`9Y4SH%;h=)l/_L*,%%,[g"^+S$^88p7WkEh8-^t2$B)AfaTq(/fghXWZ3Z6]@`f7iGnZ5DsIQQZ*8Uiu,EddVQ>=sXe$$9'k\JbJ,,&n@>*O;Ku>Nb+e>I(b=umo]^-e$QnN\/tN2O<6"D]0P0M4Ih!]3*'.:aC=4^?/)'.%/b6^Jb!7L-bsb/&E)I`-G[LlN/@?!4rMBpA-pJp,Zn0(HraU0!Z^)F,E(Lch_ti)U;"GkW/S".,Og].3XR1Yr;Kte(JZI`FCBVD&:80D36<,ra8;,'A-n4j!kJpdTF76L!"77,JMND'4DT2%7,s"e]J0%3iT8Bk*ClhEni4.\c/_]nbi@&`lj$V3\fD7k38*BiP'$66<!a$uP2N\1-QmdPeY2I0"J0Z?Yc&N!ZY4)&^qsY(S0/:`;pc8+?1]oa5)VN8X-C/lKfL*X"P07LFA[?1^r#=^^Pq5,e:eJShG<Xa8=nJuiYe?W/.#,AFce%6M_PFp;@$VGH%OA:7n*P2m(`<HqPb&kp>jbpVShmQrif,4X*e204pnMJpYrO#p\]85*p6Z-o2bru1tM5?TiZH9:;d#V^tP@-#s@ek@,^qfZ5Dobh@ft%YTEgWTR:hIGF(CH[qu-]k0`goKg/'@@,ZF.5T):hH3ML,epC.)'mCTQm"KB3FV<doA'\V2I?rN+Ul!iLZC2IBbj#Dd\\6bXrB77EA_@FXFMU[/@:[!U3:42d>da5,/7q_oA6r%!?reiH<sh.A:t7/!mM6=0bfaIq[T+I""Ek4B<g5M9(WB)T#3m(nNQ\nj_!BFVQm=U?0mVXE=kVSt'1(-a[+eL>2As%g0`Sh=#S+"[RY&-rD*9rT;RXnoF18)cXIpGY05ZA8(ZJFt:=nCsoE2T]2S&Y.SV*qi.N;JAg(i,&%FMJKbSO9'ERDY9Qo[jioAT4*D&%5DERX!>MgJe'"bT2;?J"TDnt"?4r)NJCXl*r6;^j]orV"l=lY$*74>3c7)s0#s8qM7>et9orhODudMZ'D#LH`4+EUr+`obgk7O7/.Ig?+=T6W63$<i(DkZ7Gs'(S=i/03o%APIKYLrPcA+\a&NX^*Y+&o^3l:VU'thnpSoOc2Id95I??[.W!A`8hM(;YSXWKfp#JE:LuDcRoS)8Q[Odr]h_r$PRU)H!D_LSiW~>endstream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+BT /F2 10 Tf 12 TL ET
+.101961 .090196 .070588 rg
+BT 1 0 0 1 51.02362 752.315 Tm (PLEBUM DOMINIUM) Tj T* ET
+BT /F1 8 Tf 9.6 TL ET
+.360784 .337255 .298039 rg
+BT 1 0 0 1 153.2436 752.315 Tm (\267 PROJECT OVERVIEW) Tj T* ET
+q
+1 0 0 1 496.1764 690.3496 cm
+q
+1 0 0 1 0 0 cm
+0 0 0 RG
+1 w
+0 J
+0 j
+[] 0 d
+0 0 0 rg
+BT /F3 10 Tf 12 TL ET
+BT /F3 10 Tf 12 TL ET
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 0 0 cm
+q
+0 w
+0 J
+0 j
+[] 0 d
+n 0 0 64.8 64.8 re n
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 54.98182 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 54.98182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 54.98182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 54.98182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 54.98182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 54.98182 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 53.01818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 53.01818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 53.01818 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 53.01818 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 53.01818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 53.01818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 53.01818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 51.05455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 51.05455 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 51.05455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 51.05455 9.818182 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 51.05455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 51.05455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 51.05455 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 51.05455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 49.09091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 49.09091 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 49.09091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 49.09091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 49.09091 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 49.09091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 49.09091 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 49.09091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 47.12727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 47.12727 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 47.12727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 47.12727 7.854545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 47.12727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 47.12727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 47.12727 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 47.12727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 45.16364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 43.2 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 43.2 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 43.2 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 43.2 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 43.2 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 43.2 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 43.2 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 41.23636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 41.23636 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 41.23636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 41.23636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 39.27273 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 17.67273 39.27273 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 39.27273 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 39.27273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 41.23636 39.27273 7.854545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 39.27273 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 9.818182 37.30909 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 25.52727 37.30909 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 37.30909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 37.30909 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 37.30909 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 49.09091 37.30909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 37.30909 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 35.34545 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 35.34545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 35.34545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 35.34545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 45.16364 35.34545 7.854545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 35.34545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 9.818182 33.38182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 21.6 33.38182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 33.38182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 49.09091 33.38182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 31.41818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 17.67273 31.41818 9.818182 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 31.41818 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 31.41818 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 31.41818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 31.41818 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 29.45455 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 17.67273 29.45455 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 21.6 29.45455 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 29.45455 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 29.45455 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 29.45455 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 29.45455 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 27.49091 7.854545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 27.49091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 27.49091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 27.49091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 27.49091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 49.09091 27.49091 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 27.49091 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 25.52727 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 25.52727 25.52727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 25.52727 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 25.52727 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 25.52727 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 45.16364 25.52727 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 23.56364 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 13.74545 23.56364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 17.67273 23.56364 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 23.56364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 23.56364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 23.56364 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 23.56364 9.818182 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 23.56364 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 21.6 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 21.6 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 21.6 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 21.6 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 21.6 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 19.63636 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 19.63636 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 19.63636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 43.2 19.63636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 19.63636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 19.63636 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 17.67273 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 17.67273 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 15.70909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 15.70909 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 15.70909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 25.52727 15.70909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 15.70909 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 15.70909 11.78182 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 15.70909 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 13.74545 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 25.52727 13.74545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 37.30909 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 41.23636 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 47.12727 13.74545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 51.05455 13.74545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 11.78182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 11.78182 11.78182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 11.78182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 11.78182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 11.78182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 31.41818 11.78182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 11.78182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 45.16364 11.78182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 53.01818 11.78182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 9.818182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 19.63636 9.818182 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 9.818182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 29.45455 9.818182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 35.34545 9.818182 5.890909 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 45.16364 9.818182 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 7.854545 7.854545 13.74545 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 23.56364 7.854545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 27.49091 7.854545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 33.38182 7.854545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 39.27273 7.854545 3.927273 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 49.09091 7.854545 1.963636 1.963636 re f*
+Q
+q
+0 0 0 rg
+0 w
+0 J
+0 j
+[] 0 d
+n 54.98182 7.854545 1.963636 1.963636 re f*
+Q
+Q
+Q
+Q
+Q
+BT /F1 6.5 Tf 7.8 TL ET
+.360784 .337255 .298039 rg
+BT 1 0 0 1 497.6851 686.0976 Tm (scan for the full sheet) Tj T* ET
+BT /F1 8 Tf 9.6 TL ET
+.360784 .337255 .298039 rg
+BT 1 0 0 1 51.02362 34.01575 Tm (Stop if a check fails. Do not skip ahead.) Tj T* ET
+BT 1 0 0 1 520.0564 34.01575 Tm (Page 2 of 2) Tj T* ET
+Q
+q
+1 0 0 1 57.02362 692.6299 cm
+q
+BT 1 0 0 1 14 4 Tm 14 TL /F1 10 Tf .101961 .090196 .070588 rg (\177 ) Tj /F2 10 Tf (Networking off before the seed) Tj /F1 10 Tf ( \227 A seed never sits on a machine that had the network up.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 676.6299 cm
+q
+BT 1 0 0 1 14 4 Tm 14 TL /F1 10 Tf .101961 .090196 .070588 rg (\177 ) Tj /F2 10 Tf (One seed / boot) Tj /F1 10 Tf ( \227 Load Seed 1. Sign. Full shutdown. Then Seed 2.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 660.6299 cm
+q
+BT 1 0 0 1 14 4 Tm 14 TL /F1 10 Tf .101961 .090196 .070588 rg (\177 ) Tj /F2 10 Tf (Hash fails ) Tj /F5 10 Tf 14 TL (\256) Tj /F2 10 Tf 14 TL ( stop) Tj /F1 10 Tf ( \227 Do not improvise. Redownload from the project's own site.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 644.6299 cm
+q
+BT 1 0 0 1 14 4 Tm 14 TL /F1 10 Tf .101961 .090196 .070588 rg (\177 ) Tj /F2 10 Tf (Hardware later) Tj /F1 10 Tf ( \227 Optional signer. Different vendors if more than one.) Tj T* ET
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 612 792 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+0.435294 0.415686 0.372549 rg
+BT
+/F1-0 6.5 Tf
+7.8 TL
+ET
+BT
+1 0 0 1 192.3768 20 Tm
+(Plebum Dominium \267 plebumbtc\056io \267 Version 2026\05610\05620 \267 Built October 20\054 2026) Tj
+T*
+ET
+BT
+/F2-0 6 Tf
+7.2 TL
+ET
+BT
+1 0 0 1 160.2 10.5 Tm
+(Content SHA\055256\072 fafc377ca7ba7910de0100d4f5ebe83081384030fb80b9bdcbacc05eb84dc816) Tj
+T*
+ET
+Q
+
+endstream
 endobj
 xref
-0 14
+0 15
 0000000000 65535 f 
-0000000061 00000 n 
-0000000132 00000 n 
-0000000239 00000 n 
-0000000351 00000 n 
-0000000460 00000 n 
-0000000575 00000 n 
-0000000770 00000 n 
-0000000847 00000 n 
-0000001042 00000 n 
-0000001111 00000 n 
-0000001416 00000 n 
-0000001482 00000 n 
-0000005034 00000 n 
+0000000015 00000 n 
+0000000054 00000 n 
+0000000120 00000 n 
+0000000169 00000 n 
+0000000447 00000 n 
+0000019724 00000 n 
+0000019831 00000 n 
+0000019938 00000 n 
+0000020050 00000 n 
+0000020155 00000 n 
+0000020265 00000 n 
+0000020381 00000 n 
+0000020459 00000 n 
+0000020739 00000 n 
 trailer
 <<
-/ID 
-[<0bad2a3a5534314ff96bff5bcc8c7254><0bad2a3a5534314ff96bff5bcc8c7254>]
-% ReportLab generated PDF document -- digest (opensource)
-
-/Info 10 0 R
-/Root 9 0 R
-/Size 14
+/Size 15
+/Root 3 0 R
+/Info 1 0 R
 >>
 startxref
-7105
+35530
 %%EOF
