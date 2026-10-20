@@ -641,6 +641,24 @@ def main():
     shutil.copytree("assets", "docs/assets")
     # kit downloads
     shutil.copytree("kit", "docs/kit")
+    # robots.txt + sitemap.xml (generated so the sitemap never drifts)
+    from datetime import date as _date
+    _today = _date.today().isoformat()
+    _site = "https://plebumbtc.io"
+    _pages = ["/", "/downloads.html", "/beyond.html", "/diceware.html"] + [
+        f"/handouts/{slug}.html" for slug, _, _ in SHEETS
+    ]
+    with open("docs/robots.txt", "w") as f:
+        f.write("User-agent: *\nAllow: /\n\nSitemap: https://plebumbtc.io/sitemap.xml\n")
+    print("  robots.txt")
+    _sm = ['<?xml version="1.0" encoding="UTF-8"?>',
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for _p in _pages:
+        _sm.append(f"  <url><loc>{_site}{_p}</loc><lastmod>{_today}</lastmod></url>")
+    _sm.append("</urlset>")
+    with open("docs/sitemap.xml", "w") as f:
+        f.write("\n".join(_sm) + "\n")
+    print("  sitemap.xml")
     # GitHub Pages: skip Jekyll; CNAME only for custom-domain builds (base "/").
     # The github.io preview must NOT have it, or Pages redirects to the domain.
     open("docs/.nojekyll", "w").close()
