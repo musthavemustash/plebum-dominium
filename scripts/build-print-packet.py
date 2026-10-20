@@ -401,6 +401,7 @@ def p_checklist():
         Paragraph("Verify before going offline", sH1),
         *bullets([
             "Hash, then signature, on every file. A failure means delete the file and stop.",
+            "Trust the site itself too: confirm you are on plebumbtc.io and check the certificate before following these instructions.",
             "The GPG warning “not certified with a trusted signature” is expected — the fingerprint match is the check.",
             "Run the kit's verify script: it checks fingerprints first, then signatures. One failure and the kit is not copied.",
         ]),
