@@ -4,20 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>07 · Build the 2-of-3 — Plebum Dominium</title>
-<meta name="description" content="Plebum Dominium — build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
+<meta name="description" content="Build the 2-of-3 multisig wallet in Sparrow: import the xpubs from your three dice keys, create the wallet, and export the descriptor — your wallet map.">
+<link rel="canonical" href="https://plebumbtc.io/handouts/sparrow.html">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://plebumbtc.io/handouts/sparrow.html">
 <meta property="og:site_name" content="Plebum Dominium">
 <meta property="og:title" content="07 · Build the 2-of-3 — Plebum Dominium">
-<meta property="og:description" content="Build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
+<meta property="og:description" content="Build the 2-of-3 multisig wallet in Sparrow: import the xpubs from your three dice keys, create the wallet, and export the descriptor — your wallet map.">
 <meta property="og:image" content="https://plebumbtc.io/assets/img/og-banner.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="07 · Build the 2-of-3 — Plebum Dominium">
-<meta name="twitter:description" content="Build a DIY Bitcoin 2-of-3 multisig wallet from dice, verified software, and titanium. No company, no custodian.">
+<meta name="twitter:description" content="Build the 2-of-3 multisig wallet in Sparrow: import the xpubs from your three dice keys, create the wallet, and export the descriptor — your wallet map.">
 <meta name="twitter:image" content="https://plebumbtc.io/assets/img/og-banner.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HowTo", "name": "Build the 2-of-3", "description": "Build the 2-of-3 multisig wallet in Sparrow: import the xpubs from your three dice keys, create the wallet, and export the descriptor — your wallet map.", "step": [{"@type": "HowToStep", "position": 1, "name": "Step 1 · Boot Tails. Networking stays off.", "url": "https://plebumbtc.io/handouts/sparrow.html#step-1-boot-tails-networking-stays-off"}, {"@type": "HowToStep", "position": 2, "name": "Step 2 · Open the terminal. Launch Sparrow.", "url": "https://plebumbtc.io/handouts/sparrow.html#step-2-open-the-terminal-launch-sparrow"}, {"@type": "HowToStep", "position": 3, "name": "Step 3 · New wallet: 2 of 3, native Segwit.", "url": "https://plebumbtc.io/handouts/sparrow.html#step-3-new-wallet-2-of-3-native-segwit"}, {"@type": "HowToStep", "position": 4, "name": "Step 4 · Keystore 1: Seed 1 in, public key out.", "url": "https://plebumbtc.io/handouts/sparrow.html#step-4-keystore-1-seed-1-in-public-key-out"}, {"@type": "HowToStep", "position": 5, "name": "Step 5 · Twice more. One seed per boot.", "url": "https://plebumbtc.io/handouts/sparrow.html#step-5-twice-more-one-seed-per-boot"}, {"@type": "HowToStep", "position": 6, "name": "Step 6 · Fresh boot. No seed. Build the vault.", "url": "https://plebumbtc.io/handouts/sparrow.html#step-6-fresh-boot-no-seed-build-the-vault"}, {"@type": "HowToStep", "position": 7, "name": "Step 7 · Watch-only on the everyday computer.", "url": "https://plebumbtc.io/handouts/sparrow.html#step-7-watch-only-on-the-everyday-computer"}]}</script>
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/print.css" media="print">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -212,7 +214,7 @@ $ ./bin/Sparrow
   <p><strong>Plebum Dominium</strong> — independent at-home Bitcoin self-custody.</p>
   <p>Educational material, not financial advice. Bitcoin self-custody is irreversible — a mistake can permanently lose funds. Verify every download from its original source.</p>
   <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/downloads.html">Downloads</a> · <a href="/kit/02_Print_Packet.pdf">Print packet (PDF)</a> · <a href="/beyond.html">Beyond the kit</a></p>
-  <p class="footer-updated">Last updated October 20, 2026</p>
+  <p class="footer-updated">Last updated October 21, 2026</p>
   <p class="footer-contact">Contact: <a href="mailto:Muststackmoresats@gmail.com">Muststackmoresats@gmail.com</a></p>
   <p class="donate-row"><a class="btn-lightning" href="lightning:musthavemoresats@speed.app"><span aria-hidden="true">⚡</span> Donate with Lightning</a> <button type="button" class="btn-onchain" data-copy="bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"><span aria-hidden="true">₿</span> Donate Bitcoin</button></p>
   <p class="donate-addr"><code>bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw</code></p>
