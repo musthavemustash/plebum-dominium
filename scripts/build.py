@@ -13,6 +13,8 @@ import shutil
 import sys
 import hashlib
 import html as htmlmod
+import json
+from html.parser import HTMLParser
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 os.chdir(ROOT)
@@ -351,6 +353,129 @@ def post_process(html):
 
 
 # ---------------------------------------------------------------- templates
+# Per-page search descriptions (meta description / og / twitter), written in
+# the guide's plain voice. One per page: sheets keyed by slug, plus the
+# standalone pages.
+HOME_DESCRIPTION = ("Plebum Dominium \u2014 build a DIY Bitcoin 2-of-3 multisig wallet "
+                    "from dice, verified software, and titanium. No company, no custodian.")
+DESCRIPTIONS = {
+    "terms": "The words this Bitcoin self-custody guide uses \u2014 seed, multisig, airgap, descriptor, wallet map \u2014 defined in plain language before you start.",
+    "threat-model": "Before you begin: the four threats a DIY Bitcoin wallet must survive \u2014 theft, fire and flood, your own mistakes, and death \u2014 and how this guide answers each one.",
+    "checklist": "Everything to gather before building a DIY Bitcoin 2-of-3 multisig wallet: five dice, titanium plates, two USB drives, and the free software \u2014 with prices.",
+    "verify": "Check every downloaded file before it touches your keys: SHA-256 hashes and GPG signatures for Tails, Sparrow, Electrum, and the dice tools, step by step.",
+    "airgap": "Two boots, two machines: an offline Tails computer that holds your Bitcoin seeds, and an everyday watch-only computer that never touches them.",
+    "dice": "Make three Bitcoin seed keys from five casino dice: roll 256 bits of entropy, turn them into 24 words, and cross-check them with two independent tools.",
+    "sparrow": "Build the 2-of-3 multisig wallet in Sparrow: import the xpubs from your three dice keys, create the wallet, and export the descriptor \u2014 your wallet map.",
+    "testnet": "Rehearse the whole multisig build on Bitcoin testnet with worthless coins first, so the real run holds no surprises.",
+    "signing": "Practice a spend from your 2-of-3 wallet: build the transaction on the watch-only computer, sign it offline with two seeds, then broadcast.",
+    "titanium": "Stamp each seed onto its own titanium plate and store the three plates in three separate places, so no single fire, flood, or theft can take your Bitcoin.",
+    "encryption": "Encrypt your wallet map (the descriptor) with GPG AES-256 and a dice passphrase, so the map alone tells a finder nothing.",
+    "inheritance": "If you are gone: plain-language instructions that let your heir rebuild the wallet from any two titanium plates and the map \u2014 no Bitcoin knowledge assumed.",
+    "faq": "Stuck mid-build? Answers to the common problems: word lists that don\u2019t match, files that fail verification, checksum errors, and what to do next.",
+    "briefing": "Tough questions about DIY Bitcoin self-custody, asked straight \u2014 death, fire, mistakes, theft \u2014 and the honest answers this guide is built on.",
+    "fire-card": "The wallet-sized recovery card: tells your family the wallet exists, what to find, and who to call first \u2014 kept in a wallet or with your will.",
+    "downloads": "Download the Plebum Dominium kit: every handout as a printable PDF, the full print packet, the recovery card, and the file fingerprints to verify them.",
+    "beyond": "Beyond the kit: what to do once your DIY 2-of-3 multisig wallet is built, rehearsed, and funded \u2014 maintenance, reviews, and further reading.",
+}
+
+# Sheets whose body is a procedure get HowTo schema; the two Q&A sheets get
+# FAQPage schema. Steps/questions are extracted from the rendered body, so
+# the schema can never drift from the words on the page.
+HOWTO_SHEETS = {"checklist", "verify", "airgap", "dice", "sparrow", "testnet",
+                "signing", "titanium", "encryption", "inheritance", "fire-card"}
+FAQ_SHEETS = {"faq", "briefing"}
+
+
+def _text_of(fragment):
+    txt = re.sub(r"<[^>]+>", " ", fragment)
+    return re.sub(r"\s+", " ", htmlmod.unescape(txt)).strip()
+
+
+def _schema_tag(data):
+    payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    return f'<script type="application/ld+json">{payload}</script>'
+
+
+def howto_schema(slug, title, rendered):
+    heads = re.findall(r'<h2 id="([^"]+)">(.*?)</h2>', rendered, re.S)
+    steps = [{"@type": "HowToStep", "position": i + 1, "name": _text_of(h),
+              "url": f"https://plebumbtc.io/handouts/{slug}.html#{hid}"}
+             for i, (hid, h) in enumerate(heads)]
+    if len(steps) < 2:
+        return ""
+    return _schema_tag({
+        "@context": "https://schema.org", "@type": "HowTo",
+        "name": title, "description": DESCRIPTIONS[slug], "step": steps})
+
+
+class _QAExtractor(HTMLParser):
+    """Pull (question, answer-text) pairs out of <div class="qa"> blocks."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.pairs = []
+        self._depth = 0
+        self._cur = None
+        self._in_h3 = False
+
+    def handle_starttag(self, tag, attrs):
+        cls = dict(attrs).get("class", "")
+        if tag == "div" and "qa" in cls.split():
+            self._cur = {"q": "", "a": []}
+            self._depth = 1
+        elif self._cur is not None and tag == "div":
+            self._depth += 1
+        if self._cur is not None and tag == "h3":
+            self._in_h3 = True
+
+    def handle_endtag(self, tag):
+        if self._cur is not None and tag == "h3":
+            self._in_h3 = False
+        if self._cur is not None and tag == "div":
+            self._depth -= 1
+            if self._depth == 0:
+                q = re.sub(r"\s+", " ", self._cur["q"]).strip()
+                a = re.sub(r"\s+", " ", " ".join(self._cur["a"])).strip()
+                if q and a:
+                    self.pairs.append((q, a))
+                self._cur = None
+
+    def handle_data(self, data):
+        if self._cur is None:
+            return
+        if self._in_h3:
+            self._cur["q"] += data
+        else:
+            self._cur["a"].append(data)
+
+
+def faq_schema(rendered):
+    ex = _QAExtractor()
+    ex.feed(rendered)
+    if len(ex.pairs) < 2:
+        return ""
+    return _schema_tag({
+        "@context": "https://schema.org", "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": q,
+                        "acceptedAnswer": {"@type": "Answer", "text": a}}
+                       for q, a in ex.pairs]})
+
+
+def sheet_schema(slug, title, rendered):
+    if slug in HOWTO_SHEETS:
+        return howto_schema(slug, title, rendered)
+    if slug in FAQ_SHEETS:
+        return faq_schema(rendered)
+    return ""
+
+
+def website_schema():
+    return _schema_tag({
+        "@context": "https://schema.org", "@type": "WebSite",
+        "name": SITE_NAME, "url": "https://plebumbtc.io/",
+        "description": HOME_DESCRIPTION})
+
+
 def load_template():
     with open("templates/base.html") as f:
         return f.read()
@@ -508,6 +633,8 @@ def build_sheet(slug, num, title):
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", f"https://plebumbtc.io/handouts/{slug}.html")
+        .replace("{{description}}", DESCRIPTIONS[slug])
+        .replace("{{schema}}", sheet_schema(slug, title, rendered))
         .replace("{{last_updated}}", LAST_UPDATED)
         .replace("{{analytics}}", analytics_html())
     )
@@ -537,6 +664,8 @@ def build_downloads():
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", "https://plebumbtc.io/downloads.html")
+        .replace("{{description}}", DESCRIPTIONS["downloads"])
+        .replace("{{schema}}", "")
         .replace("{{last_updated}}", LAST_UPDATED)
         .replace("{{analytics}}", analytics_html())
     )
@@ -564,6 +693,8 @@ def build_beyond():
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", "https://plebumbtc.io/beyond.html")
+        .replace("{{description}}", DESCRIPTIONS["beyond"])
+        .replace("{{schema}}", "")
         .replace("{{last_updated}}", LAST_UPDATED)
         .replace("{{analytics}}", analytics_html())
     )
@@ -646,6 +777,8 @@ def build_home():
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", "https://plebumbtc.io/")
+        .replace("{{description}}", HOME_DESCRIPTION)
+        .replace("{{schema}}", website_schema())
         .replace("{{last_updated}}", LAST_UPDATED)
         .replace("{{analytics}}", analytics_html())
     )

@@ -88,11 +88,13 @@ def stamp(path):
         if key not in overlays:
             overlays[key] = overlay_pdf(w, h, content_hash)
         page.merge_page(overlays[key])
-        writer.add_page(page)
-    try:
-        writer.compress_content_streams(level=9)
-    except Exception:
-        pass
+        added = writer.add_page(page)
+        # merge_page leaves the merged stream uncompressed; recompress per
+        # page via the writer's own page object (pypdf 6 API — there is no
+        # writer-level call; a missing method must fail loudly, it
+        # silently bloated every stamp once)
+        added.compress_content_streams(level=9)
+    writer.compress_identical_objects()
     out = io.BytesIO()
     writer.write(out)
     stamped = out.getvalue()
