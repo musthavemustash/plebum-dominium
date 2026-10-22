@@ -10,7 +10,7 @@ This work starts after Tails has booted with networking set to Disabled, and bef
 - 5 and 6 are not bits. Roll those dice again.
 - Read the dice left to right, the same way every shake.
 - Example: 4, 6, 1, 3, 2 becomes 11, skip the 6, then 00, 10, 01.
-- Write only 0 and 1. Roll exactly 256 bits — 128 pairs, about 32 shakes — then stop. More bits do not add security (everything folds down to 256), and extra bits make the two tools below disagree, which stops the work for no reason.
+- Write only 0 and 1. Roll exactly 256 bits (128 pairs, about 32 shakes), then stop. More bits do not add security (everything folds down to 256), and extra bits make the two tools below disagree, which stops the work for no reason.
 
 ## Turn the bits into 24 words
 
@@ -34,6 +34,6 @@ The 24 words are not 24 free choices. The last word carries a short check so a c
 
 ## Practice grid
 
-Use the printed recording grid in the bench sheet PDF — each seed needs about 32 shakes for 256 bits. Count the pairs as you go and stop at 128.
+Use the printed recording grid in the bench sheet PDF. Each seed needs about 32 shakes for 256 bits. Count the pairs as you go and stop at 128.
 
 Next. The 2-of-3 is built next. One seed is loaded per boot. Two lists are never loaded in one session.[← Two boots](/handouts/airgap)[Build the 2-of-3 →](/handouts/sparrow)

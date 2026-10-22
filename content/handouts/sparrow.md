@@ -2,7 +2,7 @@
 
 # Build the 2-of-3
 
-Three public keys go in. No seed ever touches this build. What comes out is the wallet map — it can watch the money, never spend it.
+Three public keys go in. No seed ever touches this build. What comes out is the wallet map. It can watch the money, never spend it.
 
 You will boot Tails four times: once per seed to copy its public key, then once more with no seed to build the vault.
 
@@ -30,13 +30,13 @@ $ cd Sparrow
 $ ./bin/Sparrow
 ```
 
-Wait 15–30 seconds. Sparrow opens. Type exactly — spaces count. If a line turns red, stop.
+Wait 15 to 30 seconds. Sparrow opens. Type exactly. Spaces count. If a line turns red, stop.
 
 ## Step 3 · New wallet: 2 of 3, native Segwit.
 
 ::fig sparrow/wallet-settings
 
-File → New Wallet. Pick Multi Signature, Native Segwit, 2 of 3. The path must read m/48'/0'/0'/2'. Anything else — stop.
+File → New Wallet. Pick Multi Signature, Native Segwit, 2 of 3. The path must read m/48'/0'/0'/2'. Anything else: stop.
 
 ## Step 4 · Keystore 1: Seed 1 in, public key out.
 
@@ -54,17 +54,17 @@ Boot again for Seed 2 → s2-xpub.txt. Shut down. Boot again for Seed 3 → s3-x
 
 ::fig sparrow/build-vault
 
-Boot Tails again — do not type any seed. New wallet → Multi Signature → Native Segwit → 2 of 3 → import the three xpub files. Confirm the path. Export the output descriptor to the data USB. That file is the wallet map.
+Boot Tails again. Do not type any seed. New wallet → Multi Signature → Native Segwit → 2 of 3 → import the three xpub files. Confirm the path. Export the output descriptor to the data USB. That file is the wallet map.
 
 > [!STOP] **Confirm the first address on a second screen.**
 >
-> Sparrow built your wallet from your seeds — but if malware sat on the build machine, it could show you **an address it controls** while you trust it. A second screen the malware can't reach closes that hole. **Do not fund the wallet until this matches.**
+> Sparrow built your wallet from your seeds. But if malware sat on the build machine, it could show you **an address it controls** while you trust it. A second screen the malware can't reach closes that hole. **Do not fund the wallet until this matches.**
 >
-> **1 · Build in Sparrow.** Finish the 2-of-3 build on the airgapped machine as usual. Write down the **first receiving address** it shows — the full string, not the QR code.
+> **1 · Build in Sparrow.** Finish the 2-of-3 build on the airgapped machine as usual. Write down the **first receiving address** it shows. Write the full string, not the QR code.
 >
 > **2 · Cross-check in Electrum.** Rebuild the same 2-of-3 in Electrum offline from the same seeds and compare the first address. This catches entry mistakes.
 >
-> **3 · NEW — Display it on a second device.** Load the wallet as **watch-only** (xpubs / wallet descriptor only — never seeds) on your phone or a second computer. Compare the first receiving address **character for character**. If all three agree, the coordinator didn't lie. If anything differs, stop and rebuild.
+> **3 · NEW: Display it on a second device.** Load the wallet as **watch-only** (xpubs / wallet descriptor only, never seeds) on your phone or a second computer. Compare the first receiving address **character for character**. If all three agree, the coordinator didn't lie. If anything differs, stop and rebuild.
 
 ## Step 7 · Watch-only on the everyday computer.
 
@@ -74,8 +74,8 @@ On the everyday computer, open Sparrow and import the map as a watch-only wallet
 
 ## Stop if
 
-- The path doesn't read m/48'/0'/0'/2' — stop, don't type a different path.
-- Networking is on at any point — stop.
-- You're tempted to type a second seed without shutting down — stop. One seed per boot.
+- The path doesn't read m/48'/0'/0'/2': stop. Don't type a different path.
+- Networking is on at any point: stop.
+- You're tempted to type a second seed without shutting down: stop. One seed per boot.
 
 Next. Practice spend. A small payment goes out and comes back before the plates are stamped.[← Make the keys](/handouts/dice)[Practice spend →](/handouts/signing)
