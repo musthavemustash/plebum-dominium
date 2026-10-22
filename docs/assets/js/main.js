@@ -212,7 +212,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   banner.hidden = false;
 })();
 
-/* first-visit splash: logo full screen with a loading bar, shown once */
+/* first-visit splash: site name at the top, logo filling the screen, shown once */
 (function () {
   var splash = document.getElementById("pd-splash");
   if (!splash) return;
@@ -224,8 +224,6 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   splash.hidden = false;
   document.body.classList.add("splash-lock");
-  void splash.offsetWidth; /* reflow so the bar animation starts with .on */
-  splash.classList.add("on");
   var done = false;
   function dismiss() {
     if (done) return;
