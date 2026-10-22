@@ -32,6 +32,16 @@ The hash must match exactly:
 
 If it does not match, stop. Do not run that copy. The tool calls GPG with AES-256. It does not contain a cipher of its own.
 
+## Hash checker page
+
+```
+File:     hash_checker.html
+Size:     4747 bytes
+SHA-256:  0e32bb36a531b02072c9d982697210554455e5c4955486629ea332106f68a816
+```
+
+A single page from this kit that works out a file's SHA-256 in the browser, for the check in section 1 without the command line. Its own fingerprint is the block above, so it can be checked the same way as the tools.
+
 ## 1. Confirm you have the same bytes
 
 Linux / macOS / Tails:
@@ -53,6 +63,10 @@ The hash must match exactly:
 ```
 
 If it does not match, stop. Do not run that copy.
+
+### The same check without the command line
+
+Open `hash_checker.html` from this kit in any browser and drop the file on it. The page works out the SHA-256 on your own machine and shows it. Paste the hash from this file next to it and the page tells you whether they match. Nothing is uploaded: the math runs in the browser tab, and the page works with the internet disconnected.
 
 ## 2. Read the only code that matters
 
@@ -157,7 +171,7 @@ as served:
 | 12_Inheritance.pdf | 2026.10.21 | `bc6b6f093401aa61bf72c879816f4895a60ba100cd8f5178e0810ce2d94a55ea` | `620da36df5d5c9d50a1ca62fd2d2abc7e79df405d8edb4da549880eff0cd8af5` |
 | 13_FAQ.pdf | 2026.10.21 | `d7ea94053b706f6ed68adbb4dc7ce529f5b49d7497a9d290eaa4abf9280d8493` | `fc5ba25be0c80a0624408103437ed86348c6cbc487f4084e1323ac13119da59d` |
 | 14_Speaker.pdf | 2026.10.21 | `1fe1670e66b87a43f109230a894cbfc8c7424ff2431d9f2f8ca29da5076a21fd` | `1b2cabb828b26d58cbb7e89a3ffd4a2784cddce6c5bcae842dc8be8adb72a62d` |
-| 15_Fire_Card.pdf | 2026.10.21 | `a61a86722dbb28250be4bba33f61bbc0ee773ff1656bdff46d580e73b3b0b97e` | `2cc7a8bdb3a9c1c87d5f1beddf75218deec9726b1b3f74dad3ee6e665d6e12bc` |
+| 15_Fire_Card.pdf | 2026.10.22 | `c7a148b74ee1d399c9f53d44ca8c26e450ad04383817230ee4b64dac55bc3673` | `6733a4881aa932acb01cd5a5b49fc86997b56f83a15c8f36be1d32d31445ab29` |
 | Handouts_No_Cover.pdf | 2026.10.21 | `ca856c34484b24dc5fd6936db2e74e42e49d45be222790fac827b4755ec1ce83` | `0bf7573bb5976aef9c74f9e9d848376f41f25bf5d788e90ee476faf8f2e7aef8` |
 | Presentation_Handouts.pdf | 2026.10.21 | `88107caaf87744f8915be38e9421075a51fc9e1533ed1537905721b6a4381659` | `65183c56fd85b2e15e20cdb655c037dfbefdca1727cdead8277f4992184f7bcd` |
 | Terms.pdf | 2026.10.21 | `a49eb0ac1c8cd59a71fe79e172afa18160a6b28f4019c99667a50a8136a7a2f8` | `054f08a39adce730c61c38c6a253f24a7660e9d71c4dff03d942837ff6058cba` |
