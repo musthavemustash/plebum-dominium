@@ -3,7 +3,7 @@
 and regenerate the handout-PDF fingerprint table in kit/VERIFY.md.
 
 The printed "Content SHA-256" is the SHA-256 of the PDF *before* stamping
-— the content itself. VERIFY.md lists both that content hash and the hash
+the content itself. VERIFY.md lists both that content hash and the hash
 of the stamped file exactly as published, so a paper copy (via its printed
 content hash) and a downloaded file (via its file hash) can each be checked.
 
@@ -90,7 +90,7 @@ def stamp(path):
         page.merge_page(overlays[key])
         added = writer.add_page(page)
         # merge_page leaves the merged stream uncompressed; recompress per
-        # page via the writer's own page object (pypdf 6 API — there is no
+        # page via the writer's own page object (pypdf 6 API; there is no
         # writer-level call; a missing method must fail loudly, it
         # silently bloated every stamp once)
         added.compress_content_streams(level=9)
@@ -127,7 +127,7 @@ def update_verify(rows):
         "## Handout PDF fingerprints",
         "",
         "Every downloadable handout is stamped in its footer with its version,",
-        "build date, and a Content SHA-256 \u2014 the hash of the handout's content",
+        "build date, and a Content SHA-256: the hash of the handout's content",
         "before the footer was stamped on. Match the number printed on a paper",
         "copy to the Content SHA-256 below to confirm the copy is the handout as",
         "published. The File SHA-256 is the hash of the PDF file itself, exactly",

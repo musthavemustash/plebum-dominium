@@ -66,20 +66,20 @@ SLUG_TO_IDX = {slug: i for i, (slug, _, _) in enumerate(SHEETS)}
 
 # (time, difficulty, needs, steps) for the iFixit-style overview card on each sheet
 SHEET_META = {
-    "terms":        ("10 min", "Easy", ["Nothing — just read"], "10 terms"),
+    "terms":        ("10 min", "Easy", ["Nothing, just read"], "10 terms"),
     "threat-model": ("15 min", "Easy", ["Pen and paper"], "1 worksheet"),
     "checklist":    ("30 min + shopping", "Moderate", ["This sheet", "A budget for the kit"], "11 items"),
     "verify":       ("30 min", "Careful", ["The downloaded files", "Two verification tools"], "7 sections"),
     "airgap":       ("45 min", "Careful", ["Everyday computer", "Tails USB"], "4 sections"),
-    "dice":         ("30–45 min", "Moderate", ["5 dice", "Paper and pen", "The worksheet"], "4 sections"),
-    "sparrow":      ("45–60 min", "Careful", ["The three paper keys", "Verified Sparrow"], "9 sections"),
+    "dice":         ("30-45 min", "Moderate", ["5 dice", "Paper and pen", "The worksheet"], "4 sections"),
+    "sparrow":      ("45-60 min", "Careful", ["The three paper keys", "Verified Sparrow"], "9 sections"),
     "testnet":      ("30 min", "Moderate", ["Sparrow", "Free testnet coins"], "2 sections"),
     "signing":      ("45 min", "Careful", ["Two seeds", "Tails USB", "A small test amount"], "5 sections"),
-    "titanium":     ("1–2 hours", "Moderate", ["Titanium plates", "Metal stamp set", "The paper keys"], "4 sections"),
+    "titanium":     ("1-2 hours", "Moderate", ["Titanium plates", "Metal stamp set", "The paper keys"], "4 sections"),
     "encryption":   ("30 min", "Careful", ["descriptor_obfuscator.py (verified)", "A dice passphrase"], "7 sections"),
     "inheritance":  ("1 hour", "Moderate", ["Your finished kit", "Your trusted person"], "6 sections"),
-    "faq":          ("10 min", "Easy", ["Nothing — find your question"], "7 questions"),
-    "briefing":     ("15 min", "Easy", ["Nothing — read and discuss"], "6 questions"),
+    "faq":          ("10 min", "Easy", ["Nothing, find your question"], "7 questions"),
+    "briefing":     ("15 min", "Easy", ["Nothing, read and discuss"], "6 questions"),
     "fire-card":    ("15 min", "Easy", ["Printer", "Scissors"], "3 steps"),
 }
 
@@ -114,7 +114,7 @@ def need_html(item):
 
 
 def step_banner_html(slug):
-    """Top banner: 'Step N of M — Title' with prev/next links, from SHEETS order."""
+    """Top banner: 'Step N of M · Title' with prev/next links, from SHEETS order."""
     idx = SLUG_TO_IDX[slug]
     n, m = idx + 1, len(SHEETS)
     _, _, title = SHEETS[idx]
@@ -128,7 +128,7 @@ def step_banner_html(slug):
     else:
         parts.append('<span class="step-nav step-none" aria-hidden="true"></span>')
     parts.append(
-        f'<span class="step-pos"><strong>Step {n} of {m}</strong> &mdash; {esc(title)}</span>'
+        f'<span class="step-pos"><strong>Step {n} of {m}</strong> · {esc(title)}</span>'
     )
     if idx < len(SHEETS) - 1:
         s, nn, nt = SHEETS[idx + 1]
@@ -143,12 +143,12 @@ def step_banner_html(slug):
 
 
 def step_pos_html(slug):
-    """Bottom-row position label: 'Step N of M — Title'."""
+    """Bottom-row position label: 'Step N of M · Title'."""
     idx = SLUG_TO_IDX[slug]
     _, _, title = SHEETS[idx]
     return (
         f'<span class="step-pos-bottom"><strong>Step {idx + 1} of {len(SHEETS)}</strong>'
-        f" &mdash; {esc(title)}</span>"
+        f" · {esc(title)}</span>"
     )
 
 
@@ -356,26 +356,26 @@ def post_process(html):
 # Per-page search descriptions (meta description / og / twitter), written in
 # the guide's plain voice. One per page: sheets keyed by slug, plus the
 # standalone pages.
-HOME_DESCRIPTION = ("Plebum Dominium \u2014 build a DIY Bitcoin 2-of-3 multisig wallet "
+HOME_DESCRIPTION = ("Plebum Dominium: build a DIY Bitcoin 2-of-3 multisig wallet "
                     "from dice, verified software, and titanium. No company, no custodian.")
 DESCRIPTIONS = {
-    "terms": "The words this Bitcoin self-custody guide uses \u2014 seed, multisig, airgap, descriptor, wallet map \u2014 defined in plain language before you start.",
-    "threat-model": "Before you begin: the four threats a DIY Bitcoin wallet must survive \u2014 theft, fire and flood, your own mistakes, and death \u2014 and how this guide answers each one.",
-    "checklist": "Everything to gather before building a DIY Bitcoin 2-of-3 multisig wallet: five dice, titanium plates, two USB drives, and the free software \u2014 with prices.",
+    "terms": "The words this Bitcoin self-custody guide uses (seed, multisig, airgap, descriptor, wallet map), defined in plain language before you start.",
+    "threat-model": "Before you begin: the four threats a DIY Bitcoin wallet must survive: theft, fire and flood, your own mistakes, and death. And how this guide answers each one.",
+    "checklist": "Everything to gather before building a DIY Bitcoin 2-of-3 multisig wallet: five dice, titanium plates, two USB drives, and the free software, with prices.",
     "verify": "Check every downloaded file before it touches your keys: SHA-256 hashes and GPG signatures for Tails, Sparrow, Electrum, and the dice tools, step by step.",
     "airgap": "Two boots, two machines: an offline Tails computer that holds your Bitcoin seeds, and an everyday watch-only computer that never touches them.",
     "dice": "Make three Bitcoin seed keys from five casino dice: roll 256 bits of entropy, turn them into 24 words, and cross-check them with two independent tools.",
-    "sparrow": "Build the 2-of-3 multisig wallet in Sparrow: import the xpubs from your three dice keys, create the wallet, and export the descriptor \u2014 your wallet map.",
+    "sparrow": "Build the 2-of-3 multisig wallet in Sparrow: import the xpubs from your three dice keys, create the wallet, and export the descriptor, your wallet map.",
     "testnet": "Rehearse the whole multisig build on Bitcoin testnet with worthless coins first, so the real run holds no surprises.",
     "signing": "Practice a spend from your 2-of-3 wallet: build the transaction on the watch-only computer, sign it offline with two seeds, then broadcast.",
     "titanium": "Stamp each seed onto its own titanium plate and store the three plates in three separate places, so no single fire, flood, or theft can take your Bitcoin.",
     "encryption": "Encrypt your wallet map (the descriptor) with GPG AES-256 and a dice passphrase, so the map alone tells a finder nothing.",
-    "inheritance": "If you are gone: plain-language instructions that let your heir rebuild the wallet from any two titanium plates and the map \u2014 no Bitcoin knowledge assumed.",
+    "inheritance": "If you are gone: plain-language instructions that let your heir rebuild the wallet from any two titanium plates and the map. No Bitcoin knowledge assumed.",
     "faq": "Stuck mid-build? Answers to the common problems: word lists that don\u2019t match, files that fail verification, checksum errors, and what to do next.",
-    "briefing": "Tough questions about DIY Bitcoin self-custody, asked straight \u2014 death, fire, mistakes, theft \u2014 and the honest answers this guide is built on.",
-    "fire-card": "The wallet-sized recovery card: tells your family the wallet exists, what to find, and who to call first \u2014 kept in a wallet or with your will.",
+    "briefing": "Tough questions about DIY Bitcoin self-custody, asked straight: death, fire, mistakes, theft. And the honest answers this guide is built on.",
+    "fire-card": "The wallet-sized recovery card: tells your family the wallet exists, what to find, and who to call first. Kept in a wallet or with your will.",
     "downloads": "Download the Plebum Dominium kit: every handout as a printable PDF, the full print packet, the recovery card, and the file fingerprints to verify them.",
-    "beyond": "Beyond the kit: what to do once your DIY 2-of-3 multisig wallet is built, rehearsed, and funded \u2014 maintenance, reviews, and further reading.",
+    "beyond": "Beyond the kit: what to do once your DIY 2-of-3 multisig wallet is built, rehearsed, and funded: maintenance, reviews, and further reading.",
 }
 
 # Sheets whose body is a procedure get HowTo schema; the two Q&A sheets get
@@ -537,7 +537,7 @@ def prev_next(active_slug):
 # sparrow uses inline step figures instead of the static PNG.
 SHEET_DIAGRAMS = {
     "encryption": ("diagram-06_split_map.png",
-                   "Geography: three plates in three places — one fire cannot finish you."),
+                   "Geography: three plates in three places. One fire cannot finish you."),
 }
 
 
@@ -616,7 +616,7 @@ def build_sheet(slug, num, title):
     tpl = load_template()
     prev_link, next_link = prev_next(slug)
     page = (
-        tpl.replace("{{title}}", f"{num} · {title} — {SITE_NAME}")
+        tpl.replace("{{title}}", f"{num} · {title} · {SITE_NAME}")
         .replace("{{base}}", BASE)
         .replace("{{kicker}}", f"{num} · Plebum Dominium")
         .replace("{{heading}}", esc(title))
@@ -648,7 +648,7 @@ def build_downloads():
     with open("templates/downloads.html") as f:
         rendered = f.read().replace("{BASE}", BASE)
     page = (
-        tpl.replace("{{title}}", f"Downloads — {SITE_NAME}")
+        tpl.replace("{{title}}", f"Downloads · {SITE_NAME}")
         .replace("{{base}}", BASE)
         .replace("{{kicker}}", "Plebum Dominium")
         .replace("{{heading}}", "Downloads")
@@ -677,7 +677,7 @@ def build_beyond():
     with open("templates/beyond.html") as f:
         rendered = f.read().replace("{BASE}", BASE)
     page = (
-        tpl.replace("{{title}}", f"Beyond the kit — {SITE_NAME}")
+        tpl.replace("{{title}}", f"Beyond the kit · {SITE_NAME}")
         .replace("{{base}}", BASE)
         .replace("{{kicker}}", "Plebum Dominium")
         .replace("{{heading}}", "Beyond the kit")
@@ -761,7 +761,7 @@ def build_home():
         + home_section("home-resources")
     )
     page = (
-        tpl.replace("{{title}}", f"{SITE_NAME} — {SITE_TAGLINE}")
+        tpl.replace("{{title}}", f"{SITE_NAME} · {SITE_TAGLINE}")
         .replace("{{base}}", BASE)
         .replace("{{kicker}}", SITE_TAGLINE)
         .replace("{{heading}}", SITE_NAME)
@@ -801,7 +801,7 @@ def update_verify_page_fingerprints():
         "## Sheet page fingerprints",
         "",
         "Each sheet page on plebumbtc.io is rendered from a fixed source. The",
-        "fingerprint below is the SHA-256 of that sheet's rendered content \u2014 the",
+        "fingerprint below is the SHA-256 of that sheet's rendered content: the",
         "overview card and the article body, without the site header and footer.",
         "If a copy of a sheet does not hash to the value printed here, it is not",
         "the sheet as published.",

@@ -160,7 +160,7 @@ class LockDrawing(Flowable):
         c.setFont("Helvetica-Bold", 8)
         c.setFillColor(GOLD)
         c.drawCentredString(3.25 * inch, 0.25 * inch,
-                            "ANY TWO KEYS OPEN IT — ONE ALONE CANNOT")
+                            "ANY TWO KEYS OPEN IT. ONE ALONE CANNOT")
         c.restoreState()
 
 
@@ -310,22 +310,22 @@ def p_overview():
     return [
         Paragraph("Print packet", sTitle),
         Paragraph("The handouts, in the order of the work. "
-                  "These are the same sheets as on the site — condensed for paper. "
+                  "These are the same sheets as on the site, condensed for paper. "
                   "If a check fails, the work stops.", sBody),
         Spacer(1, 4),
         Paragraph("The sheets, in order", sH1),
         *bullets([
-            "<b>Terms</b> — the words used in this guide.",
-            "<b>Checklist</b> — everything gathered before the first boot.",
-            "<b>Check the files</b> — fingerprints and signatures before going offline.",
-            "<b>Two boots</b> — one computer, two boots; Tails with networking Disabled, no persistent storage.",
-            "<b>Dice</b> — five casino dice make the randomness; 256 bits exactly.",
-            "<b>Build the 2-of-3</b> — Sparrow 2.5.5. Export xpubs, build the wallet map.",
-            "<b>Practice spend</b> — a dust payment, two signatures, then broadcast.",
-            "<b>Metal and the map</b> — three titanium plates, three places.",
-            "<b>Hide the wallet map</b> — encrypted. The passphrase is not a seed.",
-            "<b>If I am gone</b> — the inheritance sheet for the heir.",
-            "<b>Tough questions</b> — the challenges, answered straight.",
+            "<b>Terms</b>: the words used in this guide.",
+            "<b>Checklist</b>: everything gathered before the first boot.",
+            "<b>Check the files</b>: fingerprints and signatures before going offline.",
+            "<b>Two boots</b>: one computer, two boots; Tails with networking Disabled, no persistent storage.",
+            "<b>Dice</b>: five casino dice make the randomness; 256 bits exactly.",
+            "<b>Build the 2-of-3</b>: Sparrow 2.5.5. Export xpubs, build the wallet map.",
+            "<b>Practice spend</b>: a dust payment, two signatures, then broadcast.",
+            "<b>Metal and the map</b>: three titanium plates, three places.",
+            "<b>Hide the wallet map</b>: encrypted. The passphrase is not a seed.",
+            "<b>If I am gone</b>: the inheritance sheet for the heir.",
+            "<b>Tough questions</b>: the challenges, answered straight.",
         ]),
         *stopbox("A failed check is not a delay. Delete the file, fix the step, "
                  "start that sheet over."),
@@ -333,7 +333,7 @@ def p_overview():
         *bullets([
             "No photos of seeds, plates, or screens. Ever.",
             "The everyday computer is watch-only. It never holds a seed.",
-            "Hardware wallets are optional — they never create the keys.",
+            "Hardware wallets are optional. They never create the keys.",
         ]),
     ]
 
@@ -347,8 +347,8 @@ def p_terms():
         ("2-of-3 native SegWit (P2WSH)", "A wallet that needs any two of three keys before it can spend. One key alone cannot move the fund."),
         ("m/48'/0'/0'/2'", "The path Sparrow follows for this kind of wallet. It is confirmed on screen, never typed from memory."),
         ("PSBT", "An unsigned payment file carried on the USB stick. The seed stays on the offline computer."),
-        ("descriptor / xpub", "The descriptor is the wallet map; an xpub is a public watch key. Either one can watch the money — neither can spend it."),
-        ("BIP39", "The standard list of 2,048 words a seed is written in. Word 24 is a checksum — it is never invented."),
+        ("descriptor / xpub", "The descriptor is the wallet map; an xpub is a public watch key. Either one can watch the money. Neither can spend it."),
+        ("BIP39", "The standard list of 2,048 words a seed is written in. Word 24 is a checksum. It is never invented."),
         ("hash", "The fingerprint of a download. The fingerprint on the source must match the one the computer prints, or the file is deleted."),
         ("signature", "A signature is the project confirming the file. If the signature fails, the file is deleted and downloaded again."),
         ("zero-trust", "Nobody's word is accepted for a download or a key. Two tools must agree."),
@@ -385,15 +385,15 @@ def p_checklist():
         Paragraph("Materials", sH1),
         *bullets([
             "Two USB sticks: one for Tails, one for the checked files.",
-            "Three titanium plates — one seed each, three separate places. "
+            "Three titanium plates. One seed each, three separate places. "
             "StampSeed kit holds one plate (buy two more); Cryptotag holds two (buy one more). Never mix methods.",
             "Five casino dice, paper, pen. A metal stamp set.",
-            "The everyday computer — watch-only. It never holds a seed.",
+            "The everyday computer is watch-only. It never holds a seed.",
         ]),
-        Paragraph("Downloads — pinned, from official sources only", sH1),
+        Paragraph("Downloads: pinned, from official sources only", sH1),
         *bullets([
             "<b>Tails 7.13.</b> On its own USB. Networking Disabled. No persistent storage.",
-            "<b>Sparrow 2.5.5 — exact.</b> A newer download that does not match is a stop, not an upgrade.",
+            "<b>Sparrow 2.5.5, exact.</b> A newer download that does not match is a stop, not an upgrade.",
             "<b>Electrum 4.8.2.</b> The second tool that must agree.",
             "<b>The Ian Coleman page</b> (bip39-standalone.html). Open it only while offline.",
             "<b>The dice converter.</b> Its fingerprint is in VERIFY.md.",
@@ -402,7 +402,7 @@ def p_checklist():
         *bullets([
             "Hash, then signature, on every file. A failure means delete the file and stop.",
             "Trust the site itself too: confirm you are on plebumbtc.io and check the certificate before following these instructions.",
-            "The GPG warning “not certified with a trusted signature” is expected — the fingerprint match is the check.",
+            "The GPG warning “not certified with a trusted signature” is expected. The fingerprint match is the check.",
             "Run the kit's verify script: it checks fingerprints first, then signatures. One failure and the kit is not copied.",
         ]),
         *stopbox("A download that does not match is a stop, not an upgrade."),
@@ -419,16 +419,16 @@ def p_airgap():
         Spacer(1, 6),
         BootsDrawing(w),
         Spacer(1, 4),
-        Paragraph("Boot 1 — this computer, network on", sH2),
+        Paragraph("Boot 1: this computer, network on", sH2),
         *bullets([
             "Verify the downloaded files. Build the watch-only wallet.",
             "Build payments here. This machine never sees a seed.",
         ]),
         Paragraph("Then: full shutdown", sH2),
         *bullets([
-            "Power all the way off. Not sleep, not hibernate — off.",
+            "Power all the way off. Not sleep, not hibernate. Off.",
         ]),
-        Paragraph("Boot 2 — the Tails USB, networking Disabled", sH2),
+        Paragraph("Boot 2: the Tails USB, networking Disabled", sH2),
         *bullets([
             "Tails borrows the hardware and forgets everything at shutdown.",
             "No persistent storage. One seed in memory at a time.",
@@ -444,7 +444,7 @@ def p_dice():
         Paragraph("Dice recording sheet", sTitle),
         Paragraph("Five dice per shake. Write <b>00</b> for 1, <b>01</b> for 2, "
                   "<b>10</b> for 3, <b>11</b> for 4. Leave a cell blank if that die was 5 or 6. "
-                  "26 shakes ≈ 260 bits — stop at exactly <b>256 bits</b>. "
+                  "26 shakes ≈ 260 bits. Stop at exactly <b>256 bits</b>. "
                   "Do not photograph this sheet. Destroy it after the 24 words are stamped and verified.", sBody),
         Spacer(1, 4),
     ]
@@ -480,7 +480,7 @@ def p_dice():
     grid.setStyle(TableStyle(style))
     story += [grid, Spacer(1, 4),
               Paragraph("Running bit count (filled pairs × 2): ______ &nbsp;&nbsp; "
-                        "Target: <b>256</b> (aim 320–400 shakes of margin, then trim to 256). "
+                        "Target: <b>256</b> (aim 320-400 shakes of margin, then trim to 256). "
                         "The converter and the offline Ian Coleman page must print identical 24 words.", sSmall)]
     return story
 
@@ -490,7 +490,7 @@ def p_sparrow():
     w = PAGE_W - 2 * MARGIN
     return [
         Paragraph("Build the 2-of-3", sTitle),
-        Paragraph("Sparrow 2.5.5. One boot per seed — then a fresh boot with no seed to build the wallet.", sBody),
+        Paragraph("Sparrow 2.5.5. One boot per seed. Then a fresh boot with no seed to build the wallet.", sBody),
         Spacer(1, 4),
         LockDrawing(w),
         Spacer(1, 2),
@@ -504,7 +504,7 @@ def p_sparrow():
         *bullets([
             "Import the three xpubs. Set the script type to <b>native SegWit (P2WSH)</b>.",
             "Confirm the path reads <b>m/48'/0'/0'/2'</b> on screen.",
-            "Export the <b>output descriptor</b> — the wallet map. This is the watch-only file.",
+            "Export the <b>output descriptor</b>, the wallet map. This is the watch-only file.",
             "Cross-check: the first addresses must match in Electrum with no seed. Two tools agree, or the work stops.",
         ]),
         *stopbox("An address mismatch between Sparrow and Electrum is a stop. Do not fund it."),
@@ -516,7 +516,7 @@ def p_signing():
     w = PAGE_W - 2 * MARGIN
     return [
         Paragraph("Practice spend", sTitle),
-        Paragraph("A dust payment first — small amount, two signatures, then broadcast. "
+        Paragraph("A dust payment first: small amount, two signatures, then broadcast. "
                   "Only after the practice spend confirms does savings money move.", sBody),
         Spacer(1, 4),
         SignFlowDrawing(w),
@@ -530,10 +530,10 @@ def p_signing():
         ]),
         Paragraph("Why two shutdowns", sH2),
         *bullets([
-            "Each seed lives in memory alone. A shutdown is the eraser — nothing carries over.",
+            "Each seed lives in memory alone. A shutdown is the eraser. Nothing carries over.",
             "The signed file is the only thing that travels, on the USB stick.",
         ]),
-        *stopbox("If a signature fails to verify, stop. Rebuild the file — do not force it."),
+        *stopbox("If a signature fails to verify, stop. Rebuild the file. Do not force it."),
     ]
 
 
@@ -541,10 +541,10 @@ def p_titanium():
     PAGE_URLS[8] = ("METAL AND THE MAP", BASE + "/handouts/titanium")
     return [
         Paragraph("Metal and the map", sTitle),
-        Paragraph("Paper is not the backup. Three titanium plates — one seed each, three separate places.", sBody),
+        Paragraph("Paper is not the backup. Three titanium plates. One seed each, three separate places.", sBody),
         Paragraph("The plates", sH2),
         *bullets([
-            "One plate per seed. Three plates, three places — never two in the same place.",
+            "One plate per seed. Three plates, three places. Never two in the same place.",
             "StampSeed kit holds one plate (buy two more). Cryptotag holds two (buy one more). Never mix methods.",
             "Stamp in an unhurried, private setting. No camera in the room.",
         ]),
@@ -552,12 +552,12 @@ def p_titanium():
         *bullets([
             "Plate A: seed 1 only. Plate B: seed 2 only. Plate C: seed 3 only.",
             "<b>No passphrase on the 2-of-3.</b> The plates hold words, nothing else.",
-            "The derivation path (m/48'/0'/0'/2') goes on the inheritance sheet — it is not a secret.",
+            "The derivation path (m/48'/0'/0'/2') goes on the inheritance sheet. It is not a secret.",
         ]),
         Paragraph("The plate that stays home", sH2),
         *bullets([
             "The home plate doubles as a small decoy single-sig wallet. Leave a little in it.",
-            "Its passphrase lives on paper, somewhere else — never on the plate.",
+            "Its passphrase lives on paper, somewhere else. Never on the plate.",
             "Read every plate back, then do a restore check, before the paper is destroyed.",
         ]),
         *stopbox("Paper is destroyed only after the restore check passes. Not before."),
@@ -582,45 +582,45 @@ def p_inheritance():
         Paragraph("The inheritance sheet", sH2),
         *bullets([
             "The heir needs any two plates plus the map.",
-            "They buy a Jade from Blockstream's shop and a BitBox from BitBox's shop — one plate per device.",
+            "They buy a Jade from Blockstream's shop and a BitBox from BitBox's shop. One plate per device.",
             "Words are never typed into a phone or a website. A small test send comes first.",
         ]),
-        *stopbox("The map passphrase on paper, twice, away from everything else — or the map is a brick."),
+        *stopbox("The map passphrase on paper, twice, away from everything else, or the map is a brick."),
     ]
 
 
 def p_briefing():
     PAGE_URLS[10] = ("TOUGH QUESTIONS", BASE + "/handouts/briefing")
     qa = [
-        ("The words were typed on a laptop — isn't that the thing we never do?",
+        ("The words were typed on a laptop. Isn't that the thing we never do?",
          "On Tails, with networking off, from a full shutdown. Tails runs from memory and forgets the session. "
          "A captured keylogger still cannot spend: the fund needs two keys, and the seeds are never typed on the same boot."),
         ("Why not start with a SeedSigner?",
          "A SeedSigner is a signer that can be added later. It is not how the keys are made. "
          "The randomness is dice; the computer is offline and airgapped. That is the letter for heirs: one plate in a hole, one plate in a fire safe."),
         ("Dice versus a hardware random generator?",
-         "Dice are inspectable — you can watch the randomness happen. A chip's RNG is a black box you must trust. "
+         "Dice are inspectable. You can watch the randomness happen. A chip's RNG is a black box you must trust. "
          "The guide chooses the thing you can verify with your own eyes."),
-        ("The map passphrase is lost — are the coins gone?",
+        ("The map passphrase is lost. Are the coins gone?",
          "That passphrase hides the map; it does not spend. Two plates plus a readable map still spends. "
-         "Three plates rebuild the map exactly. But two plates with only encrypted maps and a lost passphrase does not — "
+         "Three plates rebuild the map exactly. But two plates with only encrypted maps and a lost passphrase cannot rebuild it, "
          "which is why the passphrase paper exists in two places."),
-        ("Someone finds one plate — what do they have?",
+        ("Someone finds one plate. What do they have?",
          "Twenty-four words and no map. One key cannot move a 2-of-3 fund. "
-         "They would need a second plate and the map — or the passphrase papers and the encrypted map."),
+         "They would need a second plate and the map, or the passphrase papers and the encrypted map."),
         ("Why no passphrase on the multisig itself?",
          "A passphrase on the 2-of-3 turns three independent keys into one shared secret with three copies. "
          "The security is the separation: any two plates, three places, no single thing to find."),
     ]
     story = [
         Paragraph("Tough questions", sTitle),
-        Paragraph("The challenges people raise against this method — answered straight.", sBody),
+        Paragraph("The challenges people raise against this method, answered straight.", sBody),
     ]
     for q, a in qa:
         story += [Paragraph(q, sQ), Paragraph(a, sA)]
     story += [Spacer(1, 8),
               Paragraph("The full guide, the kit, and the videos live at plebumbtc.io. "
-                        "This packet is the paper companion — the site is the reference.", sSmall)]
+                        "This packet is the paper companion. The site is the reference.", sSmall)]
     return story
 
 
@@ -635,7 +635,7 @@ def main():
         out, pagesize=letter,
         leftMargin=MARGIN, rightMargin=MARGIN,
         topMargin=1.15 * inch, bottomMargin=0.8 * inch,
-        title="Plebum Dominium — Print Packet",
+        title="Plebum Dominium · Print Packet",
         author="Plebum Dominium",
     )
     story = []
