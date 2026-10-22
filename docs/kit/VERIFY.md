@@ -6,16 +6,16 @@ Do not trust this file because it was emailed or downloaded. Check the hash, the
 
 ```
 File:     bip39_dice_converter.py
-Size:     37905 bytes
-SHA-256:  a0442625d3f9a1268ef94556b94eb8e3e056378ea0b2accafcc865ddf5a12ea3
+Size:     37896 bytes
+SHA-256:  7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330
 ```
 
 ## Wallet map tool
 
 ```
 File:     descriptor_obfuscator.py
-Size:     5520 bytes
-SHA-256:  0d7f5044657d30954f9232ab297436ab9892776906cbe3f614db938c35350eb9
+Size:     5519 bytes
+SHA-256:  5667d356e1e3d62c6fc222cbec40191fbd4b45e84290a77b0d54b138ddea113c
 ```
 
 Linux / macOS / Tails:
@@ -27,7 +27,7 @@ sha256sum descriptor_obfuscator.py
 The hash must match exactly:
 
 ```
-0d7f5044657d30954f9232ab297436ab9892776906cbe3f614db938c35350eb9
+5667d356e1e3d62c6fc222cbec40191fbd4b45e84290a77b0d54b138ddea113c
 ```
 
 If it does not match, stop. Do not run that copy. The tool calls GPG with AES-256. It does not contain a cipher of its own.
@@ -49,7 +49,7 @@ Get-FileHash .\bip39_dice_converter.py -Algorithm SHA256
 The hash must match exactly:
 
 ```
-a0442625d3f9a1268ef94556b94eb8e3e056378ea0b2accafcc865ddf5a12ea3
+7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330
 ```
 
 If it does not match, stop. Do not run that copy.
@@ -136,7 +136,7 @@ Ian Coleman’s “24 Words” mode may hash extra entropy differently. For an a
 ## Handout PDF fingerprints
 
 Every downloadable handout is stamped in its footer with its version,
-build date, and a Content SHA-256 — the hash of the handout's content
+build date, and a Content SHA-256: the hash of the handout's content
 before the footer was stamped on. Match the number printed on a paper
 copy to the Content SHA-256 below to confirm the copy is the handout as
 published. The File SHA-256 is the hash of the PDF file itself, exactly
@@ -169,27 +169,27 @@ as served:
 ## Sheet page fingerprints
 
 Each sheet page on plebumbtc.io is rendered from a fixed source. The
-fingerprint below is the SHA-256 of that sheet's rendered content — the
+fingerprint below is the SHA-256 of that sheet's rendered content: the
 overview card and the article body, without the site header and footer.
 If a copy of a sheet does not hash to the value printed here, it is not
 the sheet as published.
 
 | Sheet | Page | SHA-256 |
 | --- | --- | --- |
-| T · Terms | handouts/terms.html | `c684927c453e47bdaef12ebbf9174f39979c0e4e0b117d34fb831076efd0767f` |
-| 02 · Before you begin | handouts/threat-model.html | `7987ee0282f845c17153992cf8b628c95c32b1b74c7749e786be62b3083500a2` |
-| 03 · Checklist | handouts/checklist.html | `bf46b1373f871dc7f668163437be894da6c1ab85078b934206ac964af17095c0` |
-| 05 · Check the files | handouts/verify.html | `c7e8cbc6a9c8f8586085dcc92210e61948aecdd6db6dcdc64c758fb1a6229a0e` |
-| 04 · Two boots | handouts/airgap.html | `9adb4baac558d5bc63f6f22916ef3fe6ae8f8c9632e7368d39fe0cbb16476dfc` |
-| 06 · Make the three keys | handouts/dice.html | `3cb72488d6c5742d419b5aeb866f9030fa94896cf9361bdcaf4d2fa56c543c2f` |
-| 07 · Build the 2-of-3 | handouts/sparrow.html | `9b7e60f912013133a06088cf1c168cb27bf2d5ba476cf5a13653edb522276678` |
-| 10 · Rehearse on testnet | handouts/testnet.html | `b247ac6003c18ced41ea695c3e4bd1fed42a868d2e8d3847518403e16edfd877` |
-| 08 · Practice spend | handouts/signing.html | `c7eab6aacccb3fc4f2ab1ccc55b615076c176ac3581b22cb8f61836fa11e6af5` |
-| 09 · Metal and the map | handouts/titanium.html | `ec1bf8c57d4aeecb941f9be61167338c331b9db7df6a7b898e4bbd20c0392152` |
-| 11 · Hide the wallet map | handouts/encryption.html | `598c2e35c8894c7b23d82469cb1c164fc11f2aad55a468b049b9ce2a15609bf3` |
-| 12 · If I am gone | handouts/inheritance.html | `f1b8b72910cb10355583aa845f4d4c1daed7bc6f159058b26658b525f8ec6091` |
-| 13 · If you get stuck | handouts/faq.html | `9bf8364e9b5bcb3bfc198092d99b94dda5e8722f4aea676e3566a33400ae2107` |
-| 14 · Tough questions | handouts/briefing.html | `f9fd3a48c8ffad1d6a9a7fa01c27db544b058b09f11a20fb8dd5720b9e0bc555` |
-| 15 · Recovery card | handouts/fire-card.html | `b3c34105fdd9dfcbee5b0a42a986119ecffdd2c7ccaa0ed827c5bbe82b39be38` |
+| T · Terms | handouts/terms.html | `b8cd3f0e715d906b4892449fc20f39a1893cccddf010bb1875faf3a95ca163d7` |
+| 02 · Before you begin | handouts/threat-model.html | `b5576314b2867a3240ee2ba5f7f0324b11f6fea4191ded3a99970367185f211f` |
+| 03 · Checklist | handouts/checklist.html | `66960f4b47d24f1538ed0e2b9fd045046c4ede0513f9687c2f38ba69b3bf4b37` |
+| 05 · Check the files | handouts/verify.html | `f280a7b205fe50df83bbe8992b39ab0cccea04604eacb99dd05a32022f96772d` |
+| 04 · Two boots | handouts/airgap.html | `1a334f2d1b6ec2e3c0549cb11f795e65eaf28445caeb45bfa3caea25481e21e8` |
+| 06 · Make the three keys | handouts/dice.html | `d841d07a07f95fe96e044ae7d8a57532c07900e9ecca561b712968486c15ff8e` |
+| 07 · Build the 2-of-3 | handouts/sparrow.html | `c9b0c69a7c5b6f9a23d9d8aed6dd40e16eaa02ca63ce86c81d89c22c1162a814` |
+| 10 · Rehearse on testnet | handouts/testnet.html | `875bf83d2fa45c19b43a2e117fdf953754de4562e5b4248961d8afa0fdd1e308` |
+| 08 · Practice spend | handouts/signing.html | `2094e66ca495fde23cce018eb9a7b7a90c70af3af448e31297d9afdd14d31629` |
+| 09 · Metal and the map | handouts/titanium.html | `dd06c383957f21fb4904f650c225d346248d44feb1ea125c3bcfd7d75357d415` |
+| 11 · Hide the wallet map | handouts/encryption.html | `39dfb405a0fd0c23d4f9c5e18407e872988655c7eb2aa651e80bdcf060f8fe4c` |
+| 12 · If I am gone | handouts/inheritance.html | `df0573fa189e8ada8a69dfe3f187af4aef97cb5e2994af2092db873c92edfe70` |
+| 13 · If you get stuck | handouts/faq.html | `607e158b216088def686b767ca7223823b8e917a9baa6a349fcbc9870f6d2f84` |
+| 14 · Tough questions | handouts/briefing.html | `bb530f0c2470a074377e8992b1db7dd7799225da2cd1982f3d574c3ff6894f09` |
+| 15 · Recovery card | handouts/fire-card.html | `d4230f3ed58045c168be869cb0b8b6113c20f0caf55f3fb7269506e8c0db3b25` |
 
 <!-- END GENERATED: PAGE FINGERPRINTS -->
