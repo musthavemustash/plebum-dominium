@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hash checker · Plebum Dominium kit</title>
+<style>
+  :root { color-scheme: dark; }
+  body { background: #0e0d0b; color: #efe9dc; font-family: system-ui, sans-serif;
+         margin: 0; padding: 2rem 1rem 3rem; }
+  main { max-width: 640px; margin: 0 auto; }
+  h1 { font-family: Georgia, serif; font-weight: 600; font-size: 1.7rem; margin: 0 0 0.4rem; }
+  .sub { color: #9b9384; margin: 0 0 1.6rem; line-height: 1.55; }
+  #drop { border: 2px dashed #c4a484; border-radius: 10px; padding: 2.2rem 1rem;
+          text-align: center; color: #e4c6a4; cursor: pointer; }
+  #drop.over { background: #241e16; }
+  #drop p { margin: 0.3rem 0; }
+  .hint { font-size: 0.85rem; color: #9b9384; }
+  #out { margin-top: 1.6rem; display: none; }
+  .fname { font-weight: 600; word-break: break-all; }
+  .hash { font-family: ui-monospace, monospace; font-size: 0.82rem; word-break: break-all;
+          background: #161411; border: 1px solid #2a2722; border-radius: 8px;
+          padding: 0.7rem 0.8rem; margin: 0.5rem 0 1.1rem; }
+  label { display: block; font-size: 0.85rem; color: #9b9384; margin-bottom: 0.35rem; }
+  input[type="text"] { width: 100%; box-sizing: border-box; background: #161411; color: #efe9dc;
+          border: 1px solid #2a2722; border-radius: 8px; padding: 0.6rem 0.7rem;
+          font-family: ui-monospace, monospace; font-size: 0.82rem; }
+  #verdict { font-weight: 700; margin-top: 0.8rem; min-height: 1.4em; }
+  .ok { color: #9ec49a; } .bad { color: #e08a8a; }
+  .note { margin-top: 2rem; font-size: 0.88rem; color: #9b9384; line-height: 1.6;
+          border-top: 1px solid #2a2722; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Hash checker</h1>
+  <p class="sub">Check that a file from the kit is exactly the file that was published,
+  without using the command line. Drop the file below and compare the SHA-256 it shows
+  with the one printed in VERIFY.md.</p>
+
+  <div id="drop" tabindex="0" role="button" aria-label="Choose or drop a file">
+    <p><strong>Drop a file here</strong></p>
+    <p class="hint">or click to choose one</p>
+  </div>
+  <input type="file" id="picker" hidden>
+
+  <div id="out">
+    <p class="fname" id="fname"></p>
+    <p class="hash" id="hash"></p>
+    <label for="expect">Expected SHA-256 (paste it from VERIFY.md):</label>
+    <input type="text" id="expect" autocomplete="off" spellcheck="false"
+           placeholder="Paste the hash from VERIFY.md">
+    <p id="verdict"></p>
+  </div>
+
+  <p class="note">This page never uploads anything. The hash is worked out on this
+  machine, in this browser tab, and the file itself never leaves the computer.
+  It works with the internet disconnected, and it works from a USB stick.
+  Check this page itself before you rely on it: its own SHA-256 is printed in
+  VERIFY.md next to the other kit files.</p>
+</main>
+<script>
+  const drop = document.getElementById('drop');
+  const picker = document.getElementById('picker');
+  const out = document.getElementById('out');
+  const fname = document.getElementById('fname');
+  const hashEl = document.getElementById('hash');
+  const expect = document.getElementById('expect');
+  const verdict = document.getElementById('verdict');
+  let current = '';
+
+  function compare() {
+    const want = expect.value.trim().toLowerCase();
+    if (!current || !want) { verdict.textContent = ''; verdict.className = ''; return; }
+    if (want === current) { verdict.textContent = 'MATCH. This is the published file.'; verdict.className = 'ok'; }
+    else { verdict.textContent = 'NO MATCH. Stop. Do not use that copy.'; verdict.className = 'bad'; }
+  }
+
+  async function handle(file) {
+    if (!file) return;
+    const buf = await file.arrayBuffer();
+    const digest = await crypto.subtle.digest('SHA-256', buf);
+    current = [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+    fname.textContent = file.name + ' · ' + file.size + ' bytes';
+    hashEl.textContent = current;
+    out.style.display = 'block';
+    compare();
+  }
+
+  drop.addEventListener('click', () => picker.click());
+  drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') picker.click(); });
+  picker.addEventListener('change', () => handle(picker.files[0]));
+  ['dragover', 'dragenter'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => handle(e.dataTransfer.files[0]));
+  expect.addEventListener('input', compare);
+</script>
+</body>
+</html>

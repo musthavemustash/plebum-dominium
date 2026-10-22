@@ -10,9 +10,13 @@ content hash) and a downloaded file (via its file hash) can each be checked.
 Also refreshes the base64 snapshots in kit-b64/kit/ (the decode workflow
 serves those), including VERIFY.md.b64.
 
-Needs reportlab + pypdf:
-  python3 -m venv /tmp/pdfenv && /tmp/pdfenv/bin/pip install reportlab pypdf
+Needs reportlab + pypdf, plus the QR self-check's packages:
+  python3 -m venv /tmp/pdfenv && /tmp/pdfenv/bin/pip install reportlab pypdf zxing-cpp numpy pillow
   /tmp/pdfenv/bin/python scripts/stamp-pdfs.py
+
+After stamping, this script runs scripts/check-pdf-qrs.py over the finished
+kit (every sheet QR decoded and matched to its page; the recovery card must
+carry no QR and no site domain) and fails loudly if the check fails.
 
 Re-run safety: a PDF whose first page already carries a stamp is skipped.
 To re-stamp after a content rebuild, run this on the fresh unstamped PDFs
@@ -48,7 +52,7 @@ def sha256_bytes(b):
     return hashlib.sha256(b).hexdigest()
 
 
-def overlay_pdf(width, height, content_hash):
+def overlay_pdf(width, height, content_hash, domain_free=False):
     buf = io.BytesIO()
     c = canvas.Canvas(buf, pagesize=(width, height))
     c.setFillColor(INK)
@@ -60,10 +64,13 @@ def overlay_pdf(width, height, content_hash):
         c.setFont("Courier", 6)
         c.drawCentredString(width / 2, 10.5, f"Content SHA-256: {content_hash}")
     else:
+        # Small pages (the recovery card) get a short two-line footer. The
+        # recovery card is stamped domain-free on purpose: a found card must
+        # not lead a stranger back to the guide.
+        line1 = (f"Version {VERSION} \u00b7 Built {BUILT_SHORT}" if domain_free
+                 else f"plebumbtc.io \u00b7 Version {VERSION} \u00b7 Built {BUILT_SHORT}")
         c.setFont("Helvetica", 5.5)
-        c.drawCentredString(
-            width / 2, 17,
-            f"plebumbtc.io \u00b7 Version {VERSION} \u00b7 Built {BUILT_SHORT}")
+        c.drawCentredString(width / 2, 17, line1)
         c.setFont("Courier", 5)
         c.drawCentredString(width / 2, 10, f"SHA-256 {content_hash}")
     c.save()
@@ -79,6 +86,7 @@ def stamp(path):
     first_text = reader.pages[0].extract_text() or ""
     if "Content SHA-256:" in first_text or f"Version {VERSION}" in first_text:
         return None  # already stamped
+    domain_free = os.path.basename(path) == "15_Fire_Card.pdf"
     overlays = {}
     writer = PdfWriter()
     for page in reader.pages:
@@ -86,7 +94,7 @@ def stamp(path):
         h = float(page.mediabox.height)
         key = (round(w), round(h))
         if key not in overlays:
-            overlays[key] = overlay_pdf(w, h, content_hash)
+            overlays[key] = overlay_pdf(w, h, content_hash, domain_free)
         page.merge_page(overlays[key])
         added = writer.add_page(page)
         # merge_page leaves the merged stream uncompressed; recompress per
@@ -174,6 +182,14 @@ def main():
             refresh_b64("VERIFY.md")
             print("  kit/VERIFY.md (PDF fingerprints) + b64 snapshots refreshed")
     print(f"done: {len(rows)} stamped, {len(skipped)} skipped")
+    import subprocess
+    checker = os.path.join(os.path.dirname(__file__), "check-pdf-qrs.py")
+    r = subprocess.run([sys.executable, checker, "kit"], capture_output=True, text=True)
+    print(r.stdout.strip())
+    if r.returncode != 0:
+        print(r.stderr.strip())
+        print("QR SELF-CHECK FAILED: do not push this kit.")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
