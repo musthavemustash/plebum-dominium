@@ -516,30 +516,30 @@ pre code { background: none; color: inherit; padding: 0; }
 /* ---------- spinning bitcoin ---------- */
 .hero-title-row { display: flex; align-items: center; gap: 1.25rem; }
 .hero-title-row h1 { margin: 0; }
-.hero-logo { width: 88px; height: 88px; flex: none; margin-left: auto; }
-.hero-logo img { display: block; width: 100%; height: 100%; }
 .hero-pron { color: var(--muted); margin: 0.35rem 0 0.35rem; font-size: 1.05rem; }
 .coin { width: 88px; height: 88px; flex: none; perspective: 500px; }
-.coin span {
+.coin-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
+.coin-face {
+  position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
-  width: 100%; height: 100%; border-radius: 50%;
-  font-size: 2.5rem; font-weight: 800; color: #2a1810;
+  border-radius: 50%;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
   background: radial-gradient(circle at 32% 28%, #f0d9b8, #c4a484 52%, #8a5f36 78%, #5e3f22);
   box-shadow: 0 8px 22px rgba(124, 83, 52, 0.35),
     inset 0 2px 5px rgba(255, 255, 255, 0.55),
     inset 0 -4px 8px rgba(94, 63, 34, 0.4);
   border: 2px solid rgba(94, 63, 34, 0.35);
 }
+.coin-front { font-size: 2.5rem; font-weight: 800; color: #2a1810; }
+.coin-back { transform: rotateY(180deg); }
+.coin-back img { display: block; width: 74%; height: 74%; }
 @media (prefers-reduced-motion: no-preference) {
-  .coin span { animation: coinspin 7s linear infinite; }
+  .coin-inner { animation: coinspin 7s linear infinite; }
   @keyframes coinspin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
 }
 @media (max-width: 760px) {
   .coin { width: 64px; height: 64px; }
-  .coin span { font-size: 1.8rem; }
-  .hero-title-row { gap: 0.75rem; }
-  .hero-title-row h1 { font-size: 1.6rem; }
-  .hero-logo { width: 56px; height: 56px; }
+  .coin-front { font-size: 1.8rem; }
 }
 
 /* ---------- two boots animation (airgap sheet: auto-playing loop) ---------- */
