@@ -1331,3 +1331,23 @@ body.news article h1 { text-align: center; font-size: 3.4rem; line-height: 1; ma
 @media (max-width: 700px) {
   .hero-news { float: none; width: auto; margin: 0 0 1.2rem; }
 }
+
+/* ---------- first-visit splash (homepage, once per visitor) ---------- */
+.splash {
+  position: fixed; inset: 0; z-index: 200;
+  background: #0e0d0b;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 1; transition: opacity 0.45s ease;
+}
+.splash[hidden] { display: none; }
+.splash.bye { opacity: 0; pointer-events: none; }
+.splash-logo { width: min(52vmin, 360px); height: auto; display: block; }
+.splash-bar {
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: 9vh;
+  width: min(420px, 72vw); height: 3px; border-radius: 2px;
+  background: rgba(196, 164, 132, 0.25); overflow: hidden;
+}
+.splash-fill { display: block; height: 100%; width: 0; background: #c4a484; border-radius: 2px; }
+.splash.on .splash-fill { animation: splashload 2.4s linear forwards; }
+@keyframes splashload { from { width: 0; } to { width: 100%; } }
+body.splash-lock { overflow: hidden; }

@@ -211,3 +211,32 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   banner.querySelector(".newbie-go").addEventListener("click", dismiss);
   banner.hidden = false;
 })();
+
+/* first-visit splash: logo full screen with a loading bar, shown once */
+(function () {
+  var splash = document.getElementById("pd-splash");
+  if (!splash) return;
+  if (!document.body.classList.contains("home")) return;
+  var seen = false;
+  try { seen = localStorage.getItem("pd-splash-seen") === "1"; } catch (e) {}
+  if (seen) return;
+  try { localStorage.setItem("pd-splash-seen", "1"); } catch (e) {}
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  splash.hidden = false;
+  document.body.classList.add("splash-lock");
+  void splash.offsetWidth; /* reflow so the bar animation starts with .on */
+  splash.classList.add("on");
+  var done = false;
+  function dismiss() {
+    if (done) return;
+    done = true;
+    splash.classList.add("bye");
+    document.body.classList.remove("splash-lock");
+    document.removeEventListener("keydown", dismiss);
+    setTimeout(function () { splash.hidden = true; }, 500);
+  }
+  setTimeout(dismiss, 2600);
+  setTimeout(dismiss, 5000); /* hard stop: never trap a visitor */
+  splash.addEventListener("click", dismiss);
+  document.addEventListener("keydown", dismiss);
+})();
