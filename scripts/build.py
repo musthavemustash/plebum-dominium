@@ -36,6 +36,9 @@ SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
 LIGHTNING_ADDRESS = "musthavemoresats@speed.app"
 from datetime import date as _bdate
 LAST_UPDATED = _bdate.today().strftime("%B %-d, %Y")
+# Homepage news bar: headline of the newest entry on the News page.
+# Update this when a new entry lands (the bar links to news.html).
+NEWS_LATEST = "Russia closes the exchange off-ramp"
 # On-chain Bitcoin address for the footer donate button.
 ONCHAIN_ADDRESS = "bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"
 # GoatCounter site code for private visitor counts. Empty = no tracking.
@@ -376,6 +379,7 @@ DESCRIPTIONS = {
     "fire-card": "The wallet-sized recovery card: tells your family the wallet exists, what to find, and who to call first. Kept in a wallet or with your will.",
     "downloads": "Download the Plebum Dominium kit: every handout as a printable PDF, the full print packet, the recovery card, and the file fingerprints to verify them.",
     "beyond": "Beyond the kit: what to do once your DIY 2-of-3 multisig wallet is built, rehearsed, and funded: maintenance, reviews, and further reading.",
+    "news": "News that makes the case for holding your own Bitcoin keys: exchange freezes, closed off-ramps, and custody failures, collected as they happen.",
 }
 
 # Sheets whose body is a procedure get HowTo schema; the two Q&A sheets get
@@ -701,6 +705,35 @@ def build_beyond():
     return page
 
 
+def build_news():
+    tpl = load_template()
+    with open("templates/news.html") as f:
+        rendered = f.read().replace("{BASE}", BASE)
+    page = (
+        tpl.replace("{{title}}", f"News · {SITE_NAME}")
+        .replace("{{base}}", BASE)
+        .replace("{{kicker}}", "Plebum Dominium")
+        .replace("{{heading}}", "News")
+        .replace("{{sidebar}}", sidebar_html("__news__"))
+        .replace("{{toc}}", "")
+        .replace("{{content}}", rendered)
+        .replace("{{prev}}", "")
+        .replace("{{next}}", "")
+        .replace("{{stepbanner}}", "")
+        .replace("{{steppos}}", "")
+        .replace("{{headercard}}", "")
+        .replace("{{is_home}}", "news")
+        .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
+        .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
+        .replace("{{canonical}}", "https://plebumbtc.io/news.html")
+        .replace("{{description}}", DESCRIPTIONS["news"])
+        .replace("{{schema}}", "")
+        .replace("{{last_updated}}", LAST_UPDATED)
+        .replace("{{analytics}}", analytics_html())
+    )
+    return page
+
+
 # ---------------------------------------------------------------- home sections
 def home_section(name):
     with open(f"templates/{name}.html") as f:
@@ -753,6 +786,8 @@ def build_home():
         '<p class="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
         "</div></div>"
         .replace("{BASE}", BASE)
+        + f'<div class="news-bar"><span class="news-bar-tag">News</span>'
+          f'<a href="{BASE}news.html">{NEWS_LATEST} <span class="news-bar-arrow" aria-hidden="true">→</span></a></div>'
         + home_section("home-why")
         + home_section("home-chooser")
         + home_section("home-process")
@@ -846,6 +881,10 @@ def main():
     with open("docs/beyond.html", "w") as f:
         f.write(build_beyond())
     print("  beyond.html")
+    # news
+    with open("docs/news.html", "w") as f:
+        f.write(build_news())
+    print("  news.html")
     # diceware passphrase mapper (standalone tool page, ships as-is)
     shutil.copy("tools/diceware-mapper.html", "docs/diceware.html")
     print("  diceware.html")
@@ -859,7 +898,7 @@ def main():
     from datetime import date as _date
     _today = _date.today().isoformat()
     _site = "https://plebumbtc.io"
-    _pages = ["/", "/downloads.html", "/beyond.html", "/diceware.html"] + [
+    _pages = ["/", "/downloads.html", "/beyond.html", "/news.html", "/diceware.html"] + [
         f"/handouts/{slug}.html" for slug, _, _ in SHEETS
     ]
     with open("docs/robots.txt", "w") as f:

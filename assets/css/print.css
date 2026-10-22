@@ -31,3 +31,4 @@ code { background: #f0f0f0 !important; color: #000 !important; }
 /* print link targets so a paper sheet stays useful */
 article a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #333; }
 article a { color: #000 !important; text-decoration: underline; }
+.news-bar { display: none !important; }
