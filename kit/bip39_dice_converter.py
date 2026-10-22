@@ -2,9 +2,9 @@
 """
 BIP39 Seed Phrase Generator from Dice Entropy
 ----------------------------------------------
-Offline / air-gapped use only — perfect for Tails OS.
+Offline / air-gapped use only. Perfect for Tails OS.
 
-VERIFY THIS FILE FIRST — before you copy it, run it, or paste any bits.
+VERIFY THIS FILE FIRST, before you copy it, run it, or paste any bits.
 Do not trust a copy because it was emailed or downloaded.
 
   1. Read VERIFY.md in this same folder.
@@ -2131,7 +2131,7 @@ def generate_mnemonic(raw_input: str):
         entropy_bits = bin(int.from_bytes(hash_bytes, "big"))[2:].zfill(256)
         print("Hashing complete.")
     else:
-        print("Received exactly 256 bits — using them directly.")
+        print("Received exactly 256 bits. Using them directly.")
 
     # Final 256-bit entropy → bytes
     entropy_bytes = binary_to_bytes(entropy_bits)
