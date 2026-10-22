@@ -400,7 +400,7 @@
         </div>
         <h1>Roll the dice.<br /><em>We just look up the words.</em></h1>
         <p class="lede">
-          A diceware passphrase is built from real dice rolls — yours, not a
+          A diceware passphrase is built from real dice rolls. Yours, not a
           computer&rsquo;s. Roll five dice, type the number in, and this page
           maps it to its word on the EFF large wordlist. Six words make a
           passphrase worth roughly <strong>77 bits of entropy</strong>.
@@ -417,7 +417,7 @@
           The numbers you type here <strong>are</strong> the passphrase. The
           wordlist is public, so anyone who sees your rolls knows your words.
           Typing them on a networked device exposes them to malware, a
-          compromised browser, and anything else watching the connection —
+          compromised browser, and anything else watching the connection,
           which defeats the point of rolling physical dice for secrecy in the
           first place. <strong>Never enter rolls in an everyday browser
           session like this one.</strong> Run the mapper the way the guide
@@ -429,15 +429,15 @@
         <ol class="offline-steps">
           <li>
             <span class="n" aria-hidden="true">1</span>
-            <p><strong>Download this page.</strong> The button above saves a single self-contained file: the whole wordlist is inside it, it makes no network references at all, and it holds none of your rolls. That downloaded file is the fully offline copy. This live page is not — it loads the site&rsquo;s brand fonts from Google while you&rsquo;re online. The saved copy never does. Put the file on the USB drive you boot Tails from.</p>
+            <p><strong>Download this page.</strong> The button above saves a single self-contained file: the whole wordlist is inside it, it makes no network references at all, and it holds none of your rolls. That downloaded file is the fully offline copy. This live page is not. It loads the site&rsquo;s brand fonts from Google while you&rsquo;re online. The saved copy never does. Put the file on the USB drive you boot Tails from.</p>
           </li>
           <li>
             <span class="n" aria-hidden="true">2</span>
-            <p><strong>Boot Tails, and stay offline.</strong> Start the computer from the Tails USB — the same offline session the guide uses to make your keys — and don&rsquo;t connect it to any network: no Wi&#8209;Fi, no ethernet.</p>
+            <p><strong>Boot Tails, and stay offline.</strong> Start the computer from the Tails USB, the same offline session the guide uses to make your keys, and don&rsquo;t connect it to any network: no Wi&#8209;Fi, no ethernet.</p>
           </li>
           <li>
             <span class="n" aria-hidden="true">3</span>
-            <p><strong>Open the saved page in Tails, then roll.</strong> Type your numbers only there, once the indicator above reads offline. When you&rsquo;re done, shut Tails down — it forgets everything.</p>
+            <p><strong>Open the saved page in Tails, then roll.</strong> Type your numbers only there, once the indicator above reads offline. When you&rsquo;re done, shut Tails down. It forgets everything.</p>
           </li>
         </ol>
       </section>
@@ -447,7 +447,7 @@
         <ol class="steps">
           <li>
             <span class="n" aria-hidden="true">1</span>
-            <p><strong>Roll five physical dice</strong> — or one die five times — and read them in order: 4-3-6-2-5 becomes <strong>43625</strong>.</p>
+            <p><strong>Roll five physical dice</strong>, or one die five times, and read them in order: 4-3-6-2-5 becomes <strong>43625</strong>.</p>
           </li>
           <li>
             <span class="n" aria-hidden="true">2</span>
@@ -455,12 +455,12 @@
           </li>
           <li>
             <span class="n" aria-hidden="true">3</span>
-            <p><strong>Write the word on paper</strong> as you go, exactly as spelled. Repeat until all six slots are filled — then write down the full passphrase and keep the paper somewhere safe.</p>
+            <p><strong>Write the word on paper</strong> as you go, exactly as spelled. Repeat until all six slots are filled. Then write down the full passphrase and keep the paper somewhere safe.</p>
           </li>
         </ol>
         <p class="rule-note">
           <strong>There are no dice on this page.</strong> It contains no random
-          number generator and will never roll for you — it is a lookup table,
+          number generator and will never roll for you. It is a lookup table,
           nothing more. The randomness comes from your hands and your dice,
           where it belongs.
         </p>
@@ -485,7 +485,7 @@
             <strong>Copy it, then clear it.</strong> Paste the passphrase where
             it&rsquo;s needed, write it on paper, then hit <em>Start over</em>
             so no trace of it stays on this screen. The mapper itself never
-            sends or stores what you type — it only looks words up. The
+            sends or stores what you type. It only looks words up. The
             fully offline guarantee belongs to the <em>downloaded</em> copy:
             it references nothing on the network at all, not even the brand
             fonts this live page loads from Google, and it is saved blank,
@@ -494,7 +494,7 @@
           </p>
           <p>
             Six words is the floor, not the ceiling. If this passphrase guards
-            something you can&rsquo;t afford to lose, roll a seventh word —
+            something you can&rsquo;t afford to lose, roll a seventh word.
             each extra word multiplies the work of guessing it by 7,776.
           </p>
         </div>
@@ -616,7 +616,7 @@
               st.hintEl.textContent = "Roll 5 dice, type the digits left to right.";
               st.hintEl.classList.remove("err");
             } else {
-              st.hintEl.textContent = digits + " \u2014 " + (DIGITS_PER_SLOT - digits.length) + " more " + (DIGITS_PER_SLOT - digits.length === 1 ? "die" : "dice") + " to roll";
+              st.hintEl.textContent = digits + " · " + (DIGITS_PER_SLOT - digits.length) + " more " + (DIGITS_PER_SLOT - digits.length === 1 ? "die" : "dice") + " to roll";
               st.hintEl.classList.remove("err");
             }
           }
@@ -638,7 +638,7 @@
         }
 
         if (done === SLOT_COUNT) {
-          progressEl.textContent = "All six words in \u2014 about 77.5 bits of entropy. Write it on paper before you copy it anywhere.";
+          progressEl.textContent = "All six words in. About 77.5 bits of entropy. Write it on paper before you copy it anywhere.";
           copyBtn.disabled = false;
         } else {
           progressEl.textContent = done + " of 6 words mapped" + (done > 0 ? " \u00B7 ~" + (done * 12.9).toFixed(1) + " bits so far" : "") + ".";
@@ -660,10 +660,10 @@
         var p = parseInt(input.dataset.pos, 10);
         var v = input.value.replace(/[^1-6]/g, "");
         if (input.value !== "" && v === "" && /[0-9]/.test(input.value)) {
-          // Typed a 0, 7, 8 or 9 — dice don't have those faces.
+          // Typed a 0, 7, 8 or 9. Dice don't have those faces.
           input.classList.add("bad");
           var st0 = slotState[s];
-          st0.hintEl.textContent = "Dice only have faces 1\u20136 \u2014 check that roll.";
+          st0.hintEl.textContent = "Dice only have faces 1-6. Check that roll.";
           st0.hintEl.classList.add("err");
           input.value = "";
           return;
@@ -725,7 +725,7 @@
           copyStatus.textContent = "Copied. Now write it on paper, then hit Start over.";
         }
         function failed() {
-          copyStatus.textContent = "Copy was blocked \u2014 select the words above and copy them by hand.";
+          copyStatus.textContent = "Copy was blocked. Select the words above and copy them by hand.";
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(phrase).then(done, function () {
@@ -784,11 +784,11 @@
         if (navigator.onLine) {
           netStatusEl.classList.add("online");
           netStatusEl.classList.remove("offline");
-          netStatusText.textContent = "This device appears to be ONLINE \u2014 go offline before you roll.";
+          netStatusText.textContent = "This device appears to be ONLINE. Go offline before you roll.";
         } else {
           netStatusEl.classList.add("offline");
           netStatusEl.classList.remove("online");
-          netStatusText.textContent = "This device is OFFLINE \u2014 the right state to roll in.";
+          netStatusText.textContent = "This device is OFFLINE. The right state to roll in.";
         }
       }
       window.addEventListener("online", updateNetStatus);
@@ -839,7 +839,7 @@
         a.click();
         document.body.removeChild(a);
         setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-        downloadStatus.textContent = "Saved as diceware-passphrase-mapper.html \u2014 put it on your Tails USB, then open it there, offline.";
+        downloadStatus.textContent = "Saved as diceware-passphrase-mapper.html. Put it on your Tails USB, then open it there, offline.";
       });
 
       buildSlots();
