@@ -6,7 +6,7 @@ import sys
 
 BANNER = """
 ====================================================================
-           PLEBUM DOMINIUM · WALLET MAP ENCRYPTION TOOL
+           PLEBUM DOMINIUM — WALLET MAP ENCRYPTION TOOL
 ====================================================================
   AIRGAP NOTICE: Ensure this system is OFFLINE (Tails OS recommended).
   SECURITY NOTICE: The passphrase used here is NOT a seed phrase.

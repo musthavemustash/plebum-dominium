@@ -4,13 +4,13 @@
 
 This folder is the complete Plebum Dominium kit: hold your own Bitcoin keys without buying a company-made hardware signer. The live site is [plebumbtc.io](https://plebumbtc.io).
 
-The biggest threat in Bitcoin custody is a **single point of failure** — one vendor, one device, one tool, one house. A key generated with sufficient entropy in an airgapped environment is the foundation. After that key exists, you *may* export it onto a trusted hardware wallet for signing. If you put more than one key on hardware, use **different vendors**.
+The biggest threat in Bitcoin custody is a **single point of failure**: one vendor, one device, one tool, one house. A key generated with sufficient entropy in an airgapped environment is the foundation. After that key exists, you *may* export it onto a trusted hardware wallet for signing. If you put more than one key on hardware, use **different vendors**.
 
 You generate entropy with casino dice, convert it on **offline Tails**, build a **2-of-3 native SegWit (P2WSH)** wallet in Sparrow, check the same math in Electrum and Ian Coleman BIP39, then stamp the three seeds on titanium and store them in three places.
 
 The presentation teaches the *why*. The print packet and scripts are what you take to a closed-door table.
 
-The biggest threat in Bitcoin custody is a **single point of failure** — one vendor, one device, one tool, one house. A key generated with sufficient entropy in an airgapped environment is the foundation. After that key exists, you *may* export it onto a trusted hardware wallet for signing. If you put more than one key on hardware, use **different vendors**.
+The biggest threat in Bitcoin custody is a **single point of failure**: one vendor, one device, one tool, one house. A key generated with sufficient entropy in an airgapped environment is the foundation. After that key exists, you *may* export it onto a trusted hardware wallet for signing. If you put more than one key on hardware, use **different vendors**.
 
 You generate entropy with casino dice, convert it on **offline Tails**, build a **2-of-3 native SegWit (P2WSH)** wallet in Sparrow, check the same math in Electrum and Ian Coleman BIP39, then stamp the three seeds on titanium and store them in three places.
 
@@ -111,11 +111,11 @@ The presentation teaches the *why*. The print packet and scripts are what you ta
 
 Do not follow a random video’s shortened link. Bookmark the project’s own site:
 
-- Tails — official Tails website (ISO + signing key)
-- Sparrow Wallet — official Sparrow website (Linux `.tar.gz` + hash/signature)
-- Electrum — official Electrum website
-- Ian Coleman BIP39 — official GitHub repo; save the HTML and open it **offline**
-- BIP39 English wordlist — `bitcoin/bips` `bip-0039/english.txt` (to compare the converter’s list)
+- Tails: official Tails website (ISO + signing key)
+- Sparrow Wallet: official Sparrow website (Linux `.tar.gz` + hash/signature)
+- Electrum: official Electrum website
+- Ian Coleman BIP39: official GitHub repo; save the HTML and open it **offline**
+- BIP39 English wordlist: `bitcoin/bips` `bip-0039/english.txt` (to compare the converter’s list)
 
 ## Converter hash
 
