@@ -1,4 +1,4 @@
-/* Plebum Dominium — design system
+/* Plebum Dominium: design system
    Warm paper, sober ink, one amber accent. Offline-first: no webfonts, no frameworks. */
 
 :root {
@@ -479,7 +479,7 @@ pre code { background: none; color: inherit; padding: 0; }
   .key-c { animation: keyC 9s ease-in-out infinite; }
   .shackle { animation: unlock 9s ease-in-out infinite; }
   .lockbody { animation: lockbody 9s ease-in-out infinite; }
-  /* A+B, then B+C, then A+C — any two open it */
+  /* A+B, then B+C, then A+C: any two open it */
   @keyframes keyA {
     0%, 24%, 62%, 86% { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
     29%, 57%, 91%, 100% { border-color: var(--line); color: var(--muted); box-shadow: none; }
@@ -775,7 +775,7 @@ pre code { background: none; color: inherit; padding: 0; }
     .sign-anim .filebox, .sign-anim .ped1 .plate, .sign-anim .ped2 .plate,
     .sign-anim .stamp1, .sign-anim .stamp2, .sign-anim .ct-label, .sign-anim .bc-label,
     .sign-anim .barcs i, .sign-anim .usb, .sign-anim .filebox .outline rect { animation: none !important; }
-    /* Static fallback: freeze the "Seed 2 signs — 2 of 2" frame so the
+    /* Static fallback: freeze the "Seed 2 signs (2 of 2)" frame so the
        graphic still reads as a complete diagram instead of an empty stage. */
     .sign-anim .filebox { left: 65%; top: 62%; transform: translate(-50%, -50%); opacity: 1; }
     .sign-anim .filebox .outline rect { stroke-dashoffset: 0; }

@@ -1,4 +1,4 @@
-/* Plebum Dominium — progressive enhancement only. The guide reads fully with JS off. */
+/* Plebum Dominium: progressive enhancement only. The guide reads fully with JS off. */
 (function () {
   "use strict";
 
@@ -91,7 +91,7 @@
         done[slug] = true;
         try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {}
         here.parentElement.classList.add("done");
-        b.innerHTML = "<span>✓ Done — nice work</span>";
+        b.innerHTML = "<span>✓ Done. Nice work.</span>";
         b.disabled = true;
       });
       row.appendChild(b);
@@ -149,15 +149,15 @@
   }
   function recommend() {
     if (sel.exp === "new")
-      return link("terms", "T", "Terms") + " &mdash; learn the vocabulary first, then work the sheets in order.";
+      return link("terms", "T", "Terms") + " · learn the vocabulary first, then work the sheets in order.";
     if (sel.offline === "notyet")
-      return link("airgap", "04", "Two boots") + " &mdash; get the offline computer ready before anything else.";
+      return link("airgap", "04", "Two boots") + " · get the offline computer ready before anything else.";
     if (sel.keys === "hw")
-      return link("checklist", "03", "Checklist") + " &mdash; then read " + link("faq", "13", "If you get stuck") + " for hardware-wallet notes.";
+      return link("checklist", "03", "Checklist") + " · then read " + link("faq", "13", "If you get stuck") + " for hardware-wallet notes.";
     if (sel.keys === "dice")
-      return link("dice", "06", "Make the three keys") + " &mdash; once you have worked sheets 03 through 05.";
+      return link("dice", "06", "Make the three keys") + " · once you have worked sheets 03 through 05.";
     if (sel.exp === "some")
-      return link("checklist", "03", "Checklist") + " &mdash; gather the kit, then work the sheets in order.";
+      return link("checklist", "03", "Checklist") + " · gather the kit, then work the sheets in order.";
     return null;
   }
   chooser.querySelectorAll(".chooser-q").forEach(function (q) {
