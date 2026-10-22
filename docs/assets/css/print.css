@@ -1,4 +1,4 @@
-/* Plebum Dominium — print stylesheet. The bench sheets are the product. */
+/* Plebum Dominium: print stylesheet. The bench sheets are the product. */
 @page { size: Letter; margin: 2cm 1.8cm; }
 
 html, body { background: #fff !important; color: #000 !important; font-size: 11pt; line-height: 1.5; }
