@@ -769,6 +769,8 @@ def build_home():
         '<div class="hero-title-row">'
         '<div class="coin" aria-hidden="true"><span>\u20bf</span></div>'
         f"<h1>{SITE_NAME}</h1>"
+        '<div class="hero-logo"><img src="{BASE}assets/img/logo-pleb-key.svg" '
+        'alt="Plebum Dominium logo: a pleb holding a key" width="88" height="88"></div>'
         "</div>"
         '<p class="hero-pron">(PLAY-boom doh-MIN-ee-oom)</p>'
         '<p class="hero-sub">Absolute Ownership by the Common People</p>'
