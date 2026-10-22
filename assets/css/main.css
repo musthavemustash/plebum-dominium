@@ -1307,19 +1307,22 @@ body.news article h1 { text-align: center; font-size: 3.4rem; line-height: 1; ma
 .news-entry:not(.news-splash) .news-date,
 .news-entry:not(.news-splash) .news-meta { text-align: left; }
 
-/* ---------- homepage news bar ---------- */
-.news-bar {
-  display: flex; align-items: stretch; max-width: 72ch; margin: 0 auto 2.2rem;
-  background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 8px; overflow: hidden;
+/* ---------- homepage hero news card ---------- */
+.hero-news {
+  float: right; width: 272px; margin: 0.3rem 0 1rem 1.4rem;
+  border: 1px solid var(--accent); border-radius: 10px; padding: 0.9rem 1rem 0.8rem;
+  background: var(--accent-soft);
 }
-.news-bar-tag {
-  font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; font-weight: 600;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--paper);
-  background: var(--accent); display: flex; align-items: center; padding: 0.7rem 0.9rem; white-space: nowrap;
+.hero-news-eyebrow {
+  font-family: "IBM Plex Mono", monospace; font-size: 0.68rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--accent); margin: 0 0 0.4rem;
 }
-.news-bar a {
-  color: var(--ink); text-decoration: none; font-weight: 500;
-  display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1rem; flex: 1;
+.hero-news-link {
+  display: block; font-family: Newsreader, serif; font-size: 1.28rem; line-height: 1.25;
+  color: var(--ink); text-decoration: none; margin-bottom: 0.45rem;
 }
-.news-bar a:hover { color: var(--accent-bright); }
-.news-bar-arrow { color: var(--accent); margin-left: auto; }
+.hero-news-link:hover { color: var(--accent-bright); }
+.hero-news-more { font-size: 0.85rem; color: var(--accent); text-decoration: none; font-weight: 600; }
+@media (max-width: 700px) {
+  .hero-news { float: none; width: auto; margin: 0 0 1.2rem; }
+}

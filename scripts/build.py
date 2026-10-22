@@ -36,9 +36,10 @@ SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
 LIGHTNING_ADDRESS = "musthavemoresats@speed.app"
 from datetime import date as _bdate
 LAST_UPDATED = _bdate.today().strftime("%B %-d, %Y")
-# Homepage news bar: headline of the newest entry on the News page.
-# Update this when a new entry lands (the bar links to news.html).
+# Homepage hero news card: headline + month of the newest entry on the
+# News page. Update both when a new entry lands (the card links to news.html).
 NEWS_LATEST = "Russia closes the exchange off-ramp"
+NEWS_LATEST_DATE = "Oct 2026"
 # On-chain Bitcoin address for the footer donate button.
 ONCHAIN_ADDRESS = "bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"
 # GoatCounter site code for private visitor counts. Empty = no tracking.
@@ -771,6 +772,9 @@ def build_home():
         "</div>"
         '<p class="hero-pron">(PLAY-boom doh-MIN-ee-oom)</p>'
         '<p class="hero-sub">Absolute Ownership by the Common People</p>'
+        f'<aside class="hero-news"><p class="hero-news-eyebrow">News \u00b7 {NEWS_LATEST_DATE}</p>'
+        f'<a class="hero-news-link" href="{BASE}news.html">{NEWS_LATEST}</a>'
+        f'<a class="hero-news-more" href="{BASE}news.html">Read the story \u2192</a></aside>'
         "<p>\u201cPleb\u201d is an everyday Bitcoiner. \u201cDominium\u201d is Latin for absolute ownership. "
         "This site is for the Bitcoiner who wants to build a secure, self-custody Bitcoin wallet from the ground up, "
         "bypassing the need for a company, an app, or a custodian to manage or store access to their funds.</p>"
@@ -786,8 +790,6 @@ def build_home():
         '<p class="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
         "</div></div>"
         .replace("{BASE}", BASE)
-        + f'<div class="news-bar"><span class="news-bar-tag">News</span>'
-          f'<a href="{BASE}news.html">{NEWS_LATEST} <span class="news-bar-arrow" aria-hidden="true">→</span></a></div>'
         + home_section("home-why")
         + home_section("home-chooser")
         + home_section("home-process")
