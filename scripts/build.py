@@ -64,6 +64,7 @@ SHEETS = [
     ("faq", "13", "If you get stuck"),
     ("briefing", "14", "Tough questions"),
     ("fire-card", "15", "Recovery card"),
+    ("single-sig", "16", "One key, done right"),
 ]
 SLUG_TO_IDX = {slug: i for i, (slug, _, _) in enumerate(SHEETS)}
 
@@ -85,6 +86,7 @@ SHEET_META = {
     "faq":          ("10 min", "Easy", ["Nothing, find your question"], "7 questions"),
     "briefing":     ("15 min", "Easy", ["Nothing, read and discuss"], "6 questions"),
     "fire-card":    ("15 min", "Easy", ["Printer", "Scissors"], "3 steps"),
+    "single-sig":   ("1-2 hours", "Careful", ["Your hardware wallet", "Titanium plates", "Pen and paper"], "8 sections"),
 }
 
 
@@ -364,7 +366,7 @@ HOME_DESCRIPTION = ("Plebum Dominium: build a DIY Bitcoin 2-of-3 multisig wallet
                     "from dice, verified software, and titanium. No company, no custodian.")
 DESCRIPTIONS = {
     "terms": "The words this Bitcoin self-custody guide uses (seed, multisig, airgap, descriptor, wallet map), defined in plain language before you start.",
-    "threat-model": "Before you begin: the four threats a DIY Bitcoin wallet must survive: theft, fire and flood, your own mistakes, and death. And how this guide answers each one.",
+    "threat-model": "Before you begin: the threats a DIY Bitcoin wallet must survive: theft, fire and flood, your own mistakes, scams, and death. And one question: where are your coins right now?",
     "checklist": "Everything to gather before building a DIY Bitcoin 2-of-3 multisig wallet: five dice, titanium plates, two USB drives, and the free software, with prices.",
     "verify": "Check every downloaded file before it touches your keys: SHA-256 hashes and GPG signatures for Tails, Sparrow, Electrum, and the dice tools, step by step.",
     "airgap": "Two boots, two machines: an offline Tails computer that holds your Bitcoin seeds, and an everyday watch-only computer that never touches them.",
@@ -378,6 +380,7 @@ DESCRIPTIONS = {
     "faq": "Stuck mid-build? Answers to the common problems: word lists that don\u2019t match, files that fail verification, checksum errors, and what to do next.",
     "briefing": "Tough questions about DIY Bitcoin self-custody, asked straight: death, fire, mistakes, theft. And the honest answers this guide is built on.",
     "fire-card": "The wallet-sized recovery card: tells your family the wallet exists, what to find, and who to call first. Kept in a wallet or with your will.",
+    "single-sig": "One key, done right: the single-sig path for people who already hold Bitcoin. Grade your seed, port over or upgrade in place, add a passphrase, stamp it in metal.",
     "downloads": "Download the Plebum Dominium kit: every handout as a printable PDF, the full print packet, the recovery card, and the file fingerprints to verify them.",
     "beyond": "Beyond the kit: what to do once your DIY 2-of-3 multisig wallet is built, rehearsed, and funded: maintenance, reviews, and further reading.",
     "news": "News that makes the case for holding your own Bitcoin keys: exchange freezes, closed off-ramps, and custody failures, collected as they happen.",
@@ -387,7 +390,8 @@ DESCRIPTIONS = {
 # FAQPage schema. Steps/questions are extracted from the rendered body, so
 # the schema can never drift from the words on the page.
 HOWTO_SHEETS = {"checklist", "verify", "airgap", "dice", "sparrow", "testnet",
-                "signing", "titanium", "encryption", "inheritance", "fire-card"}
+                "signing", "titanium", "encryption", "inheritance", "fire-card",
+                "single-sig"}
 FAQ_SHEETS = {"faq", "briefing"}
 
 
