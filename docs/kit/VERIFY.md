@@ -191,7 +191,7 @@ the sheet as published.
 | Sheet | Page | SHA-256 |
 | --- | --- | --- |
 | T · Terms | handouts/terms.html | `49da64e16d95706815ceea06962d66acb3c23a62b8d8ce0a4bce3b936a78954d` |
-| 02 · Before you begin | handouts/threat-model.html | `a0f3db239c8108f08045cc6a9a939e8bffcaa232f2490173b994625d63ab9389` |
+| 02 · Before you begin | handouts/threat-model.html | `9888b37c5b7d32eaf590ff66790221432ed50f07118b5f3d51acd58ec3266cba` |
 | 03 · Checklist | handouts/checklist.html | `4a7d3a43aecc9dca20b5137f8fa5e7cc758bafb6fd9c3f7e99de70625ed3f349` |
 | 05 · Check the files | handouts/verify.html | `fa7aaa527ea4810a43f5ff7811b174ea03c242ffce19a2daa4240a9608abb567` |
 | 04 · Two boots | handouts/airgap.html | `1a334f2d1b6ec2e3c0549cb11f795e65eaf28445caeb45bfa3caea25481e21e8` |
