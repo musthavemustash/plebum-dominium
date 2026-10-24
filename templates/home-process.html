@@ -1,7 +1,14 @@
 <section class="process" id="process">
 <p class="why-kicker">The method</p>
 <h2>The process, start to finish</h2>
-<p class="section-sub">The testnet rehearsal is optional.</p>
+<p class="section-sub">From Airgapped to Titanium.</p>
+<div class="process-arc" aria-label="The arc of the method: from an airgapped boot, through three keys, to titanium plates">
+  <div class="arc-step"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#c4a484" stroke-width="2" aria-hidden="true"><rect x="6" y="8" width="32" height="22" rx="2"/><line x1="22" y1="30" x2="22" y2="36"/><line x1="16" y1="36" x2="28" y2="36"/><line x1="10" y1="34" x2="34" y2="10"/></svg><span class="arc-tag">Airgapped</span><span class="arc-sub">Tails, networking disabled</span></div>
+  <span class="arc-arrow" aria-hidden="true">&rarr;</span>
+  <div class="arc-step"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#c4a484" stroke-width="2" aria-hidden="true"><rect x="8" y="8" width="28" height="28" rx="4"/><circle cx="17" cy="17" r="2.4" fill="#c4a484" stroke="none"/><circle cx="27" cy="17" r="2.4" fill="#c4a484" stroke="none"/><circle cx="22" cy="27" r="2.4" fill="#c4a484" stroke="none"/></svg><span class="arc-tag">Three keys</span><span class="arc-sub">Dice, verified twice</span></div>
+  <span class="arc-arrow" aria-hidden="true">&rarr;</span>
+  <div class="arc-step"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#c4a484" stroke-width="2" aria-hidden="true"><rect x="8" y="10" width="28" height="24" rx="2"/><line x1="14" y1="18" x2="30" y2="18"/><line x1="14" y1="24" x2="30" y2="24"/><line x1="14" y1="30" x2="24" y2="30"/></svg><span class="arc-tag">Titanium</span><span class="arc-sub">Three plates, three places</span></div>
+</div>
 <a class="pstep" href="{BASE}handouts/threat-model.html"><span class="num">0</span><div><h3>Before you begin <span class="opt">optional</span></h3><p>Five minutes with a pencil. Check the threats you actually care about. The guide answers each one. This method exists for people who checked <strong>theft and disaster</strong>.</p></div><span class="go">&rarr;</span></a>
 <a class="pstep" href="{BASE}handouts/verify.html"><span class="num">1</span><div><h3>Check the files</h3><p>Every file comes from <strong>its own site</strong>. Hash and signature are checked. If either fails, the file is <strong>deleted</strong>. Two tools must agree before the work continues.</p></div><span class="go">&rarr;</span></a>
 <a class="pstep" href="{BASE}handouts/airgap.html"><span class="num">2</span><div><h3>Two boots</h3><p>The same computer, used twice. The <strong>first boot</strong> stays on the network and only watches. The <strong>second boot</strong> is Tails: network off, one seed, then a full shutdown.</p></div><span class="go">&rarr;</span></a>
