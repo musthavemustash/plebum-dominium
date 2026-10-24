@@ -78,29 +78,42 @@
       <h1>Before you begin</h1>
 <nav class="step-banner" aria-label="Sheet 2 of 16"><a class="step-nav" href="/handouts/terms.html" rel="prev">&larr; T &middot; Terms</a><span class="step-pos"><strong>Step 2 of 16</strong> · Before you begin</span><a class="step-nav" href="/handouts/checklist.html" rel="next">03 &middot; Checklist &rarr;</a></nav>
 <section class="sheet-meta" aria-label="Sheet overview"><div class="meta-item"><span class="meta-label">Time</span><span class="meta-val">15 min</span></div><div class="meta-item"><span class="meta-label">Difficulty</span><span class="meta-val diff-easy">Easy</span></div><div class="meta-item"><span class="meta-label">Steps</span><span class="meta-val">1 worksheet</span></div><div class="meta-item meta-needs"><span class="meta-label">You will need</span><span class="meta-val"><a href="/handouts/checklist.html">Pen and paper</a></span></div></section>
-<p>Don&#x27;t trust, verify. That starts with knowing <strong>what you&#x27;re defending against</strong>. Five minutes now decides whether 2-of-3 across three places is overkill for you, or exactly enough. Check every threat you actually care about. The guide answers each one under its checkbox.</p>
-<p><strong>The seed phrase is the wallet.</strong> The hardware device is a signing tool, nothing more. Anyone who holds the words holds the coins, and no device in the world can stop them. Everything in this guide follows from that.</p>
+<p>Don&#x27;t trust, verify.</p>
+<ul>
+<li><strong>The seed phrase is the wallet.</strong> The device only signs.</li>
+<li>Anyone who holds the words holds the coins. No device can stop them.</li>
+<li>Check every threat you actually care about. The guide answers each one under its checkbox.</li>
+</ul>
+<figure class="step-fig"><svg width="360" height="296" viewBox="0 0 360 296" font-family="IBM Plex Sans, sans-serif">
+        <rect x="8" y="8" width="344" height="132" rx="10" fill="#161411" stroke="#2a2722"/>
+        <text x="24" y="38" fill="#c4a484" font-size="11" letter-spacing="2">ONE SEED, STOLEN OR LOST</text>
+        <text x="24" y="68" fill="#efe9dc" font-size="17">Buys an attacker nothing</text>
+        <text x="24" y="122" fill="#c4a484" font-size="15" font-weight="700">→ THE VAULT NEEDS TWO</text>
+        <rect x="8" y="156" width="344" height="132" rx="10" fill="#161411" stroke="#2a2722"/>
+        <text x="24" y="186" fill="#c4a484" font-size="11" letter-spacing="2">TWO PLATES + THE MAP</text>
+        <text x="24" y="216" fill="#efe9dc" font-size="17">Rebuilds the wallet</text>
+        <text x="24" y="270" fill="#c4a484" font-size="15" font-weight="700">→ FROM ANY TWO PLACES</text>
+      </svg></figure>
 <h2 id="what-am-i-protecting-against">What am I protecting against?</h2>
 <ul>
 <li>☐ <strong>Theft:</strong> burglar, coercion, the $5 wrench</li>
-<li><em>How the guide answers it:</em> 2-of-3 means one stolen seed buys an attacker nothing. They need a second, in another place.</li>
+<li>One stolen seed buys an attacker nothing. They need a second, in another place.</li>
 <li>☐ <strong>Fire, flood, disaster:</strong> one location stops existing</li>
-<li><em>How the guide answers it:</em> three places, stamped titanium. The two surviving plates plus the wallet map rebuild the wallet.</li>
+<li>Three places, stamped titanium. Two surviving plates plus the map rebuild the wallet.</li>
 <li>☐ <strong>My own mistakes:</strong> lost paper, copied a word wrong</li>
-<li><em>How the guide answers it:</em> two-tool agreement on every word before anything is stamped; the plates hold what survived verification.</li>
+<li>Two tools must agree on every word before anything is stamped.</li>
 <li>☐ <strong>Scams:</strong> an email or a site that looks official asks for my words</li>
-<li><em>How the guide answers it:</em> the words go into the device itself, during recovery, and nowhere else. Never a website, never an app, never a form from an email. No hardware company will ever ask for your seed phrase. If a message asks, the message is the attack, no matter how official it looks.</li>
+<li>Words into the device itself, during recovery, nowhere else. No hardware company will ever ask for your seed phrase. A message that asks is the attack.</li>
 <li>☐ <strong>Death or incapacitation:</strong> heirs who aren&#x27;t Bitcoiners</li>
-<li><em>How the guide answers it:</em> the inheritance sheet. Written for a non-Bitcoiner, kept where your family can find it.</li>
+<li>The inheritance sheet, written for a non-Bitcoiner, kept where your family can find it.</li>
 </ul>
-<aside class="callout callout-note" role="note"><p class="callout-label">Note</p><p><strong>Read it back:</strong> if you checked theft and disaster, the 2-of-3 method exists for you. If you checked scams, or your coins sit somewhere with a seed you do not fully control, the single-sig sheet exists for you. Either way, the rest of the guide is the long version of these answers.</p></aside>
+<aside class="callout callout-note" role="note"><p class="callout-label">Note</p><p><strong>Read it back:</strong> checked theft and disaster, the 2-of-3 is built for you. Checked scams, or coins somewhere with a seed you do not fully control, the single-sig sheet is your door.</p></aside>
 <h2 id="where-are-your-coins-right-now">Where are your coins right now?</h2>
-<p>Check the one that is true today. Each answer has a door.</p>
 <ul>
-<li>☐ <strong>On an exchange.</strong> The exchange holds the keys, so the exchange holds the coins. Your job is to bring them home. Either build the full 2-of-3 from the checklist, or take the single-sig sheet if one key done right is what you will actually finish.</li>
-<li>☐ <strong>In a phone app or software wallet.</strong> Your words have lived on a connected device. Treat that seed as exposed, even if nothing has gone wrong yet. The  walks you through making a fresh seed the offline way and moving the coins onto it. Your old device can stay on as the signer.</li>
-<li>☐ <strong>On a hardware wallet, one seed.</strong> You are closer than you think. The  is your upgrade path: check how the seed was born, add a passphrase, stamp the words in metal, and set up a watch-only wallet on your computer.</li>
-<li>☐ <strong>Nowhere yet.</strong> Start at the beginning. The checklist, then the keys. The full 2-of-3 is the destination this guide recommends.</li>
+<li>☐ <strong>On an exchange.</strong> The exchange holds the keys, so the exchange holds the coins.</li>
+<li>☐ <strong>In a phone app or software wallet.</strong> Your words have lived on a connected device. Treat that seed as exposed. This makes a fresh seed the offline way and moves the coins onto it. Your old device can stay on as the signer.</li>
+<li>☐ <strong>On a hardware wallet, one seed.</strong> You are closer than you think. This is your upgrade path: check how the seed was born, add a passphrase, stamp the words in metal, set up a watch-only wallet.</li>
+<li>☐ <strong>Nowhere yet.</strong> Start at the beginning. Work the steps.</li>
 </ul>
 <p>Next. The workbench: everything on the table before the first boot.</p>
       <nav class="prevnext-row" aria-label="Previous and next sheets">
