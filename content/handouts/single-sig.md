@@ -2,7 +2,7 @@
 
 # One key, done right
 
-The destination of this guide is the 2-of-3 build: three keys, three places, no single point of failure.
+The destination of this guide is the 2-of-3 build: three keys, three places, no single point of failure. In the full build, this sheet is also the spending wallet that lives on Plate A: Seed 1 plus a passphrase, for spending money while savings sit in the vault.
 
 ::fig single-sig/two-doors
 

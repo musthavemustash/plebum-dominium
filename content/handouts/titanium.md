@@ -25,7 +25,7 @@ Three titanium plates. One seed per plate. Three separate places. If two plates 
 
 These 24 words, alone, open a small wallet. Leave a little bitcoin there: a thief who loads only those words may stop at what they find.
 
-The same words plus a written passphrase open a modest spending wallet. The passphrase lives on paper. Never on the plate, never in the same drawer. No passphrase on the 2-of-3 itself.
+The same words plus a written passphrase open a modest spending wallet. The passphrase lives on paper. Never on the plate, never in the same drawer. No passphrase on the 2-of-3 itself. The [single-sig sheet](/handouts/single-sig) shows the full setup: passphrase on paper apart from the plate, a watch-only wallet, and a test send before real money moves.
 
 ## Where each plate lives
 
