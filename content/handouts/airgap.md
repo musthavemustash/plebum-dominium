@@ -41,4 +41,4 @@ Download Tails only from the official site. Check the signature and checksum bef
 
 Stronger (optional): a dedicated old laptop with the Wi-Fi card physically pulled. Ethernet never plugged. The Tails file is still checked, networking still Disabled, data USB still clean. The stick remains the only wire.
 
-Next. The three keys are made next. A word is not written until Tails is running with networking turned off.[← Check the files](/handouts/verify)[Make the three keys →](/handouts/dice)
+Next, Make the three keys.[← Check the files](/handouts/verify)[Make the three keys →](/handouts/dice)

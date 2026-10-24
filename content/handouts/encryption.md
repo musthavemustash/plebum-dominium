@@ -2,7 +2,7 @@
 
 # Hide the wallet map
 
-The map can watch the money, but it cannot spend. Anyone who can read it can see the balance, so it never sits around as plain text.
+The map can watch the money, but it cannot spend. The plates are not the map, and the map is not a seed. Anyone who can read it can see the balance, so it never sits around as plain text.
 
 ## What is required
 
@@ -54,4 +54,4 @@ If the passphrase is lost, the coins aren't gone, as long as all three plates st
 - You want to invent a homemade cipher: stop. Use the tool.
 - The passphrase is a seed or is stamped on a plate: start over with a different one.
 
-Next. If I am gone. That page is for a spouse. It does not contain words.[← Metal and the map](/handouts/titanium)[If I am gone →](/handouts/inheritance)
+Next, If I am gone.[← Metal and the map](/handouts/titanium)[If I am gone →](/handouts/inheritance)

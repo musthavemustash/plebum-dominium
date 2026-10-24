@@ -36,4 +36,4 @@ Keys on hardware later? Generate the seed on airgapped Tails first, then import 
 - Sparrow and Electrum disagree about the file: do not sign.
 - Test with a small amount first. Always.
 
-Next. The plates are stamped next. A plate is not stamped until a small payment has gone out and come back.[← Build the 2-of-3](/handouts/sparrow)[Metal and the map →](/handouts/titanium)
+Next, Metal and the map.[← Build the 2-of-3](/handouts/sparrow)[Metal and the map →](/handouts/titanium)
