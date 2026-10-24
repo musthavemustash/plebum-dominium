@@ -48,4 +48,4 @@ Same dice bits → same 24 words in both tools. Same seed → same first address
 - The signature isn't Good: delete the file.
 - The two tools disagree: stop.
 
-Next. Two boots. Flash Tails only after this page is done.[← Checklist](/handouts/checklist)[Two boots →](/handouts/airgap)
+Next, Two boots.[← Checklist](/handouts/checklist)[Two boots →](/handouts/airgap)

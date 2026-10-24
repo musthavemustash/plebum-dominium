@@ -35,4 +35,4 @@ The same words plus a written passphrase open a modest spending wallet. The pass
 
 Print the output descriptor and keep it with Plate A, plus one copy off-site, never beside all three seeds. Hardware wallets don't replace these plates. Once a year: restore from the plates, receive dust, spend dust, update locations. Write a letter pointing to the packet and which two locations matter, not the words.
 
-Next. Hide the wallet map. The plates are not the map, and the map is not a seed.[← Practice spend](/handouts/signing)[Hide the wallet map →](/handouts/encryption)
+Next, Hide the wallet map.[← Practice spend](/handouts/signing)[Hide the wallet map →](/handouts/encryption)

@@ -2,7 +2,7 @@
 
 # Rehearse on testnet
 
-Before any plate exists, do the **entire flow with play money**: build the 2-of-3, receive, sign with two keys, shut down between sessions, broadcast. **The clicks are identical to mainnet.** Mistakes here cost nothing and teach everything. This sheet exists so the first time you touch real bitcoin, it's not the first time you've done this.
+Before any plate exists, do the **entire flow with play money**: build the 2-of-3, receive, sign with two keys, shut down between sessions, broadcast. **The clicks are identical to mainnet.** Mistakes here cost nothing and teach everything.
 
 > [!WARNING] **Testnet coins are worthless.** They cannot be sold, converted, or spent as real bitcoin. That is the point: there is nothing at stake except your learning. Do not "test" with real bitcoin.
 

@@ -78,4 +78,4 @@ On the everyday computer, open Sparrow and import the map as a watch-only wallet
 - Networking is on at any point: stop.
 - You're tempted to type a second seed without shutting down: stop. One seed per boot.
 
-Next. Practice spend. A small payment goes out and comes back before the plates are stamped.[← Make the keys](/handouts/dice)[Practice spend →](/handouts/signing)
+Next, Practice spend.[← Make the keys](/handouts/dice)[Practice spend →](/handouts/signing)
