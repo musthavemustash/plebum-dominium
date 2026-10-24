@@ -200,7 +200,7 @@ the sheet as published.
 | 10 · Rehearse on testnet | handouts/testnet.html | `875bf83d2fa45c19b43a2e117fdf953754de4562e5b4248961d8afa0fdd1e308` |
 | 08 · Practice spend | handouts/signing.html | `1e3749ce05e9261be88062fd516b58a01a20b19c65178f00b5138c74d6338c09` |
 | 09 · Metal and the map | handouts/titanium.html | `dd06c383957f21fb4904f650c225d346248d44feb1ea125c3bcfd7d75357d415` |
-| 11 · Hide the wallet map | handouts/encryption.html | `f8f6e11f723bcd0475307d54b508a14683e23823e72d80c159280fd6e3c226a2` |
+| 11 · Hide the wallet map | handouts/encryption.html | `dc6b08d29caefa663c690d3177acce8f70427c968c7a704d7d5d5dd483cb940b` |
 | 12 · If I am gone | handouts/inheritance.html | `df0573fa189e8ada8a69dfe3f187af4aef97cb5e2994af2092db873c92edfe70` |
 | 13 · If you get stuck | handouts/faq.html | `0739027e80e92554839ea936c7c32b6194074d2776e63abe32f65afd304f2565` |
 | 14 · Tough questions | handouts/briefing.html | `b543f80e025167342dce45f5f44b46f652d8bb71b37d01634484a1cb0079085a` |
