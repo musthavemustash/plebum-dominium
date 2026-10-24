@@ -2,7 +2,7 @@
 
 # Practice spend
 
-A small amount: enough to pay a fee, not savings. Write the destination, amount, and fee on paper before anything is exported. Read those notes again before each signature.
+The practice spend uses a small amount, enough to pay a fee and no more. Write the destination, amount, and fee on paper before anything is exported, and read those notes again before each signature.
 
 ## Step 1 · Build the spend (online, watch-only).
 

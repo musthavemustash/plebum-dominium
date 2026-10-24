@@ -2,7 +2,7 @@
 
 # Build the 2-of-3
 
-Three public keys go in. No seed ever touches this build. What comes out is the wallet map. It can watch the money, never spend it.
+Three public keys go into Sparrow, and no seed ever touches this build. What comes out is the wallet map, which can watch the money and never spend it.
 
 You will boot Tails four times: once per seed to copy its public key, then once more with no seed to build the vault.
 

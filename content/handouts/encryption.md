@@ -2,7 +2,7 @@
 
 # Hide the wallet map
 
-The map can watch the money. It cannot spend. Anyone who can read it can see the balance, so it never sits around as plain text.
+The map can watch the money, but it cannot spend. Anyone who can read it can see the balance, so it never sits around as plain text.
 
 ## What is required
 

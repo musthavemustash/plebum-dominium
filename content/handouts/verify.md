@@ -2,7 +2,7 @@
 
 # Check the files
 
-Every file gets checked before the computer goes offline. A file that fails is deleted. No exceptions. A compromised file compromises the funds.
+Every file gets checked before the computer goes offline, and a file that fails is deleted, no exceptions. A compromised file compromises the funds.
 
 > [!WARNING] **Is this the real site?** These instructions only protect you on **plebumbtc.io**. Before you trust them: check the address bar. The domain must read exactly `plebumbtc.io`, no extra words, no lookalikes. Click the lock icon and confirm the certificate belongs to plebumbtc.io. Anyone can copy these pages; only the real domain gets the real updates. If anything looks wrong, stop. Verify through a second channel before continuing.
 
