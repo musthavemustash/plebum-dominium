@@ -1,0 +1,24 @@
+<svg width="360" height="596" viewBox="0 0 360 596" font-family="IBM Plex Sans, sans-serif">
+      <rect x="8" y="8" width="344" height="104" rx="10" fill="#161411" stroke="#2a2722"/>
+      <text x="24" y="38" fill="#c4a484" font-size="11" letter-spacing="2">1 · PAPER</text>
+      <text x="24" y="66" fill="#efe9dc" font-size="17">24 words written down</text>
+      <text x="24" y="92" fill="#9b9384" font-size="14">Fresh seed from the offline boot</text>
+      <text x="176" y="132" fill="#c4a484" font-size="16" text-anchor="middle">↓</text>
+      <rect x="8" y="140" width="344" height="104" rx="10" fill="#161411" stroke="#c4a484"/>
+      <text x="24" y="170" fill="#c4a484" font-size="11" letter-spacing="2">2 · RESTORE ON THE DEVICE</text>
+      <text x="24" y="198" fill="#efe9dc" font-size="17">Typed in on its own screen</text>
+      <text x="24" y="224" fill="#9b9384" font-size="14">Its own restore menu</text>
+      <text x="176" y="264" fill="#c4a484" font-size="16" text-anchor="middle">↓</text>
+      <rect x="8" y="272" width="344" height="104" rx="10" fill="#161411" stroke="#2a2722"/>
+      <text x="24" y="302" fill="#c4a484" font-size="11" letter-spacing="2">3 · THE DEVICE SIGNS</text>
+      <text x="24" y="330" fill="#efe9dc" font-size="17">Boot on trusted online computer</text>
+      <text x="24" y="356" fill="#9b9384" font-size="14">The 2-of-3 build signs in Tails</text>
+      <text x="176" y="396" fill="#c4a484" font-size="16" text-anchor="middle">↓</text>
+      <rect x="8" y="404" width="344" height="104" rx="10" fill="#161411" stroke="#2a2722"/>
+      <text x="24" y="434" fill="#c4a484" font-size="11" letter-spacing="2">4 · SPARROW, WATCH-ONLY</text>
+      <text x="24" y="462" fill="#efe9dc" font-size="17">Builds transactions, cannot spend</text>
+      <text x="24" y="488" fill="#9b9384" font-size="14">Step 6, after the restore</text>
+      <rect x="8" y="524" width="344" height="64" rx="10" fill="#161411" stroke="#c4a484" stroke-dasharray="6 4"/>
+      <text x="24" y="550" fill="#c4a484" font-size="11" letter-spacing="2">✕ WORDS NEVER GO INTO A COMPUTER</text>
+      <text x="24" y="572" fill="#efe9dc" font-size="14">Not Sparrow, not Electrum, no text field</text>
+    </svg>

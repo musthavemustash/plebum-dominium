@@ -1367,3 +1367,6 @@ body.news article h1 { text-align: center; font-size: 3.4rem; line-height: 1; ma
   margin: auto 0; transform: scale(1.25);
 }
 body.splash-lock { overflow: hidden; }
+
+/* footnote under a step: small, muted, tied to an asterisk in a bullet */
+.footnote { font-size: 0.9rem; color: var(--muted); margin: 0.2rem 0 1.2rem; }

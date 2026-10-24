@@ -25,10 +25,16 @@ The destination of this guide is the 2-of-3 build: three keys, three places, no 
 ::fig single-sig/port-flow
 
 - Word 24 is a checksum. It is never invented. If the two tools disagree, stop.
-- Write the 24 words on paper, restore them onto the device, then shut everything down.
+- Write the 24 words on paper, then type them into the device on the device itself,* in its own restore menu, on its own screen. Then shut everything down.
+- No program on a computer does the restore, not Sparrow, not Electrum, and not a text field in a companion app. If a device needs its companion app to start the restore (BitBox App for a BitBox02, Blockstream Green for a Jade), the app only opens the connection. The words still go in on the device, never typed into the computer.
+- In the 2-of-3 build the airgapped boot signs, in Sparrow or Electrum. On this sheet the device signs. You boot your trusted online computer for Sparrow, and Sparrow meets the device afterward, in Step 6, as the watch-only wallet that builds transactions for the device to sign.
 - The fresh seed has now lived in exactly two places: the offline boot, which forgot it, and the device.
 - Steps 4 and 5 come before any coins move.
 - The old device stays on as the signer, and the old seed retires.
+
+^* A device adds trust in its maker: the firmware on it, the chip inside it, and the shop it came from. The trade buys something real. A key the everyday computer never holds cannot be stolen by malware on that computer, and the device screen shows every address before you sign.
+
+::fig single-sig/restore-flow
 
 ## Step 3 · Clean seed: upgrade in place.
 

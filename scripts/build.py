@@ -296,6 +296,12 @@ def render_markdown(src):
             out.append(f'<h{level} id="{anchor}">{inline(text)}</h{level}>')
             i += 1
             continue
+        m = re.match(r"^\^\*\s+(.*)$", stripped)
+        if m:
+            close_list()
+            out.append(f'<p class="footnote">* {inline(m.group(1))}</p>')
+            i += 1
+            continue
         m = re.match(r"^[-*]\s+(.*)$", stripped)
         if m:
             if in_list != "ul":

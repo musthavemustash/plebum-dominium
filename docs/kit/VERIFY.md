@@ -205,6 +205,6 @@ the sheet as published.
 | 13 · If you get stuck | handouts/faq.html | `0739027e80e92554839ea936c7c32b6194074d2776e63abe32f65afd304f2565` |
 | 14 · Tough questions | handouts/briefing.html | `b543f80e025167342dce45f5f44b46f652d8bb71b37d01634484a1cb0079085a` |
 | 15 · Recovery card | handouts/fire-card.html | `d4230f3ed58045c168be869cb0b8b6113c20f0caf55f3fb7269506e8c0db3b25` |
-| 16 · One key, done right | handouts/single-sig.html | `55f58fbdc7081c1a56f42a06547fc9a4be2b62ec1379c904ad9aa4508262bf61` |
+| 16 · One key, done right | handouts/single-sig.html | `0c51310be2b54f079fb880611d97681e3306b0b4ad6ebdf172c41fee8d5ab3f9` |
 
 <!-- END GENERATED: PAGE FINGERPRINTS -->
