@@ -193,14 +193,14 @@ the sheet as published.
 | T · Terms | handouts/terms.html | `49da64e16d95706815ceea06962d66acb3c23a62b8d8ce0a4bce3b936a78954d` |
 | 02 · Before you begin | handouts/threat-model.html | `bacd9c9213cda4efed982bcb124e8049a25861fa7bb58f836d2739e04466fa50` |
 | 03 · Checklist | handouts/checklist.html | `4a7d3a43aecc9dca20b5137f8fa5e7cc758bafb6fd9c3f7e99de70625ed3f349` |
-| 05 · Check the files | handouts/verify.html | `fa7aaa527ea4810a43f5ff7811b174ea03c242ffce19a2daa4240a9608abb567` |
-| 04 · Two boots | handouts/airgap.html | `1a334f2d1b6ec2e3c0549cb11f795e65eaf28445caeb45bfa3caea25481e21e8` |
-| 06 · Make the three keys | handouts/dice.html | `d841d07a07f95fe96e044ae7d8a57532c07900e9ecca561b712968486c15ff8e` |
-| 07 · Build the 2-of-3 | handouts/sparrow.html | `2d8db414c38cf85ab7de18cf5f4fb3bf9b3c092a66373c4fb7ff4c9f1e6578aa` |
-| 10 · Rehearse on testnet | handouts/testnet.html | `875bf83d2fa45c19b43a2e117fdf953754de4562e5b4248961d8afa0fdd1e308` |
-| 08 · Practice spend | handouts/signing.html | `1e3749ce05e9261be88062fd516b58a01a20b19c65178f00b5138c74d6338c09` |
-| 09 · Metal and the map | handouts/titanium.html | `6b14cbb333fc53e0e350af96481d1652fbbfebd9fcea50307886da712f65b27f` |
-| 11 · Hide the wallet map | handouts/encryption.html | `dc6b08d29caefa663c690d3177acce8f70427c968c7a704d7d5d5dd483cb940b` |
+| 05 · Check the files | handouts/verify.html | `2efd7020bed29a1deab8d705475235baf2f297d01b9fa4144f9a4b5bd50b8ed1` |
+| 04 · Two boots | handouts/airgap.html | `9b112f0e317547d79018044e5898ebbe28c5e79001264853f06de6c340209eaa` |
+| 06 · Make the three keys | handouts/dice.html | `af24809fcfe4aad294216a605a7948fc52df454f3787713c95e6a4df5a123ba3` |
+| 07 · Build the 2-of-3 | handouts/sparrow.html | `83b1c20bcb61e69e0da301963f82ec6bd2552aca09c36aa010df56010ed1d33d` |
+| 10 · Rehearse on testnet | handouts/testnet.html | `001aac211888cfcf2e20b5927a82ddacfc4dfccd2029baf797a364487d1092cc` |
+| 08 · Practice spend | handouts/signing.html | `1c104cb9087dfa971e580e4afc2d9c9e915abb2a990e27df2ae80fe41c6ccf4d` |
+| 09 · Metal and the map | handouts/titanium.html | `e9e19cc75067cdc4d2886fb989fda16d03dd3e6c81193ff4bb8ad5fa32676459` |
+| 11 · Hide the wallet map | handouts/encryption.html | `be95ef7f5c33781634fe85e32d5dcc29e6dd5e94a7df81261a22bd25050bd189` |
 | 12 · If I am gone | handouts/inheritance.html | `df0573fa189e8ada8a69dfe3f187af4aef97cb5e2994af2092db873c92edfe70` |
 | 13 · If you get stuck | handouts/faq.html | `0739027e80e92554839ea936c7c32b6194074d2776e63abe32f65afd304f2565` |
 | 14 · Tough questions | handouts/briefing.html | `b543f80e025167342dce45f5f44b46f652d8bb71b37d01634484a1cb0079085a` |
