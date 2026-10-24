@@ -38,7 +38,7 @@ from datetime import date as _bdate
 LAST_UPDATED = _bdate.today().strftime("%B %-d, %Y")
 # Homepage hero news card: headline + month of the newest entry on the
 # News page. Update both when a new entry lands (the card links to news.html).
-NEWS_LATEST = "Russia closes the exchange off-ramp"
+NEWS_LATEST = "Two hardware failures in one year"
 NEWS_LATEST_DATE = "Oct 2026"
 # On-chain Bitcoin address for the footer donate button.
 ONCHAIN_ADDRESS = "bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"
@@ -65,6 +65,7 @@ SHEETS = [
     ("briefing", "14", "Tough questions"),
     ("fire-card", "15", "Recovery card"),
     ("single-sig", "16", "One key, done right"),
+    ("two-devices", "17", "Two devices and one dice key"),
 ]
 SLUG_TO_IDX = {slug: i for i, (slug, _, _) in enumerate(SHEETS)}
 
@@ -87,6 +88,7 @@ SHEET_META = {
     "briefing":     ("15 min", "Easy", ["Nothing, read and discuss"], "6 questions"),
     "fire-card":    ("15 min", "Easy", ["Printer", "Scissors"], "3 steps"),
     "single-sig":   ("1-2 hours", "Careful", ["Your hardware wallet", "Titanium plates", "Pen and paper"], "8 sections"),
+    "two-devices":  ("1-2 hours", "Moderate", ["Two hardware devices", "5 dice", "Titanium plates"], "8 sections"),
 }
 
 
@@ -387,6 +389,7 @@ DESCRIPTIONS = {
     "briefing": "Tough questions about DIY Bitcoin self-custody, asked straight: death, fire, mistakes, theft. And the honest answers this guide is built on.",
     "fire-card": "The wallet-sized recovery card: tells your family the wallet exists, what to find, and who to call first. Kept in a wallet or with your will.",
     "single-sig": "The spending wallet that lives on Plate A: Seed 1 plus a passphrase, for spending money while savings sit in the vault.",
+    "two-devices": "A 2-of-3 wallet built from two hardware devices and one dice key. No one device, one maker, or one place moves the fund alone.",
     "downloads": "Download the Plebum Dominium kit: every handout as a printable PDF, the full print packet, the recovery card, and the file fingerprints to verify them.",
     "beyond": "Beyond the kit: what to do once your DIY 2-of-3 multisig wallet is built, rehearsed, and funded: maintenance, reviews, and further reading.",
     "news": "News that makes the case for holding your own Bitcoin keys: exchange freezes, closed off-ramps, and custody failures, collected as they happen.",
@@ -397,7 +400,7 @@ DESCRIPTIONS = {
 # the schema can never drift from the words on the page.
 HOWTO_SHEETS = {"checklist", "verify", "airgap", "dice", "sparrow", "testnet",
                 "signing", "titanium", "encryption", "inheritance", "fire-card",
-                "single-sig"}
+                "single-sig", "two-devices"}
 FAQ_SHEETS = {"faq", "briefing"}
 
 
