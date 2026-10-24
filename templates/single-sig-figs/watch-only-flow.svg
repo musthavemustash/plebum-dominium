@@ -1,0 +1,16 @@
+<svg width="360" height="392" viewBox="0 0 360 392" font-family="IBM Plex Sans, sans-serif">
+        <rect x="8" y="8" width="344" height="104" rx="10" fill="#161411" stroke="#2a2722"/>
+        <text x="24" y="38" fill="#c4a484" font-size="11" letter-spacing="2">1 · WATCH-ONLY BUILDS</text>
+        <text x="24" y="66" fill="#efe9dc" font-size="17">Sparrow, everyday computer</text>
+        <text x="24" y="92" fill="#9b9384" font-size="14">Sees balances, cannot spend</text>
+        <text x="176" y="132" fill="#c4a484" font-size="16" text-anchor="middle">↓</text>
+        <rect x="8" y="140" width="344" height="104" rx="10" fill="#161411" stroke="#2a2722"/>
+        <text x="24" y="170" fill="#c4a484" font-size="11" letter-spacing="2">2 · DEVICE SIGNS</text>
+        <text x="24" y="198" fill="#efe9dc" font-size="17">The seed never touches</text>
+        <text x="24" y="220" fill="#efe9dc" font-size="17">that computer</text>
+        <text x="176" y="264" fill="#c4a484" font-size="16" text-anchor="middle">↓</text>
+        <rect x="8" y="272" width="344" height="104" rx="10" fill="#161411" stroke="#2a2722"/>
+        <text x="24" y="302" fill="#c4a484" font-size="11" letter-spacing="2">3 · WATCH-ONLY BROADCASTS</text>
+        <text x="24" y="330" fill="#efe9dc" font-size="17">The finished payment</text>
+        <text x="24" y="352" fill="#efe9dc" font-size="17">goes out</text>
+      </svg>
