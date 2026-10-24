@@ -1271,27 +1271,6 @@ pre code { background: none; color: inherit; padding: 0; }
   .sheet-meta { grid-template-columns: 1fr 1fr; }
 }
 
-/* ---------- homepage setup chooser ---------- */
-.chooser { margin: 2.5rem 0; }
-.chooser-q { margin: 0 0 1.25rem; }
-.chooser-q-label { font-weight: 600; margin: 0 0 0.5rem; }
-.chooser-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; }
-.chooser-tile {
-  display: flex; flex-direction: column; gap: 0.25rem; align-items: flex-start;
-  background: var(--card); border: 2px solid var(--line); border-radius: var(--radius);
-  padding: 0.9rem 1rem; font: inherit; font-weight: 600; color: var(--ink);
-  cursor: pointer; text-align: left;
-  transition: border-color 150ms ease, transform 150ms ease;
-}
-.chooser-tile span { font-weight: 400; font-size: 0.85rem; color: var(--muted); }
-.chooser-tile:hover { border-color: var(--accent); transform: translateY(-2px); }
-.chooser-tile[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
-.chooser-result {
-  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 0.9rem 1.1rem; margin-top: 0.5rem; min-height: 3.2em;
-}
-.chooser-result a { color: var(--accent); font-weight: 600; }
-
 /* ---------- beyond-the-kit topic cards ---------- */
 .beyond-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.9rem; margin: 1.5rem 0; }
 .topic-card {
