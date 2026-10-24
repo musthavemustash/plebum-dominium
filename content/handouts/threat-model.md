@@ -32,4 +32,4 @@ Don't trust, verify.
 - ☐ **On a hardware wallet, one seed.** You are closer than you think. This is your upgrade path: check how the seed was born, add a passphrase, stamp the words in metal, set up a watch-only wallet.
 - ☐ **Nowhere yet.** Start at the beginning. Work the steps.
 
-Next. The workbench: everything on the table before the first boot.[Checklist →](/handouts/checklist)
+Next, the checklist.[Checklist →](/handouts/checklist)
