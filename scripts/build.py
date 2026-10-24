@@ -546,7 +546,7 @@ def prev_next(active_slug):
 # sparrow uses inline step figures instead of the static PNG.
 SHEET_DIAGRAMS = {
     "encryption": ("diagram-06_split_map.png",
-                   "Geography: three plates in three places. One fire cannot finish you."),
+                   "Geography: three plates in three places. No single point of failure."),
 }
 
 
@@ -587,7 +587,41 @@ def titanium_animation():
         return f.read()
 
 
+def encryption_geography():
+    # Responsive replacement for the old wide PNG: real text at readable
+    # sizes, three cards in a row on desktop, stacked on mobile.
+    cards = [
+        ("HOUSE 1", "Plate A", "Seed 1 only", "Home safe / fire box",
+         "Wallet map lives here too", "(the map is not a third seed)"),
+        ("HOUSE 2", "Plate B", "Seed 2 only", "Different building, different risk",
+         "A copy of the map may sit here", ""),
+        ("HOUSE 3", "Plate C", "Seed 3 only", "Another town or trusted party",
+         "Do not park Seed 1 or 2 here", ""),
+    ]
+    parts = ['<div class="geo-fig" role="img" aria-label="Geography: 3 seeds, secured separately in 3 different locations. No single point of failure.">']
+    parts.append('<p class="geo-kicker">Geography</p>')
+    parts.append('<p class="geo-head">3 seeds, secured separately in 3 different locations</p>')
+    parts.append('<div class="geo-cards">')
+    for house, plate, seed, place, mapline, note in cards:
+        parts.append(
+            '<div class="geo-card">'
+            f'<p class="geo-house">{house}</p>'
+            f'<p class="geo-plate">{plate}</p>'
+            f'<p class="geo-detail">{seed}</p>'
+            f'<p class="geo-detail">{place}</p>'
+            f'<p class="geo-map">{mapline}</p>'
+            + (f'<p class="geo-note">{note}</p>' if note else '')
+            + '</div>'
+        )
+    parts.append('</div></div>')
+    img, caption = SHEET_DIAGRAMS["encryption"]
+    return (f'<figure class="sheet-diagram">{"".join(parts)}'
+            f'<figcaption>{esc(caption)}</figcaption></figure>')
+
+
 def sheet_diagram(slug):
+    if slug == "encryption":
+        return encryption_geography()
     if slug == "airgap":
         return airgap_animation()
     if slug == "signing":

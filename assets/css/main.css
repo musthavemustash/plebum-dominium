@@ -512,6 +512,42 @@ pre code { background: none; color: inherit; padding: 0; }
 .sheet-diagram figcaption {
   margin-top: 0.6rem; font-size: 0.88rem; color: var(--muted);
 }
+/* Geography figure on the encryption sheet: always dark, real text, so it
+   stays readable on a phone instead of shrinking like the old wide image. */
+.geo-fig {
+  background: #0e0d0b; color: #efe9dc;
+  border: 1px solid #2a2722; border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  padding: 1.5rem;
+}
+.geo-kicker {
+  margin: 0 0 0.4rem; color: #c4a484;
+  font-size: 0.8rem; letter-spacing: 0.35em; text-transform: uppercase;
+}
+.geo-head {
+  margin: 0 0 1.25rem; font-family: Newsreader, Georgia, serif;
+  font-size: clamp(1.45rem, 5vw, 2.1rem); line-height: 1.2;
+}
+.geo-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.geo-card {
+  background: #161411; border: 1px solid #2a2722; border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+}
+.geo-house {
+  margin: 0 0 0.6rem; color: #c4a484;
+  font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase;
+}
+.geo-plate {
+  margin: 0 0 0.7rem; font-family: Newsreader, Georgia, serif;
+  font-size: 1.6rem; line-height: 1.1;
+}
+.geo-detail { margin: 0 0 0.5rem; color: #9b9384; font-size: 0.95rem; }
+.geo-map { margin: 0.9rem 0 0; color: #c4a484; font-size: 0.95rem; }
+.geo-note { margin: 0.3rem 0 0; color: #9b9384; font-size: 0.9rem; }
+@media (max-width: 640px) {
+  .geo-cards { grid-template-columns: 1fr; }
+  .geo-fig { padding: 1.1rem; }
+}
 
 /* ---------- spinning bitcoin ---------- */
 .hero-title-row { display: flex; align-items: center; gap: 1.25rem; }
