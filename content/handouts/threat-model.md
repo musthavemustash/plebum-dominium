@@ -4,7 +4,7 @@
 
 Don't trust, verify. That starts with knowing **what you're defending against**. Five minutes now decides whether 2-of-3 across three places is overkill for you, or exactly enough. Check every threat you actually care about. The guide answers each one under its checkbox.
 
-One fact before the checkboxes. **The seed phrase is the wallet.** The hardware device is a signing tool, nothing more. Anyone who holds the words holds the coins, and no device in the world can stop them. Everything in this guide follows from that.
+**The seed phrase is the wallet.** The hardware device is a signing tool, nothing more. Anyone who holds the words holds the coins, and no device in the world can stop them. Everything in this guide follows from that.
 
 ## What am I protecting against?
 

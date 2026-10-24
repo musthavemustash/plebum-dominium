@@ -190,21 +190,21 @@ the sheet as published.
 
 | Sheet | Page | SHA-256 |
 | --- | --- | --- |
-| T · Terms | handouts/terms.html | `b8cd3f0e715d906b4892449fc20f39a1893cccddf010bb1875faf3a95ca163d7` |
-| 02 · Before you begin | handouts/threat-model.html | `491f5f839f2c025430131487080d6b5edb9261f67dc5fffa920c41312c10d2b2` |
-| 03 · Checklist | handouts/checklist.html | `66960f4b47d24f1538ed0e2b9fd045046c4ede0513f9687c2f38ba69b3bf4b37` |
-| 05 · Check the files | handouts/verify.html | `f280a7b205fe50df83bbe8992b39ab0cccea04604eacb99dd05a32022f96772d` |
+| T · Terms | handouts/terms.html | `49da64e16d95706815ceea06962d66acb3c23a62b8d8ce0a4bce3b936a78954d` |
+| 02 · Before you begin | handouts/threat-model.html | `a0f3db239c8108f08045cc6a9a939e8bffcaa232f2490173b994625d63ab9389` |
+| 03 · Checklist | handouts/checklist.html | `4a7d3a43aecc9dca20b5137f8fa5e7cc758bafb6fd9c3f7e99de70625ed3f349` |
+| 05 · Check the files | handouts/verify.html | `fa7aaa527ea4810a43f5ff7811b174ea03c242ffce19a2daa4240a9608abb567` |
 | 04 · Two boots | handouts/airgap.html | `1a334f2d1b6ec2e3c0549cb11f795e65eaf28445caeb45bfa3caea25481e21e8` |
 | 06 · Make the three keys | handouts/dice.html | `d841d07a07f95fe96e044ae7d8a57532c07900e9ecca561b712968486c15ff8e` |
-| 07 · Build the 2-of-3 | handouts/sparrow.html | `c9b0c69a7c5b6f9a23d9d8aed6dd40e16eaa02ca63ce86c81d89c22c1162a814` |
+| 07 · Build the 2-of-3 | handouts/sparrow.html | `2d8db414c38cf85ab7de18cf5f4fb3bf9b3c092a66373c4fb7ff4c9f1e6578aa` |
 | 10 · Rehearse on testnet | handouts/testnet.html | `875bf83d2fa45c19b43a2e117fdf953754de4562e5b4248961d8afa0fdd1e308` |
-| 08 · Practice spend | handouts/signing.html | `2094e66ca495fde23cce018eb9a7b7a90c70af3af448e31297d9afdd14d31629` |
+| 08 · Practice spend | handouts/signing.html | `1e3749ce05e9261be88062fd516b58a01a20b19c65178f00b5138c74d6338c09` |
 | 09 · Metal and the map | handouts/titanium.html | `dd06c383957f21fb4904f650c225d346248d44feb1ea125c3bcfd7d75357d415` |
-| 11 · Hide the wallet map | handouts/encryption.html | `39dfb405a0fd0c23d4f9c5e18407e872988655c7eb2aa651e80bdcf060f8fe4c` |
+| 11 · Hide the wallet map | handouts/encryption.html | `f8f6e11f723bcd0475307d54b508a14683e23823e72d80c159280fd6e3c226a2` |
 | 12 · If I am gone | handouts/inheritance.html | `df0573fa189e8ada8a69dfe3f187af4aef97cb5e2994af2092db873c92edfe70` |
-| 13 · If you get stuck | handouts/faq.html | `607e158b216088def686b767ca7223823b8e917a9baa6a349fcbc9870f6d2f84` |
-| 14 · Tough questions | handouts/briefing.html | `bb530f0c2470a074377e8992b1db7dd7799225da2cd1982f3d574c3ff6894f09` |
+| 13 · If you get stuck | handouts/faq.html | `0739027e80e92554839ea936c7c32b6194074d2776e63abe32f65afd304f2565` |
+| 14 · Tough questions | handouts/briefing.html | `b543f80e025167342dce45f5f44b46f652d8bb71b37d01634484a1cb0079085a` |
 | 15 · Recovery card | handouts/fire-card.html | `d4230f3ed58045c168be869cb0b8b6113c20f0caf55f3fb7269506e8c0db3b25` |
-| 16 · One key, done right | handouts/single-sig.html | `2ac549ea916d74de8a91e89ae1c193df7d5184bd1fbf9adf3b121ec023c577b9` |
+| 16 · One key, done right | handouts/single-sig.html | `c00abb526b8cdc5349e7221593c099542cfe0de76f998238be19ddb6be34ec8a` |
 
 <!-- END GENERATED: PAGE FINGERPRINTS -->

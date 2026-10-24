@@ -2,9 +2,9 @@
 
 # One key, done right
 
-This sheet is the side door. The destination of this guide is the 2-of-3 build: three keys, three places, no single point of failure. This sheet exists for two readers. The first holds coins in a phone app or on an exchange, with a seed that has touched the internet. The second owns a hardware wallet and believes the device is the vault. It is not. **The seed phrase is the wallet.** The device only signs.
+The destination of this guide is the 2-of-3 build: three keys, three places, no single point of failure. Two kinds of readers need something else first. The first holds coins in a phone app or on an exchange, with a seed that has touched the internet. The second owns a hardware wallet and believes the device is the vault. It is not. **The seed phrase is the wallet.** The device only signs.
 
-One rule runs through everything below. The words go into the device itself, during recovery, and nowhere else. Never a website, never an app, never a form from an email. No hardware company will ever ask for your seed phrase. If a message asks, the message is the attack, no matter how official it looks.
+One rule applies to every step that follows. The words go into the device itself, during recovery, and nowhere else. Never a website, never an app, never a form from an email. No hardware company will ever ask for your seed phrase. If a message asks, the message is the attack, no matter how official it looks.
 
 ## Step 1 · Grade your seed.
 
@@ -20,7 +20,7 @@ One more check. A device bought used, or from a marketplace seller, is not a sig
 
 ## Step 2 · Exposed seed: port over.
 
-Make a fresh seed the offline way, then move the coins onto it. The old device stays on as the signer. The old seed retires.
+Make a fresh seed the offline way, then move the coins onto it. The old device stays on as the signer, and the old seed retires.
 
 First, [Check the files](/handouts/verify): every tool verified before it touches a key. Then boot the offline computer the way [Two boots](/handouts/airgap) teaches: Tails, networking disabled, no Persistent Storage. Make one key exactly the way [Make the three keys](/handouts/dice) makes three: five dice, faces 1 to 4 kept, 5 and 6 rolled again, and the converter and the offline word page must print the same 24 words. If they disagree, stop. Word 24 is a checksum. It is never invented.
 
@@ -34,7 +34,7 @@ Your seed was born on the device and never left it. Keep it. Nothing about the s
 
 A passphrase is one more secret, a word or short phrase you choose, entered on the device after the seed. The same 24 words with a passphrase open a different wallet than the same words without one. On this sheet the passphrase is required, and here is why: this wallet has one seed in one place. A plate found or stolen without the passphrase opens an empty wallet. The passphrase is what stands between a found plate and your coins.
 
-The warnings, plain. A forgotten passphrase loses the coins as surely as a lost seed. Nobody can reset it. A passphrase handed to a scammer along with the words stops nothing, which is why the words and the passphrase are never kept together and never given to anyone. Write the passphrase on paper. Keep that paper in a different place from the plate. Never write the passphrase on the plate itself.
+Two warnings come with it. A forgotten passphrase loses the coins as surely as a lost seed, and nobody can reset it. A passphrase handed to a scammer along with the words stops nothing, which is why the words and the passphrase are never kept together and never given to anyone. Write the passphrase on paper. Keep that paper in a different place from the plate. Never write the passphrase on the plate itself.
 
 The same seed without the passphrase opens a different, nearly empty wallet. Keep a small spending balance there. A plate found under pressure has something to show, and it is not your savings.
 
@@ -58,7 +58,7 @@ Then the coins, in this order:
 
 ## Know the limits
 
-Printed here, not hidden. One seed is one point of failure. A fire where the plate sleeps ends this wallet; the passphrase paper surviving somewhere else does not rebuild it. Theft of the plate plus the passphrase paper ends it. Your own mistake, a word copied wrong and never restore-checked, ends it. This sheet beats an exchange account and it beats a seed in a phone, and it is honest about the distance between that and the vault.
+One seed is one point of failure. A fire where the plate sleeps ends this wallet; the passphrase paper surviving somewhere else does not rebuild it. Theft of the plate plus the passphrase paper ends it. Your own mistake, a word copied wrong and never restore-checked, ends it. This sheet beats an exchange account and it beats a seed in a phone, and it is honest about the distance between that and the vault.
 
 Graduate when the stack grows, or when the amount would hurt to lose. The 2-of-3 build starts at the [Checklist](/handouts/checklist), and everything learned here carries over: the dice, the metal, the watch-only habit, the one rule about the words.
 
