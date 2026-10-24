@@ -148,6 +148,12 @@
     return '<a href="handouts/' + slug + '.html">Start with: ' + title + " (" + num + ")</a>";
   }
   function recommend() {
+    if (sel.coins === "exchange")
+      return link("single-sig", "16", "One key, done right") + " · the exchange holds your keys today. This sheet brings the coins home. The full 2-of-3 build starts at the " + link("checklist", "03", "Checklist") + ".";
+    if (sel.coins === "software")
+      return link("single-sig", "16", "One key, done right") + " · a seed that lived on a phone counts as exposed. This sheet makes a fresh one offline and moves the coins onto it.";
+    if (sel.coins === "hardware")
+      return link("single-sig", "16", "One key, done right") + " · you are closer than you think: grade the seed, add a passphrase, stamp it in metal.";
     if (sel.exp === "new")
       return link("terms", "T", "Terms") + " · learn the vocabulary first, then work the sheets in order.";
     if (sel.offline === "notyet")

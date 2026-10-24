@@ -191,7 +191,7 @@ the sheet as published.
 | Sheet | Page | SHA-256 |
 | --- | --- | --- |
 | T · Terms | handouts/terms.html | `b8cd3f0e715d906b4892449fc20f39a1893cccddf010bb1875faf3a95ca163d7` |
-| 02 · Before you begin | handouts/threat-model.html | `b5576314b2867a3240ee2ba5f7f0324b11f6fea4191ded3a99970367185f211f` |
+| 02 · Before you begin | handouts/threat-model.html | `491f5f839f2c025430131487080d6b5edb9261f67dc5fffa920c41312c10d2b2` |
 | 03 · Checklist | handouts/checklist.html | `66960f4b47d24f1538ed0e2b9fd045046c4ede0513f9687c2f38ba69b3bf4b37` |
 | 05 · Check the files | handouts/verify.html | `f280a7b205fe50df83bbe8992b39ab0cccea04604eacb99dd05a32022f96772d` |
 | 04 · Two boots | handouts/airgap.html | `1a334f2d1b6ec2e3c0549cb11f795e65eaf28445caeb45bfa3caea25481e21e8` |
@@ -205,5 +205,6 @@ the sheet as published.
 | 13 · If you get stuck | handouts/faq.html | `607e158b216088def686b767ca7223823b8e917a9baa6a349fcbc9870f6d2f84` |
 | 14 · Tough questions | handouts/briefing.html | `bb530f0c2470a074377e8992b1db7dd7799225da2cd1982f3d574c3ff6894f09` |
 | 15 · Recovery card | handouts/fire-card.html | `d4230f3ed58045c168be869cb0b8b6113c20f0caf55f3fb7269506e8c0db3b25` |
+| 16 · One key, done right | handouts/single-sig.html | `2ac549ea916d74de8a91e89ae1c193df7d5184bd1fbf9adf3b121ec023c577b9` |
 
 <!-- END GENERATED: PAGE FINGERPRINTS -->
