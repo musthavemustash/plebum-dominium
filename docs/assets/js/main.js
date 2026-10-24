@@ -145,25 +145,28 @@
   if (!result) return;
   var sel = {};
   function link(slug, num, title) {
-    return '<a href="handouts/' + slug + '.html">Start with: ' + title + " (" + num + ")</a>";
+    return '<a href="handouts/' + slug + '.html">' + title + " (" + num + ")</a>";
   }
   function recommend() {
+    // Every path starts at Terms, even for experienced users: the vocabulary
+    // is shared before the work begins, so nobody lands mid-guide cold.
+    var start = "Start with " + link("terms", "T", "Terms") + ", then ";
     if (sel.coins === "exchange")
-      return link("single-sig", "16", "One key, done right") + " · the exchange holds your keys today. This sheet brings the coins home. The full 2-of-3 build starts at the " + link("checklist", "03", "Checklist") + ".";
+      return start + link("single-sig", "16", "One key, done right") + " · the exchange holds your keys today. That sheet brings the coins home. The full 2-of-3 build starts at the " + link("checklist", "03", "Checklist") + ".";
     if (sel.coins === "software")
-      return link("single-sig", "16", "One key, done right") + " · a seed that lived on a phone counts as exposed. This sheet makes a fresh one offline and moves the coins onto it.";
+      return start + link("single-sig", "16", "One key, done right") + " · a seed that lived on a phone counts as exposed. That sheet makes a fresh one offline and moves the coins onto it.";
     if (sel.coins === "hardware")
-      return link("single-sig", "16", "One key, done right") + " · you are closer than you think: grade the seed, add a passphrase, stamp it in metal.";
+      return start + link("single-sig", "16", "One key, done right") + " · you are closer than you think: grade the seed, add a passphrase, stamp it in metal.";
     if (sel.exp === "new")
-      return link("terms", "T", "Terms") + " · learn the vocabulary first, then work the sheets in order.";
+      return "Start with " + link("terms", "T", "Terms") + " · learn the vocabulary first, then work the sheets in order.";
     if (sel.offline === "notyet")
-      return link("airgap", "04", "Two boots") + " · get the offline computer ready before anything else.";
+      return start + link("airgap", "04", "Two boots") + " · get the offline computer ready before anything else.";
     if (sel.keys === "hw")
-      return link("checklist", "03", "Checklist") + " · then read " + link("faq", "13", "If you get stuck") + " for hardware-wallet notes.";
+      return start + link("checklist", "03", "Checklist") + " · then read " + link("faq", "13", "If you get stuck") + " for hardware-wallet notes.";
     if (sel.keys === "dice")
-      return link("dice", "06", "Make the three keys") + " · once you have worked sheets 03 through 05.";
+      return start + link("dice", "06", "Make the three keys") + " · once you have worked sheets 03 through 05.";
     if (sel.exp === "some")
-      return link("checklist", "03", "Checklist") + " · gather the kit, then work the sheets in order.";
+      return start + link("checklist", "03", "Checklist") + " · gather the kit, then work the sheets in order.";
     return null;
   }
   chooser.querySelectorAll(".chooser-q").forEach(function (q) {
