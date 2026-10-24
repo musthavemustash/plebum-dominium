@@ -1,0 +1,21 @@
+<svg width="360" height="508" viewBox="0 0 360 508" font-family="IBM Plex Sans, sans-serif">
+        <rect x="8" y="8" width="344" height="104" rx="10" fill="#161411" stroke="#2a2722"/>
+        <text x="24" y="38" fill="#c4a484" font-size="11" letter-spacing="2">1 · VERIFY</text>
+        <text x="24" y="66" fill="#efe9dc" font-size="17">Check the files</text>
+        <text x="24" y="92" fill="#9b9384" font-size="14">Every tool verified first</text>
+        <text x="176" y="132" fill="#c4a484" font-size="16" text-anchor="middle">↓</text>
+        <rect x="8" y="140" width="344" height="104" rx="10" fill="#161411" stroke="#2a2722"/>
+        <text x="24" y="170" fill="#c4a484" font-size="11" letter-spacing="2">2 · BOOT OFFLINE</text>
+        <text x="24" y="198" fill="#efe9dc" font-size="17">Tails, networking disabled</text>
+        <text x="24" y="224" fill="#9b9384" font-size="14">No Persistent Storage</text>
+        <text x="176" y="264" fill="#c4a484" font-size="16" text-anchor="middle">↓</text>
+        <rect x="8" y="272" width="344" height="104" rx="10" fill="#161411" stroke="#2a2722"/>
+        <text x="24" y="302" fill="#c4a484" font-size="11" letter-spacing="2">3 · ROLL ONE KEY</text>
+        <text x="24" y="330" fill="#efe9dc" font-size="17">Five dice, faces 1 to 4</text>
+        <text x="24" y="356" fill="#9b9384" font-size="14">Two tools must agree</text>
+        <text x="176" y="396" fill="#c4a484" font-size="16" text-anchor="middle">↓</text>
+        <rect x="8" y="404" width="344" height="96" rx="10" fill="#161411" stroke="#2a2722"/>
+        <text x="24" y="434" fill="#c4a484" font-size="11" letter-spacing="2">4 · RESTORE ON THE DEVICE</text>
+        <text x="24" y="462" fill="#efe9dc" font-size="17">Every word entered on</text>
+        <text x="24" y="484" fill="#efe9dc" font-size="17">the device itself</text>
+      </svg>
