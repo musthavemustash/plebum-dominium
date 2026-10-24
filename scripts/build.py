@@ -829,7 +829,6 @@ def build_home():
         "</div></div>"
         .replace("{BASE}", BASE)
         + home_section("home-why")
-        + home_section("home-chooser")
         + home_section("home-process")
         + "\n".join(cards)
         + home_section("home-rules")
