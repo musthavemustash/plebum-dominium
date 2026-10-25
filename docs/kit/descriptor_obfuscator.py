@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import getpass
 import os
 import subprocess
 import sys
@@ -38,6 +39,58 @@ def wipe(secret):
         return
     for i in range(len(secret)):
         secret[i] = 0
+
+
+def read_passphrase(prompt):
+    """Read a passphrase showing one asterisk per character typed.
+
+    Falls back to getpass (no echo) when asterisk mode is unavailable,
+    for example when stdin is not a terminal or on Windows. Never falls
+    back to plain echo. Returns None if the user cancels with Ctrl-C
+    or Ctrl-D on an empty line.
+    """
+    try:
+        import termios
+        import tty
+    except ImportError:
+        return getpass.getpass(prompt)
+    if not sys.stdin.isatty():
+        return getpass.getpass(prompt)
+    fd = sys.stdin.fileno()
+    try:
+        old = termios.tcgetattr(fd)
+    except termios.error:
+        return getpass.getpass(prompt)
+    buf = []
+    try:
+        tty.setraw(fd)
+        sys.stdout.write(prompt)
+        sys.stdout.flush()
+        while True:
+            ch = sys.stdin.read(1)
+            if ch in ("\r", "\n"):
+                sys.stdout.write("\n")
+                break
+            if ch == "\x03":  # Ctrl-C
+                sys.stdout.write("\n")
+                return None
+            if ch == "\x04":  # Ctrl-D: cancel only on an empty line
+                if not buf:
+                    sys.stdout.write("\n")
+                    return None
+                continue
+            if ch in ("\x7f", "\x08"):  # Backspace / DEL
+                if buf:
+                    buf.pop()
+                    sys.stdout.write("\b \b")
+                    sys.stdout.flush()
+                continue
+            buf.append(ch)
+            sys.stdout.write("*")
+            sys.stdout.flush()
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old)
+    return "".join(buf)
 
 
 def gpg_run(args, payload, passphrase):
@@ -143,7 +196,11 @@ def main():
     else:
         target_data = input("\nEnter raw wallet descriptor: ").strip()
 
-    entered = input("Enter secret map passphrase (shows on screen): ").strip()
+    entered = read_passphrase("Enter secret map passphrase (one star per character): ")
+    if entered is None:
+        print("[NOTICE] Cancelled.")
+        sys.exit(1)
+    entered = entered.strip()
     if not target_data or not entered:
         print("[ERROR] Input data and passphrase cannot be empty.")
         sys.exit(1)
