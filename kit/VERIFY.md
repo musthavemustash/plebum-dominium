@@ -14,8 +14,8 @@ SHA-256:  7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330
 
 ```
 File:     descriptor_obfuscator.py
-Size:     5519 bytes
-SHA-256:  5667d356e1e3d62c6fc222cbec40191fbd4b45e84290a77b0d54b138ddea113c
+Size:     5535 bytes
+SHA-256:  3aab864e1d9bf0328aca1d619935c3d9312164cf92d92da6d609485d872d6581
 ```
 
 Linux / macOS / Tails:
@@ -27,7 +27,7 @@ sha256sum descriptor_obfuscator.py
 The hash must match exactly:
 
 ```
-5667d356e1e3d62c6fc222cbec40191fbd4b45e84290a77b0d54b138ddea113c
+3aab864e1d9bf0328aca1d619935c3d9312164cf92d92da6d609485d872d6581
 ```
 
 If it does not match, stop. Do not run that copy. The tool calls GPG with AES-256. It does not contain a cipher of its own.
@@ -200,7 +200,7 @@ the sheet as published.
 | 10 · Rehearse on testnet | handouts/testnet.html | `001aac211888cfcf2e20b5927a82ddacfc4dfccd2029baf797a364487d1092cc` |
 | 08 · Practice spend | handouts/signing.html | `1c104cb9087dfa971e580e4afc2d9c9e915abb2a990e27df2ae80fe41c6ccf4d` |
 | 09 · Metal and the map | handouts/titanium.html | `e9e19cc75067cdc4d2886fb989fda16d03dd3e6c81193ff4bb8ad5fa32676459` |
-| 11 · Hide the wallet map | handouts/encryption.html | `be95ef7f5c33781634fe85e32d5dcc29e6dd5e94a7df81261a22bd25050bd189` |
+| 11 · Hide the wallet map | handouts/encryption.html | `922995dd84a30651528c448493795ff83f72fd296be972f142500c15c9de3efc` |
 | 12 · If I am gone | handouts/inheritance.html | `45db9a52518535aa1dbe5153bce3ff883db0e325e16228cc4859051155bf22e3` |
 | 13 · If you get stuck | handouts/faq.html | `0739027e80e92554839ea936c7c32b6194074d2776e63abe32f65afd304f2565` |
 | 14 · Tough questions | handouts/briefing.html | `b543f80e025167342dce45f5f44b46f652d8bb71b37d01634484a1cb0079085a` |

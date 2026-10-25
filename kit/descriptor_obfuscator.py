@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import getpass
 import os
 import subprocess
 import sys
@@ -133,18 +132,18 @@ def main():
     is_decrypt = choice in ["d", "decrypt"]
 
     if is_decrypt:
-        print("\nPaste the encrypted descriptor string (armored GPG text), then press Enter twice:")
+        print("\nPaste the encrypted descriptor string (armored GPG text, through the END line):")
         lines = []
         while True:
             line = input()
-            if not line and lines:
-                break
             lines.append(line)
+            if line.strip() == "-----END PGP MESSAGE-----":
+                break
         target_data = "\n".join(lines).strip()
     else:
         target_data = input("\nEnter raw wallet descriptor: ").strip()
 
-    entered = getpass.getpass("Enter secret map passphrase: ").strip()
+    entered = input("Enter secret map passphrase (shows on screen): ").strip()
     if not target_data or not entered:
         print("[ERROR] Input data and passphrase cannot be empty.")
         sys.exit(1)
