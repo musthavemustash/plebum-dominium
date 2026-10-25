@@ -39,9 +39,18 @@ LAST_UPDATED = _bdate.today().strftime("%B %-d, %Y")
 # Scrolling news ticker at the top of the homepage: (headline, month) pairs
 # in newest-first order, matching the entries on the News page. Update this
 # list when a new entry lands.
+# Ticker headlines: (headline, date, link target, extra class). The first
+# item is the permanent Start here action; the rest link to their article
+# on news.html. Keep the CSS loop time near 20 seconds per headline when
+# this list grows.
 NEWS_TICKER = [
-    ("Two hardware failures in one year", "Oct 2026"),
-    ("Russia closes the exchange off-ramp", "Oct 2026"),
+    ("New to Bitcoin? Start here →", "", "#new-to-bitcoin", "ticker-action"),
+    ("Two hardware failures in one year", "Oct 2026", "news.html#two-hardware-failures", ""),
+    ("Russia closes the exchange off-ramp", "Oct 2026", "news.html#russia-off-ramp", ""),
+    ("FTX collapses, $8 billion in customer funds missing", "Nov 2022", "news.html#ftx", ""),
+    ("Ledger breach exposes 272,000 customer addresses", "Jul 2020", "news.html#ledger-breach", ""),
+    ("QuadrigaCX dies with its founder, $190 million locked away", "Jan 2019", "news.html#quadrigacx", ""),
+    ("Mt. Gox loses 850,000 bitcoin", "Feb 2014", "news.html#mt-gox", ""),
 ]
 # On-chain Bitcoin address for the footer donate button.
 ONCHAIN_ADDRESS = "bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"
@@ -502,17 +511,23 @@ def website_schema():
 def ticker_html():
     """Slow headlines bar above the header. One readable set plus hidden
     repeats, so the loop scrolls seamlessly and screen readers hear each
-    headline once. Links land on news.html."""
-    items = "".join(
-        f'<a class="ticker-item" href="{BASE}news.html">{esc(head)} '
-        f'<span class="ticker-date">{esc(date)}</span></a>'
-        f'<span class="ticker-sep" aria-hidden="true">·</span>'
-        for head, date in NEWS_TICKER
-    )
+    headline once. Each item links to its own article on news.html, except
+    the permanent Start here action. The price span beside the label is
+    filled by JavaScript when it can fetch a price, and stays hidden when
+    it cannot."""
+    def item(head, date, href, cls):
+        cls_attr = "ticker-item" + (f" {cls}" if cls else "")
+        date_html = f' <span class="ticker-date">{esc(date)}</span>' if date else ""
+        return (
+            f'<a class="{cls_attr}" href="{BASE}{href}">{esc(head)}{date_html}</a>'
+            '<span class="ticker-sep" aria-hidden="true">·</span>'
+        )
+    items = "".join(item(*entry) for entry in NEWS_TICKER)
     hidden = f'<span class="ticker-set" aria-hidden="true">{items}</span>'
     return (
         '<div class="news-ticker" aria-label="Latest news">'
         f'<a class="ticker-label" href="{BASE}news.html">News</a>'
+        '<span class="ticker-price" id="ticker-price" hidden></span>'
         '<div class="ticker-viewport"><div class="ticker-track">'
         f'<span class="ticker-set">{items}</span>'
         f"{hidden}{hidden}{hidden}"

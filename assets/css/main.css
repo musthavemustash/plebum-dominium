@@ -174,8 +174,15 @@ body {
   font-size: 0.82rem; font-weight: 800; color: var(--accent); text-decoration: none;
 }
 .ticker-label:hover { text-decoration: underline; }
+.ticker-price {
+  flex: none; display: flex; align-items: center;
+  padding: 0.45rem 0.9rem; border-right: 1px solid var(--line);
+  font-size: 0.82rem; color: var(--muted); white-space: nowrap;
+}
+.ticker-price[hidden] { display: none; }
 .ticker-viewport { overflow: hidden; flex: 1; display: flex; align-items: center; }
-.ticker-track { display: flex; flex: none; animation: tickerScroll 40s linear infinite; }
+/* About 20 seconds per headline; stretch when headlines are added. */
+.ticker-track { display: flex; flex: none; animation: tickerScroll 140s linear infinite; }
 .news-ticker:hover .ticker-track { animation-play-state: paused; }
 .ticker-set { display: flex; align-items: center; flex: none; }
 .ticker-set > * { margin-right: 1.5rem; }
@@ -183,13 +190,14 @@ body {
   color: var(--ink); text-decoration: none; font-size: 0.85rem; white-space: nowrap;
 }
 .ticker-item:hover { text-decoration: underline; }
+.ticker-item.ticker-action { color: var(--accent); font-weight: 700; }
 .ticker-date { color: var(--muted); font-size: 0.8rem; margin-left: 0.4rem; }
 .ticker-sep { color: var(--accent); }
 @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) {
   .ticker-track { animation: none; }
   .ticker-set[aria-hidden="true"] { display: none; }
-  .ticker-set .ticker-item ~ .ticker-item { display: none; }
+  .ticker-set .ticker-item ~ .ticker-item ~ .ticker-item { display: none; }
   .ticker-set .ticker-sep { display: none; }
 }
 
@@ -1347,7 +1355,9 @@ body.news article h1 { text-align: center; font-size: 3.4rem; line-height: 1; ma
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem;
 }
 .news-why p { margin: 0; }
-.news-src { font-size: 0.85rem; color: var(--muted); margin-top: 0.9rem; }
+.news-src { font-size: 0.8rem; color: var(--muted); margin-top: 0.9rem; }
+/* Anchored ticker links land below the sticky header. */
+.news-entry { scroll-margin-top: 5rem; }
 .news-src a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
 .news-older {
   font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--muted);

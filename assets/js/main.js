@@ -197,3 +197,23 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   splash.addEventListener("click", dismiss);
   document.addEventListener("keydown", dismiss);
 })();
+
+/* Ticker price: free mempool.space fetch, no key, no account, no user
+   data asked for. Loads once, then refreshes every minute. On any
+   failure the readout stays hidden and the bar looks as it did before. */
+(function () {
+  var el = document.getElementById("ticker-price");
+  if (!el) return;
+  function load() {
+    fetch("https://mempool.space/api/v1/prices")
+      .then(function (r) { return r.json(); })
+      .then(function (p) {
+        if (!p || typeof p.USD !== "number") return;
+        el.textContent = "BTC $" + p.USD.toLocaleString("en-US");
+        el.hidden = false;
+      })
+      .catch(function () { /* stay hidden */ });
+  }
+  load();
+  setInterval(load, 60000);
+})();
