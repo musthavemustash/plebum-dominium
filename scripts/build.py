@@ -114,9 +114,11 @@ NEED_LINKS = {
 }
 
 
-def need_html(item):
+def need_html(item, slug=None):
     target = NEED_LINKS.get(item)
-    if target:
+    # A need sourced on this very sheet stays plain text: linking to the
+    # page the reader is already on looks like a dead link.
+    if target and target != f"handouts/{slug}.html":
         return f'<a href="{BASE}{target}">{esc(item)}</a>'
     return esc(item)
 
@@ -164,7 +166,7 @@ def header_card_html(slug):
     """iFixit-style overview card: time, difficulty, steps, you-will-need."""
     time, diff, needs, steps = SHEET_META[slug]
     diff_cls = {"Easy": "diff-easy", "Moderate": "diff-moderate", "Careful": "diff-careful"}[diff]
-    needs_html = " &middot; ".join(need_html(x) for x in needs)
+    needs_html = " &middot; ".join(need_html(x, slug) for x in needs)
     return (
         '<section class="sheet-meta" aria-label="Sheet overview">'
         f'<div class="meta-item"><span class="meta-label">Time</span>'

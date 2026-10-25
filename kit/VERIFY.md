@@ -193,7 +193,7 @@ the sheet as published.
 | T · Terms | handouts/terms.html | `49da64e16d95706815ceea06962d66acb3c23a62b8d8ce0a4bce3b936a78954d` |
 | 02 · Before you begin | handouts/threat-model.html | `bacd9c9213cda4efed982bcb124e8049a25861fa7bb58f836d2739e04466fa50` |
 | 03 · Checklist | handouts/checklist.html | `4a7d3a43aecc9dca20b5137f8fa5e7cc758bafb6fd9c3f7e99de70625ed3f349` |
-| 05 · Check the files | handouts/verify.html | `2efd7020bed29a1deab8d705475235baf2f297d01b9fa4144f9a4b5bd50b8ed1` |
+| 05 · Check the files | handouts/verify.html | `ee4368fcd91e2d1fa7655e94da00e5dc26cd9fb1c3cdeeed6a6149123be854f3` |
 | 04 · Two boots | handouts/airgap.html | `9b112f0e317547d79018044e5898ebbe28c5e79001264853f06de6c340209eaa` |
 | 06 · Make the three keys | handouts/dice.html | `af24809fcfe4aad294216a605a7948fc52df454f3787713c95e6a4df5a123ba3` |
 | 07 · Build the 2-of-3 | handouts/sparrow.html | `83b1c20bcb61e69e0da301963f82ec6bd2552aca09c36aa010df56010ed1d33d` |
