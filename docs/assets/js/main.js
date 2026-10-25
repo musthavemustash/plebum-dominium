@@ -230,7 +230,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   var results = document.getElementById("ask-results");
   if (!btn || !backdrop || !input || !results) return;
 
-  var CONTACT = "satchel.muse@gmail.com";
+  var CONTACT = "Muststackmoresats@gmail.com";
   var SUBJECT = "Question about Plebum Dominium";
   var START = ["checklist", "verify", "airgap", "faq"];
   var index = null, indexFailed = false, loading = false;
