@@ -36,10 +36,13 @@ SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
 LIGHTNING_ADDRESS = "musthavemoresats@speed.app"
 from datetime import date as _bdate
 LAST_UPDATED = _bdate.today().strftime("%B %-d, %Y")
-# Homepage hero news card: headline + month of the newest entry on the
-# News page. Update both when a new entry lands (the card links to news.html).
-NEWS_LATEST = "Two hardware failures in one year"
-NEWS_LATEST_DATE = "Oct 2026"
+# Scrolling news ticker at the top of the homepage: (headline, month) pairs
+# in newest-first order, matching the entries on the News page. Update this
+# list when a new entry lands.
+NEWS_TICKER = [
+    ("Two hardware failures in one year", "Oct 2026"),
+    ("Russia closes the exchange off-ramp", "Oct 2026"),
+]
 # On-chain Bitcoin address for the footer donate button.
 ONCHAIN_ADDRESS = "bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"
 # GoatCounter site code for private visitor counts. Empty = no tracking.
@@ -496,9 +499,30 @@ def website_schema():
         "description": HOME_DESCRIPTION})
 
 
-def load_template():
+def ticker_html():
+    """Slow headlines bar above the header. One readable set plus hidden
+    repeats, so the loop scrolls seamlessly and screen readers hear each
+    headline once. Links land on news.html."""
+    items = "".join(
+        f'<a class="ticker-item" href="{BASE}news.html">{esc(head)} '
+        f'<span class="ticker-date">{esc(date)}</span></a>'
+        f'<span class="ticker-sep" aria-hidden="true">·</span>'
+        for head, date in NEWS_TICKER
+    )
+    hidden = f'<span class="ticker-set" aria-hidden="true">{items}</span>'
+    return (
+        '<div class="news-ticker" aria-label="Latest news">'
+        f'<a class="ticker-label" href="{BASE}news.html">News</a>'
+        '<div class="ticker-viewport"><div class="ticker-track">'
+        f'<span class="ticker-set">{items}</span>'
+        f"{hidden}{hidden}{hidden}"
+        "</div></div></div>"
+    )
+
+
+def load_template(with_ticker=False):
     with open("templates/base.html") as f:
-        return f.read()
+        return f.read().replace("{{ticker}}", ticker_html() if with_ticker else "")
 
 
 def analytics_html():
@@ -793,7 +817,7 @@ def home_section(name):
 def build_home():
     with open("content/index.md") as f:
         src = f.read()
-    tpl = load_template()
+    tpl = load_template(with_ticker=True)
     # homepage uses a custom cards layout; keep the scraped intro, drop chrome junk
     cards = []
     stages = [
@@ -821,9 +845,6 @@ def build_home():
         "</div>"
         '<p class="hero-pron">(PLAY-boom doh-MIN-ee-oom)</p>'
         '<p class="hero-sub">Absolute Ownership by the Common People</p>'
-        f'<aside class="hero-news"><p class="hero-news-eyebrow">News \u00b7 {NEWS_LATEST_DATE}</p>'
-        f'<a class="hero-news-link" href="{BASE}news.html">{NEWS_LATEST}</a>'
-        f'<a class="hero-news-more" href="{BASE}news.html">Read the story \u2192</a></aside>'
         "<p>\u201cPleb\u201d is an everyday Bitcoiner. \u201cDominium\u201d is Latin for absolute ownership. "
         "This site is for the Bitcoiner who wants to build a secure, self-custody Bitcoin wallet from the ground up, "
         "bypassing the need for a company, an app, or a custodian to manage or store access to their funds.</p>"
