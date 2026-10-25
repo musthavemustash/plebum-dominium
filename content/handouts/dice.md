@@ -2,6 +2,9 @@
 
 # Make the three keys
 
+> [!WARNING]
+> Never enter seed words on an online computer.
+
 This work starts after Tails has booted with networking set to Disabled, and before any plate is stamped. Five casino dice are required, and every face has to be readable. Faces 1 through 4 are kept. Faces 5 and 6 are rolled again. The work is done three times, for three keys, and the computer is shut down fully between them. A private room, no camera.
 
 ## The faces

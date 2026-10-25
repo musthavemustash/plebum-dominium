@@ -403,3 +403,21 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     open();
   });
 })();
+
+/* --- online status dot: green on the live site, orange on a saved copy or with no network --- */
+(function () {
+  "use strict";
+  var pill = document.getElementById("online-pill");
+  if (!pill) return;
+  var dot = document.getElementById("online-dot");
+  var word = document.getElementById("online-word");
+  function render() {
+    var offline = (location.protocol === "file:") || !navigator.onLine;
+    pill.hidden = false;
+    dot.classList.toggle("offline", offline);
+    word.textContent = offline ? "Offline" : "Online";
+  }
+  window.addEventListener("online", render);
+  window.addEventListener("offline", render);
+  render();
+})();

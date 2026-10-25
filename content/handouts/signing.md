@@ -2,6 +2,9 @@
 
 # Practice spend
 
+> [!WARNING]
+> Never enter seed words on an online computer.
+
 The practice spend uses a small amount, enough to pay a fee and no more. Write the destination, amount, and fee on paper before anything is exported, and read those notes again before each signature.
 
 ## Step 1 · Build the spend (online, watch-only).
