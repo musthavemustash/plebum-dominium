@@ -22,7 +22,7 @@ Boot Tails, networking Disabled. Copy the tool and map.txt to the Desktop.
 
 ::fig encryption/encrypt-run
 
-Open the terminal. Run the tool. Choose E. Paste the wallet map. Enter the passphrase. It is not a seed. The passphrase shows on screen as you type. That is normal. Use a screen nobody else can see.
+Open the terminal. Run the tool. Choose E. Paste the wallet map. Enter the passphrase. It is not a seed. One star shows for each character you type. The words themselves never appear. Use a screen nobody else can see.
 
 ```
 $ python3 descriptor_obfuscator.py
