@@ -217,3 +217,189 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   load();
   setInterval(load, 60000);
 })();
+
+/* ---------- Ask the guide: header search over a build-time index ----------
+   The index is a static JSON file on this same site, fetched once when the
+   visitor first opens the search. Nothing typed is sent anywhere: matching
+   happens in this script, and only a tap on an email link leaves the page. */
+(function () {
+  "use strict";
+  var btn = document.getElementById("ask-btn");
+  var backdrop = document.getElementById("ask-backdrop");
+  var input = document.getElementById("ask-input");
+  var results = document.getElementById("ask-results");
+  if (!btn || !backdrop || !input || !results) return;
+
+  var CONTACT = "Muststackmoresats@gmail.com";
+  var SUBJECT = "Question about Plebum Dominium";
+  var START = ["checklist", "verify", "airgap", "faq"];
+  var index = null, indexFailed = false, loading = false;
+  var selected = -1, lastFocus = null;
+
+  function basePath() {
+    var s = document.querySelector('script[src$="assets/js/main.js"]');
+    if (s) {
+      var src = s.getAttribute("src") || "";
+      var i = src.indexOf("assets/js/main.js");
+      if (i !== -1) return src.slice(0, i);
+    }
+    return "/";
+  }
+
+  function mailto(q) {
+    return "mailto:" + CONTACT + "?subject=" + encodeURIComponent(SUBJECT) +
+      "&body=" + encodeURIComponent("Question about Plebum Dominium:\n\n" + q);
+  }
+
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function words(q) {
+    return q.toLowerCase().split(/\s+/).filter(function (w) { return w.length > 1; });
+  }
+
+  function highlight(text, ws) {
+    var out = esc(text);
+    ws.forEach(function (w) {
+      var re = new RegExp("(" + w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
+      out = out.replace(re, '<mark class="ask-hit">$1</mark>');
+    });
+    return out;
+  }
+
+  function snippet(e, ws) {
+    var text = e.text, lower = text.toLowerCase(), pos = -1;
+    ws.forEach(function (w) {
+      var p = lower.indexOf(w);
+      if (p !== -1 && (pos === -1 || p < pos)) pos = p;
+    });
+    if (pos === -1) return highlight(text.slice(0, 140), ws);
+    var start = Math.max(0, pos - 60), end = Math.min(text.length, pos + 90);
+    var s = text.slice(start, end);
+    if (start > 0) s = "…" + s;
+    if (end < text.length) s = s + "…";
+    return highlight(s, ws);
+  }
+
+  function search(q) {
+    var ws = words(q), scored = [];
+    index.forEach(function (e) {
+      var title = e.title.toLowerCase(), body = e.text.toLowerCase(), score = 0;
+      if (q.trim() === e.num) score += 200;
+      ws.forEach(function (w) {
+        if (title.indexOf(w) !== -1) score += 50;
+        if (body.indexOf(w) !== -1) score += 10;
+      });
+      if (score > 0) scored.push({ e: e, score: score });
+    });
+    scored.sort(function (a, b) { return b.score - a.score; });
+    return scored.slice(0, 6).map(function (s) { return s.e; });
+  }
+
+  function rowHTML(e, ws, withSnippet) {
+    var snip = withSnippet ? '<span class="ask-snippet">' + snippet(e, ws) + "</span>" : "";
+    return '<a class="ask-row" href="' + esc(e.url) + '"><span class="ask-num">' +
+      esc(e.num) + '</span><span><span class="ask-row-title">' +
+      highlight(e.title, ws) + "</span>" + snip + "</span></a>";
+  }
+
+  function findEntry(slug) {
+    for (var i = 0; i < index.length; i++) if (index[i].slug === slug) return index[i];
+    return null;
+  }
+
+  function renderStart() {
+    var html = '<p class="ask-start-label">Start with</p>';
+    START.forEach(function (slug) {
+      var e = findEntry(slug);
+      if (e) html += rowHTML(e, [], false);
+    });
+    results.innerHTML = html;
+    selected = -1;
+  }
+
+  function renderResults(q) {
+    var ws = words(q);
+    if (!ws.length) { renderStart(); return; }
+    var hits = search(q);
+    if (!hits.length) {
+      results.innerHTML = '<p class="ask-empty">Nothing in the guide matches \u2018' +
+        esc(q) + '\u2019 yet.</p><p class="ask-action-row"><a href="' + mailto(q) +
+        '">Email this question</a><a href="' + basePath() +
+        '">Browse the full program</a></p>';
+      selected = -1;
+      return;
+    }
+    var html = hits.map(function (e) { return rowHTML(e, ws, true); }).join("");
+    html += '<p class="ask-email-row">Not what you needed? <a href="' + mailto(q) +
+      '">Email this question</a></p>';
+    results.innerHTML = html;
+    selected = -1;
+  }
+
+  function loadIndex() {
+    if (loading) return;
+    loading = true;
+    fetch(basePath() + "assets/search-index.json")
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        loading = false;
+        index = data;
+        if (input.value) renderResults(input.value); else renderStart();
+      })
+      .catch(function () {
+        loading = false;
+        indexFailed = true;
+        results.innerHTML = '<p class="ask-empty">Search is not available right now.</p>';
+      });
+  }
+
+  function open() {
+    lastFocus = document.activeElement;
+    backdrop.hidden = false;
+    input.focus();
+    if (index) renderStart();
+    else if (indexFailed) results.innerHTML = '<p class="ask-empty">Search is not available right now.</p>';
+    else {
+      results.innerHTML = '<p class="ask-empty">Loading the guide index…</p>';
+      loadIndex();
+    }
+  }
+
+  function close() {
+    backdrop.hidden = true;
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  btn.addEventListener("click", open);
+  backdrop.addEventListener("click", function (e) { if (e.target === backdrop) close(); });
+  input.addEventListener("input", function () { if (index) renderResults(input.value); });
+  input.addEventListener("keydown", function (e) {
+    var rows = results.querySelectorAll(".ask-row");
+    if (e.key === "Escape") { close(); return; }
+    if (e.key === "ArrowDown" && rows.length) {
+      e.preventDefault();
+      selected = Math.min(selected + 1, rows.length - 1);
+    } else if (e.key === "ArrowUp" && rows.length) {
+      e.preventDefault();
+      selected = Math.max(selected - 1, 0);
+    } else if (e.key === "Enter" && rows.length) {
+      e.preventDefault();
+      var r = rows[selected >= 0 ? selected : 0];
+      if (r) window.location.href = r.getAttribute("href");
+      return;
+    } else return;
+    rows.forEach(function (r, i) { r.classList.toggle("selected", i === selected); });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !backdrop.hidden) { close(); return; }
+    if (e.key !== "/") return;
+    if (!backdrop.hidden) return;
+    var t = document.activeElement;
+    if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+    e.preventDefault();
+    open();
+  });
+})();

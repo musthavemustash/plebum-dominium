@@ -733,6 +733,11 @@ def build_sheet(slug, num, title):
     )
     fp_src = header_card_html(slug) + sheet_diagram(slug) + rendered
     PAGE_FINGERPRINTS[slug] = hashlib.sha256(fp_src.encode("utf-8")).hexdigest()
+    SEARCH_INDEX.append({
+        "slug": slug, "num": num, "title": title,
+        "url": f"{BASE}handouts/{slug}.html",
+        "text": strip_text(fp_src),
+    })
     return page
 
 
@@ -798,6 +803,16 @@ def build_news():
     tpl = load_template()
     with open("templates/news.html") as f:
         rendered = f.read().replace("{BASE}", BASE)
+    for m in re.finditer(r'<article[^>]*id="([^"]+)"[^>]*>(.*?)</article>', rendered, re.S):
+        aid, body = m.group(1), m.group(2)
+        hm = re.search(r"<h2>(.*?)</h2>", body, re.S)
+        if hm:
+            SEARCH_INDEX.append({
+                "slug": "news-" + aid, "num": "News",
+                "title": strip_text(hm.group(1)),
+                "url": f"{BASE}news.html#{aid}",
+                "text": strip_text(body),
+            })
     page = (
         tpl.replace("{{title}}", f"News · {SITE_NAME}")
         .replace("{{base}}", BASE)
@@ -908,6 +923,17 @@ def build_home():
 
 PAGE_FINGERPRINTS = {}
 
+# Ask the guide search index: one entry per sheet plus one per news
+# article, with the full page text. Written to docs/assets/ by main().
+SEARCH_INDEX = []
+
+
+def strip_text(html):
+    """Rendered page HTML to plain searchable text."""
+    text = re.sub(r"<[^>]+>", " ", html)
+    text = htmlmod.unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
 
 def update_verify_page_fingerprints():
     """Regenerate the sheet-page fingerprint table inside kit/VERIFY.md."""
@@ -976,6 +1002,10 @@ def main():
     print("  diceware.html")
     # static assets
     shutil.copytree("assets", "docs/assets")
+    # search index for Ask the guide: sheets plus news articles, full text
+    with open("docs/assets/search-index.json", "w") as f:
+        json.dump(SEARCH_INDEX, f, ensure_ascii=False)
+    print(f"  assets/search-index.json ({len(SEARCH_INDEX)} entries)")
     # VERIFY.md page fingerprints (must run before the kit copy)
     update_verify_page_fingerprints()
     # kit downloads
