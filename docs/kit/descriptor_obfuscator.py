@@ -4,6 +4,10 @@ import os
 import subprocess
 import sys
 
+# Bump this date whenever the tool changes. It prints in the banner so a
+# reader can tell which tool they hold without checking a hash.
+TOOL_VERSION = "2026.10.25"
+
 BANNER = """
 ====================================================================
            PLEBUM DOMINIUM · WALLET MAP ENCRYPTION TOOL
@@ -11,8 +15,9 @@ BANNER = """
   AIRGAP NOTICE: Ensure this system is OFFLINE (Tails OS recommended).
   SECURITY NOTICE: The passphrase used here is NOT a seed phrase.
   DO NOT stamp this passphrase on metal plates.
+  TOOL VERSION: %s
 ====================================================================
-"""
+""" % TOOL_VERSION
 
 # Iterated-and-salted S2K, pinned so two Tails machines do not pick different
 # settings. Count 65011712 is accepted by GnuPG 2.2 (the Tails series). Any
@@ -91,6 +96,29 @@ def read_passphrase(prompt):
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old)
     return "".join(buf)
+
+
+def read_confirmed_passphrase():
+    """Encrypt only. Ask for the passphrase twice and loop on a mismatch.
+
+    Three tries, then stop. A typo locked into an encrypted map is found
+    only when the map is needed, so the second entry has to match.
+    """
+    for _attempt in range(3):
+        first = read_passphrase("Enter secret map passphrase (one star per character): ")
+        if first is None:
+            print("[NOTICE] Cancelled.")
+            sys.exit(1)
+        first = first.strip()
+        second = read_passphrase("Enter secret map passphrase again: ")
+        if second is None:
+            print("[NOTICE] Cancelled.")
+            sys.exit(1)
+        if second.strip() == first:
+            return first
+        print("[ERROR] Passphrases do not match. Try again.")
+    print("[ERROR] Too many mismatches. Stopping.")
+    sys.exit(1)
 
 
 def gpg_run(args, payload, passphrase):
@@ -196,11 +224,14 @@ def main():
     else:
         target_data = input("\nEnter raw wallet descriptor: ").strip()
 
-    entered = read_passphrase("Enter secret map passphrase (one star per character): ")
-    if entered is None:
-        print("[NOTICE] Cancelled.")
-        sys.exit(1)
-    entered = entered.strip()
+    if is_decrypt:
+        entered = read_passphrase("Enter secret map passphrase (one star per character): ")
+        if entered is None:
+            print("[NOTICE] Cancelled.")
+            sys.exit(1)
+        entered = entered.strip()
+    else:
+        entered = read_confirmed_passphrase()
     if not target_data or not entered:
         print("[ERROR] Input data and passphrase cannot be empty.")
         sys.exit(1)

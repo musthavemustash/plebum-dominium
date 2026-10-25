@@ -14,8 +14,8 @@ SHA-256:  7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330
 
 ```
 File:     descriptor_obfuscator.py
-Size:     7307 bytes
-SHA-256:  8a505b0a087f69d95f7a07a102171db4f9d4bf884ec2e011da2b7d1b57695829
+Size:     8456 bytes
+SHA-256:  35f8807c72241bcbe97318f7ffa4e4c6e211df180e67f85656e0429520466589
 ```
 
 Linux / macOS / Tails:
@@ -27,7 +27,7 @@ sha256sum descriptor_obfuscator.py
 The hash must match exactly:
 
 ```
-8a505b0a087f69d95f7a07a102171db4f9d4bf884ec2e011da2b7d1b57695829
+35f8807c72241bcbe97318f7ffa4e4c6e211df180e67f85656e0429520466589
 ```
 
 If it does not match, stop. Do not run that copy. The tool calls GPG with AES-256. It does not contain a cipher of its own.
