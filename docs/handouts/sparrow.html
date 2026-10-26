@@ -127,17 +127,8 @@ $ ./bin/Sparrow
 </code></pre>
 <p>Wait 15 to 30 seconds. Sparrow opens. Type exactly. Spaces count. If a line turns red, stop.</p>
 <h2 id="step-3-new-wallet-2-of-3-native-segwit">Step 3 · New wallet: 2 of 3, native Segwit.</h2>
-<figure class="step-fig"><svg width="440" height="210" viewBox="0 0 440 210" font-family="IBM Plex Sans, sans-serif">
-        <rect x="70" y="10" width="300" height="190" rx="12" fill="#14110d" stroke="#2b251b"/>
-        <text x="95" y="42" fill="#f0e8d6" font-size="15" font-weight="700">New Wallet</text>
-        <rect x="95" y="58" width="250" height="30" rx="6" fill="rgba(201,163,92,0.12)" stroke="#c9a35c"/>
-        <text x="108" y="78" fill="#c9a35c" font-size="13" font-weight="700">✓ Multi Signature</text>
-        <rect x="95" y="96" width="250" height="30" rx="6" fill="rgba(201,163,92,0.12)" stroke="#c9a35c"/>
-        <text x="108" y="116" fill="#c9a35c" font-size="13" font-weight="700">✓ Native Segwit</text>
-        <rect x="95" y="134" width="250" height="30" rx="6" fill="rgba(201,163,92,0.12)" stroke="#c9a35c"/>
-        <text x="108" y="154" fill="#c9a35c" font-size="13" font-weight="700">✓ 2 of 3</text>
-        <text x="95" y="186" fill="#9a8f78" font-size="12" font-family="IBM Plex Mono, monospace">m/48'/0'/0'/2'</text>
-      </svg></figure>
+<figure class="shot-fig"><img src="/assets/img/sparrow-step3-settings.png" alt="Sparrow Settings showing Multi Signature HD, Native Segwit, and 2 of 3" loading="lazy"><span class="num" style="top:17.25%">1</span><span class="leader" style="left:6%;width:29.3%;top:17.25%"></span><span class="dot" style="left:35.3%;top:17.25%"></span><span class="num" style="top:23.25%">2</span><span class="leader" style="left:6%;width:29.3%;top:23.25%"></span><span class="dot" style="left:35.3%;top:23.25%"></span><span class="numd" style="left:63.3%;top:17%">3</span><span class="numd" style="left:57.1%;top:48.8%">4</span></figure><ol class="shot-key"><li>Policy Type: Multi Signature HD.</li><li>Script Type: Native Segwit (P2WSH).</li><li>M of N: 2 / 3. The slider sits on 2, with 3 cosigners in total. Number 3 sits in the white space to the left of Cosigners and M of N.</li><li>Keystore tabs: 1, 2 and 3. Each one gets filled in turn.</li></ol><p class="shot-note">Real Sparrow screenshot, dummy keys only. No xpub is shown in this shot.</p>
+
 <p>File → New Wallet. Pick Multi Signature, Native Segwit, 2 of 3. The path must read m/48&#x27;/0&#x27;/0&#x27;/2&#x27;. Anything else: stop.</p>
 <h2 id="step-4-keystore-1-seed-1-in-public-key-out">Step 4 · Keystore 1: Seed 1 in, public key out.</h2>
 <figure class="step-fig"><svg width="460" height="170" viewBox="0 0 460 170" font-family="IBM Plex Sans, sans-serif">
@@ -174,23 +165,8 @@ $ ./bin/Sparrow
       </svg></figure>
 <p>Boot again for Seed 2 → s2-xpub.txt. Shut down. Boot again for Seed 3 → s3-xpub.txt. Shut down.</p>
 <h2 id="step-6-fresh-boot-no-seed-build-the-vault">Step 6 · Fresh boot. No seed. Build the vault.</h2>
-<figure class="step-fig"><svg width="460" height="190" viewBox="0 0 460 190" font-family="IBM Plex Sans, sans-serif">
-        <rect x="20" y="20" width="110" height="34" rx="6" fill="#14110d" stroke="#2b251b"/>
-        <text x="75" y="42" fill="#9a8f78" font-size="11" text-anchor="middle" font-family="IBM Plex Mono, monospace">s1-xpub</text>
-        <rect x="20" y="62" width="110" height="34" rx="6" fill="#14110d" stroke="#2b251b"/>
-        <text x="75" y="84" fill="#9a8f78" font-size="11" text-anchor="middle" font-family="IBM Plex Mono, monospace">s2-xpub</text>
-        <rect x="20" y="104" width="110" height="34" rx="6" fill="#14110d" stroke="#2b251b"/>
-        <text x="75" y="126" fill="#9a8f78" font-size="11" text-anchor="middle" font-family="IBM Plex Mono, monospace">s3-xpub</text>
-        <path d="M140 79 h50 m-12 -12 l12 12 l-12 12" stroke="#c9a35c" stroke-width="4" fill="none"/>
-        <rect x="200" y="44" width="120" height="70" rx="8" fill="rgba(201,163,92,0.1)" stroke="#c9a35c"/>
-        <text x="260" y="72" fill="#c9a35c" font-size="12" font-weight="700" text-anchor="middle">2-of-3</text>
-        <text x="260" y="94" fill="#9a8f78" font-size="10" text-anchor="middle" font-family="IBM Plex Mono, monospace">m/48'/0'/0'/2'</text>
-        <path d="M330 79 h40 m-12 -12 l12 12 l-12 12" stroke="#c9a35c" stroke-width="4" fill="none"/>
-        <rect x="380" y="44" width="60" height="70" rx="8" fill="#14110d" stroke="#4ade80"/>
-        <text x="410" y="72" fill="#4ade80" font-size="11" font-weight="700" text-anchor="middle">MAP</text>
-        <text x="410" y="92" fill="#9a8f78" font-size="9" text-anchor="middle">descriptor</text>
-        <text x="230" y="160" fill="#6f6a5f" font-size="11" letter-spacing="1">NO SEED IS TYPED ON THIS BOOT</text>
-      </svg></figure>
+<figure class="shot-fig"><img src="/assets/img/sparrow-step6-keystore1.png" alt="Sparrow Keystore 1 with derivation path and a redacted xpub field" loading="lazy"><span class="num" style="top:61.5%">1</span><span class="leader" style="left:6%;width:35.5%;top:61.5%"></span><span class="dot" style="left:41.5%;top:61.5%"></span><span class="num" style="top:67.5%">2</span><span class="leader" style="left:6%;width:35.5%;top:67.5%"></span><span class="dot" style="left:41.5%;top:67.5%"></span><span class="num" style="top:75.5%">3</span><span class="leader" style="left:6%;width:35.5%;top:75.5%"></span><span class="dot" style="left:41.5%;top:75.5%"></span></figure><ol class="shot-key"><li>Master fingerprint: check it against the key it came from.</li><li>Derivation: m/48'/0'/0'/2'. Anything else, stop.</li><li>xpub field: this is where s1-xpub.txt goes. The value is blacked out here because it is a dummy key, and a reader must never copy a screenshot key.</li></ol><figure class="shot-fig"><img src="/assets/img/sparrow-step6-apply.png" alt="Sparrow Keystore 3 filled, with Apply enabled" loading="lazy"><span class="numd" style="left:57.1%;top:48.8%">1</span><span class="num" style="top:32%">2</span><span class="leader" style="left:6%;width:29.2%;top:32%"></span><span class="dot" style="left:35.2%;top:32%"></span><span class="numd" style="left:68.8%;top:93%">3</span></figure><ol class="shot-key"><li>Keystore 3, filled the same way as Keystore 1 and Keystore 2.</li><li>Descriptor: wsh(sortedmulti(2, Keystore1, Keystore2, Keystore3)). That file is the wallet map.</li><li>Apply: enabled only when all three keystores are filled. Click it to build the vault.</li></ol><p class="shot-note">Real Sparrow screenshots, dummy keys only, xpub values blacked out. Step 4 keeps its diagram, because seed words are never photographed.</p>
+
 <p>Boot Tails again. Do not type any seed. New wallet → Multi Signature → Native Segwit → 2 of 3 → import the three xpub files. Confirm the path. Export the output descriptor to the data USB. That file is the wallet map.</p>
 <aside class="callout callout-stop" role="note"><p class="callout-label">Stop</p><p><strong>Confirm the first address on a second screen.</strong></p><p></p><p>Sparrow built your wallet from your seeds. But if malware sat on the build machine, it could show you <strong>an address it controls</strong> while you trust it. A second screen the malware can&#x27;t reach closes that hole. <strong>Do not fund the wallet until this matches.</strong></p><p></p><p><strong>1 · Build in Sparrow.</strong> Finish the 2-of-3 build on the airgapped machine as usual. Write down the <strong>first receiving address</strong> it shows. Write the full string, not the QR code.</p><p></p><p><strong>2 · Cross-check in Electrum.</strong> Rebuild the same 2-of-3 in Electrum offline from the same seeds and compare the first address. This catches entry mistakes.</p><p></p><p><strong>3 · NEW: Display it on a second device.</strong> Load the wallet as <strong>watch-only</strong> (xpubs / wallet descriptor only, never seeds) on your phone or a second computer. Compare the first receiving address <strong>character for character</strong>. If all three agree, the coordinator didn&#x27;t lie. If anything differs, stop and rebuild.</p></aside>
 <h2 id="step-7-watch-only-on-the-everyday-computer">Step 7 · Watch-only on the everyday computer.</h2>
@@ -229,7 +205,7 @@ $ ./bin/Sparrow
   <p><strong>Plebum Dominium</strong>: independent at-home Bitcoin self-custody.</p>
   <p>Educational material, not financial advice. Bitcoin self-custody is irreversible. A mistake can permanently lose funds. Verify every download from its original source.</p>
   <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/downloads.html">Downloads</a> · <a href="/kit/02_Print_Packet.pdf">Print packet (PDF)</a> · <a href="/news.html">News</a> · <a href="/beyond.html">Beyond the kit</a></p>
-  <p class="footer-updated">Last updated October 25, 2026</p>
+  <p class="footer-updated">Last updated October 26, 2026</p>
   <p class="footer-contact">Contact: <a href="mailto:Muststackmoresats@gmail.com">Muststackmoresats@gmail.com</a> · X: <a href="https://x.com/MustHaveMustash" rel="noopener">@MustHaveMustash</a></p>
   <p class="donate-row"><a class="btn-lightning" href="lightning:musthavemoresats@speed.app"><span aria-hidden="true">⚡</span> Donate with Lightning</a> <button type="button" class="btn-onchain" data-copy="bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"><span aria-hidden="true">₿</span> Donate Bitcoin</button></p>
   <p class="donate-addr"><code>bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw</code></p>

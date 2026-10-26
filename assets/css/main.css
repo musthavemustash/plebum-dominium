@@ -1076,6 +1076,16 @@ pre code { background: none; color: inherit; padding: 0; }
 }
 .step-fig svg { max-width: 100%; height: auto; display: block; }
 
+/* ---------- real screenshots with numbered callouts (sparrow sheet) ---------- */
+.shot-fig { position: relative; margin: 1.5rem 0; }
+.shot-fig img { width: 78%; margin-left: 22%; display: block; border: 1px solid var(--line); border-radius: 8px; }
+.shot-fig .num { position: absolute; left: 1%; width: 30px; height: 30px; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; font-family: "IBM Plex Sans", sans-serif; font-weight: 700; font-size: 18px; color: #0e0d0b; background: #c4a484; border: 2px solid #0e0d0b; border-radius: 50%; }
+.shot-fig .numd { position: absolute; width: 30px; height: 30px; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; font-family: "IBM Plex Sans", sans-serif; font-weight: 700; font-size: 18px; color: #0e0d0b; background: #c4a484; border: 2px solid #0e0d0b; border-radius: 50%; }
+.shot-fig .leader { position: absolute; height: 2px; background: #c4a484; transform: translateY(-1px); }
+.shot-fig .dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #c4a484; transform: translate(-50%, -50%); }
+.shot-key { font-size: 0.95rem; }
+.shot-note { color: var(--muted); font-size: 0.92rem; }
+
 /* ---------- homepage: why this guide ---------- */
 .why {
   border: 1px solid var(--line); border-radius: 14px;

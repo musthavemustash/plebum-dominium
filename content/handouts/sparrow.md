@@ -37,7 +37,7 @@ Wait 15 to 30 seconds. Sparrow opens. Type exactly. Spaces count. If a line turn
 
 ## Step 3 · New wallet: 2 of 3, native Segwit.
 
-::fig sparrow/wallet-settings
+::shot sparrow/wallet-settings
 
 File → New Wallet. Pick Multi Signature, Native Segwit, 2 of 3. The path must read m/48'/0'/0'/2'. Anything else: stop.
 
@@ -55,7 +55,7 @@ Boot again for Seed 2 → s2-xpub.txt. Shut down. Boot again for Seed 3 → s3-x
 
 ## Step 6 · Fresh boot. No seed. Build the vault.
 
-::fig sparrow/build-vault
+::shot sparrow/build-vault
 
 Boot Tails again. Do not type any seed. New wallet → Multi Signature → Native Segwit → 2 of 3 → import the three xpub files. Confirm the path. Export the output descriptor to the data USB. That file is the wallet map.
 

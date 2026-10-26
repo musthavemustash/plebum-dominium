@@ -303,6 +303,17 @@ def render_markdown(src):
                 out.append(f'<!-- missing figure {m.group(1)}/{m.group(2)} -->')
             i += 1
             continue
+        m = re.match(r"^::shot\s+([a-z0-9-]+)/([a-z0-9-]+)$", stripped)
+        if m:
+            close_list(); close_callout()
+            try:
+                with open(f"templates/{m.group(1)}-shots/{m.group(2)}.html") as f:
+                    shot = f.read().replace("{BASE}", BASE)
+                out.append(shot)
+            except FileNotFoundError:
+                out.append(f'<!-- missing shot {m.group(1)}/{m.group(2)} -->')
+            i += 1
+            continue
         m = re.match(r"^(#{1,3})\s+(.*)$", stripped)
         if m:
             close_list()
