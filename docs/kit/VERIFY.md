@@ -196,7 +196,7 @@ the sheet as published.
 | 05 · Check the files | handouts/verify.html | `ee4368fcd91e2d1fa7655e94da00e5dc26cd9fb1c3cdeeed6a6149123be854f3` |
 | 04 · Two boots | handouts/airgap.html | `9b112f0e317547d79018044e5898ebbe28c5e79001264853f06de6c340209eaa` |
 | 06 · Make the three keys | handouts/dice.html | `5f4c5d9c00d5594d382e053d1eaa18935d5ce04ddb1ef155de55f5c99c321933` |
-| 07 · Build the 2-of-3 | handouts/sparrow.html | `c233a22ce4ca05f8f0e936749f6143bb03689eda1e66ae40a07559d366fbbff0` |
+| 07 · Build the 2-of-3 | handouts/sparrow.html | `94b419d15ffb206fbc0c6a62b5e54fbcc1f77e6f426cb5b507959e21251536e7` |
 | 10 · Rehearse on testnet | handouts/testnet.html | `001aac211888cfcf2e20b5927a82ddacfc4dfccd2029baf797a364487d1092cc` |
 | 08 · Practice spend | handouts/signing.html | `88ac333cb85a8883de95b925df9265d358441053367bb4d18f95d8a7ca4bca76` |
 | 09 · Metal and the map | handouts/titanium.html | `e9e19cc75067cdc4d2886fb989fda16d03dd3e6c81193ff4bb8ad5fa32676459` |
