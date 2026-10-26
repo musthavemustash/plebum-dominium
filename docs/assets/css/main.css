@@ -1519,3 +1519,48 @@ body.splash-lock { overflow: hidden; }
 .demo-embed { margin: 1rem 0; }
 .demo-embed iframe { width: 100%; height: 700px; border: 1px solid var(--line); display: block; }
 .demo-embed .demo-fullscreen { margin: 0.5rem 0 0; font-size: 0.9rem; }
+
+/* ---------- motion toggle: one switch stops all motion ---------- */
+.motion-btn {
+  border: 1px solid var(--line); background: var(--card);
+  border-radius: 8px; padding: 0.35rem 0.55rem; cursor: pointer;
+  color: var(--muted); font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.82rem; font-weight: 600; white-space: nowrap;
+}
+.motion-btn:hover { color: var(--accent); border-color: var(--accent); }
+.motion-btn[aria-pressed="false"] { color: var(--accent); border-color: var(--accent); }
+
+/* ---------- motion off: still frames, same step text ---------- */
+html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after {
+  animation: none !important; transition: none !important;
+}
+html[data-motion="off"] .ticker-track { transform: none; }
+html[data-motion="off"] .coin-inner { transform: none; }
+html[data-motion="off"] .keyring .key, html[data-motion="off"] .keyring .shackle, html[data-motion="off"] .keyring .lockbody {
+  border-color: var(--line); color: var(--muted); box-shadow: none; transform: none;
+}
+html[data-motion="off"] .boots-anim .boot, html[data-motion="off"] .boots-anim .then { opacity: 1; transform: none; }
+html[data-motion="off"] .boots-anim .boot1, html[data-motion="off"] .boots-anim .boot2 {
+  border-color: var(--line); box-shadow: none; opacity: 1;
+}
+html[data-motion="off"] .sign-anim .filebox { left: 65%; top: 62%; transform: translate(-50%, -50%); opacity: 1; }
+html[data-motion="off"] .sign-anim .filebox .outline rect { stroke-dashoffset: 0; }
+html[data-motion="off"] .sign-anim .filebox .fill { width: 100%; }
+html[data-motion="off"] .sign-anim .ct-label, html[data-motion="off"] .sign-anim .bc-label { opacity: 1; }
+html[data-motion="off"] .sign-anim .stamp2 { opacity: 1; }
+html[data-motion="off"] .sign-anim .barcs { opacity: 0; }
+html[data-motion="off"] .dice-anim .die, html[data-motion="off"] .dice-anim .tray, html[data-motion="off"] .dice-anim .round {
+  transform: none; translate: 0 0; opacity: 1;
+}
+html[data-motion="off"] .dice-anim .tray2, html[data-motion="off"] .dice-anim .tray3,
+html[data-motion="off"] .dice-anim .r2l, html[data-motion="off"] .dice-anim .r3l { opacity: 0; }
+html[data-motion="off"] .dice-anim .tray1, html[data-motion="off"] .dice-anim .r1l { opacity: 1; }
+html[data-motion="off"] .dice-anim .die.re .fb { opacity: 0; }
+html[data-motion="off"] .dice-anim .die.re .fa { opacity: 1; }
+html[data-motion="off"] .dice-anim .retag, html[data-motion="off"] .dice-anim .bp { opacity: 0; }
+html[data-motion="off"] .dice-anim .pbits .sg { opacity: 1; }
+html[data-motion="off"] .dice-anim .pbar i { width: 100%; }
+html[data-motion="off"] .dice-anim .pcount { opacity: 0; }
+html[data-motion="off"] .dice-anim .pcount.c4 { opacity: 1; }
+html[data-motion="off"] .dice-anim .wstamp { opacity: 1; transform: rotate(-6deg) scale(1); }
+html[data-motion="off"] .metal-anim .plate { transform: none; opacity: 1; }

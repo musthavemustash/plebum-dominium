@@ -88,6 +88,12 @@ body { margin: 0; padding: 12px; box-sizing: border-box; background: var(--paper
 .s1-pointer{position:absolute;left:-100px;top:-100px;width:32px;height:32px;pointer-events:none;z-index:20;opacity:0;transition:left 3s ease,top 3s ease,opacity .4s ease}
 .step1-demo.speed-normal .s1-pointer{transition:left 1.5s ease,top 1.5s ease,opacity .4s ease}
 .step1-demo.speed-fast .s1-pointer{transition:left .75s ease,top .75s ease,opacity .4s ease}
+.s1-still{display:none;list-style:none;margin:0 0 12px;padding:0}
+.s1-still li{font-family:IBM Plex Sans,sans-serif;font-size:14px;line-height:1.5;margin:6px 0}
+.s1-still li b{color:var(--accent)}
+body.still .s1-still{display:block}
+body.still .s1-box{display:none}
+body.still .s1-pointer{display:none}
 .s1-caption{font-family:IBM Plex Sans,sans-serif;font-size:12px;color:var(--muted);text-align:center;margin:4px 0 0}
 .s1-select{display:flex;gap:8px;align-items:center;justify-content:center;margin:8px auto;font-family:IBM Plex Sans,sans-serif;font-size:14px;color:var(--ink)}
 .s1-select button{width:36px;height:36px;border:1px solid var(--accent);background:var(--paper);color:var(--accent);border-radius:50%;font-size:15px;cursor:pointer}
@@ -111,6 +117,14 @@ body { margin: 0; padding: 12px; box-sizing: border-box; background: var(--paper
 </div>
 <p class="s1-text" id="s1-text">Boot Tails from the USB. The Welcome to Tails screen appears.</p>
 </div>
+<ol class="s1-still" id="s1-still">
+<li><b>1.</b> Boot Tails from the USB. The Welcome to Tails screen appears.</li>
+<li><b>2.</b> In the Additional Settings section at the bottom of the Welcome screen, tap the plus button in the gray bar below the text.</li>
+<li><b>3.</b> In the Additional Settings dialog, tap the Offline Mode row.</li>
+<li><b>4.</b> In the Offline Mode dialog, tap Disable all networking. Leave Enable networking (default) unselected.</li>
+<li><b>5.</b> Tap Add at the top right to add the setting.</li>
+<li><b>6.</b> Tap Start Tails at the top right of the Welcome screen. The desktop loads with no local network and no Tor Connection assistant.</li>
+</ol>
 <div class="s1-stage" id="s1-stage">
 <div class="s1-topbar"><span></span><span>Wed 22:42</span><span class="icons">♿ 🔊 ⏻</span></div>
 <div class="s1-blue" id="s1-blue">
@@ -268,8 +282,19 @@ renderStep(t,true);
 });
 });
 window.addEventListener("resize",function(){moveTo(targetFor(currentStep));});
+function motionIsOff(){
+try{if(localStorage.getItem("pd-motion")==="off"){return true;}}catch(e){}
+return !!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+}
+function setStill(on){
+document.body.classList.toggle("still",on);
+if(on){pauseTour();renderStep(0,true);pointer.style.opacity="0";}
+}
+window.addEventListener("message",function(e){
+if(e.data&&e.data.type==="pd-motion"){setStill(e.data.motion==="off");if(e.data.motion==="on"){runId++;playing=true;pauseBtn.textContent="Pause";runTour(0,runId);}}
+});
 renderStep(0,true);
-if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches){pauseTour();}else{runTour(0,runId);}
+if(motionIsOff()){setStill(true);}else{runTour(0,runId);}
 })();
 </script>
 

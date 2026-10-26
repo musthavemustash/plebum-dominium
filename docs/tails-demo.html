@@ -75,6 +75,12 @@ main { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; 
 #demo-progress { position: absolute; top: 0; left: 0; height: 4px; background: var(--accent); width: 25%; transition: width 0.3s ease; }
 #step-title { margin: 0 0 0.4rem 0; font-size: 17px; color: var(--ink); font-weight: 700; font-family: "Newsreader", Georgia, "Iowan Old Style", "Times New Roman", serif; }
 #demo-explain { margin: 0; font-size: 15px; line-height: 1.45; color: var(--ink); font-family: "Newsreader", Georgia, "Iowan Old Style", "Times New Roman", serif; }
+#demo-still{display:none;list-style:none;margin:0;padding:0;font-size:15px;line-height:1.45}
+#demo-still li{margin:6px 0}
+#demo-still li b{color:var(--accent)}
+body.still #demo-still{display:block}
+body.still #step-title, body.still #demo-explain{display:none}
+body.still #demo-bottom{height:auto;max-height:320px;overflow:auto}
 body.large-text #demo-bottom { height: 156px; }
 body.large-text #step-title { font-size: 20px; }
 body.large-text #demo-explain { font-size: 18px; line-height: 1.5; }
@@ -84,7 +90,16 @@ body.large-text #demo-explain { font-size: 18px; line-height: 1.5; }
 <main>
 <div id="demo-header"><span id="demo-bar"><strong>DEMO.</strong> Dummy data only. Not the tool file.</span><div id="demo-controls"><button type="button" id="flow-enc-btn">Encrypt demo</button><button type="button" id="flow-dec-btn">Decrypt demo</button><button type="button" id="play-btn">Pause</button><button type="button" id="restart-btn">Restart</button></div><div id="demo-controls2"><button type="button" id="back-btn">Back</button><button type="button" id="next-btn">Next</button><button type="button" id="speed-btn">Speed: Slow</button><button type="button" id="text-btn">Aa</button></div></div>
 <div id="tails-stage"><div id="tails-desktop"><div id="tails-topbar"><span>Activities</span><span id="tails-clock">Sun Oct 25  8:00 PM</span><span id="tails-sys"><i></i><i></i><i></i></span></div><div id="term-area"><div id="term-window"><div id="term-title"><span>Terminal</span><span id="term-btns"><span>_</span><span>□</span><span>×</span></span></div><div id="term-body"></div></div></div><div id="tails-shield"></div></div></div>
-<div id="demo-bottom"><div id="demo-progress"></div><p id="step-title"></p><p id="demo-explain"></p></div>
+<div id="demo-bottom"><div id="demo-progress"></div><p id="step-title"></p><p id="demo-explain"></p><ol id="demo-still">
+<li><b>Encrypt 1.</b> Tails terminal ready. Tails is booted, networking off. The terminal is open. The tool and the map are on the Desktop. Nothing is typed yet.</li>
+<li><b>Encrypt 2.</b> Run the tool, choose E. Type the command from the sheet. The banner shows the version. The menu offers E, D, and Q. E is encrypt.</li>
+<li><b>Encrypt 3.</b> Paste map, passphrase twice. Paste the map, do not type it. The passphrase is typed, and only stars show. The words never appear. Entered twice, so a typo is caught.</li>
+<li><b>Encrypt 4.</b> File saved, exit. The locked file is map.txt.gpg. Copy it to two USB drives. Delete the plain map. Empty the trash.</li>
+<li><b>Decrypt 1.</b> Later boot, run the tool. On a later offline boot, run the same tool. The banner and menu are the same. This proves the locked file opens.</li>
+<li><b>Decrypt 2.</b> Choose D, paste the armor. D is decrypt. Paste the full armor, through the END line. The tool waits for that line.</li>
+<li><b>Decrypt 3.</b> Passphrase once, map restored. Decrypt asks once, not twice. The restored map must match the original. Check the first address.</li>
+<li><b>Decrypt 4.</b> Clear the terminal, exit. Scrollback keeps the restored map until the terminal is cleared. Type reset when finished. Then the map is gone from the screen.</li>
+</ol></div>
 </main>
 <script>
 (function () {
@@ -435,15 +450,35 @@ body.large-text #demo-explain { font-size: 18px; line-height: 1.5; }
   });
   window.addEventListener('resize', fitTails);
   fitTails();
-  if (reduced) {
-    playing = false;
-    tourStarted = false;
-    $('play-btn').textContent = 'Play';
-    $('step-title').textContent = 'Demo ready.';
-    $('demo-explain').textContent = 'Demo paused for reduced motion. Press Play to start the encrypt tour, or click Decrypt demo to see that flow.';
-    clearTerm();
-    $('flow-enc-btn').classList.add('active');
-    $('demo-progress').style.width = '0%';
+  function motionIsOff() {
+    try { if (localStorage.getItem('pd-motion') === 'off') { return true; } } catch (e) {}
+    return reduced;
+  }
+  function setStill(on) {
+    document.body.classList.toggle('still', on);
+    if (on) {
+      playing = false;
+      tourStarted = false;
+      $('play-btn').textContent = 'Play';
+      clearTerm();
+      $('flow-enc-btn').classList.add('active');
+      $('demo-progress').style.width = '0%';
+    }
+  }
+  window.addEventListener('message', function (e) {
+    if (e.data && e.data.type === 'pd-motion') {
+      setStill(e.data.motion === 'off');
+      if (e.data.motion === 'on') {
+        tourStarted = true;
+        playing = true;
+        $('play-btn').textContent = 'Pause';
+        runId++;
+        runTour('enc', runId);
+      }
+    }
+  });
+  if (motionIsOff()) {
+    setStill(true);
   } else {
     tourStarted = true;
     playing = true;

@@ -458,3 +458,36 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     });
   });
 })();
+
+/* ---------- motion: one toggle stops all motion, saved on this device ---------- */
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById("motion-btn");
+  function applyMotion(m) {
+    root.setAttribute("data-motion", m);
+    if (btn) {
+      btn.setAttribute("aria-pressed", m === "on" ? "true" : "false");
+      btn.textContent = m === "on" ? "Motion on" : "Motion off";
+    }
+    var frames = document.querySelectorAll("iframe");
+    for (var i = 0; i < frames.length; i++) {
+      try { frames[i].contentWindow.postMessage({ type: "pd-motion", motion: m }, "*"); } catch (e) {}
+    }
+  }
+  function setMotion(m) {
+    try { localStorage.setItem("pd-motion", m); } catch (e) {}
+    applyMotion(m);
+  }
+  if (btn) {
+    btn.addEventListener("click", function () {
+      setMotion(root.getAttribute("data-motion") === "off" ? "on" : "off");
+    });
+  }
+  applyMotion(root.getAttribute("data-motion") || "on");
+  try {
+    var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    mq.addEventListener("change", function (e) {
+      if (!localStorage.getItem("pd-motion")) applyMotion(e.matches ? "off" : "on");
+    });
+  } catch (e) {}
+})();
