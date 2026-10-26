@@ -492,11 +492,23 @@ pre code { background: none; color: inherit; padding: 0; }
   border-radius: 14px; max-width: 560px;
 }
 .keys { display: flex; gap: 0.7rem; }
+.keyring-try {
+  flex: 1 1 100%; margin: 0;
+  font-family: "IBM Plex Sans", sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--ink);
+}
 .key {
   width: 3.2rem; height: 3.2rem; border-radius: 50%;
   border: 2px solid var(--line); background: var(--paper);
   display: inline-flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 1.05rem; color: var(--muted);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+}
+.key:hover { border-color: var(--accent); color: var(--accent); }
+.key:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.keyring-reset {
+  font-family: "IBM Plex Sans", sans-serif; font-size: 0.85rem; font-weight: 600;
+  padding: 0.35rem 0.8rem; border: 1px solid var(--accent); background: var(--paper);
+  color: var(--accent); border-radius: 8px; cursor: pointer;
 }
 .keyring-caption { flex: 1 1 100%; font-size: 0.95rem; color: var(--muted); margin: 0; }
 .keyring-caption strong { color: var(--ink); }

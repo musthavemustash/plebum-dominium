@@ -930,12 +930,14 @@ def build_home():
         '<p><a class="btn" href="{BASE}handouts/terms.html">Start with the terms</a> '
         '<a class="btn btn-ghost" href="{BASE}kit/02_Print_Packet.pdf">Download the print packet</a></p>'
         '<div class="keyring" id="keyring" aria-label="Tap any two of the three keys to open the lock">'
+        '<p class="keyring-try">Try it: tap a key, then tap a second key.</p>'
         '<div class="keys">'
         '<button type="button" class="key key-a" aria-pressed="false">A</button><button type="button" class="key key-b" aria-pressed="false">B</button><button type="button" class="key key-c" aria-pressed="false">C</button>'
         "</div>"
         '<div class="lockwrap" id="keyring-lock"><div class="shackle"></div><div class="lockbody">2-of-3</div></div>'
         '<p class="keyring-caption" id="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
-        '<p class="keyring-caption" id="keyring-descriptor">Tap A, B or C to try it.</p>'
+        '<p class="keyring-caption" id="keyring-descriptor">Select keys to see if the descriptor is needed.</p>'
+        '<button type="button" class="keyring-reset" id="keyring-reset" hidden>Reset</button>'
         "</div></div>"
         .replace("{BASE}", BASE)
         + home_section("home-why")

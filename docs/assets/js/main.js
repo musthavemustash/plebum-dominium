@@ -430,6 +430,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   var lock = document.getElementById("keyring-lock");
   var caption = document.getElementById("keyring-caption");
   var desc = document.getElementById("keyring-descriptor");
+  var resetBtn = document.getElementById("keyring-reset");
   var keys = ring.querySelectorAll(".key");
   function update() {
     var n = 0;
@@ -455,8 +456,21 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       k.classList.toggle("sel");
       k.setAttribute("aria-pressed", k.classList.contains("sel") ? "true" : "false");
       update();
+      if (resetBtn) resetBtn.hidden = false;
     });
   });
+  if (resetBtn) {
+    resetBtn.addEventListener("click", function () {
+      keys.forEach(function (k) {
+        k.classList.remove("sel");
+        k.setAttribute("aria-pressed", "false");
+      });
+      if (lock) lock.classList.remove("open");
+      caption.innerHTML = "<strong>Any two keys</strong> open it. One alone cannot.";
+      desc.textContent = "Select keys to see if the descriptor is needed.";
+      resetBtn.hidden = true;
+    });
+  }
 })();
 
 /* ---------- motion: one toggle stops all motion, saved on this device ---------- */
