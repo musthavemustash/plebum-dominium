@@ -1497,3 +1497,8 @@ body.splash-lock { overflow: hidden; }
   .ask-btn { padding: 0.35rem 0.55rem; border-radius: 8px; }
   .ask-backdrop { padding-top: 8vh; }
 }
+
+.print-only { display: none; }
+.demo-embed { margin: 1rem 0; }
+.demo-embed iframe { width: 100%; height: 700px; border: 1px solid var(--line); display: block; }
+.demo-embed .demo-fullscreen { margin: 0.5rem 0 0; font-size: 0.9rem; }

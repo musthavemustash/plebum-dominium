@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap">
+<title>Tails terminal demo · Plebum Dominium</title>
+<style>
+:root {
+  --paper: #f6f3ec;
+  --ink: #161410;
+  --muted: #5c564c;
+  --line: #e3d9cc;
+  --accent: #8a5a2a;
+  --btn-ink: #ffffff;
+  --card: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0e0d0b;
+    --ink: #efe9dc;
+    --muted: #9b9384;
+    --line: #2a2722;
+    --accent: #c4a484;
+    --btn-ink: #0e0d0b;
+    --card: #161411;
+  }
+}
+:root[data-theme="light"] {
+  --paper: #f6f3ec;
+  --ink: #161410;
+  --muted: #5c564c;
+  --line: #e3d9cc;
+  --accent: #8a5a2a;
+  --btn-ink: #ffffff;
+  --card: #ffffff;
+}
+:root[data-theme="dark"] {
+  --paper: #0e0d0b;
+  --ink: #efe9dc;
+  --muted: #9b9384;
+  --line: #2a2722;
+  --accent: #c4a484;
+  --btn-ink: #0e0d0b;
+  --card: #161411;
+}
+html, body { margin: 0; padding: 0; height: 100%; background: var(--paper); }
+body { font-family: "Newsreader", Georgia, "Iowan Old Style", "Times New Roman", serif; color: var(--ink); }
+main { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; }
+#demo-header { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.5rem; border-bottom: 1px solid var(--line); flex: 0 0 auto; }
+#demo-bar { font-size: 12px; color: var(--muted); font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif; }
+#demo-bar strong { color: var(--accent); }
+#demo-controls, #demo-controls2 { display: flex; gap: 0.5rem; }
+#demo-controls2 #speed-btn { flex: 2; }
+#demo-controls button, #demo-controls2 button { flex: 1; font-size: 12px; padding: 0.3rem 0.4rem; margin: 0; background: var(--paper); color: var(--accent); border: 1px solid var(--accent); cursor: pointer; font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif; }
+#demo-controls button.active, #demo-controls2 button.active { background: var(--accent); color: var(--btn-ink); }
+#tails-stage { flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 0; }
+#tails-desktop { position: relative; width: 360px; height: 480px; flex: 0 0 auto; background: linear-gradient(180deg, #232a4d, #141428); overflow: hidden; }
+#tails-topbar { display: flex; align-items: center; justify-content: space-between; height: 28px; padding: 0 10px; background: #000000; color: #ffffff; font-size: 12px; }
+#tails-clock { text-align: center; }
+#tails-sys i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #888888; margin-left: 4px; }
+#term-area { display: flex; align-items: center; justify-content: center; height: 452px; padding: 16px; box-sizing: border-box; }
+#term-window { width: 100%; height: 100%; background: #000000; border: 1px solid #444444; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; }
+#term-title { display: flex; align-items: center; justify-content: space-between; height: 28px; padding: 0 10px; background: #2d2d2d; color: #ffffff; font-size: 12px; flex: 0 0 auto; }
+#term-btns span { margin-left: 10px; color: #bbbbbb; }
+#term-body { flex: 1; overflow: hidden; padding: 8px; box-sizing: border-box; font-family: "DejaVu Sans Mono", "Liberation Mono", Consolas, monospace; font-size: 11px; line-height: 1.4; color: #e5e5e5; }
+.term-line { min-height: 1.4em; white-space: pre-wrap; word-break: break-all; overflow-wrap: anywhere; }
+.term-user { color: #4ade80; }
+.term-path { color: #60a5fa; }
+.term-cursor { display: inline-block; width: 8px; height: 14px; background: #e5e5e5; vertical-align: -2px; }
+#tails-shield { position: absolute; inset: 0; z-index: 10; background: transparent; }
+#demo-bottom { height: 132px; flex: 0 0 auto; padding: 0.75rem 1rem; box-sizing: border-box; border-top: 1px solid var(--line); overflow: hidden; position: relative; background: var(--paper); }
+#demo-progress { position: absolute; top: 0; left: 0; height: 4px; background: var(--accent); width: 25%; transition: width 0.3s ease; }
+#step-title { margin: 0 0 0.4rem 0; font-size: 17px; color: var(--ink); font-weight: 700; font-family: "Newsreader", Georgia, "Iowan Old Style", "Times New Roman", serif; }
+#demo-explain { margin: 0; font-size: 15px; line-height: 1.45; color: var(--ink); font-family: "Newsreader", Georgia, "Iowan Old Style", "Times New Roman", serif; }
+body.large-text #demo-bottom { height: 156px; }
+body.large-text #step-title { font-size: 20px; }
+body.large-text #demo-explain { font-size: 18px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<main>
+<div id="demo-header"><span id="demo-bar"><strong>DEMO.</strong> Dummy data only. Not the tool file.</span><div id="demo-controls"><button type="button" id="flow-enc-btn">Encrypt demo</button><button type="button" id="flow-dec-btn">Decrypt demo</button><button type="button" id="play-btn">Pause</button><button type="button" id="restart-btn">Restart</button></div><div id="demo-controls2"><button type="button" id="back-btn">Back</button><button type="button" id="next-btn">Next</button><button type="button" id="speed-btn">Speed: Slow</button><button type="button" id="text-btn">Aa</button></div></div>
+<div id="tails-stage"><div id="tails-desktop"><div id="tails-topbar"><span>Activities</span><span id="tails-clock">Sun Oct 25  8:00 PM</span><span id="tails-sys"><i></i><i></i><i></i></span></div><div id="term-area"><div id="term-window"><div id="term-title"><span>Terminal</span><span id="term-btns"><span>_</span><span>□</span><span>×</span></span></div><div id="term-body"></div></div></div><div id="tails-shield"></div></div></div>
+<div id="demo-bottom"><div id="demo-progress"></div><p id="step-title"></p><p id="demo-explain"></p></div>
+</main>
+<script>
+(function () {
+  'use strict';
+  function $(id) { return document.getElementById(id); }
+  function syncTheme() {
+    try {
+      var t = window.parent.document.documentElement.getAttribute('data-theme');
+      if (t) { document.documentElement.setAttribute('data-theme', t); }
+      else { document.documentElement.removeAttribute('data-theme'); }
+    } catch (e) {}
+  }
+  syncTheme();
+  try {
+    var themeObs = new MutationObserver(syncTheme);
+    themeObs.observe(window.parent.document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  } catch (e) {}
+  var DUMMY_MAP = 'TEST-DESCRIPTOR-ONLY-NOT-REAL: wsh(multi(2,xpubTESTAAA,xpubTESTBBB,xpubTESTCCC))';
+  var PASS_LEN = 35;
+  var BANNER_LINES = ["", "====================================================================", "           PLEBUM DOMINIUM \u00b7 WALLET MAP ENCRYPTION TOOL", "====================================================================", "  AIRGAP NOTICE: Ensure this system is OFFLINE (Tails OS recommended).", "  SECURITY NOTICE: The passphrase used here is NOT a seed phrase.", "  DO NOT stamp this passphrase on metal plates.", "  TOOL VERSION: 2026.10.25", "====================================================================", ""];
+  var ALPH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+  function armorLine(shift) { var s = ''; for (var i = 0; i < 64; i++) { s += ALPH[(i + shift) % 64]; } return s; }
+  var ARMOR_LINES = ['-----BEGIN PGP MESSAGE-----', '', armorLine(0), armorLine(7), armorLine(14), armorLine(21), '=AbCd', '-----END PGP MESSAGE-----'];
+  function eqLine(n) { var s = ''; for (var i = 0; i < n; i++) { s += '='; } return s; }
+  var MENU_LINES = ['Select Operation:', '  [E]ncrypt Wallet Map (Obfuscate)', '  [D]ecrypt Wallet Map (Restore)', '  [Q]uit'];
+  var CHAR_MS = 70;
+  var LINE_MS = 200;
+  var PASTE_MS = 120;
+  var HOLD_MS = 4000;
+  var FINAL_MS = 7000;
+  var speedIdx = 0;
+  var speedNames = ['Slow', 'Normal', 'Fast'];
+  var speedFactors = [2.0, 1.0, 0.5];
+  var speedFactor = 2.0;
+  var fastId = null;
+  var suppressClick = false;
+  var currentFlow = 'enc';
+  var currentStep = 0;
+  var playing = true;
+  var tourStarted = false;
+  var runId = 0;
+  var body = $('term-body');
+  var curLine = null;
+  var cursor = null;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var encSteps = [
+    { title: 'Encrypt, step 1 of 4: Tails terminal ready.', note: 'Tails is booted, networking off. The terminal is open. The tool and the map are on the Desktop. Nothing is typed yet.' },
+    { title: 'Encrypt, step 2 of 4: Run the tool, choose E.', note: 'Type the command from the sheet. The banner shows the version. The menu offers E, D, and Q. E is encrypt.' },
+    { title: 'Encrypt, step 3 of 4: Paste map, passphrase twice.', note: 'Paste the map, do not type it. The passphrase is typed, and only stars show. The words never appear. Entered twice, so a typo is caught.' },
+    { title: 'Encrypt, step 4 of 4: File saved, exit.', note: 'The locked file is map.txt.gpg. Copy it to two USB drives. Delete the plain map. Empty the trash.' }
+  ];
+  var decSteps = [
+    { title: 'Decrypt, step 1 of 4: Later boot, run the tool.', note: 'On a later offline boot, run the same tool. The banner and menu are the same. This proves the locked file opens.' },
+    { title: 'Decrypt, step 2 of 4: Choose D, paste the armor.', note: 'D is decrypt. Paste the full armor, through the END line. The tool waits for that line.' },
+    { title: 'Decrypt, step 3 of 4: Passphrase once, map restored.', note: 'Decrypt asks once, not twice. The restored map must match the original. Check the first address.' },
+    { title: 'Decrypt, step 4 of 4: Clear the terminal, exit.', note: 'Scrollback keeps the restored map until the terminal is cleared. Type reset when finished. Then the map is gone from the screen.' }
+  ];
+  function fitTails() {
+    var stage = $('tails-stage');
+    var desk = $('tails-desktop');
+    if (!stage || !desk) { return; }
+    var availW = stage.clientWidth;
+    var availH = stage.clientHeight;
+    var designW = desk.offsetWidth;
+    var designH = desk.offsetHeight;
+    if (!availW || !availH || !designW || !designH) { return; }
+    var scale = Math.min(1, availW / designW, availH / designH);
+    desk.style.transform = 'scale(' + scale + ')';
+  }
+  function scrollTerm() { body.scrollTop = body.scrollHeight; }
+  function newLine() {
+    if (cursor) { cursor.remove(); }
+    var div = document.createElement('div');
+    div.className = 'term-line';
+    cursor = document.createElement('span');
+    cursor.className = 'term-cursor';
+    div.appendChild(cursor);
+    body.appendChild(div);
+    curLine = div;
+    scrollTerm();
+  }
+  function writePrompt() {
+    var u = document.createElement('span');
+    u.className = 'term-user';
+    u.textContent = 'amnesia@amnesia';
+    curLine.insertBefore(u, cursor);
+    curLine.insertBefore(document.createTextNode(':'), cursor);
+    var p = document.createElement('span');
+    p.className = 'term-path';
+    p.textContent = '~';
+    curLine.insertBefore(p, cursor);
+    curLine.insertBefore(document.createTextNode('$ '), cursor);
+    scrollTerm();
+  }
+  function newPromptLine() { newLine(); writePrompt(); }
+  function clearTerm() { body.innerHTML = ''; curLine = null; newPromptLine(); }
+  function writeText(text) {
+    curLine.insertBefore(document.createTextNode(text), cursor);
+    scrollTerm();
+  }
+  function pSleep(ms, myId) {
+    if (fastId === myId) { return Promise.resolve(runId === myId); }
+    return new Promise(function (resolve) {
+      var remaining = ms * speedFactor;
+      var last = Date.now();
+      function tick() {
+        if (runId !== myId) { resolve(false); return; }
+        if (!playing) { last = Date.now(); setTimeout(tick, 100); return; }
+        var now = Date.now();
+        remaining -= (now - last);
+        last = now;
+        if (remaining <= 0) { resolve(true); return; }
+        setTimeout(tick, 50);
+      }
+      tick();
+    });
+  }
+  async function printLine(text, myId) {
+    writeText(text);
+    newLine();
+    return await pSleep(LINE_MS, myId);
+  }
+  async function printLines(lines, myId) {
+    for (var i = 0; i < lines.length; i++) {
+      if (!(await printLine(lines[i], myId))) { return false; }
+    }
+    return true;
+  }
+  async function typeInput(text, myId) {
+    if (!(await pSleep(500, myId))) { return false; }
+    for (var i = 0; i < text.length; i++) {
+      writeText(text.charAt(i));
+      if (!(await pSleep(CHAR_MS, myId))) { return false; }
+    }
+    newLine();
+    return true;
+  }
+  function starsText() { var s = ''; for (var i = 0; i < PASS_LEN; i++) { s += '*'; } return s; }
+  async function pasteInput(text, myId) {
+    if (!(await pSleep(500, myId))) { return false; }
+    writeText(text);
+    newLine();
+    return true;
+  }
+  async function pasteLines(lines, myId) {
+    if (!(await pSleep(500, myId))) { return false; }
+    for (var i = 0; i < lines.length; i++) {
+      writeText(lines[i]);
+      newLine();
+      if (!(await pSleep(PASTE_MS, myId))) { return false; }
+    }
+    return true;
+  }
+  function setStep(flow, i) {
+    currentFlow = flow;
+    currentStep = i;
+    var step = (flow === 'enc') ? encSteps[i] : decSteps[i];
+    $('step-title').textContent = step.title;
+    $('demo-explain').textContent = step.note;
+    $('flow-enc-btn').classList.toggle('active', flow === 'enc');
+    $('flow-dec-btn').classList.toggle('active', flow === 'dec');
+    $('demo-progress').style.width = ((i + 1) * 25) + '%';
+  }
+  async function runStep(flow, i, myId) {
+    setStep(flow, i);
+    if (flow === 'enc' && i === 0) {
+    }
+    if (flow === 'enc' && i === 1) {
+      if (!(await typeInput('python3 descriptor_obfuscator.py', myId))) { return false; }
+      if (!(await printLines(BANNER_LINES, myId))) { return false; }
+      if (!(await printLines(MENU_LINES, myId))) { return false; }
+      if (!(await printLine('', myId))) { return false; }
+      writeText('Choice (E/D/Q): ');
+      if (!(await typeInput('E', myId))) { return false; }
+    }
+    if (flow === 'enc' && i === 2) {
+      if (!(await printLine('', myId))) { return false; }
+      writeText('Enter raw wallet descriptor: ');
+      if (!(await pasteInput(DUMMY_MAP, myId))) { return false; }
+      writeText('Enter secret map passphrase (one star per character): ');
+      if (!(await typeInput(starsText(), myId))) { return false; }
+      writeText('Enter secret map passphrase again: ');
+      if (!(await typeInput(starsText(), myId))) { return false; }
+    }
+    if (flow === 'enc' && i === 3) {
+      if (!(await printLine('', myId))) { return false; }
+      writeText('Output file [map.txt.gpg]: ');
+      if (!(await pSleep(500, myId))) { return false; }
+      newLine();
+      if (!(await printLine('', myId))) { return false; }
+      if (!(await printLine('[NOTICE] Encrypted wallet map written to map.txt.gpg.', myId))) { return false; }
+      if (!(await printLine('[NOTICE] Delete the plain map. Do not leave either file on an online machine.', myId))) { return false; }
+      if (!(await printLine('', myId))) { return false; }
+      writeText('Press Enter to exit...');
+      if (!(await pSleep(500, myId))) { return false; }
+      newLine();
+      writePrompt();
+    }
+    if (flow === 'dec' && i === 0) {
+      if (!(await typeInput('python3 descriptor_obfuscator.py', myId))) { return false; }
+      if (!(await printLines(BANNER_LINES, myId))) { return false; }
+      if (!(await printLines(MENU_LINES, myId))) { return false; }
+    }
+    if (flow === 'dec' && i === 1) {
+      if (!(await printLine('', myId))) { return false; }
+      writeText('Choice (E/D/Q): ');
+      if (!(await typeInput('D', myId))) { return false; }
+      if (!(await printLine('', myId))) { return false; }
+      if (!(await printLine('Paste the encrypted descriptor string (armored GPG text, through the END line):', myId))) { return false; }
+      if (!(await pasteLines(ARMOR_LINES, myId))) { return false; }
+    }
+    if (flow === 'dec' && i === 2) {
+      writeText('Enter secret map passphrase (one star per character): ');
+      if (!(await typeInput(starsText(), myId))) { return false; }
+      if (!(await printLine('', myId))) { return false; }
+      if (!(await printLine(eqLine(50), myId))) { return false; }
+      if (!(await printLine('>>> RESTORED WALLET DESCRIPTOR:', myId))) { return false; }
+      if (!(await printLine(eqLine(50), myId))) { return false; }
+      if (!(await printLine(DUMMY_MAP, myId))) { return false; }
+      if (!(await printLine(eqLine(50), myId))) { return false; }
+    }
+    if (flow === 'dec' && i === 3) {
+      if (!(await printLine('', myId))) { return false; }
+      if (!(await printLine('[NOTICE] Clear this terminal when finished. Type: reset', myId))) { return false; }
+      if (!(await printLine('[NOTICE] Scrollback keeps the restored map until the terminal is cleared.', myId))) { return false; }
+      if (!(await printLine('', myId))) { return false; }
+      writeText('Press Enter to exit...');
+      if (!(await pSleep(500, myId))) { return false; }
+      newLine();
+      writePrompt();
+    }
+    var hold = (i === 3) ? FINAL_MS : HOLD_MS;
+    return await pSleep(hold, myId);
+  }
+  async function runTourAt(flow, startStep, myId) {
+    clearTerm();
+    if (startStep > 0) {
+      fastId = myId;
+      try {
+        for (var s = 0; s < startStep; s++) {
+          if (runId !== myId) { return; }
+          var ok = await runStep(flow, s, myId);
+          if (!ok) { return; }
+        }
+      } finally {
+        if (fastId === myId) { fastId = null; }
+      }
+    }
+    var i = startStep;
+    while (true) {
+      if (runId !== myId) { return; }
+      var ok2 = await runStep(flow, i, myId);
+      if (!ok2) { return; }
+      i++;
+      if (i >= 4) {
+        clearTerm();
+        i = 0;
+      }
+    }
+  }
+  function runTour(flow, myId) { runTourAt(flow, 0, myId); }
+  function playToggle() {
+    if (!tourStarted) {
+      tourStarted = true;
+      playing = true;
+      $('play-btn').textContent = 'Pause';
+      runId++;
+      runTour(currentFlow, runId);
+      return;
+    }
+    if (playing) {
+      playing = false;
+      $('play-btn').textContent = 'Play';
+    } else {
+      playing = true;
+      $('play-btn').textContent = 'Pause';
+    }
+  }
+  $('play-btn').addEventListener('click', playToggle);
+  function jumpToStep(dir) {
+    var target = (currentStep + dir + 4) % 4;
+    tourStarted = true;
+    playing = true;
+    $('play-btn').textContent = 'Pause';
+    runId++;
+    runTourAt(currentFlow, target, runId);
+  }
+  $('back-btn').addEventListener('click', function () { jumpToStep(-1); });
+  $('next-btn').addEventListener('click', function () { jumpToStep(1); });
+  $('speed-btn').addEventListener('click', function () {
+    speedIdx = (speedIdx + 1) % 3;
+    speedFactor = speedFactors[speedIdx];
+    $('speed-btn').textContent = 'Speed: ' + speedNames[speedIdx];
+  });
+  $('text-btn').addEventListener('click', function () {
+    document.body.classList.toggle('large-text');
+    $('text-btn').classList.toggle('active', document.body.classList.contains('large-text'));
+  });
+  (function () {
+    var bottom = $('demo-bottom');
+    var tx = null, ty = null;
+    bottom.addEventListener('touchstart', function (e) {
+      var t = e.changedTouches[0];
+      tx = t.clientX; ty = t.clientY;
+    }, { passive: true });
+    bottom.addEventListener('touchend', function (e) {
+      if (tx === null) { return; }
+      var t = e.changedTouches[0];
+      var dx = t.clientX - tx, dy = t.clientY - ty;
+      tx = null; ty = null;
+      suppressClick = true;
+      var adx = Math.abs(dx), ady = Math.abs(dy);
+      if (adx > 40 && adx > ady) {
+        if (dx < 0) { jumpToStep(1); } else { jumpToStep(-1); }
+      } else if (adx < 10 && ady < 10) {
+        playToggle();
+      }
+    }, { passive: true });
+    bottom.addEventListener('click', function () {
+      if (suppressClick) { suppressClick = false; return; }
+      playToggle();
+    });
+  })();
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { jumpToStep(-1); }
+    else if (e.key === 'ArrowRight') { jumpToStep(1); }
+  });
+  $('restart-btn').addEventListener('click', function () {
+    tourStarted = true;
+    playing = true;
+    $('play-btn').textContent = 'Pause';
+    runId++;
+    runTour(currentFlow, runId);
+  });
+  $('flow-enc-btn').addEventListener('click', function () {
+    tourStarted = true;
+    playing = true;
+    $('play-btn').textContent = 'Pause';
+    runId++;
+    runTour('enc', runId);
+  });
+  $('flow-dec-btn').addEventListener('click', function () {
+    tourStarted = true;
+    playing = true;
+    $('play-btn').textContent = 'Pause';
+    runId++;
+    runTour('dec', runId);
+  });
+  window.addEventListener('resize', fitTails);
+  fitTails();
+  if (reduced) {
+    playing = false;
+    tourStarted = false;
+    $('play-btn').textContent = 'Play';
+    $('step-title').textContent = 'Demo ready.';
+    $('demo-explain').textContent = 'Demo paused for reduced motion. Press Play to start the encrypt tour, or click Decrypt demo to see that flow.';
+    clearTerm();
+    $('flow-enc-btn').classList.add('active');
+    $('demo-progress').style.width = '0%';
+  } else {
+    tourStarted = true;
+    playing = true;
+    $('play-btn').textContent = 'Pause';
+    runId++;
+    runTour('enc', runId);
+  }
+})();
+</script>
+</body>
+</html>

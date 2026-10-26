@@ -377,6 +377,24 @@ def post_process(html):
         r'<h2 id="what-is-required">What is required</h2>\s*((?:<ul>.*?</ul>|<p>.*?</p>\s*)+)',
         need_repl, html, flags=re.S,
     )
+    # Tails terminal demo in encryption Step 2: iframe on screen, Step 2 figure print only.
+    def demo_repl(m):
+        return (
+            m.group(1)
+            + '\n<div class="demo-embed"><iframe src="'
+            + BASE
+            + 'tails-demo.html" title="Tails terminal demo" loading="lazy"></iframe>'
+            + '<p class="demo-fullscreen"><a href="'
+            + BASE
+            + 'tails-demo.html">Open the demo full screen</a></p></div>'
+            + '\n<figure class="step-fig print-only">'
+            + m.group(2)
+            + '</figure>'
+        )
+    html = re.sub(
+        r'(<h2 id="step-2-run-the-tool-choose-e-enter-the-passphrase">.*?</h2>)\s*<figure class="step-fig">(.*?)</figure>',
+        demo_repl, html, flags=re.S,
+    )
     return html
 
 
@@ -1000,6 +1018,8 @@ def main():
     # diceware passphrase mapper (standalone tool page, ships as-is)
     shutil.copy("tools/diceware-mapper.html", "docs/diceware.html")
     print("  diceware.html")
+    shutil.copy("tools/tails-python-demo.html", "docs/tails-demo.html")
+    print("  tails-demo.html")
     # static assets
     shutil.copytree("assets", "docs/assets")
     # search index for Ask the guide: sheets plus news articles, full text
