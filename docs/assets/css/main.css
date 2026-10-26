@@ -500,6 +500,13 @@ pre code { background: none; color: inherit; padding: 0; }
 }
 .keyring-caption { flex: 1 1 100%; font-size: 0.95rem; color: var(--muted); margin: 0; }
 .keyring-caption strong { color: var(--ink); }
+/* interactive keyring: a tap stops the animation and takes over */
+.keyring button.key { cursor: pointer; font-family: inherit; }
+.keyring.tapped .key-a, .keyring.tapped .key-b, .keyring.tapped .key-c,
+.keyring.tapped .shackle, .keyring.tapped .lockbody { animation: none; }
+.key.sel { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
+.lockwrap.open .shackle { transform: translateY(-7px); border-color: var(--accent); }
+.lockwrap.open .lockbody { border-color: var(--accent); color: var(--accent); }
 .lockwrap { display: flex; flex-direction: column; align-items: center; }
 .shackle {
   width: 34px; height: 24px;

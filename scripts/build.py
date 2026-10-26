@@ -918,12 +918,13 @@ def build_home():
         "and stamp a 2-of-3 multisig wallet into titanium. Hardware wallets are completely optional.</p>"
         '<p><a class="btn" href="{BASE}handouts/terms.html">Start with the terms</a> '
         '<a class="btn btn-ghost" href="{BASE}kit/02_Print_Packet.pdf">Download the print packet</a></p>'
-        '<div class="keyring" aria-label="Animation: any two of the three keys open the lock">'
-        '<div class="keys" aria-hidden="true">'
-        '<span class="key key-a">A</span><span class="key key-b">B</span><span class="key key-c">C</span>'
+        '<div class="keyring" id="keyring" aria-label="Tap any two of the three keys to open the lock">'
+        '<div class="keys">'
+        '<button type="button" class="key key-a" aria-pressed="false">A</button><button type="button" class="key key-b" aria-pressed="false">B</button><button type="button" class="key key-c" aria-pressed="false">C</button>'
         "</div>"
-        '<div class="lockwrap" aria-hidden="true"><div class="shackle"></div><div class="lockbody">2-of-3</div></div>'
-        '<p class="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
+        '<div class="lockwrap" id="keyring-lock"><div class="shackle"></div><div class="lockbody">2-of-3</div></div>'
+        '<p class="keyring-caption" id="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
+        '<p class="keyring-caption" id="keyring-descriptor">Tap A, B or C to try it.</p>'
         "</div></div>"
         .replace("{BASE}", BASE)
         + home_section("home-why")

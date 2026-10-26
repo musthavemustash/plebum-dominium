@@ -421,3 +421,40 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   window.addEventListener("offline", render);
   render();
 })();
+
+/* --- hero keyring as quorum demo: the animation runs until a tap takes over --- */
+(function () {
+  "use strict";
+  var ring = document.getElementById("keyring");
+  if (!ring) return;
+  var lock = document.getElementById("keyring-lock");
+  var caption = document.getElementById("keyring-caption");
+  var desc = document.getElementById("keyring-descriptor");
+  var keys = ring.querySelectorAll(".key");
+  function update() {
+    var n = 0;
+    keys.forEach(function (k) { if (k.classList.contains("sel")) n++; });
+    if (lock) lock.classList.toggle("open", n >= 2);
+    if (n === 0) {
+      caption.innerHTML = "<strong>Vault locked.</strong> No keys selected.";
+      desc.textContent = "Descriptor: not shown yet. Tap keys to see if it is needed.";
+    } else if (n === 1) {
+      caption.innerHTML = "<strong>Vault locked.</strong> One key alone cannot spend.";
+      desc.textContent = "Descriptor: not enough yet. One key alone cannot spend, with or without the map.";
+    } else if (n === 2) {
+      caption.innerHTML = "<strong>Vault opens, but a descriptor is needed.</strong>";
+      desc.textContent = "Descriptor: needed. Two seeds alone cannot rebuild the third key, so you need the wallet map (the descriptor) to rebuild the wallet.";
+    } else {
+      caption.innerHTML = "<strong>Vault opens, no descriptor needed.</strong>";
+      desc.textContent = "Descriptor: not needed. Three seeds rebuild the map exactly.";
+    }
+  }
+  keys.forEach(function (k) {
+    k.addEventListener("click", function () {
+      ring.classList.add("tapped");
+      k.classList.toggle("sel");
+      k.setAttribute("aria-pressed", k.classList.contains("sel") ? "true" : "false");
+      update();
+    });
+  });
+})();
