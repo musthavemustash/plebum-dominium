@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<title>Quorum demo · Plebum Dominium</title>
+<style>
+:root{--paper:#f6f3ec;--ink:#161410;--muted:#5c564c;--line:#e3d9cc;--accent:#8a5a2a;--btn-ink:#ffffff;--card:#ffffff}
+@media (prefers-color-scheme: dark){:root{--paper:#0e0d0b;--ink:#efe9dc;--muted:#9b9384;--line:#2a2722;--accent:#c4a484;--btn-ink:#0e0d0b;--card:#161411}}
+:root[data-theme="light"]{--paper:#f6f3ec;--ink:#161410;--muted:#5c564c;--line:#e3d9cc;--accent:#8a5a2a;--btn-ink:#ffffff;--card:#ffffff}
+:root[data-theme="dark"]{--paper:#0e0d0b;--ink:#efe9dc;--muted:#9b9384;--line:#2a2722;--accent:#c4a484;--btn-ink:#0e0d0b;--card:#161411}
+body{margin:0;padding:12px;box-sizing:border-box;background:var(--paper);color:var(--ink);font-family:Newsreader,Georgia,serif}
+.demo-bar{font-family:IBM Plex Sans,sans-serif;font-size:12px;color:var(--muted);margin:0 0 8px}.demo-bar strong{color:var(--accent)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px}
+.plates{display:flex;gap:12px;flex-wrap:wrap}
+.plate{flex:1;min-width:120px;border:1px solid var(--line);border-radius:6px;padding:10px;text-align:center;background:var(--card);cursor:pointer}
+.plate.selected{outline:3px solid var(--accent)}
+.num{font-size:32px;font-weight:700}
+.pat{height:36px;border:1px solid var(--line);margin:8px 0}
+.pat-solid{background:#c4a484}
+.pat-hatch{background:repeating-linear-gradient(45deg,#c4a484 0 4px,transparent 4px 10px)}
+.pat-dots{background-image:radial-gradient(#c4a484 2px,transparent 3px);background-size:12px 12px}
+button{font-family:IBM Plex Sans,sans-serif;font-size:13px;padding:4px 8px;border:1px solid var(--accent);background:var(--paper);color:var(--accent);border-radius:6px;cursor:pointer}
+p{font-size:17px;line-height:1.5}
+</style>
+</head>
+<body>
+<p class="demo-bar"><strong>DEMO.</strong> Dummy plates only. No real keys.</p>
+<div class="box">
+<div class="plates">
+<div class="plate" id="q1" role="button" tabindex="0"><div class="num">1</div><div class="pat pat-solid"></div><p>Seed 1</p></div>
+<div class="plate" id="q2" role="button" tabindex="0"><div class="num">2</div><div class="pat pat-hatch"></div><p>Seed 2</p></div>
+<div class="plate" id="q3" role="button" tabindex="0"><div class="num">3</div><div class="pat pat-dots"></div><p>Seed 3</p></div>
+</div>
+<p id="q-result">🔒 Vault locked. One plate alone cannot spend.</p>
+<p id="q-descriptor">Descriptor: not shown yet. Select plates to see if it is needed.</p>
+<button type="button" id="q-reset">Reset</button>
+</div>
+<script>
+(function(){
+try{var pt=window.parent.document.documentElement.getAttribute('data-theme');if(pt){document.documentElement.setAttribute('data-theme',pt);}else{document.documentElement.removeAttribute('data-theme');}}catch(e){}
+var plates=[document.getElementById("q1"),document.getElementById("q2"),document.getElementById("q3")];
+var result=document.getElementById("q-result");
+var desc=document.getElementById("q-descriptor");
+function update(){
+var n=plates.filter(function(p){return p.classList.contains("selected");}).length;
+if(n===0){result.textContent="🔒 Vault locked. No plates selected.";desc.textContent="Descriptor: not shown yet. Select plates to see if it is needed.";}
+else if(n===1){result.textContent="🔒 Vault locked. One plate alone cannot spend.";desc.textContent="Descriptor: not enough yet. One plate alone cannot spend, with or without the map.";}
+else if(n===2){result.textContent="🔓 Vault opens, but a descriptor is needed.";desc.textContent="Descriptor: needed. Two seeds alone cannot rebuild the third key, so you need the wallet map (the descriptor) to rebuild the wallet.";}
+else{result.textContent="🔓 Vault opens, no descriptor needed.";desc.textContent="Descriptor: not needed. Three seeds rebuild the map exactly.";}
+}
+plates.forEach(function(p){
+p.addEventListener("click",function(){p.classList.toggle("selected");update();});
+p.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();p.classList.toggle("selected");update();}});
+});
+document.getElementById("q-reset").addEventListener("click",function(){plates.forEach(function(p){p.classList.remove("selected");});update();});
+})();
+</script>
+</body>
+</html>

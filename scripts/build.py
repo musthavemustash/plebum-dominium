@@ -1040,6 +1040,8 @@ def main():
     print("  tails-demo.html")
     shutil.copy("tools/step1-networking-demo.html", "docs/step1-demo.html")
     print("  step1-demo.html")
+    shutil.copy("tools/quorum-demo.html", "docs/quorum-demo.html")
+    print("  quorum-demo.html")
     # static assets
     shutil.copytree("assets", "docs/assets")
     # search index for Ask the guide: sheets plus news articles, full text

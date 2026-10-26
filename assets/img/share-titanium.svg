@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" font-family="Newsreader, Georgia, serif">
+<rect width="1080" height="1080" fill="#0e0d0b"/>
+<rect x="40" y="40" width="1000" height="1000" fill="none" stroke="#c4a484" stroke-width="4"/>
+<text x="540" y="300" fill="#c4a484" font-size="180" text-anchor="middle">▭</text>
+<text x="540" y="560" fill="#efe9dc" font-size="72" text-anchor="middle">Stamped metal.</text>
+<text x="540" y="650" fill="#efe9dc" font-size="72" text-anchor="middle">No paper.</text>
+<text x="540" y="950" fill="#c4a484" font-size="36" text-anchor="middle" font-family="IBM Plex Sans, sans-serif">plebumbtc.io</text>
+</svg>
