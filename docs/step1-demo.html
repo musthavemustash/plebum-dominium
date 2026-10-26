@@ -5,22 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
 <title>Step 1 networking demo · Plebum Dominium</title>
 <style>
-body { margin: 0; padding: 12px; box-sizing: border-box; background: #ffffff; color: #161410; }
+:root {
+  --paper: #f6f3ec;
+  --ink: #161410;
+  --muted: #5c564c;
+  --line: #e3d9cc;
+  --accent: #8a5a2a;
+  --btn-ink: #ffffff;
+  --card: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0e0d0b;
+    --ink: #efe9dc;
+    --muted: #9b9384;
+    --line: #2a2722;
+    --accent: #c4a484;
+    --btn-ink: #0e0d0b;
+    --card: #161411;
+  }
+}
+:root[data-theme="light"] {
+  --paper: #f6f3ec;
+  --ink: #161410;
+  --muted: #5c564c;
+  --line: #e3d9cc;
+  --accent: #8a5a2a;
+  --btn-ink: #ffffff;
+  --card: #ffffff;
+}
+:root[data-theme="dark"] {
+  --paper: #0e0d0b;
+  --ink: #efe9dc;
+  --muted: #9b9384;
+  --line: #2a2722;
+  --accent: #c4a484;
+  --btn-ink: #0e0d0b;
+  --card: #161411;
+}
+body { margin: 0; padding: 12px; box-sizing: border-box; background: var(--paper); color: var(--ink); }
 </style>
 
 <style>
 .step1-demo{height:calc(100dvh - 24px);display:flex;flex-direction:column;overflow:hidden}
-.s1-box{flex:none;height:160px;background:#ffffff;border:2px solid #c4a484;border-radius:8px;padding:12px;box-sizing:border-box;overflow:hidden}
+.s1-demo-bar{font-family:IBM Plex Sans,sans-serif;font-size:12px;color:var(--muted);margin:0 0 8px}.s1-demo-bar strong{color:var(--accent)}
+.s1-box{flex:none;height:160px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px;box-sizing:border-box;overflow:hidden}
 .s1-box-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
-.s1-label{font-family:IBM Plex Sans,sans-serif;font-size:13px;font-weight:700;color:#8a5a2a;margin:0}
+.s1-label{font-family:IBM Plex Sans,sans-serif;font-size:13px;font-weight:700;color:var(--accent);margin:0}
 .s1-controls{display:flex;gap:6px}
-.s1-controls button{font-family:IBM Plex Sans,sans-serif;font-size:13px;padding:4px 8px;border:1px solid #d9d9d7;background:#ffffff;color:#161410;border-radius:6px;cursor:pointer}
-.s1-text{font-size:17px;line-height:1.5;margin:0;color:#161410;transition:opacity .4s ease}
+.s1-controls button{font-family:IBM Plex Sans,sans-serif;font-size:13px;padding:4px 8px;border:1px solid var(--accent);background:var(--paper);color:var(--accent);border-radius:6px;cursor:pointer}
+.s1-text{font-family:Newsreader,Georgia,serif;font-size:17px;line-height:1.5;margin:0;color:var(--ink);transition:opacity .4s ease}
 .s1-text.fading{opacity:0}
-.s1-stage{flex:1;min-height:0;position:relative;background:#204987;border:2px solid #c4a484;border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.s1-stage{flex:1;min-height:0;position:relative;background:#204987;border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
 .s1-topbar{flex:none;height:28px;background:#e6e6e6;color:#222222;font-family:system-ui,sans-serif;font-size:13px;display:flex;justify-content:space-between;align-items:center;padding:0 10px;box-sizing:border-box}
 .s1-topbar .icons{font-size:13px;letter-spacing:4px}
 .s1-blue{flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;background:#204987;overflow:hidden}
@@ -49,10 +88,10 @@ body { margin: 0; padding: 12px; box-sizing: border-box; background: #ffffff; co
 .s1-pointer{position:absolute;left:-100px;top:-100px;width:32px;height:32px;pointer-events:none;z-index:20;opacity:0;transition:left 3s ease,top 3s ease,opacity .4s ease}
 .step1-demo.speed-normal .s1-pointer{transition:left 1.5s ease,top 1.5s ease,opacity .4s ease}
 .step1-demo.speed-fast .s1-pointer{transition:left .75s ease,top .75s ease,opacity .4s ease}
-.s1-caption{font-family:IBM Plex Sans,sans-serif;font-size:12px;color:#5c564c;text-align:center;margin:4px 0 0}
-.s1-select{display:flex;gap:8px;align-items:center;justify-content:center;margin:8px auto;font-family:IBM Plex Sans,sans-serif;font-size:14px;color:#161410}
-.s1-select button{width:36px;height:36px;border:2px solid #d9d9d7;background:#ffffff;color:#161410;border-radius:50%;font-size:15px;cursor:pointer}
-.s1-select button.active{border-color:#c4a484;outline:2px solid #c4a484}
+.s1-caption{font-family:IBM Plex Sans,sans-serif;font-size:12px;color:var(--muted);text-align:center;margin:4px 0 0}
+.s1-select{display:flex;gap:8px;align-items:center;justify-content:center;margin:8px auto;font-family:IBM Plex Sans,sans-serif;font-size:14px;color:var(--ink)}
+.s1-select button{width:36px;height:36px;border:1px solid var(--accent);background:var(--paper);color:var(--accent);border-radius:50%;font-size:15px;cursor:pointer}
+.s1-select button.active{border-color:var(--accent);background:var(--accent);color:var(--btn-ink);outline:2px solid var(--accent)}
 
 </style>
 
@@ -60,6 +99,7 @@ body { margin: 0; padding: 12px; box-sizing: border-box; background: #ffffff; co
 <body>
 
 <div class="step1-demo speed-slow" id="s1-demo">
+<p class="s1-demo-bar"><strong>DEMO.</strong> Animation only. Nothing here changes a real Tails system.</p>
 <div class="s1-box">
 <div class="s1-box-head">
 <p class="s1-label" id="s1-label">Step 1 of 6</p>
@@ -122,6 +162,7 @@ body { margin: 0; padding: 12px; box-sizing: border-box; background: #ffffff; co
 
 <script>
 (function(){
+try{var pt=window.parent.document.documentElement.getAttribute('data-theme');if(pt){document.documentElement.setAttribute('data-theme',pt);}else{document.documentElement.removeAttribute('data-theme');}}catch(e){}
 var demo=document.getElementById("s1-demo");
 var stage=document.getElementById("s1-blue");
 var welcome=document.getElementById("s1-welcome");
