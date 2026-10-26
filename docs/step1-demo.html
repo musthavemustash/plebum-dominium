@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<title>Step 1 networking demo · Plebum Dominium</title>
+<style>
+body { margin: 0; padding: 12px; box-sizing: border-box; background: #ffffff; color: #161410; }
+</style>
+
+<style>
+.step1-demo{height:calc(100dvh - 24px);display:flex;flex-direction:column;overflow:hidden}
+.s1-box{flex:none;height:160px;background:#ffffff;border:2px solid #c4a484;border-radius:8px;padding:12px;box-sizing:border-box;overflow:hidden}
+.s1-box-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.s1-label{font-family:IBM Plex Sans,sans-serif;font-size:13px;font-weight:700;color:#8a5a2a;margin:0}
+.s1-controls{display:flex;gap:6px}
+.s1-controls button{font-family:IBM Plex Sans,sans-serif;font-size:13px;padding:4px 8px;border:1px solid #d9d9d7;background:#ffffff;color:#161410;border-radius:6px;cursor:pointer}
+.s1-text{font-size:17px;line-height:1.5;margin:0;color:#161410;transition:opacity .4s ease}
+.s1-text.fading{opacity:0}
+.s1-stage{flex:1;min-height:0;position:relative;background:#204987;border:2px solid #c4a484;border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.s1-topbar{flex:none;height:28px;background:#e6e6e6;color:#222222;font-family:system-ui,sans-serif;font-size:13px;display:flex;justify-content:space-between;align-items:center;padding:0 10px;box-sizing:border-box}
+.s1-topbar .icons{font-size:13px;letter-spacing:4px}
+.s1-blue{flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;background:#204987;overflow:hidden}
+.s1-welcome{position:relative;width:88%;max-width:560px;background:#e8e8e6;color:#222222;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.4);padding:14px;box-sizing:border-box;font-family:system-ui,sans-serif}
+.s1-welcome .top{display:flex;justify-content:space-between;font-size:13px}
+.s1-shutdown{background:#e9e9e7;color:#222222;border:1px solid #b6b6b4;border-radius:4px;padding:6px 10px;font-size:14px;cursor:pointer}
+.s1-start{background:#3c8adc;color:#ffffff;border:1px solid #1e4a87;border-radius:4px;padding:6px 10px;font-size:14px;cursor:pointer}
+.s1-welcome h3{text-align:center;margin:8px 0;font-size:20px;font-weight:600}
+.s1-welcome .sec{font-size:13px;line-height:1.4;margin:10px 0}
+.s1-welcome .sec b{display:block;font-size:14px;margin-bottom:4px}
+.s1-help{display:inline-block;width:16px;height:16px;line-height:16px;text-align:center;font-size:11px;background:#4a90d8;color:#ffffff;border-radius:50%;margin-left:6px}
+.s1-wrow{display:flex;justify-content:space-between;padding:4px 6px;font-size:12px;background:#ffffff;border-top:1px solid #d9d9d7}
+.s1-wrow.sel{background:#4a90d8;color:#ffffff;border-top:0}
+.s1-add-box{border:1px solid #b5b5b3;border-radius:4px;overflow:hidden}
+.s1-add-text{background:#ffffff;padding:8px;font-size:13px;line-height:1.4;color:#222222}
+.s1-add-bar{background:#d9d9d7;padding:6px 8px;border-top:1px solid #b5b5b3}
+.s1-plus{display:inline-block;width:28px;height:28px;line-height:28px;text-align:center;border:1px solid #9a9a9a;border-radius:2px;background:#eaeae8;font-size:20px;cursor:pointer}
+.s1-dialog{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:80%;max-width:480px;background:#ffffff;color:#222222;border:1px solid #b5b5b3;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.5);padding:14px;box-sizing:border-box;font-family:system-ui,sans-serif;display:none;z-index:5}
+.s1-dialog.show{display:block}
+.s1-dialog .head{display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px}
+.s1-add{background:#3c8adc;color:#ffffff;border:1px solid #1e4a87;border-radius:4px;padding:6px 10px;font-size:14px;cursor:pointer}
+.s1-dialog h4{margin:6px 0;font-size:17px}
+.s1-dialog p{font-size:13px;line-height:1.4}
+.s1-row{border-top:1px solid #dddddd;padding:8px 6px;font-size:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.s1-row.sel{background:#4a90d8;color:#ffffff}
+.s1-pointer{position:absolute;left:-100px;top:-100px;width:32px;height:32px;pointer-events:none;z-index:20;opacity:0;transition:left 3s ease,top 3s ease,opacity .4s ease}
+.step1-demo.speed-normal .s1-pointer{transition:left 1.5s ease,top 1.5s ease,opacity .4s ease}
+.step1-demo.speed-fast .s1-pointer{transition:left .75s ease,top .75s ease,opacity .4s ease}
+.s1-caption{font-family:IBM Plex Sans,sans-serif;font-size:12px;color:#5c564c;text-align:center;margin:4px 0 0}
+.s1-select{display:flex;gap:8px;align-items:center;justify-content:center;margin:8px auto;font-family:IBM Plex Sans,sans-serif;font-size:14px;color:#161410}
+.s1-select button{width:36px;height:36px;border:2px solid #d9d9d7;background:#ffffff;color:#161410;border-radius:50%;font-size:15px;cursor:pointer}
+.s1-select button.active{border-color:#c4a484;outline:2px solid #c4a484}
+
+</style>
+
+</head>
+<body>
+
+<div class="step1-demo speed-slow" id="s1-demo">
+<div class="s1-box">
+<div class="s1-box-head">
+<p class="s1-label" id="s1-label">Step 1 of 6</p>
+<div class="s1-controls">
+<button type="button" id="s1-pause">Pause</button>
+<button type="button" id="s1-restart">Restart</button>
+<button type="button" id="s1-speed">Speed: Slow</button>
+</div>
+</div>
+<p class="s1-text" id="s1-text">Boot Tails from the USB. The Welcome to Tails screen appears.</p>
+</div>
+<div class="s1-stage" id="s1-stage">
+<div class="s1-topbar"><span></span><span>Wed 22:42</span><span class="icons">♿ 🔊 ⏻</span></div>
+<div class="s1-blue" id="s1-blue">
+<div class="s1-welcome" id="s1-welcome">
+<div class="top"><button type="button" class="s1-shutdown" id="s1-shutdown">Shutdown</button><button type="button" class="s1-start" id="s1-start">Start Tails</button></div>
+<h3>Welcome to Tails!</h3>
+<div class="sec"><b>Language &amp; Region <span class="s1-help">?</span></b>
+<div class="s1-wrow sel"><span>🌐 Language</span><span>English - United States</span></div>
+<div class="s1-wrow"><span>⌨ Keyboard Layout</span><span>English (US)</span></div>
+<div class="s1-wrow"><span>📅 Formats</span><span>United States - English</span></div>
+</div>
+<div class="sec"><b>Additional Settings <span class="s1-help">?</span></b>
+<div class="s1-add-box">
+<div class="s1-add-text">The default settings are safe in most situations. To add a custom setting, press the "+" button below.</div>
+<div class="s1-add-bar"><span class="s1-plus" id="s1-plus">+</span></div>
+</div>
+</div>
+</div>
+<div class="s1-dialog" id="s1-dialog-list">
+<div class="head"><span>Cancel</span><span>Additional Settings</span><span></span></div>
+<h4>Additional Settings</h4>
+<div class="s1-row"><span>👤 Administration Password</span><span>Off (default)</span></div>
+<div class="s1-row"><span>🖥 MAC Address Anonymization</span><span>On (default)</span></div>
+<div class="s1-row" id="s1-offline-row"><span>✈ Offline Mode</span><span>Enable networking (default)</span></div>
+<div class="s1-row"><span>⚠ Unsafe Browser</span><span>Enabled (default)</span></div>
+</div>
+<div class="s1-dialog" id="s1-dialog-offline">
+<div class="head"><span>Cancel</span><span>Additional Settings</span><span>Back <button type="button" class="s1-add" id="s1-add">Add</button></span></div>
+<h4>Offline Mode</h4>
+<p>If you want to work completely offline, you can disable all networking for increased security.</p>
+<div class="s1-row"><span>Enable networking (default)</span><span></span></div>
+<div class="s1-row" id="s1-disable-row"><span>Disable all networking</span><span></span></div>
+</div>
+<div class="s1-pointer" id="s1-pointer" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><polygon points="4,2 4,26 11,19 15,28 19,26 15,17 24,17" fill="#ffffff" stroke="#000000" stroke-width="2" stroke-linejoin="round"/></svg></div>
+</div>
+</div>
+<p class="s1-caption">Animation only. Nothing here changes a real Tails system.</p>
+<div class="s1-select">
+<span>Jump to a step:</span>
+<button type="button" class="s1-sel" data-step="0">1</button>
+<button type="button" class="s1-sel" data-step="1">2</button>
+<button type="button" class="s1-sel" data-step="2">3</button>
+<button type="button" class="s1-sel" data-step="3">4</button>
+<button type="button" class="s1-sel" data-step="4">5</button>
+<button type="button" class="s1-sel" data-step="5">6</button>
+</div>
+</div>
+
+
+<script>
+(function(){
+var demo=document.getElementById("s1-demo");
+var stage=document.getElementById("s1-blue");
+var welcome=document.getElementById("s1-welcome");
+var list=document.getElementById("s1-dialog-list");
+var offline=document.getElementById("s1-dialog-offline");
+var pointer=document.getElementById("s1-pointer");
+var pauseBtn=document.getElementById("s1-pause");
+var restartBtn=document.getElementById("s1-restart");
+var speedBtn=document.getElementById("s1-speed");
+var stepLabel=document.getElementById("s1-label");
+var stepText=document.getElementById("s1-text");
+var selBtns=document.querySelectorAll(".s1-sel");
+var stepTexts=[
+"Boot Tails from the USB. The Welcome to Tails screen appears.",
+"In the Additional Settings section at the bottom of the Welcome screen, tap the plus button in the gray bar below the text.",
+"In the Additional Settings dialog, tap the Offline Mode row.",
+"In the Offline Mode dialog, tap Disable all networking. Leave Enable networking (default) unselected.",
+"Tap Add at the top right to add the setting.",
+"Tap Start Tails at the top right of the Welcome screen. The desktop loads with no local network and no Tor Connection assistant."
+];
+var currentStep=0;
+var playing=true;
+var runId=0;
+var speedFactor=2.0;
+var speedName="Slow";
+var HOLD=5000;
+var FINAL=8000;
+var fadeTimer=null;
+function targetFor(i){
+if(i===0){return welcome;}
+if(i===1){return document.getElementById("s1-plus");}
+if(i===2){return document.getElementById("s1-offline-row");}
+if(i===3){return document.getElementById("s1-disable-row");}
+if(i===4){return document.getElementById("s1-add");}
+return document.getElementById("s1-start");
+}
+function posOf(el){
+var s=stage.getBoundingClientRect();
+var r=el.getBoundingClientRect();
+return {x:r.left-s.left+r.width/2-4,y:r.top-s.top+r.height/2-2};
+}
+function moveTo(el){
+var p=posOf(el);
+pointer.style.left=p.x+"px";
+pointer.style.top=p.y+"px";
+}
+function setActive(i){
+selBtns.forEach(function(b){b.classList.toggle("active",Number(b.getAttribute("data-step"))===i);});
+}
+function setBox(i, instant){
+stepLabel.textContent="Step "+(i+1)+" of 6";
+if(instant){
+if(fadeTimer){clearTimeout(fadeTimer);}
+stepText.classList.remove("fading");
+stepText.textContent=stepTexts[i];
+return;
+}
+stepText.classList.add("fading");
+if(fadeTimer){clearTimeout(fadeTimer);}
+fadeTimer=setTimeout(function(){
+stepText.textContent=stepTexts[i];
+stepText.classList.remove("fading");
+},400);
+}
+function renderStep(i, instant){
+currentStep=i;
+list.classList.remove("show");
+offline.classList.remove("show");
+document.getElementById("s1-offline-row").classList.remove("sel");
+document.getElementById("s1-disable-row").classList.remove("sel");
+if(i===2){list.classList.add("show");}
+if(i===3){offline.classList.add("show");document.getElementById("s1-disable-row").classList.add("sel");}
+if(i===4){offline.classList.add("show");document.getElementById("s1-disable-row").classList.add("sel");}
+moveTo(targetFor(i));
+pointer.style.opacity=(i===0)?"0":"1";
+setBox(i, instant);
+setActive(i);
+}
+function waitMs(ms){return new Promise(function(resolve){setTimeout(resolve,ms*speedFactor);});}
+async function runTour(start,run){
+for(var i=start;i<6;i++){
+if(run!==runId||!playing){return;}
+renderStep(i,false);
+await waitMs(i===5?FINAL:HOLD);
+}
+if(run===runId&&playing){runTour(0,run);}
+}
+function pauseTour(){playing=false;runId++;pauseBtn.textContent="Resume";}
+function resumeTour(){playing=true;pauseBtn.textContent="Pause";runTour(currentStep,runId);}
+pauseBtn.addEventListener("click",function(){if(playing){pauseTour();}else{resumeTour();}});
+restartBtn.addEventListener("click",function(){runId++;playing=true;pauseBtn.textContent="Pause";runTour(0,runId);});
+speedBtn.addEventListener("click",function(){
+if(speedName==="Slow"){speedName="Normal";speedFactor=1.0;demo.className="step1-demo speed-normal";}
+else if(speedName==="Normal"){speedName="Fast";speedFactor=0.5;demo.className="step1-demo speed-fast";}
+else{speedName="Slow";speedFactor=2.0;demo.className="step1-demo speed-slow";}
+speedBtn.textContent="Speed: "+speedName;
+});
+selBtns.forEach(function(b){
+b.addEventListener("click",function(){
+var t=Number(b.getAttribute("data-step"));
+pauseTour();
+renderStep(t,true);
+});
+});
+window.addEventListener("resize",function(){moveTo(targetFor(currentStep));});
+renderStep(0,true);
+if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches){pauseTour();}else{runTour(0,runId);}
+})();
+</script>
+
+</body>
+</html>

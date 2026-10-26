@@ -395,6 +395,24 @@ def post_process(html):
         r'(<h2 id="step-2-run-the-tool-choose-e-enter-the-passphrase">.*?</h2>)\s*<figure class="step-fig">(.*?)</figure>',
         demo_repl, html, flags=re.S,
     )
+    # Step 1 networking demo in encryption Step 1: iframe on screen, Step 1 figure stays on screen too.
+    def step1_demo_repl(m):
+        return (
+            m.group(1)
+            + '\n<div class="demo-embed"><iframe src="'
+            + BASE
+            + 'step1-demo.html" title="Step 1 networking demo" loading="lazy"></iframe>'
+            + '<p class="demo-fullscreen"><a href="'
+            + BASE
+            + 'step1-demo.html">Open the demo full screen</a></p></div>'
+            + '\n<figure class="step-fig">'
+            + m.group(2)
+            + '</figure>'
+        )
+    html = re.sub(
+        r'(<h2 id="step-1-boot-tails-copy-the-tool-and-the-map">.*?</h2>)\s*<figure class="step-fig">(.*?)</figure>',
+        step1_demo_repl, html, flags=re.S,
+    )
     return html
 
 
@@ -1020,6 +1038,8 @@ def main():
     print("  diceware.html")
     shutil.copy("tools/tails-python-demo.html", "docs/tails-demo.html")
     print("  tails-demo.html")
+    shutil.copy("tools/step1-networking-demo.html", "docs/step1-demo.html")
+    print("  step1-demo.html")
     # static assets
     shutil.copytree("assets", "docs/assets")
     # search index for Ask the guide: sheets plus news articles, full text
