@@ -1156,6 +1156,22 @@ pre code { background: none; color: inherit; padding: 0; }
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 1rem;
 }
+/* ---------- why: path markers (green check stands, red X gone) ---------- */
+/* The base ring above never renders: --red is not defined anywhere, so its
+   border and color declarations are dropped. These rules set the marker
+   colors outright and keep the border off, so the approved plain-glyph
+   look holds even if --red is ever defined. */
+.mk-stands { color: #46a758; }
+.mk-gone { color: #e5484d; }
+.threats li span.mk-stands { color: #46a758; border: none; }
+.threats li span.mk-gone { color: #e5484d; border: none; }
+.threats li span.why-tag {
+  flex: none; height: auto; border: none;
+  color: var(--muted); font-size: 0.82rem; font-weight: 400;
+  font-family: "IBM Plex Sans", system-ui, sans-serif; font-style: normal;
+}
+.why-legend { color: var(--muted); font-size: 0.82rem; margin: 0.5rem 0 0; font-family: "IBM Plex Sans", system-ui, sans-serif; }
+.why-note { color: var(--muted); font-size: 0.92rem; margin: 0.75rem 0 0; line-height: 1.55; }
 @media (max-width: 640px) { .why { padding: 1.5rem 1.25rem 1.25rem; } .why h2 { font-size: 1.4rem; } }
 
 /* ---------- homepage: process / house rules / resources ---------- */
