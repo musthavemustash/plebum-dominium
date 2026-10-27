@@ -1,0 +1,49 @@
+<p>Pick a path in the sidebar. This page shows the risks for the path you picked. If you switch paths, this page switches with you.</p>
+<div class="path-risks-switch" role="group" aria-label="Choose a setup">
+<button type="button" data-path="easy" aria-pressed="false">Easy</button>
+<button type="button" data-path="one" aria-pressed="false">One key</button>
+<button type="button" data-path="full" aria-pressed="true">Full program</button>
+</div>
+<p>If you are stranded on a sheet that is not on your path, switch to Full program in the sidebar to see all 17 sheets.</p>
+
+<section class="risks-section risks-easy" id="risks-easy">
+<h2>Easy: words into one trusted device</h2>
+<p>Trust: one device and its maker. Work: lowest.</p>
+<ul>
+<li>One device, one maker. If the device fails, the firmware is flawed, or the shop sold a tampered device, the wallet fails with it.</li>
+<li>One seed. Anyone who holds the 24 words holds the coins. There is no second key to stop a thief.</li>
+<li>Words go into the device itself, never into a computer, phone, or website. If the words ever go elsewhere, treat that seed as exposed and start again with fresh words.</li>
+<li>Stamp the words in titanium first, before the device entry. If the device fails during setup, the plate is the backup.</li>
+<li>No passphrase on this path. A found plate alone can restore the wallet on a compatible device.</li>
+<li>Keep the plate and the device in different places. Together, they are the wallet.</li>
+</ul>
+<p><strong>Next:</strong> roll dice, stamp titanium, enter the words on the device. Read the easier option in full on the <a href="{BASE}trade-trust-for-difficulty.html">Trade trust for difficulty</a> page.</p>
+</section>
+
+<section class="risks-section risks-one" id="risks-one">
+<h2>One key: one key plus a passphrase</h2>
+<p>Trust: one key, one device, one passphrase. Work: medium.</p>
+<ul>
+<li>One key and one passphrase. Lose the passphrase and the wallet is gone, even with the plate and the device in hand.</li>
+<li>Keep the passphrase on paper apart from the plate. If the plate and the passphrase paper are found together, the passphrase adds nothing.</li>
+<li>One device, one maker, with the same device risks as Easy. A flawed or tampered device can still fail you.</li>
+<li>Words and passphrase go into the device itself during recovery, nowhere else. No hardware company will ever ask for your seed phrase.</li>
+<li>Check the receiving address on the device screen, not only on the computer screen, before you accept coins.</li>
+<li>The watch-only wallet can watch, it cannot spend alone. Spending needs the device and the passphrase together.</li>
+</ul>
+<p><strong>Next:</strong> the <a href="{BASE}handouts/single-sig.html">single-sig sheet</a>.</p>
+</section>
+
+<section class="risks-section risks-full" id="risks-full">
+<h2>Full program: three keys, three places</h2>
+<p>Trust: no single key, device, or place. Work: highest.</p>
+<ul>
+<li>Most steps to get right. A missed step in any key can lock the wallet later.</li>
+<li>Lose two keys and the map, and the funds are locked. Keep three plates in three places, and keep the encrypted map apart from any single plate.</li>
+<li>Two seeds alone cannot rebuild the third key. Without the descriptor, two keys can spend but cannot rebuild the wallet from scratch. Keep the encrypted map safe.</li>
+<li>No passphrase on the 2-of-3. The protection comes from three keys in three places, not from a passphrase.</li>
+<li>Practice spend first, and rehearse on testnet if you have not done this before. Savings do not move until the practice spend works.</li>
+<li>Shut down fully between keys. A key left in memory after a boot can leak into the next key.</li>
+</ul>
+<p><strong>Next:</strong> start at the beginning and work the steps.</p>
+</section>

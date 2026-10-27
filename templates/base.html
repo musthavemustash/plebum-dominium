@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="{{description}}">
 <meta name="twitter:image" content="https://plebumbtc.io/assets/img/og-banner.png">
 {{schema}}
-<link rel="stylesheet" href="{{base}}assets/css/main.css">
+<link rel="stylesheet" href="{{base}}assets/css/main.css?v=variants1">
 <link rel="stylesheet" href="{{base}}assets/css/print.css" media="print">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +30,8 @@
 (function(){try{var t=localStorage.getItem('pd-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 /* set motion before first paint: saved choice wins, else reduced motion wins */
 (function(){try{var m=localStorage.getItem('pd-motion');if(!m){m=window.matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}document.documentElement.setAttribute('data-motion',m);}catch(e){document.documentElement.setAttribute('data-motion','on');}})();
+/* set path before first paint, so the color reminder is right from the start */
+(function(){try{var p=localStorage.getItem('pd-path');if(p!=='easy'&&p!=='one'&&p!=='full'){p='full';}document.documentElement.setAttribute('data-path',p);}catch(e){document.documentElement.setAttribute('data-path','full');}})();
 </script>
 </head>
 <body class="{{is_home}}" id="top">
@@ -60,10 +62,20 @@
 
 <div class="layout">
   <nav class="sidebar" aria-label="Guide sheets">
+    <div class="sidebar-path" id="sidebar-path">
+      <p class="sidebar-path-label">Your path</p>
+      <div class="sidebar-path-seg" role="group" aria-label="Choose a setup">
+        <button type="button" data-path="easy" aria-pressed="false">Easy</button>
+        <button type="button" data-path="one" aria-pressed="false">One key</button>
+        <button type="button" data-path="full" aria-pressed="true">Full program</button>
+      </div>
+      <p class="sidebar-path-note" id="path-count">All 17 sheets</p>
+    </div>
     <p class="sidebar-label">The bench sheets</p>
     <ul>
 {{sidebar}}
     </ul>
+    <p class="sidebar-risks-wrap"><a class="sidebar-risks" id="sidebar-risks" href="{{base}}path-risks.html">Risks of your path: <span id="path-risks-label">Full program</span> &rarr;</a></p>
     <p class="sidebar-note">Check off sheets as you finish them. Progress is saved on this device.</p>
   </nav>
   <div class="scrim" aria-hidden="true"></div>
@@ -72,6 +84,24 @@
     <article>
       <p class="kicker">{{kicker}}</p>
       <h1>{{heading}}</h1>
+      <div class="mobile-path" id="mobile-path">
+        <p class="mobile-path-label">Your path</p>
+        <div class="mobile-path-seg" role="group" aria-label="Choose a setup">
+          <button type="button" data-path="easy" aria-pressed="false">Easy</button>
+          <button type="button" data-path="one" aria-pressed="false">One key</button>
+          <button type="button" data-path="full" aria-pressed="true">Full program</button>
+        </div>
+      </div>
+      <div class="path-banner" id="path-banner" hidden>
+        <p class="path-banner-label">Your path: <strong id="path-banner-label">Full program</strong></p>
+        <p class="path-banner-note" id="path-banner-note"></p>
+      </div>
+      <div class="path-gate" id="path-gate" hidden>
+        <h2>Not on your path</h2>
+        <p id="path-gate-note"></p>
+        <p><button type="button" id="path-gate-full">Switch to Full program to read this sheet</button></p>
+        <p><a href="{{base}}path-risks.html">Risks of your path &rarr;</a></p>
+      </div>
 {{stepbanner}}
 {{headercard}}
 {{content}}
@@ -102,7 +132,7 @@
   <p class="donate-addr"><code>{{onchain_address}}</code></p>
 </footer>
 
-<script src="{{base}}assets/js/main.js" defer></script>
+<script src="{{base}}assets/js/main.js?v=variants1" defer></script>
 {{analytics}}
 <div id="newbie-banner" class="newbie-banner" role="dialog" aria-label="New to Bitcoin?" hidden>
   <p><strong>New to Bitcoin?</strong><br><a href="{{base}}#new-to-bitcoin" class="newbie-go">Start here &rarr;</a></p>

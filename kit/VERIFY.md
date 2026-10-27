@@ -191,11 +191,11 @@ the sheet as published.
 | Sheet | Page | SHA-256 |
 | --- | --- | --- |
 | T · Terms | handouts/terms.html | `49da64e16d95706815ceea06962d66acb3c23a62b8d8ce0a4bce3b936a78954d` |
-| 02 · Before you begin | handouts/threat-model.html | `bacd9c9213cda4efed982bcb124e8049a25861fa7bb58f836d2739e04466fa50` |
+| 02 · Before you begin | handouts/threat-model.html | `35437df2b89aac690c3fef5e7ddc34b3b5da3a41c587d89747cde8fa9ae68bdc` |
 | 03 · Checklist | handouts/checklist.html | `4a7d3a43aecc9dca20b5137f8fa5e7cc758bafb6fd9c3f7e99de70625ed3f349` |
 | 05 · Check the files | handouts/verify.html | `ee4368fcd91e2d1fa7655e94da00e5dc26cd9fb1c3cdeeed6a6149123be854f3` |
 | 04 · Two boots | handouts/airgap.html | `9b112f0e317547d79018044e5898ebbe28c5e79001264853f06de6c340209eaa` |
-| 06 · Make the three keys | handouts/dice.html | `5f4c5d9c00d5594d382e053d1eaa18935d5ce04ddb1ef155de55f5c99c321933` |
+| 06 · Make the three keys | handouts/dice.html | `a9552939ce200d19994536ee8379790fd738af570e275668371dff0f33eb291d` |
 | 07 · Build the 2-of-3 | handouts/sparrow.html | `c233a22ce4ca05f8f0e936749f6143bb03689eda1e66ae40a07559d366fbbff0` |
 | 10 · Rehearse on testnet | handouts/testnet.html | `001aac211888cfcf2e20b5927a82ddacfc4dfccd2029baf797a364487d1092cc` |
 | 08 · Practice spend | handouts/signing.html | `88ac333cb85a8883de95b925df9265d358441053367bb4d18f95d8a7ca4bca76` |

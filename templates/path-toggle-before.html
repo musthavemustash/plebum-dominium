@@ -1,0 +1,37 @@
+<section class="path-toggle" id="path-toggle">
+<h2>Pick your path</h2>
+<p>The doors above state where you stand today. After the doors, pick the trade that fits. The switch below routes you to the right starting sheet.</p>
+<div class="path-seg" role="group" aria-label="Choose a setup">
+<button type="button" data-path="easy" aria-pressed="false">Easy</button>
+<button type="button" data-path="one" aria-pressed="false">One key</button>
+<button type="button" data-path="full" aria-pressed="true">Full program</button>
+</div>
+<div class="path-ends"><span>&larr; Less work, more trust</span><span>More work, less trust &rarr;</span></div>
+<div id="path-card-before" class="path-card path-card-full"></div>
+</section>
+<script>
+(function () {
+  var PATHS = {
+    easy: { cls: "path-card-easy", sel: "sel-easy", title: "Words into one trusted device", trade: "Trust: one device and its maker. Work: lowest.", steps: ["Roll dice for 24 words.", "Stamp the words in titanium first.", "Enter the words on the hardware wallet itself."], risk: "Risk: one device, one maker. If either fails you, the wallet fails.", next: "Next: the dice sheet, then the single-sig sheet.", go: "{BASE}handouts/dice.html", goText: "Go to the dice sheet" },
+    one: { cls: "path-card-one", sel: "sel-one", title: "One key plus a passphrase", trade: "Trust: one key, one device, one passphrase. Work: medium.", steps: ["Roll dice for 24 words.", "Add a passphrase, kept on paper apart from the plate.", "Stamp the words in titanium. Use a watch-only wallet."], risk: "Risk: one key and one passphrase. Lose the passphrase and the wallet is gone.", next: "Next: the single-sig sheet.", go: "{BASE}handouts/single-sig.html", goText: "Go to the single-sig sheet" },
+    full: { cls: "path-card-full", sel: "sel-full", title: "Three keys, three places", trade: "Trust: no single key, device, or place. Work: highest.", steps: ["Roll three dice keys. Stamp three titanium plates. Keep them in three places.", "Build the 2-of-3. Practice spend first. Hide the encrypted map."], risk: "Risk: the most steps to get right. Lose two keys and the map and the funds are locked.", next: "Next: the checklist.", go: "{BASE}handouts/checklist.html", goText: "Go to the checklist" }
+  };
+  var card = document.getElementById("path-card-before");
+  var buttons = document.querySelectorAll("#path-toggle .path-seg button");
+  function show(path) {
+    var p = PATHS[path];
+    card.className = "path-card " + p.cls;
+    var html = "<h3>" + p.title + "</h3><p class=\"path-trade\">" + p.trade + "</p><ul>";
+    p.steps.forEach(function (s) { html += "<li>" + s + "</li>"; });
+    html += "</ul><p><strong>" + p.risk + "</strong></p><p><strong>" + p.next + "</strong></p><p><a class=\"path-go\" href=\"" + p.go + "\">" + p.goText + " &rarr;</a></p>";
+    card.innerHTML = html;
+    buttons.forEach(function (b) {
+      var on = b.getAttribute("data-path") === path;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      b.className = on ? PATHS[b.getAttribute("data-path")].sel : "";
+    });
+  }
+  buttons.forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-path")); }); });
+  show("full");
+})();
+</script>

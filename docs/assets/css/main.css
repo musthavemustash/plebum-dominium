@@ -1576,3 +1576,71 @@ html[data-motion="off"] .dice-anim .pcount { opacity: 0; }
 html[data-motion="off"] .dice-anim .pcount.c4 { opacity: 1; }
 html[data-motion="off"] .dice-anim .wstamp { opacity: 1; transform: rotate(-6deg) scale(1); }
 html[data-motion="off"] .metal-anim .plate { transform: none; opacity: 1; }
+
+/* ---------- path toggle (TEST SITE ONLY, revamped version) ---------- */
+.path-toggle { margin: 2.5rem 0; }
+.path-toggle h2 { margin-bottom: 0.5rem; }
+.path-seg { display: flex; gap: 8px; margin: 1rem 0 0.4rem; }
+.path-seg button { flex: 1; padding: 0.8rem 0.4rem; font-family: "IBM Plex Sans", sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; }
+.path-seg button.sel-easy { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
+.path-seg button.sel-one { background: #0072B2; color: #ffffff; border-color: #0072B2; }
+.path-seg button.sel-full { background: #009E73; color: #0e0d0b; border-color: #009E73; }
+.path-ends { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; }
+.path-card { border: 1px solid var(--line); background: var(--card); padding: 1rem 1.2rem; border-top: 6px solid var(--accent); border-radius: 6px; }
+.path-card-easy { border-top-color: #E69F00; }
+.path-card-one { border-top-color: #0072B2; }
+.path-card-full { border-top-color: #009E73; }
+.path-card h3 { margin: 0 0 0.5rem; }
+.path-trade { color: var(--muted); font-size: 0.92rem; }
+.path-go { font-weight: 700; }
+
+/* ---------- sidebar path toggle (TEST SITE ONLY) ---------- */
+.sidebar-path { position: sticky; top: 0; background: var(--paper); padding: 0.5rem 0 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid var(--line); z-index: 2; }
+.sidebar-path-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin: 0 0 0.5rem 0.25rem; font-family: "IBM Plex Sans", sans-serif; }
+.sidebar-path-seg, .path-risks-switch { display: flex; gap: 6px; margin: 0 0 0.4rem; }
+.sidebar-path-seg button, .path-risks-switch button, .mobile-path-seg button { flex: 1; padding: 0.55rem 0.25rem; font-family: "IBM Plex Sans", sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; }
+.sidebar-path-seg button.sel-easy, .path-risks-switch button.sel-easy, .mobile-path-seg button.sel-easy { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
+.sidebar-path-seg button.sel-one, .path-risks-switch button.sel-one, .mobile-path-seg button.sel-one { background: #0072B2; color: #ffffff; border-color: #0072B2; }
+.sidebar-path-seg button.sel-full, .path-risks-switch button.sel-full, .mobile-path-seg button.sel-full { background: #009E73; color: #0e0d0b; border-color: #009E73; }
+.mobile-path { display: none; }
+@media (max-width: 760px) {
+  .mobile-path { display: block; margin: 0.75rem 0 0; }
+  .mobile-path-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin: 0 0 0.5rem 0.25rem; font-family: "IBM Plex Sans", sans-serif; }
+  .mobile-path-seg { display: flex; gap: 6px; margin: 0 0 0.4rem; }
+  .mobile-path-seg button { padding: 0.65rem 0.25rem; font-size: 0.9rem; }
+}
+.sidebar-path-note { font-size: 0.8rem; color: var(--muted); margin: 0.4rem 0.25rem 0; }
+.sidebar-risks-wrap { margin: 1rem 0 0; }
+.sidebar-risks { display: block; border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: 8px; padding: 0.6rem 0.75rem; color: var(--ink); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+html[data-path="easy"] .sidebar-risks { border-left-color: #E69F00; }
+html[data-path="one"] .sidebar-risks { border-left-color: #0072B2; }
+html[data-path="full"] .sidebar-risks { border-left-color: #009E73; }
+.path-banner { border: 1px solid var(--line); border-top: 6px solid var(--accent); background: var(--card); padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 8px; }
+html[data-path="easy"] .path-banner { border-top-color: #E69F00; }
+html[data-path="one"] .path-banner { border-top-color: #0072B2; }
+html[data-path="full"] .path-banner { border-top-color: #009E73; }
+.path-banner-label { margin: 0 0 0.25rem; font-family: "IBM Plex Sans", sans-serif; font-size: 0.95rem; }
+.path-banner-note { margin: 0; font-size: 0.95rem; }
+.path-banner-warn { background: var(--warn-bg); }
+@media (max-width: 760px) {
+  .path-banner { padding: 0.45rem 0.75rem; margin: 0.5rem 0 0.75rem; border-top-width: 4px; }
+  .path-banner-label { margin-bottom: 0.1rem; font-size: 0.9rem; }
+  .path-banner-note { font-size: 0.9rem; }
+}
+.path-hidden { display: none !important; }
+.path-gate { border: 1px solid var(--line); border-top: 6px solid var(--accent); background: var(--card); padding: 1rem 1.2rem; margin: 1rem 0; border-radius: 8px; }
+html[data-path="easy"] .path-gate { border-top-color: #E69F00; }
+html[data-path="one"] .path-gate { border-top-color: #0072B2; }
+html[data-path="full"] .path-gate { border-top-color: #009E73; }
+.path-gate button { padding: 0.65rem 1rem; font-family: "IBM Plex Sans", sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; background: #009E73; color: #0e0d0b; border: 1px solid #009E73; border-radius: 6px; }
+body.path-gated article > *:not(.kicker):not(h1):not(.mobile-path):not(.path-banner):not(.path-gate) { display: none !important; }
+body.path-gated .toc-col { display: none !important; }
+.risks-section { border: 1px solid var(--line); border-top: 6px solid var(--accent); background: var(--card); padding: 1rem 1.2rem; margin: 1.5rem 0; border-radius: 8px; }
+.risks-easy { border-top-color: #E69F00; }
+.risks-one { border-top-color: #0072B2; }
+.risks-full { border-top-color: #009E73; }
+/* in-site toggle: Easy naming, with old Quick classes kept as aliases */
+.path-seg button.sel-easy { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
+.path-card-easy { border-top-color: #E69F00; }
+.path-seg button.sel-quick { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
+.path-card-quick { border-top-color: #E69F00; }

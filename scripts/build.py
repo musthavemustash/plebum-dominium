@@ -81,6 +81,29 @@ SHEETS = [
 ]
 SLUG_TO_IDX = {slug: i for i, (slug, _, _) in enumerate(SHEETS)}
 
+# which paths include each sheet. easy = words into one trusted
+# device, one = one key plus a passphrase, full = the 2-of-3 program as written.
+SHEET_PATHS = {
+    "terms": ["easy", "one", "full"],
+    "threat-model": ["easy", "one", "full"],
+    "checklist": ["easy", "one", "full"],
+    "verify": ["easy", "one", "full"],
+    "airgap": ["easy", "one", "full"],
+    "dice": ["easy", "one", "full"],
+    "sparrow": ["full"],
+    "testnet": ["full"],
+    "signing": ["full"],
+    "titanium": ["easy", "one", "full"],
+    "encryption": ["full"],
+    "inheritance": ["full"],
+    "faq": ["easy", "one", "full"],
+    "briefing": ["full"],
+    "fire-card": ["one", "full"],
+    "single-sig": ["one", "full"],
+    "two-devices": ["full"],
+}
+
+
 
 # (time, difficulty, needs, steps) for the iFixit-style overview card on each sheet
 SHEET_META = {
@@ -424,6 +447,13 @@ def post_process(html):
         r'(<h2 id="step-1-boot-tails-copy-the-tool-and-the-map">.*?</h2>)\s*<figure class="step-fig">(.*?)</figure>',
         step1_demo_repl, html, flags=re.S,
     )
+    # path toggle at the end of Before you begin and the dice sheet.
+    if 'id="where-are-your-coins-right-now"' in html:
+        with open("templates/path-toggle-before.html") as f:
+            html += "\n" + f.read().replace("{BASE}", BASE)
+    if 'id="practice-grid"' in html:
+        with open("templates/path-toggle-dice.html") as f:
+            html += "\n" + f.read().replace("{BASE}", BASE)
     return html
 
 
@@ -603,7 +633,7 @@ def sidebar_html(active_slug):
     for slug, num, title in SHEETS:
         cls = "active" if slug == active_slug else ""
         items.append(
-            f'<li><a href="{BASE}handouts/{slug}.html" class="{cls}" data-sheet="{slug}">'
+            f'<li data-paths="{" ".join(SHEET_PATHS.get(slug, ["full"]))}"><a href="{BASE}handouts/{slug}.html" class="{cls}" data-sheet="{slug}">'
             f'<span class="sheet-num">{num}</span>'
             f'<span class="sheet-title">{esc(title)}</span>'
             f'<span class="sheet-check" aria-hidden="true">✓</span>'
@@ -885,6 +915,36 @@ def build_news():
     return page
 
 
+
+def build_path_risks():
+    tpl = load_template()
+    with open("templates/path-risks.html") as f:
+        rendered = f.read().replace("{BASE}", BASE)
+    page = (
+        tpl.replace("{{title}}", f"Risks of your path · {SITE_NAME}")
+        .replace("{{base}}", BASE)
+        .replace("{{kicker}}", "Plebum Dominium")
+        .replace("{{heading}}", "Risks of your path")
+        .replace("{{sidebar}}", sidebar_html("__risks__"))
+        .replace("{{toc}}", "")
+        .replace("{{content}}", rendered)
+        .replace("{{prev}}", "")
+        .replace("{{next}}", "")
+        .replace("{{stepbanner}}", "")
+        .replace("{{steppos}}", "")
+        .replace("{{headercard}}", "")
+        .replace("{{is_home}}", "")
+        .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
+        .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
+        .replace("{{canonical}}", "https://plebumbtc.io/path-risks.html")
+        .replace("{{description}}", "The risks of the path you picked: Easy, One key, or Full program.")
+        .replace("{{schema}}", "")
+        .replace("{{last_updated}}", LAST_UPDATED)
+        .replace("{{analytics}}", analytics_html())
+    )
+    return page
+
+
 # ---------------------------------------------------------------- home sections
 def home_section(name):
     with open(f"templates/{name}.html") as f:
@@ -942,6 +1002,7 @@ def build_home():
         .replace("{BASE}", BASE)
         + home_section("home-why")
         + home_section("home-process")
+        + home_section("path-toggle-home")
         + "\n".join(cards)
         + home_section("home-rules")
         + home_section("home-resources")
@@ -1047,6 +1108,10 @@ def main():
     with open("docs/news.html", "w") as f:
         f.write(build_news())
     print("  news.html")
+    # risks of your path 
+    with open("docs/path-risks.html", "w") as f:
+        f.write(build_path_risks())
+    print("  path-risks.html")
     # diceware passphrase mapper (standalone tool page, ships as-is)
     shutil.copy("tools/diceware-mapper.html", "docs/diceware.html")
     print("  diceware.html")

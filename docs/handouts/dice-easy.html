@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06 · Make one key · Plebum Dominium</title>
+<meta name="description" content="Make one Bitcoin seed key from five casino dice: roll the entropy, turn it into 24 words, and enter it on the device itself.">
+<link rel="canonical" href="https://plebumbtc.io/handouts/dice.html">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://plebumbtc.io/handouts/dice.html">
+<meta property="og:site_name" content="Plebum Dominium">
+<meta property="og:title" content="06 · Make one key · Plebum Dominium">
+<meta property="og:description" content="Make one Bitcoin seed key from five casino dice: roll the entropy, turn it into 24 words, and enter it on the device itself.">
+<meta property="og:image" content="https://plebumbtc.io/assets/img/og-banner.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="06 · Make one key · Plebum Dominium">
+<meta name="twitter:description" content="Make three Bitcoin seed keys from five casino dice: roll 256 bits of entropy, turn them into 24 words, and cross-check them with two independent tools.">
+<meta name="twitter:image" content="https://plebumbtc.io/assets/img/og-banner.png">
+
+<link rel="stylesheet" href="/assets/css/main.css?v=variants1">
+<link rel="stylesheet" href="/assets/css/print.css" media="print">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap">
+<script>
+/* set theme before first paint: saved choice wins, else the visitor's OS setting */
+(function(){try{var t=localStorage.getItem('pd-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+/* set motion before first paint: saved choice wins, else reduced motion wins */
+(function(){try{var m=localStorage.getItem('pd-motion');if(!m){m=window.matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}document.documentElement.setAttribute('data-motion',m);}catch(e){document.documentElement.setAttribute('data-motion','on');}})();
+/* set path before first paint, so the color reminder is right from the start */
+(function(){try{var p=localStorage.getItem('pd-path');if(p!=='easy'&&p!=='one'&&p!=='full'){p='full';}document.documentElement.setAttribute('data-path',p);}catch(e){document.documentElement.setAttribute('data-path','full');}})();
+</script>
+</head>
+<body class="" id="top">
+<div class="splash" id="pd-splash" hidden aria-hidden="true">
+  <p class="splash-title">Plebum Dominium: Independent At-Home Bitcoin Self-custody</p>
+  <img class="splash-logo" src="/assets/img/logo-pleb-key.svg" alt="" width="360" height="360">
+</div>
+<div class="progress" aria-hidden="true"><span></span></div>
+
+
+
+<header class="site-header">
+  <button class="menu-btn" aria-label="Open guide navigation" aria-expanded="false">☰</button>
+  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">₿</span> Plebum Dominium</a>
+  <span class="header-sheet">06 · Plebum Dominium</span>
+  <button class="ask-btn" id="ask-btn" type="button" aria-label="Search the guide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <span class="ask-btn-label">Search</span>
+    <kbd aria-hidden="true">/</kbd>
+  </button>
+  <button class="motion-btn" id="motion-btn" type="button" aria-pressed="true" aria-label="Toggle animation on and off">Motion on</button>
+  <button class="theme-btn" id="theme-btn" aria-label="Toggle light and dark mode">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  </button>
+  <span class="online-pill" id="online-pill" role="status" hidden><span class="online-dot" id="online-dot"></span><span class="online-word" id="online-word">Online</span></span>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Guide sheets">
+    <div class="sidebar-path" id="sidebar-path">
+      <p class="sidebar-path-label">Your path</p>
+      <div class="sidebar-path-seg" role="group" aria-label="Choose a setup">
+        <button type="button" data-path="easy" aria-pressed="false">Easy</button>
+        <button type="button" data-path="one" aria-pressed="false">One key</button>
+        <button type="button" data-path="full" aria-pressed="true">Full program</button>
+      </div>
+      <p class="sidebar-path-note" id="path-count">All 17 sheets</p>
+    </div>
+    <p class="sidebar-label">The bench sheets</p>
+    <ul>
+<li data-paths="easy one full"><a href="/handouts/terms.html" class="" data-sheet="terms"><span class="sheet-num">T</span><span class="sheet-title">Terms</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="easy one full"><a href="/handouts/threat-model.html" class="" data-sheet="threat-model"><span class="sheet-num">02</span><span class="sheet-title">Before you begin</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="easy one full"><a href="/handouts/checklist.html" class="" data-sheet="checklist"><span class="sheet-num">03</span><span class="sheet-title">Checklist</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="easy one full"><a href="/handouts/verify.html" class="" data-sheet="verify"><span class="sheet-num">05</span><span class="sheet-title">Check the files</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="easy one full"><a href="/handouts/airgap.html" class="" data-sheet="airgap"><span class="sheet-num">04</span><span class="sheet-title">Two boots</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="easy one full"><a href="/handouts/dice.html" class="active" data-sheet="dice"><span class="sheet-num">06</span><span class="sheet-title">Make the three keys</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/sparrow.html" class="" data-sheet="sparrow"><span class="sheet-num">07</span><span class="sheet-title">Build the 2-of-3</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/testnet.html" class="" data-sheet="testnet"><span class="sheet-num">10</span><span class="sheet-title">Rehearse on testnet</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/signing.html" class="" data-sheet="signing"><span class="sheet-num">08</span><span class="sheet-title">Practice spend</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="easy one full"><a href="/handouts/titanium.html" class="" data-sheet="titanium"><span class="sheet-num">09</span><span class="sheet-title">Metal and the map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">11</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">12</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="easy one full"><a href="/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">13</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/briefing.html" class="" data-sheet="briefing"><span class="sheet-num">14</span><span class="sheet-title">Tough questions</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/fire-card.html" class="" data-sheet="fire-card"><span class="sheet-num">15</span><span class="sheet-title">Recovery card</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/single-sig.html" class="" data-sheet="single-sig"><span class="sheet-num">16</span><span class="sheet-title">One key, done right</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/two-devices.html" class="" data-sheet="two-devices"><span class="sheet-num">17</span><span class="sheet-title">Two devices and one dice key</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+    </ul>
+    <p class="sidebar-risks-wrap"><a class="sidebar-risks" id="sidebar-risks" href="/path-risks.html">Risks of your path: <span id="path-risks-label">Full program</span> &rarr;</a></p>
+    <p class="sidebar-note">Check off sheets as you finish them. Progress is saved on this device.</p>
+  </nav>
+  <div class="scrim" aria-hidden="true"></div>
+
+  <main id="content">
+    <article>
+      <p class="kicker">06 · Plebum Dominium</p>
+      <h1>Make one key</h1>
+      <div class="mobile-path" id="mobile-path">
+        <p class="mobile-path-label">Your path</p>
+        <div class="mobile-path-seg" role="group" aria-label="Choose a setup">
+          <button type="button" data-path="easy" aria-pressed="false">Easy</button>
+          <button type="button" data-path="one" aria-pressed="false">One key</button>
+          <button type="button" data-path="full" aria-pressed="true">Full program</button>
+        </div>
+      </div>
+      <div class="path-banner" id="path-banner" hidden>
+        <p class="path-banner-label">Your path: <strong id="path-banner-label">Full program</strong></p>
+        <p class="path-banner-note" id="path-banner-note"></p>
+      </div>
+      <div class="path-gate" id="path-gate" hidden>
+        <h2>Not on your path</h2>
+        <p id="path-gate-note"></p>
+        <p><button type="button" id="path-gate-full">Switch to Full program to read this sheet</button></p>
+        <p><a href="/path-risks.html">Risks of your path &rarr;</a></p>
+      </div>
+<nav class="step-banner" aria-label="Sheet 6 of 17"><a class="step-nav" href="/handouts/airgap.html" rel="prev">&larr; 04 &middot; Two boots</a><span class="step-pos"><strong>Step 6 of 8</strong> · Make one key</span><a class="step-nav" href="/handouts/titanium.html" rel="next">09 &middot; Stamp the plate &rarr;</a></nav>
+<section class="sheet-meta" aria-label="Sheet overview"><div class="meta-item"><span class="meta-label">Time</span><span class="meta-val">30-45 min</span></div><div class="meta-item"><span class="meta-label">Difficulty</span><span class="meta-val diff-moderate">Moderate</span></div><div class="meta-item"><span class="meta-label">Steps</span><span class="meta-val">4 sections</span></div><div class="meta-item meta-needs"><span class="meta-label">You will need</span><span class="meta-val"><a href="/handouts/checklist.html">5 dice</a> &middot; <a href="/handouts/checklist.html">Paper and pen</a> &middot; <a href="/downloads.html">The worksheet</a></span></div></section>
+<div class="dice-anim">
+<div class="stage">
+      <div class="round r1l">SHAKE 1</div>
+      <div class="round r2l">SHAKE 2</div>
+      <div class="round r3l">SHAKE 3</div>
+
+      
+      <div class="tray tray1">
+        <div class="die d1"><i class="p-tl"></i><i class="p-tr"></i><i class="p-bl"></i><i class="p-br"></i><span class="bp">11</span></div>
+        <div class="die re d2">
+          <div class="face fb"><i class="p-tl"></i><i class="p-ml"></i><i class="p-bl"></i><i class="p-tr"></i><i class="p-mr"></i><i class="p-br"></i></div>
+          <div class="face fa"><i class="p-tl"></i><i class="p-br"></i></div>
+          <span class="retag">RE-ROLL</span><span class="bp">01</span>
+        </div>
+        <div class="die d3"><i class="p-c"></i><span class="bp">00</span></div>
+        <div class="die d4"><i class="p-tl"></i><i class="p-c"></i><i class="p-br"></i><span class="bp">10</span></div>
+        <div class="die d5"><i class="p-tl"></i><i class="p-br"></i><span class="bp">01</span></div>
+      </div>
+
+      
+      <div class="tray tray2">
+        <div class="die d1"><i class="p-tl"></i><i class="p-br"></i><span class="bp">01</span></div>
+        <div class="die re d2">
+          <div class="face fb"><i class="p-tl"></i><i class="p-tr"></i><i class="p-c"></i><i class="p-bl"></i><i class="p-br"></i></div>
+          <div class="face fa"><i class="p-tl"></i><i class="p-tr"></i><i class="p-bl"></i><i class="p-br"></i></div>
+          <span class="retag">RE-ROLL</span><span class="bp">11</span>
+        </div>
+        <div class="die d3"><i class="p-tl"></i><i class="p-tr"></i><i class="p-bl"></i><i class="p-br"></i><span class="bp">11</span></div>
+        <div class="die d4"><i class="p-c"></i><span class="bp">00</span></div>
+        <div class="die d5"><i class="p-tl"></i><i class="p-c"></i><i class="p-br"></i><span class="bp">10</span></div>
+      </div>
+
+      
+      <div class="tray tray3">
+        <div class="die d1"><i class="p-c"></i><span class="bp">00</span></div>
+        <div class="die d2"><i class="p-tl"></i><i class="p-c"></i><i class="p-br"></i><span class="bp">10</span></div>
+        <div class="die re d3">
+          <div class="face fb"><i class="p-tl"></i><i class="p-ml"></i><i class="p-bl"></i><i class="p-tr"></i><i class="p-mr"></i><i class="p-br"></i></div>
+          <div class="face fa"><i class="p-c"></i></div>
+          <span class="retag">RE-ROLL</span><span class="bp">00</span>
+        </div>
+        <div class="die d4"><i class="p-tl"></i><i class="p-br"></i><span class="bp">01</span></div>
+        <div class="die re d5">
+          <div class="face fb"><i class="p-tl"></i><i class="p-tr"></i><i class="p-c"></i><i class="p-bl"></i><i class="p-br"></i></div>
+          <div class="face fa"><i class="p-tl"></i><i class="p-c"></i><i class="p-br"></i></div>
+          <span class="retag">RE-ROLL</span><span class="bp">10</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="phead">256-BIT STRING</div>
+        <div class="pbits"><span class="sg sg1">11 00 10 01 01</span> <span class="sg sg2">01 11 00 10 11</span> <span class="sg sg3">00 10 00 01 10</span> <span class="sg sg4"><br>…keep rolling… <b>256 / 256 BITS</b></span></div>
+        <div class="pbar"><i></i></div>
+        <div class="pcount c1"><b>10</b> / 256</div>
+        <div class="pcount c2"><b>20</b> / 256</div>
+        <div class="pcount c3"><b>30</b> / 256</div>
+        <div class="pcount c4"><b>256</b> / 256</div>
+        <div class="wstamp">24 WORDS</div>
+      </div>
+    </div>
+<p class="note">Roll as many times as needed to get <strong>256 bits</strong> of entropy: about 39 shakes.</p>
+</div><aside class="callout callout-warning" role="note"><p class="callout-label">Warning</p><p>Never enter seed words on an online computer.</p></aside>
+<p>This work starts after Tails has booted with networking set to Disabled, and before any plate is stamped. Five casino dice are required, and every face has to be readable. Faces 1 through 4 are kept. Faces 5 and 6 are rolled again. The work is done once, for one key, and the computer is shut down fully after it. A private room, no camera.</p>
+<h2 id="the-faces">The faces</h2>
+<ul>
+<li>1 is 00. 2 is 01. 3 is 10. 4 is 11.</li>
+<li>5 and 6 are not bits. Roll those dice again.</li>
+<li>Read the dice left to right, the same way every shake.</li>
+<li>Example: 4, 6, 1, 3, 2 becomes 11, skip the 6, then 00, 10, 01.</li>
+<li>Write only 0 and 1. Roll exactly 256 bits (128 pairs, about 39 shakes), then stop. More bits do not add security (everything folds down to 256), and extra bits make the two tools below disagree, which stops the work for no reason.</li>
+</ul>
+<h2 id="turn-the-bits-into-24-words">Turn the bits into 24 words</h2>
+<ol>
+<li>01 · Boot Tails. Networking Disabled. Copy the checked converter and the Ian Coleman page from the data USB to the Desktop.</li>
+<li>02 · Run the converter. Paste the bits. It prints 24 words. Word 24 is the check. Do not invent it. Do not “fix” it.</li>
+<li>03 · Open the Ian Coleman page in the offline browser. Entropy type: Binary. 24 words. Paste the same bits. The 24 words must match. If they differ, stop. Do not pick the prettier list.</li>
+<li>04 · Write the 24 words on the grid. Read them back out loud once.</li>
+<li>05 · Shut Tails down. Wait until the screen is dark. Do not start a second key. This one key is the wallet.</li>
+</ol>
+<pre><code>
+$ cd ~/Desktop$ python3 bip39_dice_converter.py
+
+</code></pre>
+<h2 id="the-last-word-is-a-check">The last word is a check</h2>
+<p>The 24 words are not 24 free choices. The last word carries a short check so a copying mistake is caught before metal is stamped. At least two of these checks are used. If they disagree, the work stops.</p>
+<ul>
+<li>Two tools, same bits, same 24 words. Converter, then the offline Ian Coleman page. Do not pick the prettier list.</li>
+<li>Let the device refuse a bad list. Enter the words on the device itself. If it will not open, do not change a word to force it.</li>
+<li>The math, if it needs to be seen. Twenty-four words are 264 bits. The first 256 are the dice. The last 8 are the check. Only word 24 can change to make that true. It is not chosen. The converter appends it after the file has been checked.</li>
+</ul>
+<h2 id="practice-grid">Practice grid</h2>
+<p>Use the printed recording grid in the bench sheet PDF. One key needs about 39 shakes for 256 bits. Count the pairs as you go and stop at 128.</p>
+<section class="path-toggle" id="path-toggle">
+<h2>What happens next</h2>
+<p>Once the words are made, the path forks. Pick what happens next.</p>
+<div class="path-seg" role="group" aria-label="Choose what happens next">
+<button type="button" data-path="easy" aria-pressed="false">Easy</button>
+<button type="button" data-path="one" aria-pressed="false">One key</button>
+<button type="button" data-path="full" aria-pressed="true">Full program</button>
+</div>
+<div class="path-ends"><span>&larr; Less work, more trust</span><span>More work, less trust &rarr;</span></div>
+<div id="path-card-dice" class="path-card path-card-full"></div>
+<p>Why about 39 shakes: the <a href="/dice-rolls.html">How many dice rolls</a> page lists the old counts and the corrected math.</p>
+</section>
+<script>
+(function () {
+  var PATHS = {
+    easy: { cls: "path-card-easy", sel: "sel-easy", title: "Into one trusted device", trade: "Trust: one device and its maker. Work: lowest.", steps: ["Stamp the words in titanium first.", "Enter the words on the hardware wallet itself.", "Done. The device holds the wallet."], risk: "Risk: one device, one maker. If either fails you, the wallet fails.", go: "/handouts/titanium.html", goText: "Go to the titanium sheet" },
+    one: { cls: "path-card-one", sel: "sel-one", title: "One key plus a passphrase", trade: "Trust: one key, one device, one passphrase. Work: medium.", steps: ["Add a passphrase, kept on paper apart from the plate.", "Stamp the words in titanium.", "Open a watch-only wallet. The device signs."], risk: "Risk: one key and one passphrase. Lose the passphrase and the wallet is gone.", go: "/handouts/single-sig.html", goText: "Go to the single-sig sheet" },
+    full: { cls: "path-card-full", sel: "sel-full", title: "Three keys, three places", trade: "Trust: no single key, device, or place. Work: highest.", steps: ["Shut down fully. Repeat for two more keys.", "Build the 2-of-3. Practice spend first.", "Stamp three plates. Hide the encrypted map."], risk: "Risk: the most steps to get right. Lose two keys and the map and the funds are locked.", go: "/handouts/sparrow.html", goText: "Go to Build the 2-of-3" }
+  };
+  var card = document.getElementById("path-card-dice");
+  var buttons = document.querySelectorAll("#path-toggle .path-seg button");
+  function show(path) {
+    var p = PATHS[path];
+    card.className = "path-card " + p.cls;
+    var html = "<h3>" + p.title + "</h3><p class=\"path-trade\">" + p.trade + "</p><ul>";
+    p.steps.forEach(function (s) { html += "<li>" + s + "</li>"; });
+    html += "</ul><p><strong>" + p.risk + "</strong></p><p><a class=\"path-go\" href=\"" + p.go + "\">" + p.goText + " &rarr;</a></p>";
+    card.innerHTML = html;
+    buttons.forEach(function (b) {
+      var on = b.getAttribute("data-path") === path;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      b.className = on ? PATHS[b.getAttribute("data-path")].sel : "";
+    });
+  }
+  buttons.forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-path")); }); });
+  show("full");
+})();
+</script>
+
+      <nav class="prevnext-row" aria-label="Previous and next sheets">
+<a class="prevnext prev" href="/handouts/airgap.html"><span>← 04 &middot; Two boots</span></a>
+<span class="step-pos-bottom"><strong>Step 6 of 8</strong> · Make one key</span>
+<a class="prevnext next" href="/handouts/titanium.html"><span>09 &middot; Stamp the plate &rarr;</span></a>
+      </nav>
+    </article>
+  </main>
+
+  <aside class="toc-col">
+<nav class="toc" aria-label="On this sheet"><p>On this sheet</p><ul><li><a href="#the-faces" data-toc="the-faces">The faces</a></li><li><a href="#turn-the-bits-into-24-words" data-toc="turn-the-bits-into-24-words">Turn the bits into 24 words</a></li><li><a href="#the-last-word-is-a-check" data-toc="the-last-word-is-a-check">The last word is a check</a></li><li><a href="#practice-grid" data-toc="practice-grid">Practice grid</a></li></ul></nav>
+  </aside>
+</div>
+
+<div class="mobilebar" aria-label="Sheet navigation">
+  <span class="mobilebar-pos">06 · Plebum Dominium</span>
+</div>
+
+<footer class="site-footer">
+  <p><strong>Plebum Dominium</strong>: independent at-home Bitcoin self-custody.</p>
+  <p>Educational material, not financial advice. Bitcoin self-custody is irreversible. A mistake can permanently lose funds. Verify every download from its original source.</p>
+  <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/downloads.html">Downloads</a> · <a href="/kit/02_Print_Packet.pdf">Print packet (PDF)</a> · <a href="/news.html">News</a> · <a href="/beyond.html">Beyond the kit</a></p>
+  <p class="footer-updated">Last updated October 27, 2026</p>
+  <p class="footer-contact">Contact: <a href="mailto:Muststackmoresats@gmail.com">Muststackmoresats@gmail.com</a> · X: <a href="https://x.com/MustHaveMustash" rel="noopener">@MustHaveMustash</a></p>
+  <p class="donate-row"><a class="btn-lightning" href="lightning:musthavemoresats@speed.app"><span aria-hidden="true">⚡</span> Donate with Lightning</a> <button type="button" class="btn-onchain" data-copy="bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"><span aria-hidden="true">₿</span> Donate Bitcoin</button></p>
+  <p class="donate-addr"><code>bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw</code></p>
+</footer>
+
+<script src="/assets/js/main.js?v=variants1" defer></script>
+<script data-goatcounter="https://plebumbtc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<div id="newbie-banner" class="newbie-banner" role="dialog" aria-label="New to Bitcoin?" hidden>
+  <p><strong>New to Bitcoin?</strong><br><a href="/#new-to-bitcoin" class="newbie-go">Start here &rarr;</a></p>
+  <button type="button" class="newbie-close" aria-label="Dismiss">&times;</button>
+</div>
+<div class="ask-backdrop" id="ask-backdrop" hidden>
+  <div class="ask-modal" role="dialog" aria-modal="true" aria-label="Ask the guide">
+    <p class="ask-title">Ask the guide</p>
+    <input class="ask-input" id="ask-input" type="search" placeholder="Search the guide: try 'verify a download'" inputmode="search" enterkeyhint="search" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" aria-label="Search the guide">
+    <div class="ask-results" id="ask-results"></div>
+    <p class="ask-foot">Search runs entirely in your browser. Nothing you type leaves this page unless you tap email. <span class="ask-keys">Up and down move, Enter opens, Esc closes.</span></p>
+  </div>
+</div>
+</body>
+</html>
