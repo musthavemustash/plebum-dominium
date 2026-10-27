@@ -32,7 +32,9 @@
       b.className = on ? PATHS[b.getAttribute("data-path")].sel : "";
     });
   }
-  buttons.forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-path")); }); });
-  show("full");
+  buttons.forEach(function (b) { b.addEventListener("click", function () { var p = b.getAttribute("data-path"); show(p); try { localStorage.setItem("pd-path", p); } catch (e) {} if (window.pdSetPath) window.pdSetPath(p); }); });
+  var saved = null;
+  try { saved = localStorage.getItem("pd-path"); } catch (e) {}
+  show(saved === "easy" || saved === "one" || saved === "full" ? saved : "full");
 })();
 </script>

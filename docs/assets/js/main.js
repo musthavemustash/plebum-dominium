@@ -590,6 +590,10 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       var sec = document.getElementById("risks-" + k);
       if (sec) sec.classList.toggle("path-hidden", k !== path);
     });
+    ["easy", "one", "full"].forEach(function (k) {
+      var sec = document.getElementById("process-" + k);
+      if (sec) sec.classList.toggle("path-hidden", k !== path);
+    });
     var banner = document.getElementById("path-banner");
     if (banner) {
       var label = document.getElementById("path-banner-label");
@@ -659,6 +663,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     try { localStorage.setItem("pd-path", path); } catch (e) {}
     applyPath(path);
   }
+  window.pdSetPath = setPath;
   document.querySelectorAll("#sidebar-path button[data-path], .path-risks-switch button[data-path], .mobile-path-seg button[data-path]").forEach(function (b) {
     b.addEventListener("click", function () { setPath(b.getAttribute("data-path")); });
   });
