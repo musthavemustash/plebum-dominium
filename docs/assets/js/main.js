@@ -637,6 +637,10 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       var ring = document.getElementById("keyring-" + k);
       if (ring) ring.classList.toggle("path-hidden", k !== path);
     });
+    ["easy", "one", "full"].forEach(function (k) {
+      var sec = document.getElementById("why-" + k);
+      if (sec) sec.classList.toggle("path-hidden", k !== path);
+    });
     var banner = document.getElementById("path-banner");
     if (banner) {
       var label = document.getElementById("path-banner-label");
