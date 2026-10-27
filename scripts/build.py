@@ -45,6 +45,7 @@ LAST_UPDATED = _bdate.today().strftime("%B %-d, %Y")
 # this list grows.
 NEWS_TICKER = [
     ("New to Bitcoin? Start here →", "", "#new-to-bitcoin", "ticker-action"),
+    ("Keystone breach exposes customer shipping addresses", "Oct 2026", "news.html#keystone-breach", ""),
     ("Two hardware failures in one year", "Oct 2026", "news.html#two-hardware-failures", ""),
     ("Russia closes the exchange off-ramp", "Oct 2026", "news.html#russia-off-ramp", ""),
     ("FTX collapses, $8 billion in customer funds missing", "Nov 2022", "news.html#ftx", ""),
