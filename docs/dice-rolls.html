@@ -71,12 +71,11 @@
 
 <p>A 24 word seed needs 256 bits of entropy. The number of dice rolls that gives 256 bits depends on how the rolls are turned into bits. Different guides use different methods, so they give different counts. A count only makes sense with its method attached.</p>
 
-<h2>What the guide used to say</h2>
+<h2>How this guide counts</h2>
 
-<p>The dice sheet used to say about 32 shakes for 256 bits.</p>
-<p>The print packet used to say 26 shakes are about 260 bits. Elsewhere the packet said to aim for 320 to 400 shakes of margin and then trim to 256.</p>
-<p>These numbers are wrong, and they are listed here instead of quietly corrected, so readers can see what changed and why. The sheet's 32 assumes 4 kept dice per shake. The packet's 26 assumes all 5 dice kept every shake. The 320 to 400 line matches no method in the guide.</p>
-<p>Both were corrected on October 27, 2026. The dice sheet and the print packet now say about 39 shakes, and both use one method throughout, with every number derived from that method: 5 dice per shake, faces 1 to 4 as 2 bits each, faces 5 and 6 skipped, count filled pairs to 128.</p>
+<p>Roll 5 dice per shake. Faces 1 to 4 become 2 bits each: 1 is 00, 2 is 01, 3 is 10, 4 is 11. Faces 5 and 6 are skipped, and the cell is left blank.</p>
+<p>Count filled pairs, not shakes. Each filled pair is 2 bits. Stop at 128 pairs, which is exactly 256 bits.</p>
+<p>About 39 shakes reach 128 pairs on average, but the actual count varies from seed to seed, because some shakes keep more dice than others. The pair count is what guarantees exactly 256 bits. The shake estimate is only a rough guide to how long the work takes.</p>
 
 <h2>The guide's own method, worked out</h2>
 
@@ -104,7 +103,7 @@
 <h2>Why the counts differ</h2>
 
 <p>Four things change the count: the target (128, 160, or 256 bits), whether faces are mapped to bits directly or recorded whole and hashed, whether rejected faces are skipped or rerolled on the spot, and whether dice stand alone or supplement device entropy.</p>
-<p>Coldcard and SeedSigner record whole rolls and hash them: 99 single rolls, or about 20 shakes of 5 dice at once (99 divided by 5 = 19.8). The guide maps faces to bits and skips 5s and 6s: about 39 shakes of 5 dice. A binary mapping (1 to 3 = 0, 4 to 6 = 1) gives 1 bit per roll and needs 256 rolls. Each count is right for its own method and wrong for the others. The guide's error was publishing counts from mismatched methods side by side.</p>
+<p>Coldcard and SeedSigner record whole rolls and hash them: 99 single rolls, or about 20 shakes of 5 dice at once (99 divided by 5 = 19.8). The guide maps faces to bits and skips 5s and 6s: about 39 shakes of 5 dice. A binary mapping (1 to 3 = 0, 4 to 6 = 1) gives 1 bit per roll and needs 256 rolls. Each count is right for its own method and wrong for the others. A count from one method does not transfer to another.</p>
 
 <h2>A quicker option</h2>
 
@@ -131,7 +130,7 @@
 <p class="muted">References checked October 26, 2026.</p>
 
 <footer>
-<p>Plebum Dominium. The dice sheet and print packet were corrected October 27, 2026. <a href="/handouts/dice.html">Back to the dice sheet</a>.</p>
+<p>Plebum Dominium. <a href="/handouts/dice.html">Back to the dice sheet</a>.</p>
 </footer>
 
 </div>
