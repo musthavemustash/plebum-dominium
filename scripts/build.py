@@ -990,15 +990,35 @@ def build_home():
         "and stamp a 2-of-3 multisig wallet into titanium. Hardware wallets are completely optional.</p>"
         '<p><a class="btn" href="{BASE}handouts/terms.html">Start with the terms</a> '
         '<a class="btn btn-ghost" href="{BASE}kit/02_Print_Packet.pdf">Download the print packet</a></p>'
-        '<div class="keyring" id="keyring" aria-label="Tap any two of the three keys to open the lock">'
+        '<div class="keyring path-hidden" id="keyring-easy" aria-label="Tap the key to open the lock">'
+        '<p class="keyring-try">Try it: tap the key.</p>'
+        '<div class="keys">'
+        '<button type="button" class="key key-easy" aria-pressed="false">Key</button>'
+        "</div>"
+        '<div class="lockwrap" id="keyring-easy-lock"><div class="shackle"></div><div class="lockbody">1 key</div></div>'
+        '<p class="keyring-caption" id="keyring-easy-caption"><strong>One key</strong> opens it. That key is the whole wallet.</p>'
+        '<p class="keyring-caption" id="keyring-easy-desc">Tap the key to see it open.</p>'
+        '<button type="button" class="keyring-reset" id="keyring-easy-reset" hidden>Reset</button>'
+        "</div>"
+        '<div class="keyring path-hidden" id="keyring-one" aria-label="Tap the key and the paper to open the lock">'
+        '<p class="keyring-try">Try it: tap the key, then tap the paper.</p>'
+        '<div class="keys">'
+        '<button type="button" class="key key-one" aria-pressed="false">Key</button><button type="button" class="paper paper-one" aria-pressed="false">Paper</button>'
+        "</div>"
+        '<div class="lockwrap" id="keyring-one-lock"><div class="shackle"></div><div class="lockbody">Key + paper</div></div>'
+        '<p class="keyring-caption" id="keyring-one-caption"><strong>Key plus paper</strong> open it. Neither alone can.</p>'
+        '<p class="keyring-caption" id="keyring-one-desc">Select the key and the paper to see what opens.</p>'
+        '<button type="button" class="keyring-reset" id="keyring-one-reset" hidden>Reset</button>'
+        "</div>"
+        '<div class="keyring" id="keyring-full" aria-label="Tap any two of the three keys to open the lock">'
         '<p class="keyring-try">Try it: tap a key, then tap a second key.</p>'
         '<div class="keys">'
         '<button type="button" class="key key-a" aria-pressed="false">A</button><button type="button" class="key key-b" aria-pressed="false">B</button><button type="button" class="key key-c" aria-pressed="false">C</button>'
         "</div>"
-        '<div class="lockwrap" id="keyring-lock"><div class="shackle"></div><div class="lockbody">2-of-3</div></div>'
-        '<p class="keyring-caption" id="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
-        '<p class="keyring-caption" id="keyring-descriptor">Select keys to see if the descriptor is needed.</p>'
-        '<button type="button" class="keyring-reset" id="keyring-reset" hidden>Reset</button>'
+        '<div class="lockwrap" id="keyring-full-lock"><div class="shackle"></div><div class="lockbody">2-of-3</div></div>'
+        '<p class="keyring-caption" id="keyring-full-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
+        '<p class="keyring-caption" id="keyring-full-desc">Select keys to see if the descriptor is needed.</p>'
+        '<button type="button" class="keyring-reset" id="keyring-full-reset" hidden>Reset</button>'
         "</div></div>"
         .replace("{BASE}", BASE)
         + home_section("home-why")

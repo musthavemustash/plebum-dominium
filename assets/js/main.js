@@ -422,55 +422,94 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   render();
 })();
 
-/* --- hero keyring as quorum demo: the animation runs until a tap takes over --- */
+/* --- hero keyrings as quorum demos, one per path: the animation runs until a tap takes over --- */
 (function () {
   "use strict";
-  var ring = document.getElementById("keyring");
-  if (!ring) return;
-  var lock = document.getElementById("keyring-lock");
-  var caption = document.getElementById("keyring-caption");
-  var desc = document.getElementById("keyring-descriptor");
-  var resetBtn = document.getElementById("keyring-reset");
-  var keys = ring.querySelectorAll(".key");
-  function update() {
-    var n = 0;
-    keys.forEach(function (k) { if (k.classList.contains("sel")) n++; });
-    if (lock) lock.classList.toggle("open", n >= 2);
-    if (n === 0) {
-      caption.innerHTML = "<strong>Vault locked.</strong> No keys selected.";
-      desc.textContent = "Descriptor: not shown yet. Tap keys to see if it is needed.";
-    } else if (n === 1) {
-      caption.innerHTML = "<strong>Vault locked.</strong> One key alone cannot spend.";
-      desc.textContent = "Descriptor: not enough yet. One key alone cannot spend, with or without the map.";
-    } else if (n === 2) {
-      caption.innerHTML = "<strong>Vault opens, but a descriptor is needed.</strong>";
-      desc.textContent = "Descriptor: needed. Two seeds alone cannot rebuild the third key, so you need the wallet map (the descriptor) to rebuild the wallet.";
-    } else {
-      caption.innerHTML = "<strong>Vault opens, no descriptor needed.</strong>";
-      desc.textContent = "Descriptor: not needed. Three seeds rebuild the map exactly.";
+  function wireRing(id, update, defCap, defDesc) {
+    var ring = document.getElementById(id);
+    if (!ring) return;
+    var lock = document.getElementById(id + "-lock");
+    var cap = document.getElementById(id + "-caption");
+    var desc = document.getElementById(id + "-desc");
+    var reset = document.getElementById(id + "-reset");
+    var pieces = ring.querySelectorAll(".key, .paper");
+    function selCount() {
+      var n = 0;
+      pieces.forEach(function (p) { if (p.classList.contains("sel")) n++; });
+      return n;
+    }
+    function hasSel(cls) {
+      var found = false;
+      pieces.forEach(function (p) { if (p.classList.contains(cls) && p.classList.contains("sel")) found = true; });
+      return found;
+    }
+    function render() {
+      var st = update(selCount(), hasSel("key-one"), hasSel("paper-one"));
+      if (lock) lock.classList.toggle("open", st.open);
+      if (cap) cap.innerHTML = st.cap;
+      if (desc) desc.textContent = st.desc;
+    }
+    pieces.forEach(function (piece) {
+      piece.addEventListener("click", function () {
+        ring.classList.add("tapped");
+        piece.classList.toggle("sel");
+        piece.setAttribute("aria-pressed", piece.classList.contains("sel") ? "true" : "false");
+        render();
+        if (reset) reset.hidden = false;
+      });
+    });
+    if (reset) {
+      reset.addEventListener("click", function () {
+        pieces.forEach(function (piece) {
+          piece.classList.remove("sel");
+          piece.setAttribute("aria-pressed", "false");
+        });
+        if (lock) lock.classList.remove("open");
+        if (cap) cap.innerHTML = defCap;
+        if (desc) desc.textContent = defDesc;
+        reset.hidden = true;
+      });
     }
   }
-  keys.forEach(function (k) {
-    k.addEventListener("click", function () {
-      ring.classList.add("tapped");
-      k.classList.toggle("sel");
-      k.setAttribute("aria-pressed", k.classList.contains("sel") ? "true" : "false");
-      update();
-      if (resetBtn) resetBtn.hidden = false;
-    });
-  });
-  if (resetBtn) {
-    resetBtn.addEventListener("click", function () {
-      keys.forEach(function (k) {
-        k.classList.remove("sel");
-        k.setAttribute("aria-pressed", "false");
-      });
-      if (lock) lock.classList.remove("open");
-      caption.innerHTML = "<strong>Any two keys</strong> open it. One alone cannot.";
-      desc.textContent = "Select keys to see if the descriptor is needed.";
-      resetBtn.hidden = true;
-    });
-  }
+  wireRing("keyring-easy", function (n) {
+    if (n === 0) return { open: false,
+      cap: "<strong>Wallet locked.</strong> No key selected.",
+      desc: "Tap the key to see it open." };
+    return { open: true,
+      cap: "<strong>Wallet opens.</strong> One key spends everything.",
+      desc: "Descriptor: none. One key spends on its own, no map needed." };
+  }, "<strong>One key</strong> opens it. That key is the whole wallet.",
+     "Tap the key to see it open.");
+  wireRing("keyring-one", function (n, hasKey, hasPaper) {
+    if (hasKey && hasPaper) return { open: true,
+      cap: "<strong>Wallet opens.</strong> Key plus paper spend together.",
+      desc: "Passphrase: present. Lose the paper and the coins are gone." };
+    if (hasKey) return { open: false,
+      cap: "<strong>Wallet locked.</strong> Key alone opens an empty wallet.",
+      desc: "Passphrase: missing. The paper is the second piece." };
+    if (hasPaper) return { open: false,
+      cap: "<strong>Wallet locked.</strong> Paper alone spends nothing.",
+      desc: "Key: missing. The paper alone cannot spend." };
+    return { open: false,
+      cap: "<strong>Wallet locked.</strong> Nothing selected.",
+      desc: "Select the key and the paper to see what opens." };
+  }, "<strong>Key plus paper</strong> open it. Neither alone can.",
+     "Select the key and the paper to see what opens.");
+  wireRing("keyring-full", function (n) {
+    if (n === 0) return { open: false,
+      cap: "<strong>Vault locked.</strong> No keys selected.",
+      desc: "Descriptor: not shown yet. Tap keys to see if it is needed." };
+    if (n === 1) return { open: false,
+      cap: "<strong>Vault locked.</strong> One key alone cannot spend.",
+      desc: "Descriptor: not enough yet. One key alone cannot spend, with or without the map." };
+    if (n === 2) return { open: true,
+      cap: "<strong>Vault opens, but a descriptor is needed.</strong>",
+      desc: "Descriptor: needed. Two seeds alone cannot rebuild the third key, so you need the wallet map (the descriptor) to rebuild the wallet." };
+    return { open: true,
+      cap: "<strong>Vault opens, no descriptor needed.</strong>",
+      desc: "Descriptor: not needed. Three seeds rebuild the map exactly." };
+  }, "<strong>Any two keys</strong> open it. One alone cannot.",
+     "Select keys to see if the descriptor is needed.");
 })();
 
 /* ---------- motion: one toggle stops all motion, saved on this device ---------- */
@@ -593,6 +632,10 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     ["easy", "one", "full"].forEach(function (k) {
       var sec = document.getElementById("process-" + k);
       if (sec) sec.classList.toggle("path-hidden", k !== path);
+    });
+    ["easy", "one", "full"].forEach(function (k) {
+      var ring = document.getElementById("keyring-" + k);
+      if (ring) ring.classList.toggle("path-hidden", k !== path);
     });
     var banner = document.getElementById("path-banner");
     if (banner) {
