@@ -300,7 +300,7 @@ def header_footer(canvas, doc):
                       "Stop if a check fails. Do not skip ahead.")
     canvas.setFont("Helvetica", 7.5)
     canvas.drawRightString(PAGE_W - MARGIN, 0.55 * inch,
-                           f"Page {page_num} of 10")
+                           f"Page {page_num} of 11")
     canvas.restoreState()
 
 
@@ -444,7 +444,8 @@ def p_dice():
         Paragraph("Dice recording sheet", sTitle),
         Paragraph("Five dice per shake. Write <b>00</b> for 1, <b>01</b> for 2, "
                   "<b>10</b> for 3, <b>11</b> for 4. Leave a cell blank if that die was 5 or 6. "
-                  "26 shakes ≈ 260 bits. Stop at exactly <b>256 bits</b>. "
+                  "About <b>39 shakes</b> for 256 bits. Count filled pairs, not shakes. "
+                  "Stop at exactly <b>256 bits</b> (128 filled pairs). "
                   "Do not photograph this sheet. Destroy it after the 24 words are stamped and verified.", sBody),
         Spacer(1, 4),
     ]
@@ -460,13 +461,15 @@ def p_dice():
         ("LEFTPADDING", (0, 0), (-1, -1), 8),
     ]))
     story += [hdr, Spacer(1, 6)]
-    # grid: 26 shakes x 5 dice + bits
+    # grid: 50 shakes x 5 dice + bits (about 39 shakes reach 256 bits on
+    # average; 50 rows cover all but the unluckiest runs, and the count
+    # continues on the next page if a run ever needs more)
     cols = ["#", "Die 1", "Die 2", "Die 3", "Die 4", "Die 5", "Bits this shake"]
     widths = [0.35 * inch] + [0.85 * inch] * 5 + [1.95 * inch]
     data = [[Paragraph(f"<b>{c}</b>", sSmall) for c in cols]]
-    for i in range(1, 27):
+    for i in range(1, 51):
         data.append([Paragraph(str(i), sSmall)] + [Paragraph("", sSmall)] * 6)
-    grid = Table(data, colWidths=widths, rowHeights=[0.22 * inch] + [0.24 * inch] * 26)
+    grid = Table(data, colWidths=widths, rowHeights=[0.22 * inch] + [0.24 * inch] * 50)
     style = [
         ("GRID", (0, 0), (-1, -1), 0.5, RULE),
         ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1c1917")),
@@ -475,18 +478,21 @@ def p_dice():
         ("TOPPADDING", (0, 0), (-1, -1), 2),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
     ]
-    for r in range(1, 27, 2):
+    for r in range(1, 51, 2):
         style.append(("BACKGROUND", (0, r), (-1, r), colors.HexColor("#faf7f2")))
     grid.setStyle(TableStyle(style))
     story += [grid, Spacer(1, 4),
               Paragraph("Running bit count (filled pairs × 2): ______ &nbsp;&nbsp; "
-                        "Target: <b>256</b> (aim 320-400 shakes of margin, then trim to 256). "
+                        "Target: <b>256 bits</b> (128 filled pairs). "
+                        "If you run out of rows, continue on the next page, keeping the same count. "
+                        "Stop when the count reaches 256. Do not trim extra bits. "
                         "The converter and the offline Ian Coleman page must print identical 24 words.", sSmall)]
+    PAGE_URLS[6] = ("DICE", BASE + "/handouts/dice")
     return story
 
 
 def p_sparrow():
-    PAGE_URLS[6] = ("BUILD THE 2-OF-3", BASE + "/handouts/sparrow")
+    PAGE_URLS[7] = ("BUILD THE 2-OF-3", BASE + "/handouts/sparrow")
     w = PAGE_W - 2 * MARGIN
     return [
         Paragraph("Build the 2-of-3", sTitle),
@@ -512,7 +518,7 @@ def p_sparrow():
 
 
 def p_signing():
-    PAGE_URLS[7] = ("PRACTICE SPEND", BASE + "/handouts/signing")
+    PAGE_URLS[8] = ("PRACTICE SPEND", BASE + "/handouts/signing")
     w = PAGE_W - 2 * MARGIN
     return [
         Paragraph("Practice spend", sTitle),
@@ -538,7 +544,7 @@ def p_signing():
 
 
 def p_titanium():
-    PAGE_URLS[8] = ("METAL AND THE MAP", BASE + "/handouts/titanium")
+    PAGE_URLS[9] = ("METAL AND THE MAP", BASE + "/handouts/titanium")
     return [
         Paragraph("Metal and the map", sTitle),
         Paragraph("Paper is not the backup. Three titanium plates. One seed each, three separate places.", sBody),
@@ -565,7 +571,7 @@ def p_titanium():
 
 
 def p_inheritance():
-    PAGE_URLS[9] = ("HIDE THE MAP · IF I AM GONE", BASE + "/handouts/encryption")
+    PAGE_URLS[10] = ("HIDE THE MAP · IF I AM GONE", BASE + "/handouts/encryption")
     w = PAGE_W - 2 * MARGIN
     return [
         Paragraph("Hide the map · If I am gone", sTitle),
@@ -590,7 +596,7 @@ def p_inheritance():
 
 
 def p_briefing():
-    PAGE_URLS[10] = ("TOUGH QUESTIONS", BASE + "/handouts/briefing")
+    PAGE_URLS[11] = ("TOUGH QUESTIONS", BASE + "/handouts/briefing")
     qa = [
         ("The words were typed on a laptop. Isn't that the thing we never do?",
          "On Tails, with networking off, from a full shutdown. Tails runs from memory and forgets the session. "

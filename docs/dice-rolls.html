@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How many dice rolls | Plebum Dominium</title>
+<style>
+  body {
+    background: #0e0d0b;
+    color: #efe9dc;
+    font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    line-height: 1.65;
+    margin: 0;
+    padding: 0;
+  }
+  .wrap {
+    max-width: 72ch;
+    margin: 0 auto;
+    padding: 28px 20px 48px;
+  }
+  .kicker {
+    color: #c4a484;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
+  h1 {
+    font-family: Newsreader, Georgia, serif;
+    font-size: 42px;
+    line-height: 1.15;
+    margin: 0 0 16px;
+    font-weight: 600;
+  }
+  h2 {
+    font-family: Newsreader, Georgia, serif;
+    font-size: 27px;
+    line-height: 1.25;
+    margin: 40px 0 10px;
+    font-weight: 600;
+  }
+  p { margin: 0 0 14px; }
+  ul, ol { margin: 0 0 14px; padding-left: 24px; }
+  li { margin: 0 0 10px; }
+  a { color: #e4c6a4; }
+  .note {
+    border: 1px solid #2a2722;
+    background: #161411;
+    padding: 14px 16px;
+    margin: 0 0 14px;
+  }
+  .note p:last-child { margin-bottom: 0; }
+  .muted { color: #9b9384; }
+  .refs li { overflow-wrap: anywhere; }
+  .refs a { overflow-wrap: anywhere; }
+  footer {
+    border-top: 1px solid #2a2722;
+    margin-top: 44px;
+    padding-top: 14px;
+    color: #9b9384;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<p class="kicker">Plebum Dominium</p>
+<h1>How many dice rolls</h1>
+
+<p>A 24 word seed needs 256 bits of entropy. The number of dice rolls that gives 256 bits depends on how the rolls are turned into bits. Different guides use different methods, so they give different counts. A count only makes sense with its method attached.</p>
+
+<h2>What the guide used to say</h2>
+
+<p>The dice sheet used to say about 32 shakes for 256 bits.</p>
+<p>The print packet used to say 26 shakes are about 260 bits. Elsewhere the packet said to aim for 320 to 400 shakes of margin and then trim to 256.</p>
+<p>These numbers are wrong, and they are listed here instead of quietly corrected, so readers can see what changed and why. The sheet's 32 assumes 4 kept dice per shake. The packet's 26 assumes all 5 dice kept every shake. The 320 to 400 line matches no method in the guide.</p>
+<p>Both were corrected on October 27, 2026. The dice sheet and the print packet now say about 39 shakes, and both use one method throughout, with every number derived from that method: 5 dice per shake, faces 1 to 4 as 2 bits each, faces 5 and 6 skipped, count filled pairs to 128.</p>
+
+<h2>The guide's own method, worked out</h2>
+
+<p>The guide rolls 5 dice per shake, keeps faces 1 to 4 as 2 bits each, and skips faces 5 and 6. Each die is kept with probability 4 in 6.</p>
+<p>Expected kept dice per shake: 5 times 4/6 = 3.33. Expected bits per shake: 3.33 times 2 = 6.67. Expected shakes for 256 bits: 256 divided by 6.67 = 38.4, about 39 shakes. The actual count varies from seed to seed, because some shakes keep more dice than others.</p>
+<p>The rule that holds regardless of the estimate is to count the pairs and stop at 128. A reader who counts gets exactly 256 bits no matter what the estimate says.</p>
+<p>If all 5 dice were kept every shake, each shake would give 10 bits and 26 shakes would give 260 bits. That is the reroll on the spot method, not the method the guide describes. If the guide switched to that method, 26 shakes would be right and the grid instructions would have to change with it.</p>
+
+<h2>What other guides say</h2>
+
+<p><strong>BIP39, the standard.</strong> A 12 word phrase holds 128 bits of entropy, a 24 word phrase holds 256 bits, and the last word carries a checksum of ENT/32 bits (4 bits for 12 words, 8 bits for 24 words). Every count below is measured against 256 bits for 24 words.</p>
+
+<p><strong>Coldcard, dice only.</strong> 50 rolls for 12 words, 99 rolls for 24 words. Each six sided die roll carries log2(6) = 2.585 bits. 99 rolls give 99 times 2.585 = 255.9 bits, about 256. Coldcard hashes the roll string with SHA-256 to get the entropy, because 2.585 bits does not divide evenly into bytes.</p>
+
+<p><strong>SeedSigner.</strong> The same counts: 50 rolls for 12 words, 99 rolls for 24 words. The device menu labels the options that way: "24 words (99 rolls)" and "12 words (50 rolls)". The rolls are taken as text and hashed with SHA-256.</p>
+
+<p><strong>Coldcard, standard seed.</strong> When dice supplement device entropy instead of replacing it, Coldcard asks for at least 50 rolls (or 65 key presses, or 128 coin flips). Those 50 rolls do not stand alone. The device entropy is mixed in with them. Do not confuse the 50 roll supplement with the 99 roll dice only count.</p>
+
+<p><strong>Sparrow.</strong> Sparrow's Coldcard setup guide says to roll 100 times as extra entropy on top of a device generated seed. That is a round supplemental count, not a dice only method.</p>
+
+<p><strong>Glacier Protocol.</strong> 62 rolls for 160 bits, combined with computer entropy. Glacier targets 160 bits because a Bitcoin address is a 160 bit hash, and its design document says 160 bits is the most entropy that is useful for that construction. The dice rolls are one of two entropy sources, combined with computer randomness. Glacier's 62 is not a count for 256 bits.</p>
+
+<p><strong>Coin flips, for comparison.</strong> A coin flip gives 1 bit. Coldcard's standard workflow asks for 128 flips as a supplement. A dice only equivalent would need 256 flips for 256 bits.</p>
+
+<h2>Why the counts differ</h2>
+
+<p>Four things change the count: the target (128, 160, or 256 bits), whether faces are mapped to bits directly or recorded whole and hashed, whether rejected faces are skipped or rerolled on the spot, and whether dice stand alone or supplement device entropy.</p>
+<p>Coldcard and SeedSigner record whole rolls and hash them: 99 single rolls, or about 20 shakes of 5 dice at once (99 divided by 5 = 19.8). The guide maps faces to bits and skips 5s and 6s: about 39 shakes of 5 dice. A binary mapping (1 to 3 = 0, 4 to 6 = 1) gives 1 bit per roll and needs 256 rolls. Each count is right for its own method and wrong for the others. The guide's error was publishing counts from mismatched methods side by side.</p>
+
+<h2>A quicker option</h2>
+
+<p>The full program builds a 2-of-3 multisig across three keys and three places. That is the main path, and it stays. Some readers are regular people who need a quick setup. For them, there is a shorter option.</p>
+<p>Generate the words with dice, the same way as the main path. Stamp the words in titanium first, so the durable backup exists before the wallet is used. Then enter the words directly into the trusted hardware wallet, on the device itself, never into a computer, phone, or website. The device then holds the wallet, and the titanium plates hold the backup.</p>
+<p>The tradeoff is plain: this option trusts one device. Putting words into a hardware wallet adds trust in its maker, firmware, chip, and shop. The full program spreads that trust across three keys and three places instead. A reader who takes the quicker option should know what they are trading for speed.</p>
+<p>The single-sig sheet covers entering words on the device itself. A companion app only opens the connection. The words still go in on the device.</p>
+
+<h2>References</h2>
+
+<ol class="refs">
+<li><a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39 specification, bitcoin/bips</a>. The target: 128 bits for 12 words, 256 bits for 24 words, checksum ENT/32.</li>
+<li><a href="https://glacierprotocol.org/docs/deposit/generate-cold-storage-data/">Glacier Protocol, Generate cold storage data</a>. 62 rolls for 160 bits, dice entropy combined with computer entropy.</li>
+<li><a href="https://glacierprotocol.org/assets/design-doc-v0.1-alpha.pdf">Glacier Protocol design document</a>. 160 bits as the useful maximum for addresses.</li>
+<li><a href="https://coldcard.com/docs/verifying-dice-roll-math/">Coldcard, Verifying Dice Roll Math</a>. 2.585 bits per D6 roll, 50 rolls for 128 bits, 99 rolls for 256 bits, SHA-256 over the roll string.</li>
+<li><a href="https://coldcard.com/docs/master-seed/">Coldcard, Master Seed</a>. Dice only workflow: 50 rolls for 12 words, 99 rolls for 24 words.</li>
+<li><a href="https://coldcard.com/resources/security/coldcard-security-and-verification">Coldcard, Security and Verification</a>. Standard seed: device entropy plus at least 50 dice rolls, 65 key presses, or 128 coin flips.</li>
+<li><a href="https://coldcard.com/docs/middle-ground/">Coldcard, Middle Ground Guide</a>. Standard Dice Rolls option: at least 50 rolls supplementing device entropy.</li>
+<li><a href="https://deepwiki.com/wolgwang1729/seedsigner/3.1-seed-generation-and-entropy">SeedSigner code, seed generation and entropy (as mirrored on DeepWiki)</a>. 50 rolls for 128 bits, 99 rolls for 256 bits, rolls hashed with SHA-256.</li>
+<li><a href="https://alien-investor.org/werkstatt-paket/seedsigner-anleitung-1b-dice-modus-en.pdf">SeedSigner dice mode walkthrough</a>. Device menu labels "24 words (99 rolls)" and "12 words (50 rolls)", 5 dice per round read left to right, SHA-256 over the digits.</li>
+<li><a href="https://sparrowwallet.com/docs/airgapped-wallet-sdcard.html">Sparrow, Airgapped hardware wallet with SD cards</a>. 100 rolls as supplemental entropy on a Coldcard generated seed.</li>
+</ol>
+
+<p class="muted">References checked October 26, 2026.</p>
+
+<footer>
+<p>Plebum Dominium. The dice sheet and print packet were corrected October 27, 2026. <a href="/handouts/dice.html">Back to the dice sheet</a>.</p>
+</footer>
+
+</div>
+</body>
+</html>
