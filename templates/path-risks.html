@@ -1,13 +1,13 @@
 <p>Pick a path in the sidebar. This page shows the risks for the path you picked. If you switch paths, this page switches with you.</p>
 <div class="path-risks-switch" role="group" aria-label="Choose a setup">
-<button type="button" data-path="easy" aria-pressed="false">Easy</button>
-<button type="button" data-path="one" aria-pressed="false">One key</button>
-<button type="button" data-path="full" aria-pressed="true">Full program</button>
+<button type="button" data-path="easy" aria-pressed="false">One device</button>
+<button type="button" data-path="one" aria-pressed="false">One key and a passphrase</button>
+<button type="button" data-path="full" aria-pressed="true">Three keys</button>
 </div>
-<p>If you are stranded on a sheet that is not on your path, switch to Full program in the sidebar to see all 17 sheets.</p>
+<p>If you are stranded on a sheet that is not on your path, switch to Three keys in the sidebar to see all 17 sheets.</p>
 
 <section class="risks-section risks-easy" id="risks-easy">
-<h2>Easy: words into one trusted device</h2>
+<h2>One device: words into one trusted device</h2>
 <p>Trust: one device and its maker. Work: lowest.</p>
 <ul>
 <li>One device, one maker. If the device fails, the firmware is flawed, or the shop sold a tampered device, the wallet fails with it.</li>
@@ -21,12 +21,12 @@
 </section>
 
 <section class="risks-section risks-one" id="risks-one">
-<h2>One key: one key plus a passphrase</h2>
+<h2>One key and a passphrase: one key plus a passphrase</h2>
 <p>Trust: one key, one device, one passphrase. Work: medium.</p>
 <ul>
 <li>One key and one passphrase. Lose the passphrase and the wallet is gone, even with the plate and the device in hand.</li>
 <li>Keep the passphrase on paper apart from the plate. If the plate and the passphrase paper are found together, the passphrase adds nothing.</li>
-<li>One device, one maker, with the same device risks as Easy. A flawed or tampered device can still fail you.</li>
+<li>One device, one maker, with the same device risks as One device. A flawed or tampered device can still fail you.</li>
 <li>Words and passphrase go into the device itself during recovery, nowhere else. No hardware company will ever ask for your seed phrase.</li>
 <li>Check the receiving address on the device screen, not only on the computer screen, before you accept coins.</li>
 <li>The watch-only wallet can watch, it cannot spend alone. Spending needs the device and the passphrase together.</li>
@@ -35,7 +35,7 @@
 </section>
 
 <section class="risks-section risks-full" id="risks-full">
-<h2>Full program: three keys, three places</h2>
+<h2>Three keys: three keys, three places</h2>
 <p>Trust: no single key, device, or place. Work: highest.</p>
 <ul>
 <li>Most steps to get right. A missed step in any key can lock the wallet later.</li>

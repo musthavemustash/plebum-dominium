@@ -951,7 +951,7 @@ def build_path_risks():
         .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
         .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
         .replace("{{canonical}}", "https://plebumbtc.io/path-risks.html")
-        .replace("{{description}}", "The risks of the path you picked: Easy, One key, or Full program.")
+        .replace("{{description}}", "The risks of the path you picked: One device, One key and a passphrase, or Three keys.")
         .replace("{{schema}}", "")
         .replace("{{last_updated}}", LAST_UPDATED)
         .replace("{{analytics}}", analytics_html())

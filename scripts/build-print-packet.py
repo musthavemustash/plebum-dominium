@@ -4,9 +4,11 @@
 Rebuilt from the live site content with print-friendly vector illustrations,
 proper headers/footers, per-page QR codes, and real page numbers.
 
-Usage: python3 scripts/build-print-packet.py
-Output: kit/02_Print_Packet.pdf
+Usage: python3 scripts/build-print-packet.py [--path full|easy|one]
+       [--out kit/02_Print_Packet.pdf]
+Output: kit/02_Print_Packet.pdf (full path, the default)
 """
+import argparse
 import os
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
@@ -262,7 +264,21 @@ class PlatesDrawing(Flowable):
 
 # ------------------------------------------------------- header/footer
 QR_SIZE = 0.62 * inch
-PAGE_URLS = {}  # filled per page
+PAGE_URLS = {}  # filled per page, in builder call order
+PATH = "full"  # set from --path; easy/one select path packet builders
+PATH_LABELS = {"easy": "One device", "one": "One key and a passphrase", "full": "Three keys"}
+def path_label():
+    return PATH_LABELS.get(PATH, "Three keys")
+PAGE_NEXT = [1]  # next page number to claim
+TOTAL = [11]  # set from the first build pass; the full packet is 11
+
+
+def claim(n=1):
+    """Claim n consecutive page numbers; returns the first. Builders run
+    in order, so the full packet claims exactly its old numbers."""
+    start = PAGE_NEXT[0]
+    PAGE_NEXT[0] += n
+    return start
 
 
 def header_footer(canvas, doc):
@@ -298,23 +314,57 @@ def header_footer(canvas, doc):
     canvas.setFillColor(MUTED)
     canvas.drawString(MARGIN, 0.55 * inch,
                       "Stop if a check fails. Do not skip ahead.")
+    canvas.setFont("Helvetica-Bold", 7.5)
+    canvas.setFillColor(GOLD)
+    canvas.drawCentredString(PAGE_W / 2, 0.55 * inch, path_label())
     canvas.setFont("Helvetica", 7.5)
+    canvas.setFillColor(MUTED)
     canvas.drawRightString(PAGE_W - MARGIN, 0.55 * inch,
-                           f"Page {page_num} of 11")
+                           f"Page {page_num} of {TOTAL[0]}")
     canvas.restoreState()
 
 
 # ------------------------------------------------------- page builders
 def p_overview():
-    PAGE_URLS[1] = ("PRINT PACKET", BASE + "/")
-    return [
-        Paragraph("Print packet", sTitle),
-        Paragraph("The handouts, in the order of the work. "
-                  "These are the same sheets as on the site, condensed for paper. "
-                  "If a check fails, the work stops.", sBody),
-        Spacer(1, 4),
-        Paragraph("The sheets, in order", sH1),
-        *bullets([
+    PAGE_URLS[claim()] = ("PRINT PACKET · " + path_label().upper(), BASE + "/")
+    if PATH == "easy":
+        sheets = [
+            "<b>Terms</b>: the words used in this guide.",
+            "<b>Before you begin</b>: the threats, and what this path trusts.",
+            "<b>Checklist</b>: everything gathered before the first boot.",
+            "<b>Check the files</b>: fingerprints and signatures before going offline.",
+            "<b>Two boots</b>: one computer, two boots; Tails with networking Disabled, no persistent storage.",
+            "<b>Dice</b>: five casino dice make the randomness; 256 bits exactly; one key.",
+            "<b>Stamp the plate</b>: one titanium plate, apart from the device.",
+            "<b>If you get stuck</b>: the answers for this path.",
+        ]
+        rules = [
+            "No photos of seeds, plates, or screens. Ever.",
+            "The device holds the wallet. The plate lives apart from it.",
+            "There is no descriptor and no map on this path.",
+            "Hardware wallets do not replace the plate.",
+        ]
+    elif PATH == "one":
+        sheets = [
+            "<b>Terms</b>: the words used in this guide.",
+            "<b>Before you begin</b>: the threats, and what this path trusts.",
+            "<b>Checklist</b>: everything gathered before the first boot.",
+            "<b>Check the files</b>: fingerprints and signatures before going offline.",
+            "<b>Two boots</b>: one computer, two boots; Tails with networking Disabled, no persistent storage.",
+            "<b>Dice</b>: five casino dice make the randomness; 256 bits exactly; one key.",
+            "<b>One key, done right</b>: passphrase on paper, watch-only, test send first.",
+            "<b>Stamp the plate</b>: one titanium plate, passphrase paper apart from it.",
+            "<b>Recovery card</b>: plate, passphrase paper, device, and this card.",
+            "<b>If you get stuck</b>: the answers for this path.",
+        ]
+        rules = [
+            "No photos of seeds, plates, or screens. Ever.",
+            "The passphrase lives on paper, apart from the plate. Never on the plate, never in the same drawer.",
+            "The plate alone cannot spend without the passphrase.",
+            "There is no descriptor and no map on this path.",
+        ]
+    else:
+        sheets = [
             "<b>Terms</b>: the words used in this guide.",
             "<b>Checklist</b>: everything gathered before the first boot.",
             "<b>Check the files</b>: fingerprints and signatures before going offline.",
@@ -326,21 +376,34 @@ def p_overview():
             "<b>Hide the wallet map</b>: encrypted. The passphrase is not a seed.",
             "<b>If I am gone</b>: the inheritance sheet for the heir.",
             "<b>Tough questions</b>: the challenges, answered straight.",
-        ]),
-        *stopbox("A failed check is not a delay. Delete the file, fix the step, "
-                 "start that sheet over."),
-        Paragraph("House rules", sH1),
-        *bullets([
+        ]
+        rules = [
             "No photos of seeds, plates, or screens. Ever.",
             "The everyday computer is watch-only. It never holds a seed.",
             "Hardware wallets are optional. They never create the keys.",
-        ]),
+        ]
+    return [
+        Paragraph("Print packet", sTitle),
+        Paragraph(path_label(), ParagraphStyle("pathlabel", fontName="Helvetica-Bold", fontSize=13, leading=16, textColor=GOLD, spaceAfter=4)),
+        Paragraph("The handouts, in the order of the work. "
+                  "These are the same sheets as on the site, condensed for paper. "
+                  "If a check fails, the work stops.", sBody),
+        Spacer(1, 4),
+        Paragraph("The sheets, in order", sH1),
+        *bullets(sheets),
+        *stopbox("A failed check is not a delay. Delete the file, fix the step, "
+                 "start that sheet over."),
+        Paragraph("House rules", sH1),
+        *bullets(rules),
     ]
 
 
 def p_terms():
-    PAGE_URLS[2] = ("TERMS", BASE + "/handouts/terms")
-    terms = [
+    PAGE_URLS[claim()] = ("TERMS", BASE + "/handouts/terms")
+    # Original order, so the full packet is byte-identical in body text.
+    # Passphrase sits between zero-trust and watch-only; full filters it
+    # out, one keeps it, easy keeps neither it nor watch-only.
+    all_terms = [
         ("entropy", "The randomness made with the dice. It is the material the 24 words are built from."),
         ("airgap / Tails", "Each key is made on a computer that is offline. Tails runs from a USB stick and forgets the session at shutdown."),
         ("networking off", "Tails booted with networking Disabled. No Wi-Fi, no cable, no Bluetooth."),
@@ -352,8 +415,20 @@ def p_terms():
         ("hash", "The fingerprint of a download. The fingerprint on the source must match the one the computer prints, or the file is deleted."),
         ("signature", "A signature is the project confirming the file. If the signature fails, the file is deleted and downloaded again."),
         ("zero-trust", "Nobody's word is accepted for a download or a key. Two tools must agree."),
+        ("passphrase", "A word or phrase added to the 24 words. It lives on paper, apart from the plate. The plate alone cannot spend without it."),
         ("watch-only", "A wallet that can see balances and build payments but holds no seed and cannot sign."),
     ]
+    if PATH == "easy":
+        keep = {"entropy", "airgap / Tails", "networking off", "BIP39",
+                "hash", "signature", "zero-trust"}
+    elif PATH == "one":
+        keep = {"entropy", "airgap / Tails", "networking off", "BIP39",
+                "hash", "signature", "zero-trust", "passphrase",
+                "watch-only"}
+    else:
+        # Full keeps the original twelve, in the original order.
+        keep = {t[0] for t in all_terms} - {"passphrase"}
+    terms = [t for t in all_terms if t[0] in keep]
     left, right = [], []
     for i, (t, d) in enumerate(terms):
         cell = [Paragraph(t, sTerm), Paragraph(d, sDef)]
@@ -378,26 +453,60 @@ def p_terms():
 
 
 def p_checklist():
-    PAGE_URLS[3] = ("CHECKLIST", BASE + "/handouts/checklist")
-    return [
-        Paragraph("Checklist & file checks", sTitle),
-        Paragraph("Everything gathered and verified before the first boot.", sBody),
-        Paragraph("Materials", sH1),
-        *bullets([
+    PAGE_URLS[claim()] = ("CHECKLIST", BASE + "/handouts/checklist"
+                           + ("-easy" if PATH == "easy"
+                              else "-one" if PATH == "one" else ""))
+    if PATH == "easy":
+        materials = [
+            "Two USB sticks: one for Tails, one for the checked files.",
+            "One titanium plate. One set of words on it. "
+            "StampSeed kit holds one plate; Cryptotag holds two, use one plate only. "
+            "Do not buy extra plates for this wallet. Never mix methods.",
+            "Five casino dice, paper, pen. A metal stamp set.",
+            "The device holds the wallet. The plate lives apart from it.",
+        ]
+        downloads = [
+            "<b>Tails 7.13, exact.</b> On its own USB. Networking Disabled. No persistent storage.",
+            "<b>The Ian Coleman page</b> (bip39-standalone.html). Open it only while offline.",
+            "<b>The dice converter.</b> Its fingerprint is in VERIFY.md.",
+        ]
+    elif PATH == "one":
+        materials = [
+            "Two USB sticks: one for Tails, one for the checked files.",
+            "One titanium plate. One set of words on it. "
+            "StampSeed kit holds one plate; Cryptotag holds two, use one plate only. "
+            "Do not buy extra plates for this wallet. Never mix methods.",
+            "Passphrase paper: pen and paper, kept apart from the plate, never in the same drawer.",
+            "Five casino dice, paper, pen. A metal stamp set.",
+        ]
+        downloads = [
+            "<b>Tails 7.13.</b> On its own USB. Networking Disabled. No persistent storage.",
+            "<b>Sparrow 2.5.5, exact, watch-only only.</b> A newer download that does not match is a stop, not an upgrade.",
+            "<b>The Ian Coleman page</b> (bip39-standalone.html). Open it only while offline.",
+            "<b>The dice converter.</b> Its fingerprint is in VERIFY.md.",
+        ]
+    else:
+        materials = [
             "Two USB sticks: one for Tails, one for the checked files.",
             "Three titanium plates. One seed each, three separate places. "
             "StampSeed kit holds one plate (buy two more); Cryptotag holds two (buy one more). Never mix methods.",
             "Five casino dice, paper, pen. A metal stamp set.",
             "The everyday computer is watch-only. It never holds a seed.",
-        ]),
-        Paragraph("Downloads: pinned, from official sources only", sH1),
-        *bullets([
+        ]
+        downloads = [
             "<b>Tails 7.13.</b> On its own USB. Networking Disabled. No persistent storage.",
             "<b>Sparrow 2.5.5, exact.</b> A newer download that does not match is a stop, not an upgrade.",
             "<b>Electrum 4.8.2.</b> The second tool that must agree.",
             "<b>The Ian Coleman page</b> (bip39-standalone.html). Open it only while offline.",
             "<b>The dice converter.</b> Its fingerprint is in VERIFY.md.",
-        ]),
+        ]
+    return [
+        Paragraph("Checklist & file checks", sTitle),
+        Paragraph("Everything gathered and verified before the first boot.", sBody),
+        Paragraph("Materials", sH1),
+        *bullets(materials),
+        Paragraph("Downloads: pinned, from official sources only", sH1),
+        *bullets(downloads),
         Paragraph("Verify before going offline", sH1),
         *bullets([
             "Hash, then signature, on every file. A failure means delete the file and stop.",
@@ -410,7 +519,7 @@ def p_checklist():
 
 
 def p_airgap():
-    PAGE_URLS[4] = ("AIRGAP", BASE + "/handouts/airgap")
+    PAGE_URLS[claim()] = ("AIRGAP", BASE + "/handouts/airgap")
     w = PAGE_W - 2 * MARGIN
     return [
         Paragraph("The airgap: two boots", sTitle),
@@ -423,6 +532,9 @@ def p_airgap():
         *bullets([
             "Verify the downloaded files. Build the watch-only wallet.",
             "Build payments here. This machine never sees a seed.",
+        ] if PATH != "easy" else [
+            "Verify the downloaded files.",
+            "This machine never sees a seed.",
         ]),
         Paragraph("Then: full shutdown", sH2),
         *bullets([
@@ -432,14 +544,18 @@ def p_airgap():
         *bullets([
             "Tails borrows the hardware and forgets everything at shutdown.",
             "No persistent storage. One seed in memory at a time.",
-            "Full shutdown again before the next seed.",
+            "Full shutdown again before the next seed." if PATH == "full"
+            else "Full shutdown when done.",
         ]),
         *stopbox("If Tails ever shows networking on, stop. Reboot with it Disabled."),
     ]
 
 
 def p_dice():
-    PAGE_URLS[5] = ("DICE", BASE + "/handouts/dice")
+    _dice_page = claim(2)
+    PAGE_URLS[_dice_page] = ("DICE", BASE + "/handouts/dice"
+                             + ("-easy" if PATH == "easy"
+                                else "-one" if PATH == "one" else ""))
     story = [
         Paragraph("Dice recording sheet", sTitle),
         Paragraph("Five dice per shake. Write <b>00</b> for 1, <b>01</b> for 2, "
@@ -487,12 +603,14 @@ def p_dice():
                         "If you run out of rows, continue on the next page, keeping the same count. "
                         "Stop when the count reaches 256. Do not trim extra bits. "
                         "The converter and the offline Ian Coleman page must print identical 24 words.", sSmall)]
-    PAGE_URLS[6] = ("DICE", BASE + "/handouts/dice")
+    PAGE_URLS[_dice_page + 1] = ("DICE", BASE + "/handouts/dice"
+                                + ("-easy" if PATH == "easy"
+                                   else "-one" if PATH == "one" else ""))
     return story
 
 
 def p_sparrow():
-    PAGE_URLS[7] = ("BUILD THE 2-OF-3", BASE + "/handouts/sparrow")
+    PAGE_URLS[claim()] = ("BUILD THE 2-OF-3", BASE + "/handouts/sparrow")
     w = PAGE_W - 2 * MARGIN
     return [
         Paragraph("Build the 2-of-3", sTitle),
@@ -518,7 +636,7 @@ def p_sparrow():
 
 
 def p_signing():
-    PAGE_URLS[8] = ("PRACTICE SPEND", BASE + "/handouts/signing")
+    PAGE_URLS[claim()] = ("PRACTICE SPEND", BASE + "/handouts/signing")
     w = PAGE_W - 2 * MARGIN
     return [
         Paragraph("Practice spend", sTitle),
@@ -544,7 +662,51 @@ def p_signing():
 
 
 def p_titanium():
-    PAGE_URLS[9] = ("METAL AND THE MAP", BASE + "/handouts/titanium")
+    if PATH in ("easy", "one"):
+        PAGE_URLS[claim()] = ("STAMP THE PLATE", BASE + "/handouts/titanium-"
+                              + PATH)
+        if PATH == "easy":
+            body = [
+                Paragraph("Stamp the plate", sTitle),
+                Paragraph("Paper is not the backup. These 24 words, alone, open the wallet on a compatible device. That is why the plate and the device live in different places.", sBody),
+                Paragraph("The plate", sH2),
+                *bullets([
+                    "One plate. One set of words. Never two sets on one plate.",
+                    "StampSeed kit holds one plate. Cryptotag holds two, use one plate only. Pick one method; don't mix them. Do not buy extra plates for this wallet.",
+                    "Stamp in an unhurried, private setting. No camera in the room.",
+                    "Label the plate quietly. No names, no \"Bitcoin.\"",
+                ]),
+                Paragraph("Where the plate lives", sH2),
+                *bullets([
+                    "One place, apart from the device. A home safe, or an off-site place you trust.",
+                    "Once a year, read the plate back. If a letter is worn, stamp a fresh plate before the old one fails.",
+                    "There is no descriptor and no map on this path. Hardware wallets don't replace this plate.",
+                ]),
+                *stopbox("Paper is destroyed only after the restore check passes. Not before."),
+            ]
+        else:
+            body = [
+                Paragraph("Stamp the plate", sTitle),
+                Paragraph("Paper is not the backup. These 24 words, plus the written passphrase, open the wallet.", sBody),
+                Paragraph("The plate and the passphrase", sH2),
+                *bullets([
+                    "One plate. One set of words. Never two sets on one plate.",
+                    "StampSeed kit holds one plate. Cryptotag holds two, use one plate only. Pick one method; don't mix them. Do not buy extra plates for this wallet.",
+                    "The passphrase lives on paper. Never on the plate, never in the same drawer as the plate, never in a password manager.",
+                    "The plate alone does not spend without it, and the paper alone is useless without the plate.",
+                    "Stamp in an unhurried, private setting. No camera in the room.",
+                ]),
+                Paragraph("Where the plate lives", sH2),
+                *bullets([
+                    "One place, apart from the device and apart from the passphrase paper. A home safe, or an off-site place you trust.",
+                    "Once a year, read the plate back. If a letter is worn, stamp a fresh plate before the old one fails.",
+                    "There is no descriptor and no map on this path. Hardware wallets don't replace this plate.",
+                    "The single-sig sheet shows the full setup: passphrase on paper apart from the plate, a watch-only wallet, and a test send before real money moves.",
+                ]),
+                *stopbox("Paper is destroyed only after the restore check passes. Not before."),
+            ]
+        return body
+    PAGE_URLS[claim()] = ("METAL AND THE MAP", BASE + "/handouts/titanium")
     return [
         Paragraph("Metal and the map", sTitle),
         Paragraph("Paper is not the backup. Three titanium plates. One seed each, three separate places.", sBody),
@@ -571,7 +733,37 @@ def p_titanium():
 
 
 def p_inheritance():
-    PAGE_URLS[10] = ("HIDE THE MAP · IF I AM GONE", BASE + "/handouts/encryption")
+    if PATH == "easy":
+        PAGE_URLS[claim()] = ("IF I AM GONE", BASE + "/handouts/threat-model-easy")
+        return [
+            Paragraph("If I am gone", sTitle),
+            Paragraph("There is no second key on this path, so the note matters more, not less.", sBody),
+            Paragraph("The written note", sH2),
+            *bullets([
+                "A written note, apart from the plate and the device, saying where the device is and where the plate is.",
+                "The words are written nowhere else. Not in the note, not in an email, not in a password manager.",
+                "Together, the plate and the device are the wallet. Apart, neither one spends alone.",
+                "If the plate and the device are both gone, the wallet is gone. Say that plainly in the note, so no one searches for a backup that does not exist.",
+            ]),
+            *stopbox("The note says where things are. It never carries the words."),
+        ]
+    if PATH == "one":
+        PAGE_URLS[claim()] = ("IF I AM GONE", BASE + "/handouts/single-sig")
+        return [
+            Paragraph("If I am gone", sTitle),
+            Paragraph("The heir needs three things, and a plain note that says what they are.", sBody),
+            Paragraph("1 plate + passphrase paper + device + this card", sH2),
+            *bullets([
+                "The plate: one set of words, stamped in titanium.",
+                "The passphrase paper: apart from the plate, never on it, never in the same drawer. Forgotten passphrase: the coins are gone, and nobody can reset it.",
+                "The device: a compatible hardware wallet. The words and the passphrase go in on the device itself, never into a computer, phone, or website.",
+                "This card: the recovery card, kept apart from the plate and the passphrase paper, with the locations filled in by hand.",
+                "A plate found or stolen without the passphrase opens an empty wallet. Theft of the plate plus the passphrase paper ends it.",
+                "A small test send comes first, before real money moves.",
+            ]),
+            *stopbox("The note says where things are. It never carries the words or the passphrase."),
+        ]
+    PAGE_URLS[claim()] = ("HIDE THE MAP · IF I AM GONE", BASE + "/handouts/encryption")
     w = PAGE_W - 2 * MARGIN
     return [
         Paragraph("Hide the map · If I am gone", sTitle),
@@ -596,8 +788,39 @@ def p_inheritance():
 
 
 def p_briefing():
-    PAGE_URLS[11] = ("TOUGH QUESTIONS", BASE + "/handouts/briefing")
-    qa = [
+    if PATH == "easy":
+        PAGE_URLS[claim()] = ("TOUGH QUESTIONS", BASE + "/handouts/faq-easy")
+        qa = [
+            ("One device fails. What do I have?",
+             "The plate, apart from the device. Together, they are the wallet. Apart, neither one spends alone. "
+             "If the device fails, the words go on a compatible device."),
+            ("Someone finds the plate. What do they have?",
+             "Twenty-four words and no device. The plate alone does not spend. That is why the plate lives apart from the device."),
+            ("Plate and device both gone?",
+             "The wallet is gone. There is no second key. That is the tradeoff of this path: lowest work, one device and its maker trusted."),
+            ("Why no second key?",
+             "This path trades trust for difficulty. One device, one maker. If either fails you, the wallet fails. "
+             "The full program spreads trust across three keys and three places."),
+        ]
+    elif PATH == "one":
+        PAGE_URLS[claim()] = ("TOUGH QUESTIONS", BASE + "/handouts/faq-one")
+        qa = [
+            ("The passphrase paper is lost. Are the coins gone?",
+             "The plate alone cannot spend without the passphrase, and nobody can reset it. "
+             "That is why the paper lives apart from the plate, never on it, never in the same drawer."),
+            ("Someone finds the plate. What do they have?",
+             "Twenty-four words and no passphrase paper. The seed alone is not enough. "
+             "A plate found or stolen without the passphrase opens an empty wallet."),
+            ("The device fails. What do I have?",
+             "The words plus the passphrase paper open the wallet on a compatible device. "
+             "Enter the words on the device itself, never into a computer, phone, or website."),
+            ("Why no second key?",
+             "This path is one key plus a passphrase. Lose the passphrase and the wallet is gone. "
+             "The full program spreads trust across three keys and three places."),
+        ]
+    else:
+        PAGE_URLS[claim()] = ("TOUGH QUESTIONS", BASE + "/handouts/briefing")
+        qa = [
         ("The words were typed on a laptop. Isn't that the thing we never do?",
          "On Tails, with networking off, from a full shutdown. Tails runs from memory and forgets the session. "
          "A captured keylogger still cannot spend: the fund needs two keys, and the seeds are never typed on the same boot."),
@@ -634,30 +857,61 @@ BUILDERS = [p_overview, p_terms, p_checklist, p_airgap, p_dice,
             p_sparrow, p_signing, p_titanium, p_inheritance, p_briefing]
 
 
-def main():
-    out = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                       "kit", "02_Print_Packet.pdf")
+def build_doc(builders, out, title):
     doc = SimpleDocTemplate(
         out, pagesize=letter,
         leftMargin=MARGIN, rightMargin=MARGIN,
         topMargin=1.15 * inch, bottomMargin=0.8 * inch,
-        title="Plebum Dominium · Print Packet",
+        title=title,
         author="Plebum Dominium",
     )
     story = []
-    for i, build in enumerate(BUILDERS):
+    for i, build in enumerate(builders):
         if i > 0:
             # page break is implicit: each builder starts a new page
             from reportlab.platypus import PageBreak
             story.append(PageBreak())
         story.extend(build())
     doc.build(story, onFirstPage=header_footer, onLaterPages=header_footer)
-    import subprocess
-    n = subprocess.run(["pdfinfo", out], capture_output=True,
-                       text=True).stdout
-    for line in n.splitlines():
-        if line.startswith("Pages:"):
-            print("built", out, "->", line.strip())
+
+
+def main():
+    global PATH
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--path", choices=["full", "easy", "one"],
+                    default="full")
+    ap.add_argument("--out", default=None)
+    args = ap.parse_args()
+    PATH = args.path
+    kit = os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), "kit")
+    if PATH == "easy":
+        builders = [p_overview, p_terms, p_checklist, p_airgap, p_dice,
+                    p_titanium, p_inheritance, p_briefing]
+        title = "Plebum Dominium · Print Packet (One device)"
+        out = args.out or os.path.join(kit, "02_Print_Packet-easy.pdf")
+    elif PATH == "one":
+        builders = [p_overview, p_terms, p_checklist, p_airgap, p_dice,
+                    p_titanium, p_inheritance, p_briefing]
+        title = "Plebum Dominium · Print Packet (One key and a passphrase)"
+        out = args.out or os.path.join(kit, "02_Print_Packet-one.pdf")
+    else:
+        builders = BUILDERS
+        title = "Plebum Dominium · Print Packet (Three keys)"
+        out = args.out or os.path.join(kit, "02_Print_Packet.pdf")
+    # Two passes: the first counts pages (the footer needs the total),
+    # the second prints with the true total. Page claims reset per pass.
+    import tempfile
+    from pypdf import PdfReader
+    with tempfile.TemporaryDirectory() as tmp:
+        PAGE_URLS.clear()
+        PAGE_NEXT[0] = 1
+        build_doc(builders, os.path.join(tmp, "pass1.pdf"), title)
+        TOTAL[0] = len(PdfReader(os.path.join(tmp, "pass1.pdf")).pages)
+    PAGE_URLS.clear()
+    PAGE_NEXT[0] = 1
+    build_doc(builders, out, title)
+    print(f"built {out} -> Pages: {TOTAL[0]}")
 
 
 if __name__ == "__main__":
