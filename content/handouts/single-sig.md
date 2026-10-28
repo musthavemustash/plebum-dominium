@@ -46,9 +46,9 @@ Files used: Sparrow 2.5.5 for the watch-only wallet.
 
 ## Step 4 · Add a passphrase.
 
-::fig single-sig/passphrase-wallets
+::anim single-sig/passphrase-dice
 
-- A passphrase is one more secret, a word or short phrase you choose, entered on the device after the seed.
+- A passphrase is one more secret, not a word or short phrase you choose, entered on the device after the seed. Roll five dice, look the number up in the EFF Long Wordlist, write down the word, and repeat to at least six words.
 - On this sheet it is required. One seed in one place is why: a plate found or stolen without the passphrase opens an empty wallet.
 - Forgotten passphrase: the coins are gone, and nobody can reset it.
 - Handed to a scammer along with the words: it stops nothing. Words and passphrase are never kept together and never given to anyone.

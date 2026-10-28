@@ -10,9 +10,18 @@ Files used: Tails 7.15.1 or later 7.x (verified).
 
 - The wallet map on the data USB, called map.txt only while you work.
 - descriptor_obfuscator.py from the kit. Checked before it's copied.
-- A passphrase. Not a seed, not the decoy passphrase, never stamped on a plate.
-- Generate the passphrase with real dice: [Diceware passphrase mapper](/diceware.html). Download the page and run it in an offline Tails session, never in an everyday browser.
 - Tails, networking Disabled. Not the everyday computer.
+- EFF word list generated passphrase.
+
+## Make a passphrase with dice
+
+Roll five dice at once. Read the faces left to right and look that five digit number up in the EFF Long Wordlist. Write down the word. Repeat to at least six words. Six words give about 77 bits. Example: panoramic nectar precut smith banana handclap.
+
+Use the EFF word list as a text download from the kit, or the Diceware mapper from a saved copy, in an offline Tails session, networking Disabled, never in an everyday browser.
+
+Write the words on paper, in two separate places. Never stamp a passphrase on a plate. Never keep the passphrase paper with the plate, the map, or the USBs. Use the passphrase for one purpose only. It is not a seed, and it is not the decoy passphrase.
+
+Do not confuse the two dice methods. Seed keys use faces 1 to 4 kept, 5 and 6 rerolled, bits build 24 words. Passphrase words use faces 1 to 6 all kept, no rerolls, five dice give one word. A passphrase word is never a seed word.
 
 ## Step 1 · Boot Tails. Copy the tool and the map.
 

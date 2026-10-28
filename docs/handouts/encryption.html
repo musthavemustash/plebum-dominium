@@ -124,10 +124,14 @@
 <section class="you-need"><p class="you-need-label">What is required</p><ul>
 <li>The wallet map on the data USB, called map.txt only while you work.</li>
 <li>descriptor_obfuscator.py from the kit. Checked before it&#x27;s copied.</li>
-<li>A passphrase. Not a seed, not the decoy passphrase, never stamped on a plate.</li>
-<li>Generate the passphrase with real dice: <a href=\"/diceware.html">Diceware passphrase mapper</a>. Download the page and run it in an offline Tails session, never in an everyday browser.</li>
 <li>Tails, networking Disabled. Not the everyday computer.</li>
+<li>EFF word list generated passphrase.</li>
 </ul></section>
+<h2 id="make-a-passphrase-with-dice">Make a passphrase with dice</h2>
+<p>Roll five dice at once. Read the faces left to right and look that five digit number up in the EFF Long Wordlist. Write down the word. Repeat to at least six words. Six words give about 77 bits. Example: panoramic nectar precut smith banana handclap.</p>
+<p>Use the EFF word list as a text download from the kit, or the Diceware mapper from a saved copy, in an offline Tails session, networking Disabled, never in an everyday browser.</p>
+<p>Write the words on paper, in two separate places. Never stamp a passphrase on a plate. Never keep the passphrase paper with the plate, the map, or the USBs. Use the passphrase for one purpose only. It is not a seed, and it is not the decoy passphrase.</p>
+<p>Do not confuse the two dice methods. Seed keys use faces 1 to 4 kept, 5 and 6 rerolled, bits build 24 words. Passphrase words use faces 1 to 6 all kept, no rerolls, five dice give one word. A passphrase word is never a seed word.</p>
 <h2 id="step-1-boot-tails-copy-the-tool-and-the-map">Step 1 · Boot Tails. Copy the tool and the map.</h2>
 <div class="demo-embed"><iframe src="/step1-demo.html" title="Step 1 networking demo" loading="lazy"></iframe><p class="demo-fullscreen"><a href="/step1-demo.html">Open the demo full screen</a></p></div>
 <figure class="step-fig"><svg width="460" height="150" viewBox="0 0 460 150" font-family="IBM Plex Sans, sans-serif">
