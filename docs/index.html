@@ -65,9 +65,9 @@
     <div class="sidebar-path" id="sidebar-path">
       <p class="sidebar-path-label">Choose a path</p>
       <div class="sidebar-path-seg" role="group" aria-label="Choose a setup">
-        <button type="button" data-path="easy" aria-pressed="false">Easy</button>
-        <button type="button" data-path="one" aria-pressed="false">One key</button>
-        <button type="button" data-path="full" aria-pressed="true">Full program</button>
+        <button type="button" data-path="easy" aria-pressed="false">One device</button>
+        <button type="button" data-path="one" aria-pressed="false">One key and a passphrase</button>
+        <button type="button" data-path="full" aria-pressed="true">Three keys</button>
       </div>
       <p class="sidebar-path-note" id="path-count">All 17 sheets</p>
     </div>
@@ -91,7 +91,7 @@
 <li data-paths="one full"><a href="/handouts/single-sig.html" class="" data-sheet="single-sig"><span class="sheet-num">16</span><span class="sheet-title">One key, done right</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
 <li data-paths="full"><a href="/handouts/two-devices.html" class="" data-sheet="two-devices"><span class="sheet-num">17</span><span class="sheet-title">Two devices and one dice key</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
     </ul>
-    <p class="sidebar-risks-wrap"><a class="sidebar-risks" id="sidebar-risks" href="/path-risks.html">Risks of your path: <span id="path-risks-label">Full program</span> &rarr;</a></p>
+    <p class="sidebar-risks-wrap"><a class="sidebar-risks" id="sidebar-risks" href="/path-risks.html">Risks of your path: <span id="path-risks-label">Three keys</span> &rarr;</a></p>
     <p class="sidebar-note">Check off sheets as you finish them. Progress is saved on this device.</p>
   </nav>
   <div class="scrim" aria-hidden="true"></div>
@@ -103,62 +103,49 @@
       <div class="mobile-path" id="mobile-path">
         <p class="mobile-path-label">Choose a path</p>
         <div class="mobile-path-seg" role="group" aria-label="Choose a setup">
-          <button type="button" data-path="easy" aria-pressed="false">Easy</button>
-          <button type="button" data-path="one" aria-pressed="false">One key</button>
-          <button type="button" data-path="full" aria-pressed="true">Full program</button>
+          <button type="button" data-path="easy" aria-pressed="false">One device</button>
+          <button type="button" data-path="one" aria-pressed="false">One key and a passphrase</button>
+          <button type="button" data-path="full" aria-pressed="true">Three keys</button>
         </div>
       </div>
       <div class="path-banner" id="path-banner" hidden>
-        <p class="path-banner-label">Choose a path: <strong id="path-banner-label">Full program</strong></p>
+        <p class="path-banner-label">Choose a path: <strong id="path-banner-label">Three keys</strong></p>
         <p class="path-banner-note" id="path-banner-note"></p>
       </div>
       <div class="path-gate" id="path-gate" hidden>
         <h2>Not on your path</h2>
         <p id="path-gate-note"></p>
-        <p><button type="button" id="path-gate-full">Switch to Full program to read this sheet</button></p>
+        <p><button type="button" id="path-gate-full">Switch to Three keys to read this sheet</button></p>
         <p><a href="/path-risks.html">Risks of your path &rarr;</a></p>
       </div>
 
 
 <div class="hero"><p class="hero-kicker">Independent At-Home Bitcoin Self-Custody</p><div class="hero-title-row"><div class="coin" aria-hidden="true"><div class="coin-inner"><span class="coin-face coin-front">₿</span><span class="coin-face coin-back"><img src="/assets/img/logo-pleb-key-coin.svg" alt=""></span></div></div><h1>Plebum Dominium</h1></div><p class="hero-pron">(PLAY-boom doh-MIN-ee-oom)</p><p class="hero-sub">Absolute Ownership by the Common People</p><p>“Pleb” is an everyday Bitcoiner. “Dominium” is Latin for absolute ownership. This site is for the Bitcoiner who wants to build a secure, self-custody Bitcoin wallet from the ground up, bypassing the need for a company, an app, or a custodian to manage or store access to their funds.</p><p>This guide shows you how to generate entropy with dice, import it into verified software, and stamp a 2-of-3 multisig wallet into titanium. Hardware wallets are completely optional.</p><p><a class="btn" href="/handouts/terms.html">Start with the terms</a> <a class="btn btn-ghost" href="/kit/02_Print_Packet.pdf">Download the print packet</a></p><div class="keyring path-hidden" id="keyring-easy" aria-label="Tap the key to open the lock"><p class="keyring-try">Try it: tap the key.</p><div class="keys"><button type="button" class="key key-easy" aria-pressed="false">Key</button></div><div class="lockwrap" id="keyring-easy-lock"><div class="shackle"></div><div class="lockbody">1 key</div></div><p class="keyring-caption" id="keyring-easy-caption"><strong>One key</strong> opens it. That key is the whole wallet.</p><p class="keyring-caption" id="keyring-easy-desc">Tap the key to see it open.</p><button type="button" class="keyring-reset" id="keyring-easy-reset" hidden>Reset</button></div><div class="keyring path-hidden" id="keyring-one" aria-label="Tap the key and the paper to open the lock"><p class="keyring-try">Try it: tap the key, then tap the paper.</p><div class="keys"><button type="button" class="key key-one" aria-pressed="false">Key</button><button type="button" class="paper paper-one" aria-pressed="false">Paper</button></div><div class="lockwrap" id="keyring-one-lock"><div class="shackle"></div><div class="lockbody">Key + paper</div></div><p class="keyring-caption" id="keyring-one-caption"><strong>Key plus paper</strong> open it. Neither alone can.</p><p class="keyring-caption" id="keyring-one-desc">Select the key and the paper to see what opens.</p><button type="button" class="keyring-reset" id="keyring-one-reset" hidden>Reset</button></div><div class="keyring" id="keyring-full" aria-label="Tap any two of the three keys to open the lock"><p class="keyring-try">Try it: tap a key, then tap a second key.</p><div class="keys"><button type="button" class="key key-a" aria-pressed="false">A</button><button type="button" class="key key-b" aria-pressed="false">B</button><button type="button" class="key key-c" aria-pressed="false">C</button></div><div class="lockwrap" id="keyring-full-lock"><div class="shackle"></div><div class="lockbody">2-of-3</div></div><p class="keyring-caption" id="keyring-full-caption"><strong>Any two keys</strong> open it. One alone cannot.</p><p class="keyring-caption" id="keyring-full-desc">Select keys to see if the descriptor is needed.</p><button type="button" class="keyring-reset" id="keyring-full-reset" hidden>Reset</button></div></div><section class="why path-hidden" id="why-easy">
 <p class="why-kicker">Why this guide</p>
-<h2>Fewer single points of failure</h2>
-<p>This path removes two of them, weakens one, and leaves two standing.</p>
-<ul class="threats">
-<li><span class="mk-stands">&#10014;</span>One seed that can spend by itself</li>
-<li><span class="mk-gone">&#10005;</span>An app or an exchange</li>
-<li><span class="mk-stands">&#10014;</span>One place <span class="why-tag">weakened</span></li>
-<li><span class="mk-stands">&#10014;</span>One device, one company</li>
-<li><span class="mk-gone">&#10005;</span>A photo, a note, or a password manager</li>
-</ul>
-<p class="why-legend"><span class="mk-stands">&#10014;</span> stands &middot; <span class="mk-gone">&#10005;</span> gone</p>
-<p class="why-note">One place is weakened, not gone. Device and plate live apart, but the pair is still the whole wallet.</p>
+<h2>Single point of failure</h2>
+<p>A single point of failure is any instance that can potentially compromise the wallet.</p>
+<h3>What this guide protects against</h3>
+<ul><li><b>Exchange fails:</b> The coins are in a wallet you control.</li><li><b>Weak device randomness:</b> The seed is made with dice you can watch.</li><li><b>Device stops working:</b> The plate holds the same words.</li><li><b>Word copied wrong:</b> Two tools must agree before stamping.</li></ul>
+<h3>What it does not protect against</h3>
+<ul><li><b>Plate stolen alone:</b> The plate alone can restore the full wallet. There is no passphrase to stop it. This is the major point of failure on this path.</li><li><b>Device fails or is tampered with:</b> One device and its maker are the whole trust.</li><li><b>Seed stolen alone:</b> Anyone with the 24 words holds the coins.</li><li><b>Plate and device together:</b> Together they are the wallet.</li><li><b>Words kept anywhere except titanium and the chosen device:</b> Words are only stamped into titanium and loaded onto the chosen device per the guide.</li></ul>
 </section>
 <section class="why path-hidden" id="why-one">
 <p class="why-kicker">Why this guide</p>
-<h2>Fewer single points of failure</h2>
-<p>This path removes three of them, weakens one, and leaves one standing.</p>
-<ul class="threats">
-<li><span class="mk-gone">&#10005;</span>One seed that can spend by itself</li>
-<li><span class="mk-gone">&#10005;</span>An app or an exchange</li>
-<li><span class="mk-stands">&#10014;</span>One place <span class="why-tag">weakened</span></li>
-<li><span class="mk-stands">&#10014;</span>One device, one company</li>
-<li><span class="mk-gone">&#10005;</span>A photo, a note, or a password manager</li>
-</ul>
-<p class="why-legend"><span class="mk-stands">&#10014;</span> stands &middot; <span class="mk-gone">&#10005;</span> gone</p>
-<p class="why-note">One place is weakened, not gone. The passphrase paper is itself a single point. Lose it and the coins are gone.</p>
+<h2>Single point of failure</h2>
+<p>A single point of failure is any instance that can potentially compromise the wallet.</p>
+<h3>What this guide protects against</h3>
+<ul><li><b>One plate stolen:</b> The plate alone opens only an empty wallet.</li><li><b>Exchange fails:</b> The coins are in a wallet you control.</li><li><b>Weak device randomness:</b> The seed is made with dice you can watch.</li><li><b>Device stops working:</b> The plate holds the same words.</li><li><b>Word copied wrong:</b> Two tools must agree before stamping.</li></ul>
+<h3>What it does not protect against</h3>
+<ul><li><b>Passphrase lost:</b> No one can reset it. The coins are gone.</li><li><b>Passphrase found with the plate:</b> The passphrase then adds nothing.</li><li><b>Passphrase handed to a scammer:</b> Words and passphrase together open the wallet.</li><li><b>Device fails or is tampered with:</b> One device and its maker are still the trust.</li><li><b>One seed lost:</b> There is no second key to rebuild the wallet.</li><li><b>Words kept anywhere except titanium and the chosen device:</b> Words are only stamped into titanium and loaded onto the chosen device per the guide.</li></ul>
 </section>
 <section class="why" id="why-full">
 <p class="why-kicker">Why this guide</p>
-<h2>Eliminate single points of failure</h2>
-<p>This guide does that, securely and privately. None of these can take your money:</p>
-<ul class="threats">
-<li><span class="mk-gone">&#10005;</span>One seed that can spend by itself</li>
-<li><span class="mk-gone">&#10005;</span>An app or an exchange</li>
-<li><span class="mk-gone">&#10005;</span>One place</li>
-<li><span class="mk-gone">&#10005;</span>One device, one company</li>
-<li><span class="mk-gone">&#10005;</span>A photo, a note, or a password manager</li>
-</ul>
+<h2>Single point of failure</h2>
+<p>A single point of failure is any instance that can potentially compromise the wallet.</p>
+<h3>What this guide protects against</h3>
+<ul><li><b>One plate stolen:</b> One key alone opens nothing.</li><li><b>One house lost:</b> Two plates plus the map rebuild the wallet.</li><li><b>Exchange fails:</b> The coins are in a wallet you control.</li><li><b>Weak device randomness:</b> The keys are made with dice, offline.</li><li><b>Device flaw or tamper:</b> Devices never create the keys.</li><li><b>Word copied wrong:</b> Two tools must agree before stamping.</li></ul>
+<h3>What it does not protect against</h3>
+<ul><li><b>Two plates in one place:</b> The separation is gone.</li><li><b>Map passphrase lost, with only two plates:</b> Two plates cannot rebuild the map.</li><li><b>Two plates lost:</b> One key alone cannot spend.</li><li><b>Passphrase on the 2-of-3:</b> That passphrase is a single point in disguise.</li><li><b>Words kept anywhere except titanium and the chosen device:</b> Words are only stamped into titanium and loaded onto the chosen device per the guide.</li><li><b>Heirs cannot find the plates and map:</b> The inheritance sheet only helps if they can find it.</li></ul>
 </section>
 <section class="process" id="process-full">
 <p class="why-kicker">The method</p>
@@ -224,9 +211,9 @@
 <h2>Trade trust for difficulty</h2>
 <p>Pick the trade before you start. The card below changes with the switch, and the start line tells you where to go first.</p>
 <div class="path-seg" role="group" aria-label="Choose a setup">
-<button type="button" data-path="easy" aria-pressed="false">Easy</button>
-<button type="button" data-path="one" aria-pressed="false">One key</button>
-<button type="button" data-path="full" aria-pressed="true">Full program</button>
+<button type="button" data-path="easy" aria-pressed="false">One device</button>
+<button type="button" data-path="one" aria-pressed="false">One key and a passphrase</button>
+<button type="button" data-path="full" aria-pressed="true">Three keys</button>
 </div>
 <div class="path-ends"><span>&larr; Less work, more trust</span><span>More work, less trust &rarr;</span></div>
 <div id="path-card-home" class="path-card path-card-full"></div>
@@ -236,7 +223,7 @@
 (function () {
   var PATHS = {
     easy: { cls: "path-card-easy", sel: "sel-easy", title: "Words into one trusted device", trade: "Trust: one device and its maker. Work: lowest.", start: "Start: roll dice, stamp titanium, enter the words on the device.", steps: ["Roll dice for 24 words.", "Stamp the words in titanium first.", "Enter the words on the hardware wallet itself."], risk: "Risk: one device, one maker. If either fails you, the wallet fails.", go: "/handouts/dice.html", goText: "Start with the dice sheet" },
-    one: { cls: "path-card-one", sel: "sel-one", title: "One key plus a passphrase", trade: "Trust: one key, one device, one passphrase. Work: medium.", start: "Start: the single-sig sheet.", steps: ["Roll dice for 24 words.", "Add a passphrase, kept on paper apart from the plate.", "Stamp the words in titanium. Use a watch-only wallet."], risk: "Risk: one key and one passphrase. Lose the passphrase and the wallet is gone.", go: "/handouts/single-sig.html", goText: "Start with the single-sig sheet" },
+    one: { cls: "path-card-one", sel: "sel-one", title: "One key and a passphrase", trade: "Trust: one key, one device, one passphrase. Work: medium.", start: "Start: the single-sig sheet.", steps: ["Roll dice for 24 words.", "Add a passphrase, kept on paper apart from the plate.", "Stamp the words in titanium. Use a watch-only wallet."], risk: "Risk: one key and one passphrase. Lose the passphrase and the wallet is gone.", go: "/handouts/single-sig.html", goText: "Start with the single-sig sheet" },
     full: { cls: "path-card-full", sel: "sel-full", title: "Three keys, three places", trade: "Trust: no single key, device, or place. Work: highest.", start: "Start at the beginning. Work the steps.", steps: ["Roll three dice keys. Stamp three titanium plates. Keep them in three places.", "Build the 2-of-3. Practice spend first. Hide the encrypted map."], risk: "Risk: the most steps to get right. Lose two keys and the map and the funds are locked.", go: "/handouts/threat-model.html", goText: "Start with Before you begin" }
   };
   var card = document.getElementById("path-card-home");
