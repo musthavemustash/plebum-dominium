@@ -1802,3 +1802,5 @@ html[data-motion="off"] .eff-anim .tray1, html[data-motion="off"] .eff-anim .tra
 html[data-motion="off"] .eff-anim .tray6, html[data-motion="off"] .eff-anim .num6, html[data-motion="off"] .eff-anim .wline, html[data-motion="off"] .eff-anim .wstamp { opacity: 1 !important; }
 html[data-motion="off"] .eff-anim .pbar i { width: 100% !important; }
 
+/* News page: no path chooser. News is not a bench sheet, so the sidebar, mobile, and banner path controls are hidden here only. */
+body.news .sidebar-path, body.news .mobile-path, body.news .path-banner { display: none !important; }
