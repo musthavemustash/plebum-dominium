@@ -549,11 +549,11 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
 (function () {
   "use strict";
   var PATHS = {
-    easy: { label: "One device", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "titanium", "faq"], summary: "Words into one trusted device. Lowest work, most trust in one device and its maker." },
-    one: { label: "One key and a passphrase", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "single-sig", "titanium", "fire-card", "faq"], summary: "One key plus a passphrase. Medium work, trust in one key, one device, and one passphrase." },
+    easy: { label: "One device", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "titanium", "inheritance", "faq"], summary: "Words into one trusted device. Lowest work, most trust in one device and its maker." },
+    one: { label: "One key and a passphrase", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "single-sig", "titanium", "fire-card", "inheritance", "faq"], summary: "One key plus a passphrase. Medium work, trust in one key, one device, and one passphrase." },
     full: { label: "Three keys", sheets: null, summary: "Three keys, three places. Highest work, no single key, device, or place." }
   };
-  var VARIANTS = { faq: { easy: "faq-easy", one: "faq-one" }, titanium: { easy: "titanium-easy", one: "titanium-one" }, checklist: { easy: "checklist-easy", one: "checklist-one" }, "fire-card": { one: "fire-card-one" }, "threat-model": { easy: "threat-model-easy", one: "threat-model-one" }, dice: { easy: "dice-easy", one: "dice-one" } };
+  var VARIANTS = { faq: { easy: "faq-easy", one: "faq-one" }, titanium: { easy: "titanium-easy", one: "titanium-one" }, checklist: { easy: "checklist-easy", one: "checklist-one" }, "fire-card": { one: "fire-card-one" }, "threat-model": { easy: "threat-model-easy", one: "threat-model-one" }, dice: { easy: "dice-easy", one: "dice-one" }, inheritance: { easy: "inheritance-easy", one: "inheritance-one" } };
   var NOTES = {
     dice: {
       easy: "On this path, make one key, not three. Stop after the first key, stamp it in titanium, then enter the words on the device itself.",
@@ -589,6 +589,8 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       full: "Hide the wallet map, encrypted, apart from any single plate. Two seeds alone cannot rebuild the third key without it."
     },
     inheritance: {
+      easy: "Write the inheritance sheet for a non-Bitcoiner, and keep it where your family can find it. One plate opens this wallet.",
+      one: "Write the inheritance sheet for a non-Bitcoiner, and keep it where your family can find it. Plate plus passphrase paper opens this wallet.",
       full: "Write the inheritance sheet for a non-Bitcoiner, and keep it where your family can find it."
     }
   };
