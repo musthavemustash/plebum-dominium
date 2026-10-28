@@ -1701,3 +1701,104 @@ body.path-gated .toc-col { display: none !important; }
   .sign-anim .ct-label, .sign-anim .bc-label { opacity: 1; }
   .sign-anim .stamp2 { opacity: 1; }
 }
+
+
+/* EFF passphrase dice animation, single-sig Step 4 */
+.eff-anim .stage{position:relative;height:380px;border:1px solid var(--line);border-radius:12px;background:#0e0c09;overflow:hidden}
+.eff-anim .round{position:absolute;left:4%;top:14px;z-index:5;font-size:.72rem;font-weight:800;letter-spacing:.22em;color:var(--accent)}
+.eff-anim .tray{position:absolute;left:4%;top:46%;width:46%;height:120px;opacity:0}
+.eff-anim .die{position:absolute;top:0;width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#e8e2d4,#c9c2b0);box-shadow:0 4px 10px rgba(0,0,0,.55),inset 0 1px 2px rgba(255,255,255,.7)}
+.eff-anim .d1{left:0}
+.eff-anim .d2{left:54px}
+.eff-anim .d3{left:108px}
+.eff-anim .d4{left:162px}
+.eff-anim .d5{left:216px}
+.eff-anim .die i{position:absolute;width:8px;height:8px;border-radius:50%;background:#2b251b}
+.eff-anim .p-tl{left:8px;top:8px}
+.eff-anim .p-tr{right:8px;top:8px}
+.eff-anim .p-ml{left:8px;top:18px}
+.eff-anim .p-mr{right:8px;top:18px}
+.eff-anim .p-bl{left:8px;bottom:8px}
+.eff-anim .p-br{right:8px;bottom:8px}
+.eff-anim .p-c{left:18px;top:18px}
+.eff-anim .num{position:absolute;left:4%;top:68%;font-family:"IBM Plex Mono",monospace;font-size:1.1rem;letter-spacing:.3em;color:#efe9dc;opacity:0}
+.eff-anim .panel{position:absolute;right:4%;top:12%;bottom:12%;width:40%;background:#12100c;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:hidden}
+.eff-anim .phead{font-size:.66rem;font-weight:800;letter-spacing:.24em;color:#9b9384;margin-bottom:10px}
+.eff-anim .wline{font-family:"IBM Plex Mono",monospace;font-size:.82rem;line-height:1.9;color:#efe9dc;opacity:0}
+.eff-anim .pbar{position:absolute;left:16px;right:16px;bottom:52px;height:8px;background:#1d1812;border-radius:5px;border:1px solid var(--line)}
+.eff-anim .pbar i{display:block;height:100%;width:0;border-radius:5px;background:var(--accent);animation:effPbar 24s linear infinite}
+.eff-anim .pcount{position:absolute;left:16px;bottom:26px;font-size:.7rem;letter-spacing:.18em;color:#9b9384}
+.eff-anim .pcount b{color:#e4c6a4}
+.eff-anim .wstamp{position:absolute;right:16px;bottom:20px;font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--accent);border:2px solid var(--accent);border-radius:6px;padding:4px 10px;transform:rotate(-6deg);opacity:0;background:rgba(11,10,8,.9);animation:effStamp 24s linear infinite}
+.eff-anim .stepbox{border-top:4px solid var(--accent);background:#161411;padding:12px 16px}
+.eff-anim .stepbox b{font-family:Newsreader,serif;font-size:17px}
+.eff-anim .stepbox p{margin:6px 0 0;font-size:15px;line-height:1.5}
+@media (max-width:640px){.eff-anim .stage{height:560px}.eff-anim .tray{left:6%;top:14%;width:88%}.eff-anim .num{left:6%;top:32%}.eff-anim .panel{left:6%;right:6%;top:auto;bottom:5%;width:auto;height:46%}.eff-anim .round{left:6%}}
+@media (prefers-reduced-motion:reduce){.eff-anim .tray,.eff-anim .die,.eff-anim .num,.eff-anim .wline,.eff-anim .pbar i,.eff-anim .wstamp{animation:none!important}.eff-anim .tray1,.eff-anim .tray2,.eff-anim .tray3,.eff-anim .tray4,.eff-anim .tray5{opacity:0!important}.eff-anim .tray6,.eff-anim .num6,.eff-anim .wline,.eff-anim .wstamp{opacity:1!important}.eff-anim .pbar i{width:100%!important}}
+.eff-anim .tray1{animation:effWin1 24s linear infinite}
+@keyframes effWin1{0%,0%{opacity:0}0.5%,14.6%{opacity:1}15.1%,100%{opacity:0}}
+.eff-anim .tray1 .die{animation:effDie1 24s linear infinite}
+@keyframes effDie1{0%,0%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}4.173%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}7.303%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}10.433%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
+.eff-anim .num1{animation:effNum1 24s linear infinite}
+@keyframes effNum1{0%,10.430%{opacity:0}10.930%,25.030%{opacity:1}25.530%,100%{opacity:0}}
+.eff-anim .w1{animation:effW1 24s linear infinite}
+@keyframes effW1{0%,10.433%{opacity:0}10.933%,100%{opacity:1}}
+.eff-anim .r1{animation:effR1 24s linear infinite;opacity:0}
+@keyframes effR1{0%,0%{opacity:0}0.5%,14.6%{opacity:1}15.1%,100%{opacity:0}}
+.eff-anim .tray2{animation:effWin2 24s linear infinite}
+@keyframes effWin2{0%,14.6%{opacity:0}15.1%,29.2%{opacity:1}29.7%,100%{opacity:0}}
+.eff-anim .tray2 .die{animation:effDie2 24s linear infinite}
+@keyframes effDie2{0%,14.6%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}18.773%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}21.903%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}25.033%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
+.eff-anim .num2{animation:effNum2 24s linear infinite}
+@keyframes effNum2{0%,25.030%{opacity:0}25.530%,39.630%{opacity:1}40.130%,100%{opacity:0}}
+.eff-anim .w2{animation:effW2 24s linear infinite}
+@keyframes effW2{0%,25.033%{opacity:0}25.533%,100%{opacity:1}}
+.eff-anim .r2{animation:effR2 24s linear infinite;opacity:0}
+@keyframes effR2{0%,14.6%{opacity:0}15.1%,29.2%{opacity:1}29.7%,100%{opacity:0}}
+.eff-anim .tray3{animation:effWin3 24s linear infinite}
+@keyframes effWin3{0%,29.2%{opacity:0}29.7%,43.8%{opacity:1}44.3%,100%{opacity:0}}
+.eff-anim .tray3 .die{animation:effDie3 24s linear infinite}
+@keyframes effDie3{0%,29.2%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}33.373%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}36.503%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}39.633%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
+.eff-anim .num3{animation:effNum3 24s linear infinite}
+@keyframes effNum3{0%,39.630%{opacity:0}40.130%,54.130%{opacity:1}54.630%,100%{opacity:0}}
+.eff-anim .w3{animation:effW3 24s linear infinite}
+@keyframes effW3{0%,39.633%{opacity:0}40.133%,100%{opacity:1}}
+.eff-anim .r3{animation:effR3 24s linear infinite;opacity:0}
+@keyframes effR3{0%,29.2%{opacity:0}29.7%,43.8%{opacity:1}44.3%,100%{opacity:0}}
+.eff-anim .tray4{animation:effWin4 24s linear infinite}
+@keyframes effWin4{0%,43.8%{opacity:0}44.3%,58.3%{opacity:1}58.8%,100%{opacity:0}}
+.eff-anim .tray4 .die{animation:effDie4 24s linear infinite}
+@keyframes effDie4{0%,43.8%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}47.933%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}51.033%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}54.133%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
+.eff-anim .num4{animation:effNum4 24s linear infinite}
+@keyframes effNum4{0%,54.130%{opacity:0}54.630%,68.730%{opacity:1}69.230%,100%{opacity:0}}
+.eff-anim .w4{animation:effW4 24s linear infinite}
+@keyframes effW4{0%,54.133%{opacity:0}54.633%,100%{opacity:1}}
+.eff-anim .r4{animation:effR4 24s linear infinite;opacity:0}
+@keyframes effR4{0%,43.8%{opacity:0}44.3%,58.3%{opacity:1}58.8%,100%{opacity:0}}
+.eff-anim .tray5{animation:effWin5 24s linear infinite}
+@keyframes effWin5{0%,58.3%{opacity:0}58.8%,72.9%{opacity:1}73.4%,100%{opacity:0}}
+.eff-anim .tray5 .die{animation:effDie5 24s linear infinite}
+@keyframes effDie5{0%,58.3%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}62.473%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}65.603%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}68.733%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
+.eff-anim .num5{animation:effNum5 24s linear infinite}
+@keyframes effNum5{0%,68.730%{opacity:0}69.230%,83.330%{opacity:1}83.830%,100%{opacity:0}}
+.eff-anim .w5{animation:effW5 24s linear infinite}
+@keyframes effW5{0%,68.733%{opacity:0}69.233%,100%{opacity:1}}
+.eff-anim .r5{animation:effR5 24s linear infinite;opacity:0}
+@keyframes effR5{0%,58.3%{opacity:0}58.8%,72.9%{opacity:1}73.4%,100%{opacity:0}}
+.eff-anim .tray6{animation:effWin6 24s linear infinite}
+@keyframes effWin6{0%,72.9%{opacity:0}73.4%,100%{opacity:1}}
+.eff-anim .tray6 .die{animation:effDie6 24s linear infinite}
+@keyframes effDie6{0%,72.9%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}77.073%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}80.203%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}83.333%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
+.eff-anim .num6{animation:effNum6 24s linear infinite}
+@keyframes effNum6{0%,83.333%{opacity:0}83.833%,100%{opacity:1}}
+.eff-anim .w6{animation:effW6 24s linear infinite}
+@keyframes effW6{0%,83.333%{opacity:0}83.833%,100%{opacity:1}}
+.eff-anim .r6{animation:effR6 24s linear infinite;opacity:0}
+@keyframes effR6{0%,72.9%{opacity:0}73.4%,100%{opacity:1}}
+@keyframes effPbar{0%,10.433%{width:0}10.933%,25.033%{width:16.7%}25.533%,39.633%{width:33.3%}40.133%,54.133%{width:50%}54.633%,68.733%{width:66.7%}69.233%,83.333%{width:83.3%}83.833%,100%{width:100%}}
+@keyframes effStamp{0%,90%{opacity:0;transform:rotate(-6deg) scale(1.4)}94%,100%{opacity:1;transform:rotate(-6deg) scale(1)}}
+html[data-motion="off"] .eff-anim .die, html[data-motion="off"] .eff-anim .tray, html[data-motion="off"] .eff-anim .num, html[data-motion="off"] .eff-anim .wline, html[data-motion="off"] .eff-anim .pbar i, html[data-motion="off"] .eff-anim .wstamp { animation: none !important; }
+html[data-motion="off"] .eff-anim .tray1, html[data-motion="off"] .eff-anim .tray2, html[data-motion="off"] .eff-anim .tray3, html[data-motion="off"] .eff-anim .tray4, html[data-motion="off"] .eff-anim .tray5 { opacity: 0 !important; }
+html[data-motion="off"] .eff-anim .tray6, html[data-motion="off"] .eff-anim .num6, html[data-motion="off"] .eff-anim .wline, html[data-motion="off"] .eff-anim .wstamp { opacity: 1 !important; }
+html[data-motion="off"] .eff-anim .pbar i { width: 100% !important; }
+
