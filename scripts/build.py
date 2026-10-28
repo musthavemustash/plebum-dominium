@@ -98,7 +98,7 @@ SHEET_PATHS = {
     "signing": ["full"],
     "titanium": ["easy", "one", "full"],
     "encryption": ["full"],
-    "inheritance": ["full"],
+    "inheritance": ["easy", "one", "full"],
     "faq": ["easy", "one", "full"],
     "briefing": ["full"],
     "fire-card": ["one", "full"],
