@@ -1,7 +1,7 @@
 <svg width="460" height="150" viewBox="0 0 460 150" font-family="IBM Plex Mono, monospace">
         <rect x="20" y="15" width="420" height="120" rx="10" fill="#080706" stroke="#2b251b"/>
         <text x="40" y="50" fill="#c9a35c" font-size="13">$ ./verify_kit.sh</text>
-        <text x="40" y="78" fill="#4ade80" font-size="12">tails-amd64-7.13.img … PASS</text>
+        <text x="40" y="78" fill="#4ade80" font-size="12">tails-amd64-7.15.1.img … PASS</text>
         <text x="40" y="100" fill="#4ade80" font-size="12">sparrowwallet-2.5.5 … PASS</text>
         <text x="40" y="122" fill="#4ade80" font-size="12">dice-converter … PASS</text>
       </svg>
