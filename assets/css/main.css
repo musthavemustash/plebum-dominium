@@ -1692,3 +1692,12 @@ body.path-gated .toc-col { display: none !important; }
 .path-card-easy { border-top-color: #E69F00; }
 .path-seg button.sel-quick { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
 .path-card-quick { border-top-color: #E69F00; }
+
+/* Signing sheet: reduced-motion static fallback. Visitors with Reduce motion on otherwise see an empty stage, because the file, labels, and stamps start at opacity 0 and only appear through animation. This freezes the Seed 2 signs, 2 of 2 frame. */
+@media (prefers-reduced-motion: reduce) {
+  .sign-anim .filebox { left: 65%; top: 62%; transform: translate(-50%, -50%); opacity: 1; }
+  .sign-anim .filebox .outline rect { stroke-dashoffset: 0; }
+  .sign-anim .filebox .fill { width: 100%; }
+  .sign-anim .ct-label, .sign-anim .bc-label { opacity: 1; }
+  .sign-anim .stamp2 { opacity: 1; }
+}
