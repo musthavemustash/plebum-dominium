@@ -545,13 +545,13 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   } catch (e) {}
 })();
 
-/* ---------- sidebar path toggle (TEST SITE ONLY): Easy / One key / Full program, saved on this device ---------- */
+/* ---------- sidebar path toggle (TEST SITE ONLY): One device / One key and a passphrase / Three keys, saved on this device ---------- */
 (function () {
   "use strict";
   var PATHS = {
-    easy: { label: "Easy", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "titanium", "faq"], summary: "Words into one trusted device. Lowest work, most trust in one device and its maker." },
-    one: { label: "One key", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "single-sig", "titanium", "fire-card", "faq"], summary: "One key plus a passphrase. Medium work, trust in one key, one device, and one passphrase." },
-    full: { label: "Full program", sheets: null, summary: "Three keys, three places. Highest work, no single key, device, or place." }
+    easy: { label: "One device", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "titanium", "faq"], summary: "Words into one trusted device. Lowest work, most trust in one device and its maker." },
+    one: { label: "One key and a passphrase", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "single-sig", "titanium", "fire-card", "faq"], summary: "One key plus a passphrase. Medium work, trust in one key, one device, and one passphrase." },
+    full: { label: "Three keys", sheets: null, summary: "Three keys, three places. Highest work, no single key, device, or place." }
   };
   var VARIANTS = { faq: { easy: "faq-easy", one: "faq-one" }, titanium: { easy: "titanium-easy", one: "titanium-one" }, checklist: { easy: "checklist-easy", one: "checklist-one" }, "fire-card": { one: "fire-card-one" }, "threat-model": { easy: "threat-model-easy", one: "threat-model-one" }, dice: { easy: "dice-easy", one: "dice-one" } };
   var NOTES = {
@@ -566,7 +566,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       full: "Stamp three plates, and keep them in three places."
     },
     verify: {
-      easy: "On this path, the Later section does not apply. Sparrow, Electrum, the wallet map, and signing a file are Full program work. The checking steps above, download, fingerprint, signature, and kit check, are the work.",
+      easy: "On this path, the Later section does not apply. Sparrow, Electrum, the wallet map, and signing a file are Three keys work. The checking steps above, download, fingerprint, signature, and kit check, are the work.",
       one: "On this path, Sparrow is watch-only only, Electrum is not used, and the wallet map and signing in the Later section do not apply. The checking steps above are the work."
     },
     airgap: {
@@ -574,8 +574,8 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       one: "On this path, the map, signing a file, and exporting the map do not apply. A watch-only wallet comes later, in the single-sig sheet, and the device signs. Next, make one key."
     },
     terms: {
-      easy: "On this path, four entries describe the Full program, not your wallet: 2-of-3, m/48'/0'/0'/2', descriptor, and PSBT. Your wallet is one device and one plate.",
-      one: "On this path, three entries describe the Full program, not your wallet: 2-of-3, m/48'/0'/0'/2', and descriptor as a map. PSBT does not apply either, the device signs. The xpub entry fits as a watch key."
+      easy: "On this path, four entries describe the Three keys, not your wallet: 2-of-3, m/48'/0'/0'/2', descriptor, and PSBT. Your wallet is one device and one plate.",
+      one: "On this path, three entries describe the Three keys, not your wallet: 2-of-3, m/48'/0'/0'/2', and descriptor as a map. PSBT does not apply either, the device signs. The xpub entry fits as a watch key."
     },
     single: {},
     "single-sig": {
@@ -592,7 +592,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       full: "Write the inheritance sheet for a non-Bitcoiner, and keep it where your family can find it."
     }
   };
-  // One-time reset, Oct 28, 2026: Full program is the default, so a returning visitor lands on Full once, then a new choice is saved.
+  // One-time reset, Oct 28, 2026: Three keys is the default, so a returning visitor lands on Full once, then a new choice is saved.
   try { if (!localStorage.getItem("pd-path-reset-2026-10-28")) { localStorage.setItem("pd-path", "full"); localStorage.setItem("pd-path-reset-2026-10-28", "1"); } } catch (e) {}
   function getPath() {
     try {
@@ -651,7 +651,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       var slug = currentSlug();
       if (slug && info.sheets && info.sheets.indexOf(slug) < 0) {
         banner.classList.add("path-banner-warn");
-        if (note) note.innerHTML = "This sheet is not on your " + info.label + " path. " + info.summary + " Switch to Full program in the sidebar to see all sheets, or pick a sheet on your path.";
+        if (note) note.innerHTML = "This sheet is not on your " + info.label + " path. " + info.summary + " Switch to Three keys in the sidebar to see all sheets, or pick a sheet on your path.";
       } else {
         banner.classList.remove("path-banner-warn");
         var n = slug && NOTES[slug] && NOTES[slug][path] ? NOTES[slug][path] : info.summary;
@@ -669,7 +669,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     document.body.classList.toggle("path-gated", gated);
     if (gate) {
       gate.hidden = !gated;
-      if (gated && gateNote) gateNote.textContent = "This sheet is part of the Full program, not your " + info.label + " path, so its content is not shown here. Switch to Full program to read it, or stay on your path.";
+      if (gated && gateNote) gateNote.textContent = "This sheet is part of the Three keys, not your " + info.label + " path, so its content is not shown here. Switch to Three keys to read it, or stay on your path.";
     }
     document.querySelectorAll(".stage .card").forEach(function (card) {
       var href = card.getAttribute("href") || "";

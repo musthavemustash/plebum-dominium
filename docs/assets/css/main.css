@@ -520,7 +520,7 @@ pre code { background: none; color: inherit; padding: 0; }
 #keyring-easy.tapped .shackle, #keyring-easy.tapped .lockbody,
 #keyring-one.tapped .shackle, #keyring-one.tapped .lockbody { animation: none; }
 .key.sel { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
-/* ---------- keyring: the passphrase paper piece, and the Easy / One key pulse ---------- */
+/* ---------- keyring: the passphrase paper piece, and the One device / One key and a passphrase pulse ---------- */
 .paper {
   width: 5rem; height: 3.2rem; border-radius: 10px;
   border: 2px solid var(--line); background: var(--paper);
@@ -532,7 +532,7 @@ pre code { background: none; color: inherit; padding: 0; }
 .paper:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .paper.sel { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
 @media (prefers-reduced-motion: no-preference) {
-  /* Easy and One key pulse as one piece, in step with their locks, until a tap takes over */
+  /* One device and One key and a passphrase pulse as one piece, in step with their locks, until a tap takes over */
   .key-easy, .key-one, .paper-one { animation: easyPiece 5s ease-in-out infinite; }
   #keyring-easy .shackle, #keyring-one .shackle { animation: easyUnlock 5s ease-in-out infinite; }
   #keyring-easy .lockbody, #keyring-one .lockbody { animation: easyLockbody 5s ease-in-out infinite; }
@@ -1687,7 +1687,7 @@ body.path-gated .toc-col { display: none !important; }
 .risks-easy { border-top-color: #E69F00; }
 .risks-one { border-top-color: #0072B2; }
 .risks-full { border-top-color: #009E73; }
-/* in-site toggle: Easy naming, with old Quick classes kept as aliases */
+/* in-site toggle: One device naming, with old Quick classes kept as aliases */
 .path-seg button.sel-easy { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
 .path-card-easy { border-top-color: #E69F00; }
 .path-seg button.sel-quick { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
