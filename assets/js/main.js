@@ -592,6 +592,8 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       full: "Write the inheritance sheet for a non-Bitcoiner, and keep it where your family can find it."
     }
   };
+  // One-time reset, Oct 28, 2026: Full program is the default, so a returning visitor lands on Full once, then a new choice is saved.
+  try { if (!localStorage.getItem("pd-path-reset-2026-10-28")) { localStorage.setItem("pd-path", "full"); localStorage.setItem("pd-path-reset-2026-10-28", "1"); } } catch (e) {}
   function getPath() {
     try {
       var p = localStorage.getItem("pd-path");
