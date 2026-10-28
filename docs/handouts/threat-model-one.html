@@ -65,9 +65,9 @@
     <div class="sidebar-path" id="sidebar-path">
       <p class="sidebar-path-label">Your path</p>
       <div class="sidebar-path-seg" role="group" aria-label="Choose a setup">
-        <button type="button" data-path="easy" aria-pressed="false">Easy</button>
-        <button type="button" data-path="one" aria-pressed="false">One key</button>
-        <button type="button" data-path="full" aria-pressed="true">Full program</button>
+        <button type="button" data-path="easy" aria-pressed="false">One device</button>
+        <button type="button" data-path="one" aria-pressed="false">one key<br>+<br>Passphrase</button>
+        <button type="button" data-path="full" aria-pressed="true">Three keys</button>
       </div>
       <p class="sidebar-path-note" id="path-count">All 17 sheets</p>
     </div>
@@ -91,7 +91,7 @@
 <li data-paths="one full"><a href="/handouts/single-sig.html" class="" data-sheet="single-sig"><span class="sheet-num">16</span><span class="sheet-title">One key, done right</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
 <li data-paths="full"><a href="/handouts/two-devices.html" class="" data-sheet="two-devices"><span class="sheet-num">17</span><span class="sheet-title">Two devices and one dice key</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
     </ul>
-    <p class="sidebar-risks-wrap"><a class="sidebar-risks" id="sidebar-risks" href="/path-risks.html">Risks of your path: <span id="path-risks-label">Full program</span> &rarr;</a></p>
+    <p class="sidebar-risks-wrap"><a class="sidebar-risks" id="sidebar-risks" href="/path-risks.html">Risks of your path: <span id="path-risks-label">Three keys</span> &rarr;</a></p>
     <p class="sidebar-note">Check off sheets as you finish them. Progress is saved on this device.</p>
   </nav>
   <div class="scrim" aria-hidden="true"></div>
@@ -103,19 +103,19 @@
       <div class="mobile-path" id="mobile-path">
         <p class="mobile-path-label">Your path</p>
         <div class="mobile-path-seg" role="group" aria-label="Choose a setup">
-          <button type="button" data-path="easy" aria-pressed="false">Easy</button>
-          <button type="button" data-path="one" aria-pressed="false">One key</button>
-          <button type="button" data-path="full" aria-pressed="true">Full program</button>
+          <button type="button" data-path="easy" aria-pressed="false">One device</button>
+          <button type="button" data-path="one" aria-pressed="false">One key and a passphrase</button>
+          <button type="button" data-path="full" aria-pressed="true">Three keys</button>
         </div>
       </div>
       <div class="path-banner" id="path-banner" hidden>
-        <p class="path-banner-label">Your path: <strong id="path-banner-label">Full program</strong></p>
+        <p class="path-banner-label">Your path: <strong id="path-banner-label">Three keys</strong></p>
         <p class="path-banner-note" id="path-banner-note"></p>
       </div>
       <div class="path-gate" id="path-gate" hidden>
         <h2>Not on your path</h2>
         <p id="path-gate-note"></p>
-        <p><button type="button" id="path-gate-full">Switch to Full program to read this sheet</button></p>
+        <p><button type="button" id="path-gate-full">Switch to Three keys to read this sheet</button></p>
         <p><a href="/path-risks.html">Risks of your path &rarr;</a></p>
       </div>
 <nav class="step-banner" aria-label="Sheet 2 of 17"><a class="step-nav" href="/handouts/terms.html" rel="prev">&larr; T &middot; Terms</a><span class="step-pos"><strong>Step 2 of 10</strong> · Before you begin</span><a class="step-nav" href="/handouts/checklist.html" rel="next">03 &middot; Checklist &rarr;</a></nav>
@@ -162,9 +162,9 @@
 <h2>Pick your path</h2>
 <p>The doors above state where you stand today. After the doors, pick the trade that fits. The switch below routes you to the right starting sheet.</p>
 <div class="path-seg" role="group" aria-label="Choose a setup">
-<button type="button" data-path="easy" aria-pressed="false">Easy</button>
-<button type="button" data-path="one" aria-pressed="false">One key</button>
-<button type="button" data-path="full" aria-pressed="true">Full program</button>
+<button type="button" data-path="easy" aria-pressed="false">One device</button>
+<button type="button" data-path="one" aria-pressed="false">One key and a passphrase</button>
+<button type="button" data-path="full" aria-pressed="true">Three keys</button>
 </div>
 <div class="path-ends"><span>&larr; Less work, more trust</span><span>More work, less trust &rarr;</span></div>
 <div id="path-card-before" class="path-card path-card-full"></div>
@@ -173,7 +173,7 @@
 (function () {
   var PATHS = {
     easy: { cls: "path-card-easy", sel: "sel-easy", title: "Words into one trusted device", trade: "Trust: one device and its maker. Work: lowest.", steps: ["Roll dice for 24 words.", "Stamp the words in titanium first.", "Enter the words on the hardware wallet itself."], risk: "Risk: one device, one maker. If either fails you, the wallet fails.", next: "Next: the dice sheet, then the single-sig sheet.", go: "/handouts/dice.html", goText: "Go to the dice sheet" },
-    one: { cls: "path-card-one", sel: "sel-one", title: "One key plus a passphrase", trade: "Trust: one key, one device, one passphrase. Work: medium.", steps: ["Roll dice for 24 words.", "Add a passphrase, kept on paper apart from the plate.", "Stamp the words in titanium. Use a watch-only wallet."], risk: "Risk: one key and one passphrase. Lose the passphrase and the wallet is gone.", next: "Next: the single-sig sheet.", go: "/handouts/single-sig.html", goText: "Go to the single-sig sheet" },
+    one: { cls: "path-card-one", sel: "sel-one", title: "One key and a passphrase", trade: "Trust: one key, one device, one passphrase. Work: medium.", steps: ["Roll dice for 24 words.", "Add a passphrase, kept on paper apart from the plate.", "Stamp the words in titanium. Use a watch-only wallet."], risk: "Risk: one key and one passphrase. Lose the passphrase and the wallet is gone.", next: "Next: the single-sig sheet.", go: "/handouts/single-sig.html", goText: "Go to the single-sig sheet" },
     full: { cls: "path-card-full", sel: "sel-full", title: "Three keys, three places", trade: "Trust: no single key, device, or place. Work: highest.", steps: ["Roll three dice keys. Stamp three titanium plates. Keep them in three places.", "Build the 2-of-3. Practice spend first. Hide the encrypted map."], risk: "Risk: the most steps to get right. Lose two keys and the map and the funds are locked.", next: "Next: the checklist.", go: "/handouts/checklist.html", goText: "Go to the checklist" }
   };
   var card = document.getElementById("path-card-before");
