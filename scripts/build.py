@@ -318,6 +318,17 @@ def render_markdown(src):
             out.append("<hr>")
             i += 1
             continue
+        m = re.match(r"^::anim\s+([a-z0-9-]+)/([a-z0-9-]+)$", stripped)
+        if m:
+            close_list(); close_callout()
+            try:
+                with open(f"templates/{m.group(1)}-figs/{m.group(2)}.html") as f:
+                    anim = f.read()
+                out.append(anim)
+            except FileNotFoundError:
+                out.append(f'<!-- missing animation {m.group(1)}/{m.group(2)} -->')
+            i += 1
+            continue
         m = re.match(r"^::fig\s+([a-z0-9-]+)/([a-z0-9-]+)$", stripped)
         if m:
             close_list(); close_callout()
