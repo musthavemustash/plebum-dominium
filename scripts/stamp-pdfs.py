@@ -52,15 +52,26 @@ def sha256_bytes(b):
     return hashlib.sha256(b).hexdigest()
 
 
-def overlay_pdf(width, height, content_hash, domain_free=False):
+def path_label_for(basename):
+    if basename.endswith("-easy.pdf"):
+        return "One device"
+    if basename.endswith("-one.pdf"):
+        return "One key and a passphrase"
+    if basename == "02_Print_Packet.pdf":
+        return "Three keys"
+    return ""
+
+
+def overlay_pdf(width, height, content_hash, domain_free=False, path_label=""):
     buf = io.BytesIO()
     c = canvas.Canvas(buf, pagesize=(width, height))
     c.setFillColor(INK)
     if width >= 400:
         c.setFont("Helvetica", 6.5)
-        c.drawCentredString(
-            width / 2, 20,
-            f"Plebum Dominium \u00b7 plebumbtc.io \u00b7 Version {VERSION} \u00b7 Built {BUILT_LONG}")
+        footer_line = f"Plebum Dominium \u00b7 plebumbtc.io \u00b7 Version {VERSION} \u00b7 Built {BUILT_LONG}"
+        if path_label:
+            footer_line += f" \u00b7 {path_label}"
+        c.drawCentredString(width / 2, 20, footer_line)
         c.setFont("Courier", 6)
         c.drawCentredString(width / 2, 10.5, f"Content SHA-256: {content_hash}")
     else:
@@ -94,7 +105,7 @@ def stamp(path):
         h = float(page.mediabox.height)
         key = (round(w), round(h))
         if key not in overlays:
-            overlays[key] = overlay_pdf(w, h, content_hash, domain_free)
+            overlays[key] = overlay_pdf(w, h, content_hash, domain_free, path_label_for(os.path.basename(path)))
         page.merge_page(overlays[key])
         added = writer.add_page(page)
         # merge_page leaves the merged stream uncompressed; recompress per
