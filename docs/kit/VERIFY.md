@@ -42,6 +42,16 @@ SHA-256:  0e32bb36a531b02072c9d982697210554455e5c4955486629ea332106f68a816
 
 A single page from this kit that works out a file's SHA-256 in the browser, for the check in section 1 without the command line. Its own fingerprint is the block above, so it can be checked the same way as the tools.
 
+## EFF Long Wordlist
+
+```
+File:     eff_large_wordlist.txt
+Size:     108800 bytes
+SHA-256:  addd35536511597a02fa0a9ff1e5284677b8883b83e986e43f15a3db996b903e
+```
+
+The EFF Long Wordlist, 7,776 words, one per five digit dice number from 11111 to 66666. Source: eff.org. Roll five dice, read the faces left to right, look the number up, write down the word, repeat to at least six words.
+
 ## 1. Confirm you have the same bytes
 
 Linux / macOS / Tails:
