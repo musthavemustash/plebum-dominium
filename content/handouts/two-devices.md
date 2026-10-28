@@ -7,6 +7,8 @@
 - **The seed phrase is the wallet.** The device only signs.
 - **One rule:** the words go into the device itself, during recovery, and nowhere else. Never a website, never an app, never a form from an email.
 
+Files used: Sparrow 2.5.5.
+
 ::fig track-b/keys
 
 ## Step 1 · Buy two devices, two makers.

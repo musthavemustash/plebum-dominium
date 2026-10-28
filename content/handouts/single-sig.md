@@ -4,6 +4,8 @@
 
 The destination of this guide is the 2-of-3 build: three keys, three places, no single point of failure. In the full build, this sheet is also the spending wallet that lives on Plate A: Seed 1 plus a passphrase, for spending money while savings sit in the vault.
 
+Files used: Sparrow 2.5.5 for the watch-only wallet.
+
 ::fig single-sig/two-doors
 
 - **The seed phrase is the wallet.** The device only signs.

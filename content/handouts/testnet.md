@@ -6,6 +6,8 @@ Before any plate exists, do the **entire flow with play money**: build the 2-of-
 
 > [!WARNING] **Testnet coins are worthless.** They cannot be sold, converted, or spent as real bitcoin. That is the point: there is nothing at stake except your learning. Do not "test" with real bitcoin.
 
+Files used: Sparrow 2.5.5.
+
 ## The rehearsal
 
 1. **Get testnet coins from a faucet.** Make a testnet address in Sparrow (network: `testnet`), paste it into a faucet, wait for confirmation. This is the only step that touches the internet with your test wallet. Fine, it's worthless.
