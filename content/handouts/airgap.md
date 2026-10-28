@@ -4,6 +4,8 @@
 
 One computer, used twice. The first boot watches the wallet and broadcasts finished payments. It never holds a seed. The second boot is the Tails USB: networking off, exactly one seed, then a full shutdown. The seed lives in memory only. Shutdown wipes it.
 
+Files used: Tails 7.15.1 or later 7.x (verified).
+
 ::fig airgap/two-boots
 
 ## What "airgapped" means here

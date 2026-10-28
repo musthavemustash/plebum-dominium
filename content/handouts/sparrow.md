@@ -9,6 +9,8 @@ Three public keys go into Sparrow, and no seed ever touches this build. What com
 
 You will boot Tails four times: once per seed to copy its public key, then once more with no seed to build the vault.
 
+Files used: Sparrow 2.5.5. Tails 7.15.1 or later 7.x (verified). Electrum 4.8.3 for the cross-check.
+
 ## What is required
 
 - The data USB with the checked Sparrow file (sparrowwallet-2.5.5-x86_64.tar.gz)

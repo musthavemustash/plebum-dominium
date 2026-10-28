@@ -4,6 +4,8 @@
 
 The map can watch the money, but it cannot spend. The plates are not the map, and the map is not a seed. Anyone who can read it can see the balance, so it never sits around as plain text.
 
+Files used: Tails 7.15.1 or later 7.x (verified).
+
 ## What is required
 
 - The wallet map on the data USB, called map.txt only while you work.
