@@ -16,7 +16,7 @@ Tails: a later 7.x release from tails.net is allowed only if its signature and c
 
 ::fig verify/download-sources
 
-Sparrow must be 2.5.5 exactly. A newer download will not match. That is a stop, not an upgrade. The dice converter is the one file this site provides; its fingerprint is in VERIFY.md.
+Sparrow must be 2.5.5 exactly. A newer download will not match. That is a stop, not an upgrade. The dice converter and the wallet descriptor tool are the two files this site provides; their fingerprints are in VERIFY.md. Both are on the [downloads page](/downloads.html).
 
 ## Step 2 · Compare the fingerprint. Every character.
 

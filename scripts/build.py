@@ -1000,7 +1000,8 @@ def build_home():
         "<p>This guide shows you how to generate entropy with dice, import it into verified software, "
         "and stamp a 2-of-3 multisig wallet into titanium. Hardware wallets are completely optional.</p>"
         '<p><a class="btn" href="{BASE}handouts/terms.html">Start with the terms</a> '
-        '<a class="btn btn-ghost" href="{BASE}kit/02_Print_Packet.pdf">Download the print packet</a></p>'
+        '<a class="btn btn-ghost" href="{BASE}kit/02_Print_Packet.pdf">Download the print packet</a> '
+        '<a class="btn btn-ghost" href="{BASE}downloads.html">All downloads</a></p>'
         '<div class="keyring path-hidden" id="keyring-easy" aria-label="Tap the key to open the lock">'
         '<p class="keyring-try">Try it: tap the key.</p>'
         '<div class="keys">'
