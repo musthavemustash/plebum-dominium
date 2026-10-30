@@ -52,10 +52,6 @@ NEWS_TICKER = [
     ("South Korea: hacking incidents at seven banks linked to one attacker", "Oct 2026", "news.html#south-korea-banks", ""),
     ("Two hardware failures in one year", "Oct 2026", "news.html#two-hardware-failures", ""),
     ("Russia closes the exchange off-ramp", "Oct 2026", "news.html#russia-off-ramp", ""),
-    ("FTX collapses, $8 billion in customer funds missing", "Nov 2022", "news.html#ftx", ""),
-    ("Ledger breach exposes 272,000 customer addresses", "Jul 2020", "news.html#ledger-breach", ""),
-    ("QuadrigaCX dies with its founder, $190 million locked away", "Jan 2019", "news.html#quadrigacx", ""),
-    ("Mt. Gox loses 850,000 bitcoin", "Feb 2014", "news.html#mt-gox", ""),
 ]
 # On-chain Bitcoin address for the footer donate button.
 ONCHAIN_ADDRESS = "bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"
