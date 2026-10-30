@@ -8,9 +8,9 @@ Every file gets checked before the computer goes offline, and a file that fails 
 
 ## What is required
 
-- The downloads from the checklist: Tails 7.15.1 or later 7.x (verified), Sparrow 2.5.5, Electrum 4.8.3, the Ian Coleman page, and the dice converter from this kit.
+- The downloads from the checklist: Tails 7.16 or later 7.x (verified), Sparrow 2.5.5, Electrum 4.8.3, the Ian Coleman page, and the dice converter from this kit.
 
-Tails: a later 7.x release from tails.net is allowed only if its signature and checksum verify and the boot steps still match. Sparrow and Electrum must match exactly.
+Tails: download only from tails.net, and verify the file's signature and checksum before using it for the guide. A later 7.x release is allowed only if its signature and checksum verify and the boot steps still match. Sparrow and Electrum must match exactly.
 
 ## Step 1 · Download only from the real sites.
 
