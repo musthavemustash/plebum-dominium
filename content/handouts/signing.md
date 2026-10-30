@@ -7,7 +7,7 @@
 
 The practice spend uses a small amount, enough to pay a fee and no more. Write the destination, amount, and fee on paper before anything is exported, and read those notes again before each signature.
 
-Files used: Sparrow 2.5.5. Tails 7.15.1 or later 7.x (verified).
+Files used: Sparrow 2.5.5. Tails 7.16 or later 7.x (verified).
 
 ## Step 1 · Build the spend (online, watch-only).
 

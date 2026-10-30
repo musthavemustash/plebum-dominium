@@ -4,7 +4,7 @@
 
 One computer, used twice. The first boot watches the wallet and broadcasts finished payments. It never holds a seed. The second boot is the Tails USB: networking off, exactly one seed, then a full shutdown. The seed lives in memory only. Shutdown wipes it.
 
-Files used: Tails 7.15.1 or later 7.x (verified).
+Files used: Tails 7.16 or later 7.x (verified).
 
 ::fig airgap/two-boots
 
@@ -26,7 +26,7 @@ Not airgapped:
 
 ::fig airgap/two-usbs
 
-Download Tails only from the official site. Check the signature and checksum before writing. Write it with the official installer, label it TAILS. Do not create Persistent Storage. Skip the passphrase. The data USB gets only files that already passed the checks.
+Download Tails only from tails.net. Verify its signature and checksum before writing it to a USB stick. Write it with the official installer, label it TAILS. Do not create Persistent Storage. Skip the passphrase. The data USB gets only files that already passed the checks.
 
 ## Every offline session
 
