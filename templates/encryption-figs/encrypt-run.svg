@@ -1,8 +1,8 @@
 <svg width="460" height="170" viewBox="0 0 460 170" font-family="IBM Plex Mono, monospace">
-        <rect x="20" y="15" width="420" height="140" rx="10" fill="#080706" stroke="#2b251b"/>
-        <text x="40" y="48" fill="#c9a35c" font-size="13">$ python3 descriptor_obfuscator.py</text>
-        <text x="40" y="76" fill="#9a8f78" font-size="12">[E]ncrypt / [D]ecrypt? <tspan fill="#4ade80" font-weight="700">E</tspan></text>
-        <text x="40" y="102" fill="#9a8f78" font-size="12">Paste wallet map: <tspan fill="#6f6a5f">wsh(sortedmulti(2,…))</tspan></text>
-        <text x="40" y="128" fill="#9a8f78" font-size="12">Passphrase: <tspan fill="#6f6a5f">••••••••••</tspan></text>
-        <text x="40" y="150" fill="#4ade80" font-size="12">wrote map.txt.gpg ✓</text>
+        <rect x="20" y="15" width="420" height="140" rx="10" fill="var(--card)" stroke="var(--line)"/>
+        <text x="40" y="48" fill="var(--accent)" font-size="13">$ python3 descriptor_obfuscator.py</text>
+        <text x="40" y="76" fill="var(--muted)" font-size="12">[E]ncrypt / [D]ecrypt? <tspan fill="var(--tip)" font-weight="700">E</tspan></text>
+        <text x="40" y="102" fill="var(--muted)" font-size="12">Paste wallet map: <tspan fill="var(--muted)">wsh(sortedmulti(2,â¦))</tspan></text>
+        <text x="40" y="128" fill="var(--muted)" font-size="12">Passphrase: <tspan fill="var(--muted)">â¢â¢â¢â¢â¢â¢â¢â¢â¢â¢</tspan></text>
+        <text x="40" y="150" fill="var(--tip)" font-size="12">wrote map.txt.gpg â</text>
       </svg>
