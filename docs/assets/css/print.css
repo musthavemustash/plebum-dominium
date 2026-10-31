@@ -35,3 +35,8 @@ article a { color: #000 !important; text-decoration: underline; }
 
 .demo-embed { display: none !important; }
 .print-only { display: block !important; }
+/* themed SVG figures resolve to light values on paper, whatever the screen theme */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {
+  --card: #ffffff; --paper: #ffffff; --ink: #161410; --muted: #5c564c;
+  --line: #e3d9cc; --accent: #8a5a2a; --tip: #166534; --stop: #b91c1c;
+}
