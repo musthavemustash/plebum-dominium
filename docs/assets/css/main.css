@@ -339,10 +339,24 @@ pre code { background: none; color: inherit; padding: 0; }
 /* ---------- prev / next ---------- */
 .prevnext-row { display: flex; gap: 1rem; margin-top: 3rem; }
 .prevnext {
-  flex: 1; display: block; padding: 1rem 1.2rem;
-  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-  text-decoration: none; color: var(--ink); font-weight: 600;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  flex: 1; display: block; padding: 1.25rem 1.5rem;
+  border-radius: var(--radius);
+  text-decoration: none; font-weight: 700; font-size: 1.05rem; text-align: center;
+  transition: all 150ms ease;
+}
+.prevnext.prev {
+  background: var(--card); border: 2px solid var(--line); color: var(--ink);
+}
+.prevnext.prev:hover {
+  border-color: var(--accent); transform: translateY(-2px);
+  text-decoration: none; box-shadow: 0 4px 12px rgba(28,25,23,0.08);
+}
+.prevnext.next {
+  background: var(--accent); border: 2px solid var(--accent); color: var(--btn-ink);
+}
+.prevnext.next:hover {
+  filter: brightness(0.92); transform: translateY(-2px);
+  text-decoration: none; box-shadow: 0 4px 12px rgba(28,25,23,0.12);
 }
 .prevnext:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(28,25,23,0.08); text-decoration: none; }
 .prevnext.next { text-align: right; }
@@ -433,7 +447,7 @@ pre code { background: none; color: inherit; padding: 0; }
   main { padding: 1.5rem 0 6rem; }
   h1 { font-size: 1.7rem; }
   .hero h1 { font-size: 2.2rem; }
-  .prevnext-row { flex-direction: column; }
+  .prevnext-row { flex-direction: row; }
   .mobilebar {
     display: flex; align-items: center; justify-content: center;
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 60;
