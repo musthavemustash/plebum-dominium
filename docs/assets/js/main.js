@@ -549,32 +549,25 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
 (function () {
   "use strict";
   var PATHS = {
-    easy: { label: "One device", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "titanium", "inheritance", "faq"], summary: "Words into one trusted device. Lowest work, most trust in one device and its maker." },
-    one: { label: "One key and a passphrase", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "single-sig", "titanium", "fire-card", "inheritance", "faq"], summary: "One key plus a passphrase. Medium work, trust in one key, one device, and one passphrase." },
-    full: { label: "Three keys", sheets: null, summary: "Three keys, three places. Highest work, no single key, device, or place." }
-  };
-  var VARIANTS = { faq: { easy: "faq-easy", one: "faq-one" }, titanium: { easy: "titanium-easy", one: "titanium-one" }, checklist: { easy: "checklist-easy", one: "checklist-one" }, "fire-card": { one: "fire-card-one" }, "threat-model": { easy: "threat-model-easy", one: "threat-model-one" }, dice: { easy: "dice-easy", one: "dice-one" }, inheritance: { easy: "inheritance-easy", one: "inheritance-one" } };
+    one: { label: "One key", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "single-sig", "titanium", "inheritance", "fire-card", "faq"], summary: "One key plus a passphrase. Medium work, trust in one key, one device, and one passphrase." },
+    full: { label: "Three keys", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "sparrow", "testnet", "signing", "titanium", "encryption", "inheritance", "faq", "briefing", "fire-card", "single-sig", "two-devices"], summary: "Three keys, three places. Highest work, no single key, device, or place." }
+  var VARIANTS = { faq: { one: "faq-one" }, titanium: { one: "titanium-one" }, checklist: { one: "checklist-one" }, "fire-card": { one: "fire-card-one" }, "threat-model": { one: "threat-model-one" }, dice: { one: "dice-one" } };
   var NOTES = {
     dice: {
-      easy: "On this path, make one key, not three. Stop after the first key, stamp it in titanium, then enter the words on the device itself.",
       one: "On this path, make one key, then add a passphrase, kept on paper apart from the plate.",
       full: "Make three keys, with a full shutdown between each key."
     },
     titanium: {
-      easy: "On this path, stamp the words in titanium first, before the device entry. The plate is the backup if the device fails.",
       one: "Stamp the words in titanium, and keep the passphrase paper apart from the plate.",
       full: "Stamp three plates, and keep them in three places."
     },
     verify: {
-      easy: "On this path, the Later section does not apply. Sparrow, Electrum, the wallet map, and signing a file are Three keys work. The checking steps above, download, fingerprint, signature, and kit check, are the work.",
       one: "On this path, Sparrow is watch-only only, Electrum is not used, and the wallet map and signing in the Later section do not apply. The checking steps above are the work."
     },
     airgap: {
-      easy: "On this path, three phrases in this sheet do not apply: a watch-only wallet that broadcasts, payment files and the map on the data USB, and signing a file or exporting the map. Your work here is Tails with networking off, one seed per session, and a full shutdown. Next, make one key.",
       one: "On this path, the map, signing a file, and exporting the map do not apply. A watch-only wallet comes later, in the single-sig sheet, and the device signs. Next, make one key."
     },
     terms: {
-      easy: "On this path, four entries describe the Three keys, not your wallet: 2-of-3, m/48'/0'/0'/2', descriptor, and PSBT. Your wallet is one device and one plate.",
       one: "On this path, three entries describe the Three keys, not your wallet: 2-of-3, m/48'/0'/0'/2', and descriptor as a map. PSBT does not apply either, the device signs. The xpub entry fits as a watch key."
     },
     single: {},
@@ -589,7 +582,6 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       full: "Hide the wallet map, encrypted, apart from any single plate. Two seeds alone cannot rebuild the third key without it."
     },
     inheritance: {
-      easy: "Write the inheritance sheet for a non-Bitcoiner, and keep it where your family can find it. One plate opens this wallet.",
       one: "Write the inheritance sheet for a non-Bitcoiner, and keep it where your family can find it. Plate plus passphrase paper opens this wallet.",
       full: "Write the inheritance sheet for a non-Bitcoiner, and keep it where your family can find it."
     }
@@ -599,7 +591,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   function getPath() {
     try {
       var p = localStorage.getItem("pd-path");
-      if (p === "easy" || p === "one" || p === "full") return p;
+      if (p === "one" || p === "full") return p;
     } catch (e) {}
     return "full";
   }
@@ -613,10 +605,10 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     document.querySelectorAll("#sidebar-path button[data-path], .path-risks-switch button[data-path], .mobile-path-seg button[data-path]").forEach(function (b) {
       var on = b.getAttribute("data-path") === path;
       b.setAttribute("aria-pressed", on ? "true" : "false");
-      b.classList.toggle("sel-easy", on && path === "easy");
+      
       b.classList.toggle("sel-one", on && path === "one");
       b.classList.toggle("sel-full", on && path === "full");
-      if (!on) { b.classList.remove("sel-easy", "sel-one", "sel-full"); }
+      if (!on) { b.classList.remove("sel-one", "sel-full"); }
     });
     var shown = 0, total = 0;
     document.querySelectorAll(".sidebar ul li[data-paths]").forEach(function (li) {
@@ -629,19 +621,19 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     if (count) count.textContent = path === "full" ? "All " + total + " sheets" : "Showing " + shown + " of " + total + " sheets for " + info.label;
     var risksLabel = document.getElementById("path-risks-label");
     if (risksLabel) risksLabel.textContent = info.label;
-    ["easy", "one", "full"].forEach(function (k) {
+    ["one", "full"].forEach(function (k) {
       var sec = document.getElementById("risks-" + k);
       if (sec) sec.classList.toggle("path-hidden", k !== path);
     });
-    ["easy", "one", "full"].forEach(function (k) {
+    ["one", "full"].forEach(function (k) {
       var sec = document.getElementById("process-" + k);
       if (sec) sec.classList.toggle("path-hidden", k !== path);
     });
-    ["easy", "one", "full"].forEach(function (k) {
+    ["one", "full"].forEach(function (k) {
       var ring = document.getElementById("keyring-" + k);
       if (ring) ring.classList.toggle("path-hidden", k !== path);
     });
-    ["easy", "one", "full"].forEach(function (k) {
+    ["one", "full"].forEach(function (k) {
       var sec = document.getElementById("why-" + k);
       if (sec) sec.classList.toggle("path-hidden", k !== path);
     });
@@ -702,7 +694,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
         window.location.href = window.location.pathname.replace(/[^\/]+\.html$/, want + ".html");
         return;
       }
-      if (!want && curFile !== curSlug && (curFile === VARIANTS[curSlug].easy || curFile === VARIANTS[curSlug].one)) {
+      if (!want && curFile !== curSlug && (curFile === VARIANTS[curSlug].one)) {
         window.location.href = window.location.pathname.replace(/[^\/]+\.html$/, curSlug + ".html");
         return;
       }
