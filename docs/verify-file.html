@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verify a file · Plebum Dominium</title>
+<style>
+  :root { color-scheme: dark; }
+  body { background: #0e0d0b; color: #efe9dc; font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+         margin: 0; padding: 2rem 1rem 3rem; }
+  main { max-width: 640px; margin: 0 auto; }
+  h1 { font-family: Georgia, "Newsreader", serif; font-weight: 600; font-size: 1.7rem; margin: 0 0 0.4rem; }
+  .sub { color: #9b9384; margin: 0 0 1.6rem; line-height: 1.55; }
+  h2 { font-family: Georgia, "Newsreader", serif; font-size: 1.1rem; color: #c4a484; margin: 1.6rem 0 0.6rem; font-weight: 600; }
+  .filelist { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; }
+  .fileopt { display: flex; align-items: center; gap: 0.7rem; background: #161411; border: 1px solid #2a2722;
+             border-radius: 10px; padding: 0.7rem 0.9rem; cursor: pointer; }
+  .fileopt:hover { border-color: #c4a484; }
+  .fileopt input { accent-color: #c4a484; width: 18px; height: 18px; flex-shrink: 0; }
+  .fileopt.sel { border-color: #c4a484; background: #1d1913; }
+  .fileopt .nm { font-weight: 600; font-family: ui-monospace, monospace; font-size: 0.9rem; }
+  .fileopt .bl { color: #9b9384; font-size: 0.82rem; margin-top: 0.15rem; }
+  #drop { border: 2px dashed #c4a484; border-radius: 10px; padding: 2.2rem 1rem;
+          text-align: center; color: #e4c6a4; cursor: pointer; margin-top: 0.5rem; }
+  #drop.over { background: #241e16; }
+  #drop.disabled { opacity: 0.4; cursor: default; }
+  #drop p { margin: 0.3rem 0; }
+  .hint { font-size: 0.85rem; color: #9b9384; }
+  #out { margin-top: 1.6rem; display: none; border-radius: 10px; padding: 1.2rem;
+         border: 1px solid #2a2722; background: #161411; }
+  #out.ok { border-color: #3aa655; }
+  #out.bad { border-color: #e07856; }
+  #verdict { font-weight: 700; font-size: 1.25rem; margin: 0 0 0.5rem; }
+  #out.ok #verdict { color: #9ec49a; }
+  #out.bad #verdict { color: #e08a8a; }
+  #detail { font-size: 0.9rem; color: #9b9384; line-height: 1.55; margin: 0; }
+  #detail code { font-family: ui-monospace, monospace; font-size: 0.8rem; color: #efe9dc; word-break: break-all; }
+  .note { margin-top: 2rem; font-size: 0.88rem; color: #9b9384; line-height: 1.6;
+          border-top: 1px solid #2a2722; padding-top: 1rem; }
+  .note code { font-family: ui-monospace, monospace; font-size: 0.8rem; word-break: break-all; color: #efe9dc; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Verify a file</h1>
+  <p class="sub">Pick the file you downloaded, then drop it below. The page works out
+  its fingerprint and compares it with the published one. One drop, one answer.</p>
+
+  <h2>1 · Which file is this?</h2>
+  <div class="filelist" id="filelist" role="radiogroup" aria-label="Published file"></div>
+
+  <h2>2 · Drop the downloaded copy here</h2>
+  <div id="drop" class="disabled" tabindex="0" role="button" aria-label="Choose or drop a file">
+    <p><strong>Drop a file here</strong></p>
+    <p class="hint">or click to choose one · pick the file above first</p>
+  </div>
+  <input type="file" id="picker" hidden>
+
+  <div id="out" role="status">
+    <p id="verdict"></p>
+    <p id="detail"></p>
+  </div>
+
+  <p class="note">This page never uploads anything. The fingerprint is worked out on this
+  machine, in this browser tab, and the file itself never leaves the computer.
+  It works with the internet disconnected, and it works from a USB stick.<br><br>
+  Check this page itself before you rely on it. Its own SHA-256 is printed in
+  VERIFY.md next to the other files.</p>
+</main>
+<script>
+(function () {
+  "use strict";
+  var PINNED = [{"name": "tools-bundle.zip", "size": 212189, "sha256": "26223471d58a6f573fa25a3e189b9bc16f5c6b22a21e4b9fcaa58e5e22047945", "blurb": "Tools bundle. Every tool in one zip. Download this one file and check this one hash."}, {"name": "dice-converter.html", "size": 42822, "sha256": "8febaebc3d548527d7158d2df0200aba7b8eaee53379d5bf2e6dd84683d90010", "blurb": "Dice converter page. Records the rolls, prints the 24 words."}, {"name": "descriptor-tool.html", "size": 415432, "sha256": "9b391a911cb5ba3a74a108321c12c37dc82d7a25b3707927958ccc46e9e30e61", "blurb": "Descriptor tool page. Encrypts and decrypts the wallet map."}, {"name": "bip39_dice_converter.py", "size": 37896, "sha256": "7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330", "blurb": "Dice converter, Python. The second tool for the dice sheet."}, {"name": "descriptor_obfuscator.py", "size": 8456, "sha256": "35f8807c72241bcbe97318f7ffa4e4c6e211df180e67f85656e0429520466589", "blurb": "Descriptor obfuscator, Python. GPG AES-256."}, {"name": "eff_large_wordlist.txt", "size": 108800, "sha256": "addd35536511597a02fa0a9ff1e5284677b8883b83e986e43f15a3db996b903e", "blurb": "EFF Large Wordlist. 7,776 words for dice passphrases."}, {"name": "hash_checker.html", "size": 4747, "sha256": "0e32bb36a531b02072c9d982697210554455e5c4955486629ea332106f68a816", "blurb": "Hash checker page. The older manual version of this check."}];
+  var selected = null, current = null;
+  var list = document.getElementById('filelist');
+  var drop = document.getElementById('drop');
+  var picker = document.getElementById('picker');
+  var out = document.getElementById('out');
+  var verdict = document.getElementById('verdict');
+  var detail = document.getElementById('detail');
+
+  PINNED.forEach(function (f, i) {
+    var label = document.createElement('label');
+    label.className = 'fileopt';
+    var radio = document.createElement('input');
+    radio.type = 'radio'; radio.name = 'pubfile'; radio.value = i;
+    radio.setAttribute('aria-label', f.name);
+    var wrap = document.createElement('div');
+    var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = f.name;
+    var bl = document.createElement('div'); bl.className = 'bl';
+    bl.textContent = f.blurb + ' · ' + f.size + ' bytes';
+    wrap.appendChild(nm); wrap.appendChild(bl);
+    label.appendChild(radio); label.appendChild(wrap);
+    radio.addEventListener('change', function () {
+      selected = PINNED[i];
+      current = null;
+      out.style.display = 'none';
+      drop.classList.remove('disabled');
+      var opts = list.querySelectorAll('.fileopt');
+      for (var j = 0; j < opts.length; j++) opts[j].classList.remove('sel');
+      label.classList.add('sel');
+    });
+    list.appendChild(label);
+  });
+
+  function show(ok, file, want, got) {
+    out.style.display = 'block';
+    out.className = ok ? 'ok' : 'bad';
+    if (ok) {
+      verdict.textContent = 'MATCH. This is the published file.';
+      detail.innerHTML = '';
+      var p = document.createElement('p'); p.id = 'detail';
+      p.textContent = file.name + ' is exactly the published copy. It is safe to copy to the data USB.';
+      out.replaceChild(p, detail); detail = p;
+    } else {
+      verdict.textContent = 'NO MATCH. Stop. Do not use that copy.';
+      var d = document.createElement('p'); d.id = 'detail';
+      var t1 = document.createTextNode('Expected ');
+      var c1 = document.createElement('code'); c1.textContent = want;
+      var t2 = document.createTextNode(' but the dropped file gave ');
+      var c2 = document.createElement('code'); c2.textContent = got;
+      var t3 = document.createTextNode('. Delete that copy and download again.');
+      d.appendChild(t1); d.appendChild(c1); d.appendChild(t2); d.appendChild(c2); d.appendChild(t3);
+      out.replaceChild(d, detail); detail = d;
+    }
+    out.id = 'out';
+  }
+
+  function handle(file) {
+    if (!file || !selected) return;
+    file.arrayBuffer().then(function (buf) {
+      return crypto.subtle.digest('SHA-256', buf);
+    }).then(function (digest) {
+      var got = Array.from(new Uint8Array(digest)).map(function (b) {
+        return b.toString(16).padStart(2, '0');
+      }).join('');
+      current = got;
+      show(got === selected.sha256, selected, selected.sha256, got);
+    });
+  }
+
+  drop.addEventListener('click', function () { if (selected) picker.click(); });
+  drop.addEventListener('keydown', function (e) {
+    if (selected && (e.key === 'Enter' || e.key === ' ')) picker.click();
+  });
+  picker.addEventListener('change', function () { handle(picker.files[0]); picker.value = ''; });
+  ['dragover', 'dragenter'].forEach(function (ev) {
+    drop.addEventListener(ev, function (e) { e.preventDefault(); if (selected) drop.classList.add('over'); });
+  });
+  ['dragleave', 'drop'].forEach(function (ev) {
+    drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('over'); });
+  });
+  drop.addEventListener('drop', function (e) { handle(e.dataTransfer.files[0]); });
+})();
+</script>
+</body>
+</html>
