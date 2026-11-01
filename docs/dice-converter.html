@@ -427,7 +427,14 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
     // Always probe; do not trust navigator.onLine alone (it lies on some mobile browsers).
     // Fail closed: block if EITHER signal says online.
     var probeResult = await probeOnline();
-    online = (navigator.onLine===true) || probeResult;
+    // For file:// (downloaded file), trust the probe only; navigator.onLine lies
+    // because the phone has network even though the file is local and safe.
+    // For https:// (website), block if either signal says online (fail closed).
+    if (location.protocol === 'file:') {
+      online = probeResult;
+    } else {
+      online = (navigator.onLine===true) || probeResult;
+    }
     var wasBlocked=netBlocked;
     netBlocked=online;
     if(pill){ dot.classList.toggle('safe', !online); word.textContent=online?'Online':'Offline'; }
