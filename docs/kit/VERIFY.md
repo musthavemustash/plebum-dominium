@@ -32,6 +32,18 @@ The hash must match exactly:
 
 If it does not match, stop. Do not run that copy. The tool calls GPG with AES-256. It does not contain a cipher of its own.
 
+
+## Descriptor tool page
+
+```
+File:     descriptor-tool.html
+Size:     415037 bytes
+SHA-256:  096c2542f67db1be19d666ba4d507f49591c3e1717688731d35527a055f1d7d4
+```
+
+The browser page for the wallet map. It blocks itself when it was loaded over http or https. Open the downloaded file on Tails with networking disabled. It writes an OpenPGP message the Python tool can open. The S2K digest in this page is SHA-256. The Python tool uses SHA-512. The digest is stored in the message, so either tool opens the other's file.
+
+
 ## Hash checker page
 
 ```
