@@ -1644,7 +1644,6 @@ html[data-motion="off"] .metal-anim .plate { transform: none; opacity: 1; }
 .path-toggle h2 { margin-bottom: 0.5rem; }
 .path-seg { display: flex; gap: 8px; margin: 1rem 0 0.4rem; }
 .path-seg button { flex: 1; padding: 0.8rem 0.4rem; font-family: "IBM Plex Sans", sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; }
-.path-seg button.sel-easy { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
 .path-seg button.sel-one { background: #0072B2; color: #ffffff; border-color: #0072B2; }
 .path-seg button.sel-full { background: #009E73; color: #0e0d0b; border-color: #009E73; }
 .path-ends { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; }
@@ -1661,7 +1660,6 @@ html[data-motion="off"] .metal-anim .plate { transform: none; opacity: 1; }
 .sidebar-path-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin: 0 0 0.5rem 0.25rem; font-family: "IBM Plex Sans", sans-serif; }
 .sidebar-path-seg, .path-risks-switch { display: flex; gap: 6px; margin: 0 0 0.4rem; }
 .sidebar-path-seg button, .path-risks-switch button, .mobile-path-seg button { flex: 1; padding: 0.55rem 0.25rem; font-family: "IBM Plex Sans", sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; }
-.sidebar-path-seg button.sel-easy, .path-risks-switch button.sel-easy, .mobile-path-seg button.sel-easy { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
 .sidebar-path-seg button.sel-one, .path-risks-switch button.sel-one, .mobile-path-seg button.sel-one { background: #0072B2; color: #ffffff; border-color: #0072B2; }
 .sidebar-path-seg button.sel-full, .path-risks-switch button.sel-full, .mobile-path-seg button.sel-full { background: #009E73; color: #0e0d0b; border-color: #009E73; }
 .mobile-path { display: none; }
@@ -1702,7 +1700,6 @@ body.path-gated .toc-col { display: none !important; }
 .risks-one { border-top-color: #0072B2; }
 .risks-full { border-top-color: #009E73; }
 /* in-site toggle: One device naming, with old Quick classes kept as aliases */
-.path-seg button.sel-easy { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
 .path-card-easy { border-top-color: #E69F00; }
 .path-seg button.sel-quick { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
 .path-card-quick { border-top-color: #E69F00; }
