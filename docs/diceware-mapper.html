@@ -778,14 +778,19 @@
       var netStatusEl = document.getElementById("netStatus");
       var netStatusText = document.getElementById("netStatusText");
       function updateNetStatus() {
-        if (navigator.onLine) {
+        // navigator.onLine is unreliable and location.protocol alone
+        // does not prove networking is disabled. This tool makes no
+        // network requests. You must disable networking yourself and
+        // verify it independently before entering real dice data.
+        var isFile = location.protocol === 'file:';
+        if (!isFile) {
           netStatusEl.classList.add("online");
           netStatusEl.classList.remove("offline");
-          netStatusText.textContent = "This device appears to be ONLINE. Go offline before you roll.";
+          netStatusText.textContent = "WARNING: Opened over " + location.protocol + ". For real keys, download this file, disconnect from all networks, then open the local copy.";
         } else {
           netStatusEl.classList.add("offline");
           netStatusEl.classList.remove("online");
-          netStatusText.textContent = "This device is OFFLINE. The right state to roll in.";
+          netStatusText.textContent = "Opened as local file. This does not mean networking is disabled. Disable networking and verify independently before entering real dice data.";
         }
       }
       window.addEventListener("online", updateNetStatus);

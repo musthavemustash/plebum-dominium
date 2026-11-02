@@ -137,8 +137,9 @@ footer p{margin:6px 0}
     <div class="row">
       <button class="ghost" id="undo">Undo last</button>
       <button class="ghost" id="clear">Clear all</button>
-      <button class="quiet" id="testfill">Try with test rolls</button>
+      <button class="quiet" id="testfill" style="border: 2px dashed #c4a484;">TEST ONLY: Fill with fake rolls</button>
     </div>
+    <p style="font-size: 0.85em; color: #9b9384; margin-top: 8px;"><strong>TEST ONLY:</strong> The "Fill with fake rolls" button uses predictable fake data for demonstration. Never use these words for a real wallet. Always roll physical dice for real keys.</p>
     <p class="done" id="done256" hidden>256 bits recorded. The 24 words are below.</p>
   </section>
 
@@ -409,44 +410,23 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
       li('good','No words recorded above to compare against. This list stands on its own check.', .18);
     }
   });
-  function probeOnline(){
-    return new Promise(function(resolve){
-      var urls=[
-        'https://www.google.com/favicon.ico',
-        'https://www.gstatic.com/favicon.ico'
-      ];
-      var pending=urls.length, settled=false;
-      function finish(online){ if(settled) return; settled=true; resolve(online); }
-      var timer=setTimeout(function(){ finish(false); },5000);
-      urls.forEach(function(base){
-        var img=new Image();
-        img.onload=function(){ clearTimeout(timer); finish(true); };
-        img.onerror=function(){ pending--; if(pending<=0){ clearTimeout(timer); finish(false); } };
-        img.src=base+'?_='+Date.now();
-      });
-    });
-  }
-  async function renderNet(){
-    var pill=$('online-pill'), dot=$('online-dot'), word=$('online-word'), block=$('netblock');
-    if(pill){ pill.hidden=false; dot.classList.remove('safe'); word.textContent='Checking\u2026'; }
-    if(block){ block.hidden=false; }
-    var online;
-    if(navigator.onLine===true){ online=true; }
-    else { online=await probeOnline(); }
-    var wasBlocked=netBlocked;
-    netBlocked=online;
-    if(pill){ dot.classList.toggle('safe', !online); word.textContent=online?'Online':'Offline'; }
-    if(block){ block.hidden=!online; }
-    if(online && !wasBlocked){
-      clearAll();
-      $('valwords').value='';
-      $('results').innerHTML='';
+  function probeOnline() {
+  // This tool never makes network requests.
+  // Check location.protocol as a conservative page-origin guard only.
+  // Neither protocol nor navigator.onLine proves physical disconnection.
+  // You must disable networking yourself and verify it independently.
+  var isFile = location.protocol === 'file:';
+  var statusEl = document.getElementById('net-status');
+  if (statusEl) {
+    if (isFile) {
+      statusEl.textContent = 'Opened as local file. This does not mean networking is disabled. Disable networking and verify independently before entering real dice data.';
+      statusEl.className = 'net-warn';
+    } else {
+      statusEl.textContent = 'WARNING: Opened over ' + location.protocol + '. For real keys, download this file, disconnect from all networks, then open the local copy.';
+      statusEl.className = 'net-danger';
     }
   }
-  window.addEventListener('online', renderNet);
-  window.addEventListener('offline', renderNet);
-  renderNet();
-  render();
+  return isFile;
 })();
 </script>
 </body>
