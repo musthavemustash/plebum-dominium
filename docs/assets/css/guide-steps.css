@@ -205,3 +205,33 @@
   border: 1px solid var(--line);
   border-radius: 8px;
 }
+
+/* Threat-model worksheet (Before you begin) */
+.tm-subtitle{color:var(--muted);margin-top:-.5rem}
+.tm-section{margin:1.5rem 0}
+.tm-section h2{display:flex;align-items:center;gap:.6rem;font-size:1.15rem}
+.tm-step{display:inline-flex;align-items:center;justify-content:center;width:1.8em;height:1.8em;border-radius:50%;background:var(--accent);color:#fff;font-size:.85em;font-weight:700;flex-shrink:0}
+.tm-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin-top:1rem}
+.tm-cards.tm-single{grid-template-columns:1fr}
+.tm-card{position:relative;display:flex;flex-direction:column;gap:.25rem;padding:.9rem 1rem;border:1.5px solid var(--line);border-radius:12px;background:var(--card);cursor:pointer;transition:border-color .15s,box-shadow .15s;min-height:44px}
+.tm-card:hover{border-color:var(--accent)}
+.tm-card input{position:absolute;opacity:0;pointer-events:none}
+.tm-card-title{font-weight:700}
+.tm-card-sub{color:var(--muted);font-size:.88rem}
+.tm-check{display:none;position:absolute;top:.6rem;right:.6rem;width:1.5em;height:1.5em;border-radius:50%;background:var(--accent);color:#fff;align-items:center;justify-content:center;font-size:.85em;font-weight:700}
+.tm-card:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.tm-card:has(input:checked) .tm-check{display:inline-flex}
+.tm-radio{display:none;position:absolute;top:.9rem;right:.9rem;width:1.1em;height:1.1em;border-radius:50%;border:2px solid var(--line)}
+.tm-card:has(input:checked) .tm-radio{display:block;border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 2px var(--card)}
+.tm-card:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.tm-summary{margin:1.5rem 0;padding:1.1rem 1.2rem;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.tm-summary h2{margin:0 0 .5rem;font-size:1.1rem}
+.tm-summary p{margin:.4rem 0}
+.tm-disclaimer{color:var(--muted);font-size:.85rem;font-style:italic}
+.tm-details{margin:1.5rem 0;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.tm-details summary{padding:.9rem 1.1rem;cursor:pointer;font-weight:700;min-height:44px}
+.tm-details-body{padding:0 1.1rem 1.1rem}
+.tm-details-body h3{margin:1rem 0 .4rem}
+.tm-details-body ul{margin:.4rem 0;padding-left:1.2rem}
+@media (max-width:480px){.tm-cards{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.tm-card{transition:none}}

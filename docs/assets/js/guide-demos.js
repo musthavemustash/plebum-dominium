@@ -61,3 +61,37 @@
     for (var i = 0; i < demos.length; i++) { initDemo(demos[i]); }
   });
 })();
+
+// Threat-model worksheet: dynamic summary
+(function () {
+  var summaryEl = document.getElementById('tm-summary-text');
+  if (!summaryEl) return;
+  var originNotes = {
+    exchange: 'Moving to self-custody means learning how to secure keys that you control.',
+    software: 'If you move to a new setup, plan the migration and recovery process carefully.',
+    hardware: 'Review your current backup, recovery procedure, and signing setup before making changes.',
+    new: 'You can build a recovery plan before creating your first wallet.'
+  };
+  function update() {
+    var concerns = [];
+    document.querySelectorAll('input[name="concern"]:checked').forEach(function (c) {
+      concerns.push(c.value);
+    });
+    var origin = document.querySelector('input[name="origin"]:checked');
+    var parts = [];
+    if (concerns.length) {
+      parts.push('You selected: ' + concerns.join(', ') + '.');
+    }
+    if (origin && originNotes[origin.value]) {
+      parts.push(originNotes[origin.value]);
+    }
+    if (!parts.length) {
+      parts.push('Choose the concerns that matter most to you and where you are starting.');
+    }
+    summaryEl.textContent = parts.join(' ');
+  }
+  document.querySelectorAll('input[name="concern"], input[name="origin"]').forEach(function (el) {
+    el.addEventListener('change', update);
+  });
+  update();
+})();
