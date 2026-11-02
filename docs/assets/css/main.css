@@ -1747,3 +1747,11 @@ body { overflow-x: clip; }
     text-align: center;
   }
 }
+
+/* Path-colored page kicker: keeps the user on track */
+html[data-path="one"] .kicker {
+  color: #0072B2;
+}
+html[data-path="full"] .kicker {
+  color: #009E73;
+}
