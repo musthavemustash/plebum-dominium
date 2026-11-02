@@ -1760,3 +1760,11 @@ html[data-path="full"] .kicker {
 .mobile-path {
   display: none;
 }
+
+/* Blue accent for One key column (matches green for Three keys) */
+.tier-chart thead th.hl-one {
+  box-shadow: inset 0 3px 0 #0072B2;
+}
+.tier-chart tbody td.t1 {
+  background: rgba(0,114,178,.07);
+}
