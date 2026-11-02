@@ -422,94 +422,55 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   render();
 })();
 
-/* --- hero keyrings as quorum demos, one per path: the animation runs until a tap takes over --- */
+/* --- hero keyring as quorum demo: the animation runs until a tap takes over --- */
 (function () {
   "use strict";
-  function wireRing(id, update, defCap, defDesc) {
-    var ring = document.getElementById(id);
-    if (!ring) return;
-    var lock = document.getElementById(id + "-lock");
-    var cap = document.getElementById(id + "-caption");
-    var desc = document.getElementById(id + "-desc");
-    var reset = document.getElementById(id + "-reset");
-    var pieces = ring.querySelectorAll(".key, .paper");
-    function selCount() {
-      var n = 0;
-      pieces.forEach(function (p) { if (p.classList.contains("sel")) n++; });
-      return n;
-    }
-    function hasSel(cls) {
-      var found = false;
-      pieces.forEach(function (p) { if (p.classList.contains(cls) && p.classList.contains("sel")) found = true; });
-      return found;
-    }
-    function render() {
-      var st = update(selCount(), hasSel("key-one"), hasSel("paper-one"));
-      if (lock) lock.classList.toggle("open", st.open);
-      if (cap) cap.innerHTML = st.cap;
-      if (desc) desc.textContent = st.desc;
-    }
-    pieces.forEach(function (piece) {
-      piece.addEventListener("click", function () {
-        ring.classList.add("tapped");
-        piece.classList.toggle("sel");
-        piece.setAttribute("aria-pressed", piece.classList.contains("sel") ? "true" : "false");
-        render();
-        if (reset) reset.hidden = false;
-      });
-    });
-    if (reset) {
-      reset.addEventListener("click", function () {
-        pieces.forEach(function (piece) {
-          piece.classList.remove("sel");
-          piece.setAttribute("aria-pressed", "false");
-        });
-        if (lock) lock.classList.remove("open");
-        if (cap) cap.innerHTML = defCap;
-        if (desc) desc.textContent = defDesc;
-        reset.hidden = true;
-      });
+  var ring = document.getElementById("keyring");
+  if (!ring) return;
+  var lock = document.getElementById("keyring-lock");
+  var caption = document.getElementById("keyring-caption");
+  var desc = document.getElementById("keyring-descriptor");
+  var resetBtn = document.getElementById("keyring-reset");
+  var keys = ring.querySelectorAll(".key");
+  function update() {
+    var n = 0;
+    keys.forEach(function (k) { if (k.classList.contains("sel")) n++; });
+    if (lock) lock.classList.toggle("open", n >= 2);
+    if (n === 0) {
+      caption.innerHTML = "<strong>Vault locked.</strong> No keys selected.";
+      desc.textContent = "Descriptor: not shown yet. Tap keys to see if it is needed.";
+    } else if (n === 1) {
+      caption.innerHTML = "<strong>Vault locked.</strong> One key alone cannot spend.";
+      desc.textContent = "Descriptor: not enough yet. One key alone cannot spend, with or without the map.";
+    } else if (n === 2) {
+      caption.innerHTML = "<strong>Vault opens, but a descriptor is needed.</strong>";
+      desc.textContent = "Descriptor: needed. Two seeds alone cannot rebuild the third key, so you need the wallet map (the descriptor) to rebuild the wallet.";
+    } else {
+      caption.innerHTML = "<strong>Vault opens, no descriptor needed.</strong>";
+      desc.textContent = "Descriptor: not needed. Three seeds rebuild the map exactly.";
     }
   }
-  wireRing("keyring-easy", function (n) {
-    if (n === 0) return { open: false,
-      cap: "<strong>Wallet locked.</strong> No key selected.",
-      desc: "Tap the key to see it open." };
-    return { open: true,
-      cap: "<strong>Wallet opens.</strong> One key spends everything.",
-      desc: "Descriptor: none. One key spends on its own, no map needed." };
-  }, "<strong>One key</strong> opens it. That key is the whole wallet.",
-     "Tap the key to see it open.");
-  wireRing("keyring-one", function (n, hasKey, hasPaper) {
-    if (hasKey && hasPaper) return { open: true,
-      cap: "<strong>Wallet opens.</strong> Key plus paper spend together.",
-      desc: "Passphrase: present. Lose the paper and the coins are gone." };
-    if (hasKey) return { open: false,
-      cap: "<strong>Wallet locked.</strong> Key alone opens an empty wallet.",
-      desc: "Passphrase: missing. The paper is the second piece." };
-    if (hasPaper) return { open: false,
-      cap: "<strong>Wallet locked.</strong> Paper alone spends nothing.",
-      desc: "Key: missing. The paper alone cannot spend." };
-    return { open: false,
-      cap: "<strong>Wallet locked.</strong> Nothing selected.",
-      desc: "Select the key and the paper to see what opens." };
-  }, "<strong>Key plus paper</strong> open it. Neither alone can.",
-     "Select the key and the paper to see what opens.");
-  wireRing("keyring-full", function (n) {
-    if (n === 0) return { open: false,
-      cap: "<strong>Vault locked.</strong> No keys selected.",
-      desc: "Descriptor: not shown yet. Tap keys to see if it is needed." };
-    if (n === 1) return { open: false,
-      cap: "<strong>Vault locked.</strong> One key alone cannot spend.",
-      desc: "Descriptor: not enough yet. One key alone cannot spend, with or without the map." };
-    if (n === 2) return { open: true,
-      cap: "<strong>Vault opens, but a descriptor is needed.</strong>",
-      desc: "Descriptor: needed. Two seeds alone cannot rebuild the third key, so you need the wallet map (the descriptor) to rebuild the wallet." };
-    return { open: true,
-      cap: "<strong>Vault opens, no descriptor needed.</strong>",
-      desc: "Descriptor: not needed. Three seeds rebuild the map exactly." };
-  }, "<strong>Any two keys</strong> open it. One alone cannot.",
-     "Select keys to see if the descriptor is needed.");
+  keys.forEach(function (k) {
+    k.addEventListener("click", function () {
+      ring.classList.add("tapped");
+      k.classList.toggle("sel");
+      k.setAttribute("aria-pressed", k.classList.contains("sel") ? "true" : "false");
+      update();
+      if (resetBtn) resetBtn.hidden = false;
+    });
+  });
+  if (resetBtn) {
+    resetBtn.addEventListener("click", function () {
+      keys.forEach(function (k) {
+        k.classList.remove("sel");
+        k.setAttribute("aria-pressed", "false");
+      });
+      if (lock) lock.classList.remove("open");
+      caption.innerHTML = "<strong>Any two keys</strong> open it. One alone cannot.";
+      desc.textContent = "Select keys to see if the descriptor is needed.";
+      resetBtn.hidden = true;
+    });
+  }
 })();
 
 /* ---------- motion: one toggle stops all motion, saved on this device ---------- */
@@ -545,12 +506,13 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   } catch (e) {}
 })();
 
-/* ---------- sidebar path toggle (TEST SITE ONLY): One device / One key and a passphrase / Three keys, saved on this device ---------- */
+/* ---------- sidebar path toggle (TEST SITE ONLY): Easy / One key / Full program, saved on this device ---------- */
 (function () {
   "use strict";
   var PATHS = {
     one: { label: "One key", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "single-sig", "titanium", "inheritance", "fire-card", "faq"], summary: "One key plus a passphrase. Medium work, trust in one key, one device, and one passphrase." },
     full: { label: "Three keys", sheets: ["terms", "threat-model", "checklist", "verify", "airgap", "dice", "sparrow", "testnet", "signing", "titanium", "encryption", "inheritance", "faq", "briefing", "fire-card", "single-sig", "two-devices"], summary: "Three keys, three places. Highest work, no single key, device, or place." }
+  };
   var VARIANTS = { faq: { one: "faq-one" }, titanium: { one: "titanium-one" }, checklist: { one: "checklist-one" }, "fire-card": { one: "fire-card-one" }, "threat-model": { one: "threat-model-one" }, dice: { one: "dice-one" } };
   var NOTES = {
     dice: {
@@ -568,7 +530,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       one: "On this path, the map, signing a file, and exporting the map do not apply. A watch-only wallet comes later, in the single-sig sheet, and the device signs. Next, make one key."
     },
     terms: {
-      one: "On this path, three entries describe the Three keys, not your wallet: 2-of-3, m/48'/0'/0'/2', and descriptor as a map. PSBT does not apply either, the device signs. The xpub entry fits as a watch key."
+      one: "On this path, three entries describe the Full program, not your wallet: 2-of-3, m/48'/0'/0'/2', and descriptor as a map. PSBT does not apply either, the device signs. The xpub entry fits as a watch key."
     },
     single: {},
     "single-sig": {
@@ -582,12 +544,9 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       full: "Hide the wallet map, encrypted, apart from any single plate. Two seeds alone cannot rebuild the third key without it."
     },
     inheritance: {
-      one: "Write the inheritance sheet for a non-Bitcoiner, and keep it where your family can find it. Plate plus passphrase paper opens this wallet.",
       full: "Write the inheritance sheet for a non-Bitcoiner, and keep it where your family can find it."
     }
   };
-  // One-time reset, Oct 28, 2026: Three keys is the default, so a returning visitor lands on Full once, then a new choice is saved.
-  try { if (!localStorage.getItem("pd-path-reset-2026-10-28")) { localStorage.setItem("pd-path", "full"); localStorage.setItem("pd-path-reset-2026-10-28", "1"); } } catch (e) {}
   function getPath() {
     try {
       var p = localStorage.getItem("pd-path");
@@ -602,14 +561,15 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
   function applyPath(path) {
     var info = PATHS[path];
     document.documentElement.setAttribute("data-path", path);
-    document.querySelectorAll("#sidebar-path button[data-path], .path-risks-switch button[data-path], .mobile-path-seg button[data-path]").forEach(function (b) {
+
+    document.querySelectorAll("#sidebar-path button[data-path], #path-toggle .path-seg button[data-path], .path-seg button[data-path], .path-risks-switch button[data-path]").forEach(function (b) {
       var on = b.getAttribute("data-path") === path;
       b.setAttribute("aria-pressed", on ? "true" : "false");
-      
       b.classList.toggle("sel-one", on && path === "one");
       b.classList.toggle("sel-full", on && path === "full");
       if (!on) { b.classList.remove("sel-one", "sel-full"); }
     });
+    if (window.pdShowPathCard) { try { window.pdShowPathCard(path); } catch (e) {} }
     var shown = 0, total = 0;
     document.querySelectorAll(".sidebar ul li[data-paths]").forEach(function (li) {
       total++;
@@ -642,18 +602,6 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       var sec = document.getElementById("risks-" + k);
       if (sec) sec.classList.toggle("path-hidden", k !== path);
     });
-    ["one", "full"].forEach(function (k) {
-      var sec = document.getElementById("process-" + k);
-      if (sec) sec.classList.toggle("path-hidden", k !== path);
-    });
-    ["one", "full"].forEach(function (k) {
-      var ring = document.getElementById("keyring-" + k);
-      if (ring) ring.classList.toggle("path-hidden", k !== path);
-    });
-    ["one", "full"].forEach(function (k) {
-      var sec = document.getElementById("why-" + k);
-      if (sec) sec.classList.toggle("path-hidden", k !== path);
-    });
     var banner = document.getElementById("path-banner");
     if (banner) {
       var label = document.getElementById("path-banner-label");
@@ -662,7 +610,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       var slug = currentSlug();
       if (slug && info.sheets && info.sheets.indexOf(slug) < 0) {
         banner.classList.add("path-banner-warn");
-        if (note) note.innerHTML = "This sheet is not on your " + info.label + " path. " + info.summary + " Switch to Three keys in the sidebar to see all sheets, or pick a sheet on your path.";
+        if (note) note.innerHTML = "This sheet is not on your " + info.label + " path. " + info.summary + " Switch to Full program in the sidebar to see all sheets, or pick a sheet on your path.";
       } else {
         banner.classList.remove("path-banner-warn");
         var n = slug && NOTES[slug] && NOTES[slug][path] ? NOTES[slug][path] : info.summary;
@@ -670,6 +618,106 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
       }
       banner.hidden = false;
     }
+    // Update step numbers for path (e.g., "Step 4 of 17" -> "Step 4 of 9" on Easy)
+    (function() {
+      var slug = currentSlug();
+      if (slug && info.sheets) {
+        var idx = info.sheets.indexOf(slug);
+        // Handle -easy/-one suffix variants (e.g., dice-easy -> dice)
+        if (idx < 0) {
+          var base = slug.replace(/-(easy|one)$/, '');
+          idx = info.sheets.indexOf(base);
+        }
+        if (idx >= 0) {
+          var total = info.sheets.length;
+          var stepNum = idx + 1;
+          document.querySelectorAll('.step-pos strong, .step-pos-bottom strong').forEach(function(el) {
+            var t = el.textContent;
+            var m = t.match(/Step\s+(\d+)\s+of\s+\d+/i);
+            if (m) {
+              el.textContent = t.replace(/Step\s+\d+\s+of\s+\d+/i, 'Step ' + stepNum + ' of ' + total);
+            }
+          });
+          // Update aria-label too
+          document.querySelectorAll('.step-banner').forEach(function(b) {
+            var al = b.getAttribute('aria-label');
+            if (al) {
+              b.setAttribute('aria-label', al.replace(/Sheet\s+\d+\s+of\s+\d+/i, 'Sheet ' + stepNum + ' of ' + total));
+            }
+          });
+        }
+      }
+    })();
+    // Update prev/next links for path
+    (function() {
+      var slug = currentSlug();
+      if (slug && info.sheets) {
+        var base = slug.replace(/-(easy|one)$/, '');
+        var idx = info.sheets.indexOf(base);
+        if (idx < 0) idx = info.sheets.indexOf(slug);
+        if (idx >= 0) {
+          var prevSlug = idx > 0 ? info.sheets[idx - 1] : null;
+          var nextSlug = idx < info.sheets.length - 1 ? info.sheets[idx + 1] : null;
+          // Find the sheet numbers and titles from sidebar
+          function sheetInfo(s) {
+            var a = document.querySelector('.sidebar a[data-sheet="' + s + '"]');
+            if (!a) return null;
+            var num = a.querySelector('.sheet-num');
+            var title = a.querySelector('.sheet-title');
+            return {
+              num: num ? num.textContent.trim() : '',
+              title: title ? title.textContent.trim() : s,
+              href: a.getAttribute('href')
+            };
+          }
+          var prevLink = document.querySelector('.step-banner a[rel="prev"]');
+          var nextLink = document.querySelector('.step-banner a[rel="next"]');
+          if (prevSlug && prevLink) {
+            var pi = sheetInfo(prevSlug);
+            if (pi) {
+              prevLink.setAttribute('href', pi.href);
+              prevLink.innerHTML = '&larr; ' + pi.num + ' &middot; ' + pi.title;
+            }
+          } else if (prevLink) {
+            prevLink.style.display = 'none';
+          }
+          if (nextSlug && nextLink) {
+            var ni = sheetInfo(nextSlug);
+            if (ni) {
+              nextLink.setAttribute('href', ni.href);
+              nextLink.innerHTML = ni.num + ' &middot; ' + ni.title + ' &rarr;';
+            }
+          } else if (nextLink) {
+            nextLink.style.display = 'none';
+          }
+          // Update bottom prevnext-row for consistency (Jake 2026-11-01)
+          var prevBottom = document.querySelector('.prevnext-row a.prev, .prevnext-row a.prevnext.prev');
+          var nextBottom = document.querySelector('.prevnext-row a.next, .prevnext-row a.prevnext.next');
+          if (prevSlug && prevBottom) {
+            var pbi = sheetInfo(prevSlug);
+            if (pbi) {
+              prevBottom.setAttribute('href', pbi.href);
+              var pspan = prevBottom.querySelector('span');
+              if (pspan) pspan.textContent = '\u2190 Back to ' + pbi.num + ' \u00b7 ' + pbi.title;
+              else prevBottom.innerHTML = '<span>\u2190 Back to ' + pbi.num + ' \u00b7 ' + pbi.title + '</span>';
+            }
+          } else if (prevBottom) {
+            prevBottom.style.display = 'none';
+          }
+          if (nextSlug && nextBottom) {
+            var nbi = sheetInfo(nextSlug);
+            if (nbi) {
+              nextBottom.setAttribute('href', nbi.href);
+              var nspan = nextBottom.querySelector('span');
+              if (nspan) nspan.textContent = 'Next to ' + nbi.num + ' \u00b7 ' + nbi.title + ' \u2192';
+              else nextBottom.innerHTML = '<span>Next to ' + nbi.num + ' \u00b7 ' + nbi.title + ' \u2192</span>';
+            }
+          } else if (nextBottom) {
+            nextBottom.style.display = 'none';
+          }
+        }
+      }
+    })();
     var gate = document.getElementById("path-gate");
     var gateNote = document.getElementById("path-gate-note");
     var gated = false;
@@ -680,7 +728,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     document.body.classList.toggle("path-gated", gated);
     if (gate) {
       gate.hidden = !gated;
-      if (gated && gateNote) gateNote.textContent = "This sheet is part of the Three keys, not your " + info.label + " path, so its content is not shown here. Switch to Three keys to read it, or stay on your path.";
+      if (gated && gateNote) gateNote.textContent = "This sheet is part of the Full program, not your " + info.label + " path, so its content is not shown here. Switch to Full program to read it, or stay on your path.";
     }
     document.querySelectorAll(".stage .card").forEach(function (card) {
       var href = card.getAttribute("href") || "";
@@ -711,7 +759,7 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
         window.location.href = window.location.pathname.replace(/[^\/]+\.html$/, want + ".html");
         return;
       }
-      if (!want && curFile !== curSlug && (curFile === VARIANTS[curSlug].one)) {
+      if (!want && curFile !== curSlug && curFile === VARIANTS[curSlug].one) {
         window.location.href = window.location.pathname.replace(/[^\/]+\.html$/, curSlug + ".html");
         return;
       }
@@ -724,10 +772,22 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     applyPath(path);
   }
   window.pdSetPath = setPath;
-  document.querySelectorAll("#sidebar-path button[data-path], .path-risks-switch button[data-path], .mobile-path-seg button[data-path]").forEach(function (b) {
+  document.querySelectorAll("#sidebar-path button[data-path], #path-toggle .path-seg button[data-path], .path-seg button[data-path], .path-risks-switch button[data-path]").forEach(function (b) {
     b.addEventListener("click", function () { setPath(b.getAttribute("data-path")); });
   });
-  var gateBtn = document.getElementById("path-gate-full");
-  if (gateBtn) gateBtn.addEventListener("click", function () { setPath("full"); });
   applyPath(getPath());
+})();
+
+/* --- Why section: tier view switcher (mobile, no sideways scroll; view only, never chooses the path) --- */
+(function () {
+  document.querySelectorAll('.tier-switch').forEach(function (sw) {
+    var table = sw.parentElement.querySelector('.tier-chart');
+    if (!table) return;
+    sw.addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      table.setAttribute('data-tier', b.getAttribute('data-tier'));
+      sw.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    });
+  });
 })();
