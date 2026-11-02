@@ -141,24 +141,6 @@ python3 verify_downloads.py
 
 It checks Tails, Sparrow, Electrum, and the Ian Coleman page in the current directory. A mismatch means delete that file.
 
-
-## Tools bundle
-
-One zip with every tool. Verify the zip before extracting it.
-
-```
-File:     tools-bundle.zip
-Size:     212301 bytes
-SHA-256:  3bc1922abac53834df9ce6a95b4b62bc48653b76cd6307c16d8819a268a19649
-```
-
-```bash
-sha256sum tools-bundle.zip
-```
-
-It contains dice-converter.html, descriptor-tool.html, bip39_dice_converter.py,
-descriptor_obfuscator.py, eff_large_wordlist.txt, hash_checker.html, and README.txt.
-
 ## 5. Extra bits note
 
 If you paste **more than 256 bits**, this script hashes the bit-string-as-bytes with SHA-256 and uses that 256-bit digest.
