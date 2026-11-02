@@ -3,92 +3,173 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>New to Bitcoin? Start here. · Plebum Dominium</title>
-<meta name="description" content="A short orientation for Bitcoin beginners: what Bitcoin is, what self-custody means, and where to learn the basics before using this guide.">
+<title>New to Bitcoin? · Plebum Dominium</title>
+<meta name="description" content="New to Bitcoin? Start with these independent educators, then come back and build your self-custody wallet.">
 <link rel="canonical" href="https://plebumbtc.io/new-to-bitcoin.html">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://plebumbtc.io/new-to-bitcoin.html">
 <meta property="og:site_name" content="Plebum Dominium">
-<meta property="og:title" content="New to Bitcoin? Start here. · Plebum Dominium">
-<meta property="og:description" content="A short orientation for Bitcoin beginners: what Bitcoin is, what self-custody means, and where to learn the basics before using this guide.">
+<meta property="og:title" content="New to Bitcoin? · Plebum Dominium">
+<meta property="og:description" content="New to Bitcoin? Start with these independent educators, then come back and build your self-custody wallet.">
 <meta property="og:image" content="https://plebumbtc.io/assets/img/og-banner.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="New to Bitcoin? Start here. · Plebum Dominium">
-<meta name="twitter:description" content="A short orientation for Bitcoin beginners: what Bitcoin is, what self-custody means, and where to learn the basics before using this guide.">
+<meta name="twitter:title" content="New to Bitcoin? · Plebum Dominium">
+<meta name="twitter:description" content="New to Bitcoin? Start with these independent educators, then come back and build your self-custody wallet.">
 <meta name="twitter:image" content="https://plebumbtc.io/assets/img/og-banner.png">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=lightmode1">
+<link rel="stylesheet" href="/assets/css/main.css?v=whytiers7">
+<link rel="stylesheet" href="/assets/css/guide-steps.css?v=phasea1">
 <link rel="stylesheet" href="/assets/css/print.css" media="print">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400;1,6..72,500&display=swap">
+<script>
+/* set theme before first paint: saved choice wins, else the visitor's OS setting */
+(function(){try{var t=localStorage.getItem('pd-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+/* set motion before first paint: saved choice wins, else reduced motion wins */
+(function(){try{var m=localStorage.getItem('pd-motion');if(!m){m=window.matchMedia('(prefers-reduced-motion: reduce)').matches?'off':'on';}document.documentElement.setAttribute('data-motion',m);}catch(e){document.documentElement.setAttribute('data-motion','on');}})();
+/* set path before first paint, so the color reminder is right from the start */
+(function(){try{var p=localStorage.getItem('pd-path');if(p!=='one'&&p!=='full'){p='full';}document.documentElement.setAttribute('data-path',p);}catch(e){document.documentElement.setAttribute('data-path','full');}})();
+</script>
 </head>
-<body>
+<body class="" id="top">
+<div class="splash" id="pd-splash" hidden aria-hidden="true">
+  <p class="splash-title">Plebum Dominium: Independent At-Home Bitcoin Self-custody</p>
+  <img class="splash-logo" src="/assets/img/logo-pleb-key.svg" alt="" width="360" height="360">
+</div>
+<div class="progress" aria-hidden="true"><span></span></div>
+
+
+
 <header class="site-header">
-  <div class="header-inner">
-    <a href="/" class="brand"><span class="brand-btc">₿</span> Plebum Dominium</a>
-    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
-    <nav class="site-nav" aria-label="Main navigation">
-      <a href="/choose-path.html">Choose your path</a>
-      <a href="/handouts/terms.html">Terms</a>
-      <a href="/downloads.html">Downloads</a>
-    </nav>
-  </div>
+  <button class="menu-btn" aria-label="Open guide navigation" aria-expanded="false">☰</button>
+  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">₿</span> Plebum Dominium</a>
+  <span class="header-sheet">Plebum Dominium</span>
+  <button class="ask-btn" id="ask-btn" type="button" aria-label="Search the guide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <span class="ask-btn-label">Search</span>
+    <kbd aria-hidden="true">/</kbd>
+  </button>
+  <button class="motion-btn" id="motion-btn" type="button" aria-pressed="true" aria-label="Toggle animation on and off">Motion on</button>
+  <button class="theme-btn" id="theme-btn" aria-label="Toggle light and dark mode">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  </button>
+  <span class="online-pill" id="online-pill" role="status" hidden><span class="online-dot" id="online-dot"></span><span class="online-word" id="online-word">Online</span></span>
 </header>
 
-<main>
-<article class="sheet">
+<div class="layout">
+  <nav class="sidebar" aria-label="Guide sheets">
+    <div class="sidebar-path" id="sidebar-path">
+      <p class="sidebar-path-label">Choose a path</p>
+      <div class="sidebar-path-seg" role="group" aria-label="Choose a setup">
+        <button type="button" data-path="one" aria-pressed="false">one key<br>+<br>Passphrase</button>
+        <button type="button" data-path="full" aria-pressed="true">Three keys</button>
+      </div>
+      <p class="sidebar-path-note" id="path-count">All 17 sheets</p>
+    </div>
+    <p class="sidebar-label">The bench sheets</p>
+    <ul>
+<li data-paths="one full"><a href="/handouts/threat-model.html" class="" data-sheet="threat-model"><span class="sheet-num">01</span><span class="sheet-title">Before you begin</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/choose-path.html" class=""><span class="sheet-num">02</span><span class="sheet-title">Choose your path</span></a></li>
+<li data-paths="one full"><a href="/handouts/terms.html" class="" data-sheet="terms"><span class="sheet-num">03</span><span class="sheet-title">Terms</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/checklist.html" class="" data-sheet="checklist"><span class="sheet-num">04</span><span class="sheet-title">Checklist</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/airgap.html" class="" data-sheet="airgap"><span class="sheet-num">05</span><span class="sheet-title">Two boots</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/verify.html" class="" data-sheet="verify"><span class="sheet-num">06</span><span class="sheet-title">Check the files</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/dice.html" class="" data-sheet="dice"><span class="sheet-num">07</span><span class="sheet-title">Make the three keys</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/sparrow.html" class="" data-sheet="sparrow"><span class="sheet-num">08</span><span class="sheet-title">Build the 2-of-3</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/signing.html" class="" data-sheet="signing"><span class="sheet-num">09</span><span class="sheet-title">Practice spend</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/titanium.html" class="" data-sheet="titanium"><span class="sheet-num">10</span><span class="sheet-title">Metal and the map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/testnet.html" class="" data-sheet="testnet"><span class="sheet-num">11</span><span class="sheet-title">Rehearse on testnet</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">12</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">13</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">14</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/briefing.html" class="" data-sheet="briefing"><span class="sheet-num">15</span><span class="sheet-title">Tough questions</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/fire-card.html" class="" data-sheet="fire-card"><span class="sheet-num">16</span><span class="sheet-title">Recovery card</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/single-sig.html" class="" data-sheet="single-sig"><span class="sheet-num">17</span><span class="sheet-title">One key, done right</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/two-devices.html" class="" data-sheet="two-devices"><span class="sheet-num">18</span><span class="sheet-title">Two devices and one dice key</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+    </ul>
+    <p class="sidebar-note">Check off sheets as you finish them. Progress is saved on this device.</p>
+  </nav>
+  <div class="scrim" aria-hidden="true"></div>
 
-<div class="kicker" style="color:#c4a484;">PLEBUM DOMINIUM</div>
-<h1>New to Bitcoin? Start here.</h1>
+  <main id="content">
+    <article>
+      <p class="kicker">Plebum Dominium</p>
+      <h1>New to Bitcoin?</h1>
+      <div class="path-banner" id="path-banner" hidden>
+        <p class="path-banner-label">Your path: <strong id="path-banner-label">Three keys</strong> (<a href="/choose-path.html">change</a>)</p>
+        <p class="path-banner-note" id="path-banner-note"></p>
+      </div>
+      <div class="path-gate" id="path-gate" hidden>
+        <h2>Not on your path</h2>
+        <p id="path-gate-note"></p>
+        <p><a href="/choose-path.html">Go to Choose your path to change it</a></p>
+        <p><a href="/path-risks.html">Risks of your path &rarr;</a></p>
+      </div>
 
-<p>This guide teaches you to hold your own Bitcoin, with no company in the middle. Before you start, it helps to understand what Bitcoin is and what holding it yourself actually means. This page gives you that foundation.</p>
 
-<h2>What Bitcoin is</h2>
+<section class="resources" id="new-to-bitcoin">
+<p class="why-kicker">Start here</p>
+<h2>New to Bitcoin?</h2>
+<p class="section-sub">This guide assumes you already want self-custody. If you&rsquo;re still learning what Bitcoin <strong>is</strong>, start with these, then come back.</p>
+<div class="rescards">
+<a class="rescard" href="https://bitcoin.org/en/getting-started" rel="noopener"><div class="tag">First stop</div><h3>Bitcoin.org</h3><p>The official starting point: what Bitcoin is, how to use it, how to choose a wallet.</p></a>
+<a class="rescard" href="https://learnmeabitcoin.com/beginners/how-does-bitcoin-work/" rel="noopener"><div class="tag">How it works</div><h3>Learn Me a Bitcoin</h3><p>Plain-language explainer: the network, mining, keys, addresses. About an hour, no technical background needed.</p></a>
+<a class="rescard" href="https://www.lopp.net/bitcoin-information/getting-started.html" rel="noopener"><div class="tag">Go deeper</div><h3>Lopp&rsquo;s Getting Started</h3><p>Jameson Lopp&rsquo;s curated path: wallets, security, and the fundamentals before you store value.</p></a>
+<a class="rescard" href="https://www.btcsessions.ca/" rel="noopener"><div class="tag">Watch</div><h3>BTC Sessions</h3><p>Ben Perrin&rsquo;s step-by-step video tutorials: wallets, self-custody, and Sparrow, the software this guide uses.</p></a>
+<a class="rescard" href="https://river.com/learn/bitcoin-and-blockchain-technology" rel="noopener"><div class="tag">Read</div><h3>River Learn</h3><p>Clean short guides: blockchain, nodes, addresses, and reading what&rsquo;s happening on-chain.</p></a>
+<a class="rescard" href="https://www.lopp.net/bitcoin-information.html" rel="noopener"><div class="tag">Reference</div><h3>Lopp&rsquo;s Bitcoin Resources</h3><p>The deep end: hundreds of curated links on security, privacy, running a node, and the history of the money.</p></a>
+</div>
+<p class="fine">These are independent educators, not sponsors. Nothing here sells you an account or a token.</p>
+<p>Finished the kit and hungry for more? <a href="/beyond.html">Beyond the kit</a>: seven topics worth your time next.</p>
+<p class="back-top"><a href="#top">&uarr; Back to top</a></p>
+</section>
 
-<p>Bitcoin is digital money that no government or company controls. It runs on a network of computers around the world. There are only 21 million bitcoin that will ever exist. You can send it to anyone, anywhere, without asking permission from a bank.</p>
+      <nav class="prevnext-row" aria-label="Previous and next sheets">
 
-<p>When you own bitcoin, what you really own is a secret: a long random number called a private key. Whoever knows that secret can spend the coins. That is the whole game. Protect the secret and the coins are yours. Lose it and they are gone. There is no password reset.</p>
 
-<h2>What self-custody means</h2>
 
-<p>Most people buy bitcoin on an exchange, which holds the coins for them. That is convenient, but the exchange can freeze your account, get hacked, or go bankrupt. Self-custody means you hold the secret yourself. No company stands between you and your money.</p>
+      </nav>
+    </article>
+  </main>
 
-<p>This guide is about self-custody done carefully. You generate the secret with physical dice, write the recovery words on paper, stamp them into titanium, and store them in separate places. It takes work. The payoff is that no one can take your bitcoin except you.</p>
+  <aside class="toc-col">
 
-<h2>Learn the basics first</h2>
+  </aside>
+</div>
 
-<p>These independent resources explain Bitcoin from the ground up. Work through one or two before you start the guide.</p>
-
-<ul>
-  <li><a href="https://bitcoin.org/en/getting-started">Bitcoin.org: Getting started</a> — the official introduction.</li>
-  <li><a href="https://learnmeabitcoin.com/beginners/how-does-bitcoin-work/">Learn Me a Bitcoin: How does Bitcoin work?</a> — a clear technical walkthrough.</li>
-  <li><a href="https://www.lopp.net/bitcoin-information/getting-started.html">Jameson Lopp: Getting started</a> — a curated resource list.</li>
-  <li><a href="https://www.btcsessions.ca/">BTC Sessions</a> — video tutorials on wallets and basics.</li>
-  <li><a href="https://river.com/learn/bitcoin-and-blockchain-technology">River: Bitcoin and blockchain technology</a> — plain-language explainers.</li>
-  <li><a href="https://www.lopp.net/bitcoin-information.html">Jameson Lopp: Bitcoin information</a> — deeper reference material.</li>
-</ul>
-
-<h2>What this guide does not do</h2>
-
-<p>This guide does not tell you to buy bitcoin, where to buy it, or when. It does not give financial advice. It teaches one skill: how to hold bitcoin yourself, securely, once you have some.</p>
-
-<p>You should also know that self-custody is not for everyone. It puts the full responsibility on you. If that sounds like too much, there is no shame in keeping coins on a reputable exchange while you learn. Come back to this guide when you are ready.</p>
-
-<h2>Ready to start</h2>
-
-<p>When you understand the basics above, <a href="/choose-path.html">choose your path</a>. The guide offers two ways to hold your own keys. Pick the one that matches the failure you worry about most.</p>
-
-</article>
-</main>
+<div class="mobilebar" aria-label="Sheet navigation">
+  <span class="mobilebar-pos">Plebum Dominium</span>
+</div>
 
 <footer class="site-footer">
-  <p><a href="/">Plebum Dominium</a> · <a href="/choose-path.html">Choose your path</a></p>
+  <p><strong>Plebum Dominium</strong>: independent at-home Bitcoin self-custody.</p>
+  <p>Educational material, not financial advice. Bitcoin self-custody is irreversible. A mistake can permanently lose funds. Verify every download from its original source.</p>
+  <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/downloads.html">Downloads</a> · <a href="/kit/02_Print_Packet.pdf">Print packet (PDF)</a> · <a href="/news.html">News</a> · <a href="/beyond.html">Beyond the kit</a></p>
+  <p class="footer-updated">Last updated November 2, 2026 · Version </p>
+  <p class="footer-contact">Contact: <a href="mailto:Muststackmoresats@gmail.com">Muststackmoresats@gmail.com</a> · X: <a href="https://x.com/MustHaveMustash" rel="noopener">@MustHaveMustash</a></p>
+  <p class="donate-row"><a class="btn-lightning" href="lightning:musthavemoresats@speed.app"><span aria-hidden="true">⚡</span> Donate with Lightning</a> <button type="button" class="btn-onchain" data-copy="bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"><span aria-hidden="true">₿</span> Donate Bitcoin</button></p>
+  <p class="donate-addr"><code>bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw</code></p>
 </footer>
 
-<script src="/assets/js/main.js"></script>
+<script src="/assets/js/main.js?v=whytiers7" defer></script>
+<script src="/assets/js/guide-demos.js?v=phasea1" defer></script>
+<script data-goatcounter="https://plebumbtc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<div id="newbie-banner" class="newbie-banner" role="dialog" aria-label="New to Bitcoin?" hidden>
+  <p><strong>New to Bitcoin?</strong><br><a href="/new-to-bitcoin.html" class="newbie-go">Start here &rarr;</a></p>
+  <button type="button" class="newbie-close" aria-label="Dismiss">&times;</button>
+</div>
+<div class="ask-backdrop" id="ask-backdrop" hidden>
+  <div class="ask-modal" role="dialog" aria-modal="true" aria-label="Ask the guide">
+    <p class="ask-title">Ask the guide</p>
+    <input class="ask-input" id="ask-input" type="search" placeholder="Search the guide: try 'verify a download'" inputmode="search" enterkeyhint="search" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" aria-label="Search the guide">
+    <div class="ask-results" id="ask-results"></div>
+    <p class="ask-foot">Search runs entirely in your browser. Nothing you type leaves this page unless you tap email. <span class="ask-keys">Up and down move, Enter opens, Esc closes.</span></p>
+  </div>
+</div>
 </body>
 </html>

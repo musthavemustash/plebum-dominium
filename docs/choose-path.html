@@ -3,24 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Choose your path · Plebum Dominium</title>
-<meta name="description" content="Choose your path: two Bitcoin self-custody setups that differ in difficulty and trust. Pick the one that fits your situation, then work its steps.">
+<title>Which Bitcoin self-custody setup is right for me? · Plebum Dominium</title>
+<meta name="description" content="Choose your path: three Bitcoin self-custody setups that differ in difficulty and trust. Pick the one that fits your situation, then work its steps.">
 <link rel="canonical" href="https://plebumbtc.io/choose-path.html">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://plebumbtc.io/choose-path.html">
 <meta property="og:site_name" content="Plebum Dominium">
-<meta property="og:title" content="Choose your path · Plebum Dominium">
-<meta property="og:description" content="Choose your path: two Bitcoin self-custody setups that differ in difficulty and trust. Pick the one that fits your situation, then work its steps.">
+<meta property="og:title" content="Which Bitcoin self-custody setup is right for me? · Plebum Dominium">
+<meta property="og:description" content="Choose your path: three Bitcoin self-custody setups that differ in difficulty and trust. Pick the one that fits your situation, then work its steps.">
 <meta property="og:image" content="https://plebumbtc.io/assets/img/og-banner.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Choose your path · Plebum Dominium">
-<meta name="twitter:description" content="Choose your path: two Bitcoin self-custody setups that differ in difficulty and trust. Pick the one that fits your situation, then work its steps.">
+<meta name="twitter:title" content="Which Bitcoin self-custody setup is right for me? · Plebum Dominium">
+<meta name="twitter:description" content="Choose your path: three Bitcoin self-custody setups that differ in difficulty and trust. Pick the one that fits your situation, then work its steps.">
 <meta name="twitter:image" content="https://plebumbtc.io/assets/img/og-banner.png">
 
 <link rel="stylesheet" href="/assets/css/main.css?v=whytiers7">
+<link rel="stylesheet" href="/assets/css/guide-steps.css?v=phasea1">
 <link rel="stylesheet" href="/assets/css/print.css" media="print">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,14 +34,6 @@
 /* set path before first paint, so the color reminder is right from the start */
 (function(){try{var p=localStorage.getItem('pd-path');if(p!=='one'&&p!=='full'){p='full';}document.documentElement.setAttribute('data-path',p);}catch(e){document.documentElement.setAttribute('data-path','full');}})();
 </script>
-
-<style>
-.path-desc.selected {
-  border-color: #c4a484 !important;
-  box-shadow: 0 0 0 3px rgba(196,164,132,.45), 0 4px 18px rgba(0,0,0,.35);
-}
-</style>
-
 </head>
 <body class="" id="top">
 <div class="splash" id="pd-splash" hidden aria-hidden="true">
@@ -73,7 +66,6 @@
     <div class="sidebar-path" id="sidebar-path">
       <p class="sidebar-path-label">Choose a path</p>
       <div class="sidebar-path-seg" role="group" aria-label="Choose a setup">
-        
         <button type="button" data-path="one" aria-pressed="false">one key<br>+<br>Passphrase</button>
         <button type="button" data-path="full" aria-pressed="true">Three keys</button>
       </div>
@@ -81,26 +73,25 @@
     </div>
     <p class="sidebar-label">The bench sheets</p>
     <ul>
-<li><a href="/choose-path.html" class="active"><span class="sheet-num">01</span><span class="sheet-title">Choose your path</span></a></li>
-<li data-paths="one full"><a href="/handouts/terms.html" class="" data-sheet="terms"><span class="sheet-num">T</span><span class="sheet-title">Terms</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/threat-model.html" class="" data-sheet="threat-model"><span class="sheet-num">02</span><span class="sheet-title">Before you begin</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/checklist.html" class="" data-sheet="checklist"><span class="sheet-num">03</span><span class="sheet-title">Checklist</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/verify.html" class="" data-sheet="verify"><span class="sheet-num">05</span><span class="sheet-title">Check the files</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/airgap.html" class="" data-sheet="airgap"><span class="sheet-num">04</span><span class="sheet-title">Two boots</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/dice.html" class="" data-sheet="dice"><span class="sheet-num">06</span><span class="sheet-title">Make the three keys</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/sparrow.html" class="" data-sheet="sparrow"><span class="sheet-num">07</span><span class="sheet-title">Build the 2-of-3</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/testnet.html" class="" data-sheet="testnet"><span class="sheet-num">10</span><span class="sheet-title">Rehearse on testnet</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/signing.html" class="" data-sheet="signing"><span class="sheet-num">08</span><span class="sheet-title">Practice spend</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/titanium.html" class="" data-sheet="titanium"><span class="sheet-num">09</span><span class="sheet-title">Metal and the map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">11</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">12</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">13</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/briefing.html" class="" data-sheet="briefing"><span class="sheet-num">14</span><span class="sheet-title">Tough questions</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/fire-card.html" class="" data-sheet="fire-card"><span class="sheet-num">15</span><span class="sheet-title">Recovery card</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/single-sig.html" class="" data-sheet="single-sig"><span class="sheet-num">16</span><span class="sheet-title">One key, done right</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/two-devices.html" class="" data-sheet="two-devices"><span class="sheet-num">17</span><span class="sheet-title">Two devices and one dice key</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/threat-model.html" class="" data-sheet="threat-model"><span class="sheet-num">01</span><span class="sheet-title">Before you begin</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/choose-path.html" class="active"><span class="sheet-num">02</span><span class="sheet-title">Choose your path</span></a></li>
+<li data-paths="one full"><a href="/handouts/terms.html" class="" data-sheet="terms"><span class="sheet-num">03</span><span class="sheet-title">Terms</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/checklist.html" class="" data-sheet="checklist"><span class="sheet-num">04</span><span class="sheet-title">Checklist</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/airgap.html" class="" data-sheet="airgap"><span class="sheet-num">05</span><span class="sheet-title">Two boots</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/verify.html" class="" data-sheet="verify"><span class="sheet-num">06</span><span class="sheet-title">Check the files</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/dice.html" class="" data-sheet="dice"><span class="sheet-num">07</span><span class="sheet-title">Make the three keys</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/sparrow.html" class="" data-sheet="sparrow"><span class="sheet-num">08</span><span class="sheet-title">Build the 2-of-3</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/signing.html" class="" data-sheet="signing"><span class="sheet-num">09</span><span class="sheet-title">Practice spend</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/titanium.html" class="" data-sheet="titanium"><span class="sheet-num">10</span><span class="sheet-title">Metal and the map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/testnet.html" class="" data-sheet="testnet"><span class="sheet-num">11</span><span class="sheet-title">Rehearse on testnet</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">12</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">13</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">14</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/briefing.html" class="" data-sheet="briefing"><span class="sheet-num">15</span><span class="sheet-title">Tough questions</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/fire-card.html" class="" data-sheet="fire-card"><span class="sheet-num">16</span><span class="sheet-title">Recovery card</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/single-sig.html" class="" data-sheet="single-sig"><span class="sheet-num">17</span><span class="sheet-title">One key, done right</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/two-devices.html" class="" data-sheet="two-devices"><span class="sheet-num">18</span><span class="sheet-title">Two devices and one dice key</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
     </ul>
-    <p class="sidebar-risks-wrap"><a class="sidebar-risks" id="sidebar-risks" href="/path-risks.html">Risks of your path: <span id="path-risks-label">Three keys</span> &rarr;</a></p>
     <p class="sidebar-note">Check off sheets as you finish them. Progress is saved on this device.</p>
   </nav>
   <div class="scrim" aria-hidden="true"></div>
@@ -110,7 +101,7 @@
       <p class="kicker">Plebum Dominium</p>
       <h1>Choose your path</h1>
       <div class="path-banner" id="path-banner" hidden>
-        <p class="path-banner-label">Your path: <strong id="path-banner-label">Three keys</strong></p>
+        <p class="path-banner-label">Your path: <strong id="path-banner-label">Three keys</strong> (<a href="/choose-path.html">change</a>)</p>
         <p class="path-banner-note" id="path-banner-note"></p>
       </div>
       <div class="path-gate" id="path-gate" hidden>
@@ -122,38 +113,19 @@
 
 
 <section class="path-chooser-sheet" id="path-chooser">
-<h2>Choose your path</h2>
-<p>Pick the trade that fits your situation. The switch below routes you to the right starting sheet.</p>
+<p>Pick the setup that fits your situation. You can change it later from the sidebar.</p>
 <div class="path-seg" role="group" aria-label="Choose a setup">
 <button type="button" data-path="one" aria-pressed="false">One key and a passphrase</button>
 <button type="button" data-path="full" aria-pressed="true">Three keys</button>
 </div>
 <div class="path-ends"><span>&larr; Less work, more trust</span><span>More work, less trust &rarr;</span></div>
-<div style="display:grid;gap:1rem;margin:1rem 0;">
-<div id="desc-one" style="border:1px solid var(--hatch-widget-border);border-top:3px solid #0072B2;border-radius:0 0 12px 12px;padding:1.25rem;">
-<h3 style="margin:0 0 .5rem;color:#0072B2;">One key and a passphrase</h3>
-<p style="margin:0 0 .5rem;"><strong>Trust:</strong> one key, one passphrase. <strong>Work:</strong> medium.</p>
-<p style="margin:0 0 .5rem;">Roll dice for 24 words. Add a passphrase kept on paper apart from the plate. Stamp the words in titanium. Use a watch-only wallet.</p>
-<p style="margin:0;"><strong>Risk:</strong> one key and one passphrase. Lose the passphrase and the funds are locked.</p>
-</div>
-<div id="desc-full" style="border:1px solid var(--hatch-widget-border);border-top:3px solid #009E73;border-radius:0 0 12px 12px;padding:1.25rem;">
-<h3 style="margin:0 0 .5rem;color:#009E73;">Three keys, three places</h3>
-<p style="margin:0 0 .5rem;"><strong>Trust:</strong> no single key, device, or place. <strong>Work:</strong> highest.</p>
-<p style="margin:0 0 .5rem;">Roll three dice keys. Stamp three titanium plates. Keep them in three places. Build the 2-of-3. Practice spend first.</p>
-<p style="margin:0;"><strong>Risk:</strong> the most steps to get right. Lose two keys and the map and the funds are locked.</p>
-</div>
-</div>
 <div id="path-card-sheet" class="path-card path-card-full"></div>
-<nav class="prevnext-row" aria-label="Choose path navigation" style="margin-top:24px;">
-<a class="prevnext" href="/"><span>← Back to Home</span></a>
-<a class="prevnext next" href="/handouts/terms.html"><span>Next to 01 · Terms →</span></a>
-</nav>
 </section>
 <script>
 (function () {
   var PATHS = {
     one: { cls: "path-card-one", sel: "sel-one", title: "One key and a passphrase", trade: "Trust: one key, one device, one passphrase. Work: medium.", start: "Start: the single-sig sheet.", steps: ["Roll dice for 24 words.", "Add a passphrase, kept on paper apart from the plate.", "Stamp the words in titanium. Use a watch-only wallet."], risk: "Risk: one key and one passphrase. Lose the passphrase and the wallet is gone.", go: "/handouts/single-sig.html", goText: "Start with the single-sig sheet" },
-    full: { cls: "path-card-full", sel: "sel-full", title: "Three keys, three places", trade: "Trust: no single key, device, or place. Work: highest.", start: "Start at the beginning. Work the steps.", steps: ["Roll three dice keys. Stamp three titanium plates. Keep them in three places.", "Build the 2-of-3. Practice spend first. Hide the encrypted map."], risk: "Risk: the most steps to get right. Lose two keys and the map and the funds are locked.", go: "/handouts/terms.html", goText: "Start with the terms" }
+    full: { cls: "path-card-full", sel: "sel-full", title: "Three keys, three places", trade: "Trust: no single key, device, or place. Work: highest.", start: "Start at the beginning. Work the steps.", steps: ["Roll three dice keys. Stamp three titanium plates. Keep them in three places.", "Build the 2-of-3. Practice spend first. Hide the encrypted map."], risk: "Risk: the most steps to get right. Lose two keys and the map and the funds are locked.", go: "/handouts/threat-model.html", goText: "Continue to Before you begin" }
   };
   var card = document.getElementById("path-card-sheet");
   var buttons = document.querySelectorAll("#path-chooser .path-seg button");
@@ -168,7 +140,7 @@
     html += "<li><strong>Libbitcoin bx \"Milk Sad\" (2023):</strong> The bx seed command produced only 32 bits of entropy. About 2,600 wallets were exposed and roughly $900,000 was stolen. Dice rolls counted to 256 bits would have made those keys unguessable.</li>";
     html += "<li><strong>Android SecureRandom (2013):</strong> Android's random number generator repeated values, letting attackers recover private keys from signatures. Over 55 BTC was stolen from mobile wallets. Dice-generated keys never touched the broken generator.</li>";
     html += "</ul></details>";
-    html += "<p><a class=\"path-go\" href="" + p.go + "\">" + p.goText + " &rarr;</a></p>";
+    html += "<p><a class=\"path-go\" href=\"" + p.go + "\">" + p.goText + " &rarr;</a></p>";
     card.innerHTML = html;
     buttons.forEach(function (b) {
       var on = b.getAttribute("data-path") === path;
@@ -205,13 +177,14 @@
   <p><strong>Plebum Dominium</strong>: independent at-home Bitcoin self-custody.</p>
   <p>Educational material, not financial advice. Bitcoin self-custody is irreversible. A mistake can permanently lose funds. Verify every download from its original source.</p>
   <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/downloads.html">Downloads</a> · <a href="/kit/02_Print_Packet.pdf">Print packet (PDF)</a> · <a href="/news.html">News</a> · <a href="/beyond.html">Beyond the kit</a></p>
-  <p class="footer-updated">Last updated October 31, 2026 · Version 1.1.0</p>
+  <p class="footer-updated">Last updated November 2, 2026 · Version </p>
   <p class="footer-contact">Contact: <a href="mailto:Muststackmoresats@gmail.com">Muststackmoresats@gmail.com</a> · X: <a href="https://x.com/MustHaveMustash" rel="noopener">@MustHaveMustash</a></p>
   <p class="donate-row"><a class="btn-lightning" href="lightning:musthavemoresats@speed.app"><span aria-hidden="true">⚡</span> Donate with Lightning</a> <button type="button" class="btn-onchain" data-copy="bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"><span aria-hidden="true">₿</span> Donate Bitcoin</button></p>
   <p class="donate-addr"><code>bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw</code></p>
 </footer>
 
 <script src="/assets/js/main.js?v=whytiers7" defer></script>
+<script src="/assets/js/guide-demos.js?v=phasea1" defer></script>
 <script data-goatcounter="https://plebumbtc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <div id="newbie-banner" class="newbie-banner" role="dialog" aria-label="New to Bitcoin?" hidden>
   <p><strong>New to Bitcoin?</strong><br><a href="/new-to-bitcoin.html" class="newbie-go">Start here &rarr;</a></p>
@@ -225,28 +198,5 @@
     <p class="ask-foot">Search runs entirely in your browser. Nothing you type leaves this page unless you tap email. <span class="ask-keys">Up and down move, Enter opens, Esc closes.</span></p>
   </div>
 </div>
-
-<script>
-(function(){
-  function highlight(path){
-    var one = document.getElementById('desc-one');
-    var full = document.getElementById('desc-full');
-    if(one) one.classList.toggle('selected', path === 'one');
-    if(full) full.classList.toggle('selected', path === 'full');
-  }
-  // Hook into existing buttons
-  document.querySelectorAll('#path-chooser .path-seg button').forEach(function(b){
-    b.addEventListener('click', function(){
-      highlight(b.getAttribute('data-path'));
-    });
-  });
-  // Initial highlight based on saved path or default
-  try {
-    var saved = localStorage.getItem('pd-path');
-    highlight(saved === 'one' ? 'one' : 'full');
-  } catch(e) { highlight('full'); }
-})();
-</script>
-
 </body>
 </html>

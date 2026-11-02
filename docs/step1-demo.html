@@ -176,7 +176,10 @@ body.still .s1-pointer{display:none}
 
 <script>
 (function(){
-try{var pt=window.parent.document.documentElement.getAttribute('data-theme');if(pt){document.documentElement.setAttribute('data-theme',pt);}else{document.documentElement.removeAttribute('data-theme');}}catch(e){}
+function s1SyncTheme(){try{var pt=window.parent.document.documentElement.getAttribute('data-theme');if(pt){document.documentElement.setAttribute('data-theme',pt);}else{document.documentElement.removeAttribute('data-theme');}}catch(e){}}
+s1SyncTheme();
+try{new MutationObserver(s1SyncTheme).observe(window.parent.document.documentElement,{attributes:true,attributeFilter:['data-theme']});}catch(e){}
+try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',s1SyncTheme);}catch(e){}
 var demo=document.getElementById("s1-demo");
 var stage=document.getElementById("s1-blue");
 var welcome=document.getElementById("s1-welcome");

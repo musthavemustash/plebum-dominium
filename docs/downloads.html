@@ -21,6 +21,7 @@
 <meta name="twitter:image" content="https://plebumbtc.io/assets/img/og-banner.png">
 
 <link rel="stylesheet" href="/assets/css/main.css?v=whytiers7">
+<link rel="stylesheet" href="/assets/css/guide-steps.css?v=phasea1">
 <link rel="stylesheet" href="/assets/css/print.css" media="print">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +46,7 @@
 
 <header class="site-header">
   <button class="menu-btn" aria-label="Open guide navigation" aria-expanded="false">☰</button>
-  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">₿</span> Plebum Dominium</a><span class="path-subtitle" id="path-subtitle"></span>
+  <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">₿</span> Plebum Dominium</a>
   <span class="header-sheet">Plebum Dominium</span>
   <button class="ask-btn" id="ask-btn" type="button" aria-label="Search the guide">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -65,7 +66,6 @@
     <div class="sidebar-path" id="sidebar-path">
       <p class="sidebar-path-label">Choose a path</p>
       <div class="sidebar-path-seg" role="group" aria-label="Choose a setup">
-        
         <button type="button" data-path="one" aria-pressed="false">one key<br>+<br>Passphrase</button>
         <button type="button" data-path="full" aria-pressed="true">Three keys</button>
       </div>
@@ -73,26 +73,25 @@
     </div>
     <p class="sidebar-label">The bench sheets</p>
     <ul>
-<li><a href="/choose-path.html" class=""><span class="sheet-num">01</span><span class="sheet-title">Choose your path</span></a></li>
-<li data-paths="one full"><a href="/handouts/terms.html" class="" data-sheet="terms"><span class="sheet-num">T</span><span class="sheet-title">Terms</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/threat-model.html" class="" data-sheet="threat-model"><span class="sheet-num">02</span><span class="sheet-title">Before you begin</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/checklist.html" class="" data-sheet="checklist"><span class="sheet-num">03</span><span class="sheet-title">Checklist</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/verify.html" class="" data-sheet="verify"><span class="sheet-num">05</span><span class="sheet-title">Check the files</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/airgap.html" class="" data-sheet="airgap"><span class="sheet-num">04</span><span class="sheet-title">Two boots</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/dice.html" class="" data-sheet="dice"><span class="sheet-num">06</span><span class="sheet-title">Make the three keys</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/sparrow.html" class="" data-sheet="sparrow"><span class="sheet-num">07</span><span class="sheet-title">Build the 2-of-3</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/testnet.html" class="" data-sheet="testnet"><span class="sheet-num">10</span><span class="sheet-title">Rehearse on testnet</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/signing.html" class="" data-sheet="signing"><span class="sheet-num">08</span><span class="sheet-title">Practice spend</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/titanium.html" class="" data-sheet="titanium"><span class="sheet-num">09</span><span class="sheet-title">Metal and the map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">11</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">12</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">13</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/briefing.html" class="" data-sheet="briefing"><span class="sheet-num">14</span><span class="sheet-title">Tough questions</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/fire-card.html" class="" data-sheet="fire-card"><span class="sheet-num">15</span><span class="sheet-title">Recovery card</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="one full"><a href="/handouts/single-sig.html" class="" data-sheet="single-sig"><span class="sheet-num">16</span><span class="sheet-title">One key, done right</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
-<li data-paths="full"><a href="/handouts/two-devices.html" class="" data-sheet="two-devices"><span class="sheet-num">17</span><span class="sheet-title">Two devices and one dice key</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/threat-model.html" class="" data-sheet="threat-model"><span class="sheet-num">01</span><span class="sheet-title">Before you begin</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li><a href="/choose-path.html" class=""><span class="sheet-num">02</span><span class="sheet-title">Choose your path</span></a></li>
+<li data-paths="one full"><a href="/handouts/terms.html" class="" data-sheet="terms"><span class="sheet-num">03</span><span class="sheet-title">Terms</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/checklist.html" class="" data-sheet="checklist"><span class="sheet-num">04</span><span class="sheet-title">Checklist</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/airgap.html" class="" data-sheet="airgap"><span class="sheet-num">05</span><span class="sheet-title">Two boots</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/verify.html" class="" data-sheet="verify"><span class="sheet-num">06</span><span class="sheet-title">Check the files</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/dice.html" class="" data-sheet="dice"><span class="sheet-num">07</span><span class="sheet-title">Make the three keys</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/sparrow.html" class="" data-sheet="sparrow"><span class="sheet-num">08</span><span class="sheet-title">Build the 2-of-3</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/signing.html" class="" data-sheet="signing"><span class="sheet-num">09</span><span class="sheet-title">Practice spend</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/titanium.html" class="" data-sheet="titanium"><span class="sheet-num">10</span><span class="sheet-title">Metal and the map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/testnet.html" class="" data-sheet="testnet"><span class="sheet-num">11</span><span class="sheet-title">Rehearse on testnet</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/encryption.html" class="" data-sheet="encryption"><span class="sheet-num">12</span><span class="sheet-title">Hide the wallet map</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/inheritance.html" class="" data-sheet="inheritance"><span class="sheet-num">13</span><span class="sheet-title">If I am gone</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/faq.html" class="" data-sheet="faq"><span class="sheet-num">14</span><span class="sheet-title">If you get stuck</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/briefing.html" class="" data-sheet="briefing"><span class="sheet-num">15</span><span class="sheet-title">Tough questions</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/fire-card.html" class="" data-sheet="fire-card"><span class="sheet-num">16</span><span class="sheet-title">Recovery card</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="one full"><a href="/handouts/single-sig.html" class="" data-sheet="single-sig"><span class="sheet-num">17</span><span class="sheet-title">One key, done right</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
+<li data-paths="full"><a href="/handouts/two-devices.html" class="" data-sheet="two-devices"><span class="sheet-num">18</span><span class="sheet-title">Two devices and one dice key</span><span class="sheet-check" aria-hidden="true">✓</span></a></li>
     </ul>
-    <p class="sidebar-risks-wrap"><a class="sidebar-risks" id="sidebar-risks" href="/path-risks.html">Risks of your path: <span id="path-risks-label">Three keys</span> &rarr;</a></p>
     <p class="sidebar-note">Check off sheets as you finish them. Progress is saved on this device.</p>
   </nav>
   <div class="scrim" aria-hidden="true"></div>
@@ -102,7 +101,7 @@
       <p class="kicker">Plebum Dominium</p>
       <h1>Downloads</h1>
       <div class="path-banner" id="path-banner" hidden>
-        <p class="path-banner-label">Your path: <strong id="path-banner-label">Three keys</strong></p>
+        <p class="path-banner-label">Your path: <strong id="path-banner-label">Three keys</strong> (<a href="/choose-path.html">change</a>)</p>
         <p class="path-banner-note" id="path-banner-note"></p>
       </div>
       <div class="path-gate" id="path-gate" hidden>
@@ -116,7 +115,7 @@
 <p class="lede">Everything printable and every tool in one place. <strong>Verify before you trust:</strong> tool fingerprints are in <a href="/kit/VERIFY.md">VERIFY.md</a>. Check the hash before a file goes near real entropy.</p>
 
 <h2>Printouts, Three keys</h2>
-<p>These printouts are the Three keys path. One key and a passphrase printouts are not listed here yet.</p>
+<p>These printouts are the Three keys. One device and One key and a passphrase printouts are not listed here yet.</p>
 <div class="dl-list">
 <div class="dl-item"><div><h3>Print packet, Three keys</h3><p>The full method in 11 pages, with every sheet condensed for the workbench.</p></div><a class="dl-btn" href="/kit/02_Print_Packet.pdf">PDF</a></div>
 <div class="dl-item"><div><h3>All handouts, no cover, Three keys</h3><p>Every handout sheet compiled into one document.</p></div><a class="dl-btn" href="/kit/Handouts_No_Cover.pdf">PDF</a></div>
@@ -127,11 +126,7 @@
 
 <h2>Tools: verify first</h2>
 <div class="dl-list">
-<div class="dl-item"><div><h3>Tools bundle</h3><p>Every tool in one zip. Download this one file, check its one fingerprint in VERIFY.md, extract it on Tails. One matching hash covers everything inside.</p><code class="fp">3bc1922a…68a19649</code></div><a class="dl-btn" href="/kit/tools-bundle.zip">.zip</a></div>
-<div class="dl-item"><div><h3>Verify a file</h3><p>Pick the published file, drop your downloaded copy, get MATCH or NO MATCH. Use it on the bundle. Check this page's own fingerprint in VERIFY.md first.</p><code class="fp">4c07dc1f…ea0c43a8</code></div><a class="dl-btn" href="/verify-file.html">.html</a></div>
-<div class="dl-item"><div><h3>Dice converter page</h3><p>The main tool for the dice sheet. Records the rolls in the page, counts the pairs, prints the 24 words. Runs offline in the Tails browser and refuses to run online. Check the fingerprint in VERIFY.md before it goes near real entropy.</p><code class="fp">d1900558…a4f73a3b</code></div><a class="dl-btn" href="/dice-converter.html">.html</a></div>
-<div class="dl-item"><div><h3>Descriptor tool page</h3><p>The main tool for the wallet map sheet. Encrypts and decrypts the map in the page. Nothing leaves it. Runs offline in the Tails browser and refuses to run online. Check the fingerprint in VERIFY.md.</p><code class="fp">58915701…215b7bd9</code></div><a class="dl-btn" href="/descriptor-tool.html">.html</a></div>
-<div class="dl-item"><div><h3>Dice converter, Python</h3><p>The terminal option for the dice sheet's second-tool check. Paste the bits from the page, compare the 24 words. Check the fingerprint in VERIFY.md, read the code, test with dummy bits, then use offline.</p><code class="fp">c5b149a7…fdbaa035</code></div><a class="dl-btn" href="/kit/bip39_dice_converter.py">.py</a></div>
+<div class="dl-item"><div><h3>Dice converter</h3><p>Turns dice rolls into 24 words. Check the fingerprint in VERIFY.md, read the code, test with dummy bits, then use offline.</p><code class="fp">7a14a204…78800330</code></div><a class="dl-btn" href="/kit/bip39_dice_converter.py">.py</a></div>
 <div class="dl-item"><div><h3>Descriptor obfuscator</h3><p>Encrypts the wallet map with GPG AES-256. Calls real GPG. Invents no cipher.</p><code class="fp">35f8807c…0466589</code></div><a class="dl-btn" href="/kit/descriptor_obfuscator.py">.py</a></div>
 <div class="dl-item"><div><h3>EFF Large Wordlist</h3><p>7,776 words for dice passphrases. Roll five dice, look the number up, repeat to at least six words. Text only. Check the fingerprint in VERIFY.md.</p><code class="fp">addd3553…b903e</code></div><a class="dl-btn" href="/kit/eff_large_wordlist.txt">.txt</a></div>
 <div class="dl-item"><div><h3>Verify helpers</h3><p>Scripts that check hashes and signatures of the downloads.</p></div><a class="dl-btn" href="/kit/verify_downloads.py">.py</a></div>
@@ -152,18 +147,7 @@
 
 
       </nav>
-    
-<section style="border:2px solid #c4a484;border-radius:12px;padding:1.5rem;margin:2rem 0;background:rgba(196,164,132,.07);">
-<h2 style="margin:0 0 .75rem;">Full guide download</h2>
-<p style="margin:0 0 1rem;">Download the entire guide as a ZIP. Verify it, then use it offline. The HTML tools run from downloaded files.</p>
-<p style="margin:0;">
-<a href="/kit/plebumbtc-offline.zip" style="display:inline-block;padding:.75rem 1.5rem;background:#c4a484;color:#0e0d0b;border-radius:8px;text-decoration:none;font-weight:600;">Download full guide (ZIP)</a>
-</p>
-<p style="margin:.75rem 0 0;font-size:.9em;color:var(--muted);">Unzip and open <code>index.html</code> in a browser. No server needed. All links work offline.</p>
-<p style="margin:.5rem 0 0;font-size:.85em;"><code class="fp">SHA-256: 61e58a4e…d24e5d5c</code> Full hash in VERIFY.md.</p>
-</section>
-
-</article>
+    </article>
   </main>
 
   <aside class="toc-col">
@@ -179,13 +163,14 @@
   <p><strong>Plebum Dominium</strong>: independent at-home Bitcoin self-custody.</p>
   <p>Educational material, not financial advice. Bitcoin self-custody is irreversible. A mistake can permanently lose funds. Verify every download from its original source.</p>
   <p><a href="/kit/VERIFY.md">File fingerprints</a> · <a href="/downloads.html">Downloads</a> · <a href="/kit/02_Print_Packet.pdf">Print packet (PDF)</a> · <a href="/news.html">News</a> · <a href="/beyond.html">Beyond the kit</a></p>
-  <p class="footer-updated">Last updated October 31, 2026 · Version 1.1.0</p>
+  <p class="footer-updated">Last updated November 2, 2026 · Version </p>
   <p class="footer-contact">Contact: <a href="mailto:Muststackmoresats@gmail.com">Muststackmoresats@gmail.com</a> · X: <a href="https://x.com/MustHaveMustash" rel="noopener">@MustHaveMustash</a></p>
   <p class="donate-row"><a class="btn-lightning" href="lightning:musthavemoresats@speed.app"><span aria-hidden="true">⚡</span> Donate with Lightning</a> <button type="button" class="btn-onchain" data-copy="bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw"><span aria-hidden="true">₿</span> Donate Bitcoin</button></p>
   <p class="donate-addr"><code>bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmngw</code></p>
 </footer>
 
 <script src="/assets/js/main.js?v=whytiers7" defer></script>
+<script src="/assets/js/guide-demos.js?v=phasea1" defer></script>
 <script data-goatcounter="https://plebumbtc.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <div id="newbie-banner" class="newbie-banner" role="dialog" aria-label="New to Bitcoin?" hidden>
   <p><strong>New to Bitcoin?</strong><br><a href="/new-to-bitcoin.html" class="newbie-go">Start here &rarr;</a></p>

@@ -137,9 +137,8 @@ footer p{margin:6px 0}
     <div class="row">
       <button class="ghost" id="undo">Undo last</button>
       <button class="ghost" id="clear">Clear all</button>
-      <button class="quiet" id="testfill" style="border: 2px dashed #c4a484;">TEST ONLY: Fill with fake rolls</button>
+      <button class="quiet" id="testfill">Try with test rolls</button>
     </div>
-    <p style="font-size: 0.85em; color: #9b9384; margin-top: 8px;"><strong>TEST ONLY:</strong> The "Fill with fake rolls" button uses predictable fake data for demonstration. Never use these words for a real wallet. Always roll physical dice for real keys.</p>
     <p class="done" id="done256" hidden>256 bits recorded. The 24 words are below.</p>
   </section>
 
@@ -245,20 +244,7 @@ function bitsToBytes(bitstr){
   return out;
 }
 function cleanBinary(s){
-  s = s || '';
-  // Match Python clean_binary: reject non-binary chars (except whitespace)
-  // Do not silently discard unexpected characters in sensitive input.
-  var stripped = s.replace(/[ \n\t\r]/g, '');
-  var invalid = stripped.replace(/[01]/g, '');
-  if (invalid.length > 0) {
-    var unique = [...new Set(invalid.split(''))].join(', ');
-    throw new Error('Invalid characters found: ' + unique + '. Only 0, 1, and whitespace are allowed.');
-  }
-  var cleaned = stripped; // already only 0s and 1s
-  if (cleaned.length === 0) {
-    throw new Error('No valid binary digits (0 or 1) found.');
-  }
-  return cleaned;
+  return (s||'').replace(/[^01]/g,'');
 }
 /* The guide's face map: 1=00 2=01 3=10 4=11. 5 and 6 are not bits. */
 function faceToBits(face){
@@ -313,7 +299,6 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
 <script>
 (function(){
   "use strict";
-  var netBlocked=true; // fail closed until the probe confirms offline
   var rolls=[]; // {face, bits|null}
   var pastedBits=null;
   function $(id){return document.getElementById(id);}
@@ -338,9 +323,7 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
     $('bits').textContent=grouped.trim();
     var done=b.length>=256;
     $('done256').hidden=!done;
-    if(pastedBits) return;
-    if(done) showWords(bitsToWords(b));
-    else $('words').innerHTML='';
+    if(done && !pastedBits) showWords(bitsToWords(b));
   }
   function showWords(words){
     var ol=$('words'); ol.innerHTML='';
@@ -354,8 +337,12 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
       ol.appendChild(li);
     });
   }
-  function addDie(face){
-    if(netBlocked) return;
+  async function addDie(face){
+    if(netBlocked){
+      // Re-probe on tap: the offline event may not have fired.
+      await renderNet();
+      if(netBlocked) return;
+    }
     if(bits().length>=256 && !pastedBits) return;
     if(pastedBits){ clearAll(); }
     rolls.push({face:face, bits:faceToBits(face)});
@@ -366,9 +353,12 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
     $('words').innerHTML=''; $('pastebits').value=''; $('paste-note').textContent='';
     render();
   }
-  document.querySelectorAll('.diebtn').forEach(function(btn){
-    btn.addEventListener('click', function(){ addDie(parseInt(btn.getAttribute('data-face'),10)); });
-  });
+  var diebtns=document.querySelectorAll('.diebtn');
+  for(var bi=0; bi<diebtns.length; bi++){
+    (function(btn){
+      btn.addEventListener('click', function(){ addDie(parseInt(btn.getAttribute('data-face'),10)); });
+    })(diebtns[bi]);
+  }
   document.addEventListener('keydown', function(e){
     if(netBlocked) return;
     if(/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
@@ -378,7 +368,6 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
   $('undo').addEventListener('click', function(){ rolls.pop(); render(); });
   $('clear').addEventListener('click', clearAll);
   $('testfill').addEventListener('click', function(){
-    if(netBlocked) return;
     clearAll();
     var seed=123456789;
     function rnd(){ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; }
@@ -393,12 +382,8 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
     clearTimeout(pasteT);
     pasteT=setTimeout(function(){
       var raw=$('pastebits').value;
+      var r=wordsFromBitsInput(raw);
       var note=$('paste-note');
-      try {
-        var r=wordsFromBitsInput(raw);
-      } catch(e) {
-        pastedBits=null; $('words').innerHTML=''; note.textContent=e.message; return;
-      }
       if(!r.words){ pastedBits=null; $('words').innerHTML=''; note.textContent=r.note; return; }
       pastedBits=r.bits;
       note.textContent=r.note||('256 bits. Words generated.');
@@ -427,23 +412,36 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
       li('good','No words recorded above to compare against. This list stands on its own check.', .18);
     }
   });
-  function probeOnline() {
-  // This tool never makes network requests.
-  // Check location.protocol as a conservative page-origin guard only.
-  // Neither protocol nor navigator.onLine proves physical disconnection.
-  // You must disable networking yourself and verify it independently.
-  var isFile = location.protocol === 'file:';
-  var statusEl = document.getElementById('net-status');
-  if (statusEl) {
-    if (isFile) {
-      statusEl.textContent = 'Opened as local file. This does not mean networking is disabled. Disable networking and verify independently before entering real dice data.';
-      statusEl.className = 'net-warn';
-    } else {
-      statusEl.textContent = 'WARNING: Opened over ' + location.protocol + '. For real keys, download this file, disconnect from all networks, then open the local copy.';
-      statusEl.className = 'net-danger';
+  netBlocked=true; // fail closed until the probe confirms offline
+  function probeOnline(){
+    // Simple and reliable: if loaded via https://, we're online.
+    // On Tails, the file is opened from USB via file://, so we're offline.
+    // This avoids fragile network probes that hang on mobile browsers.
+    return Promise.resolve(location.protocol === 'https:');
+  }
+  async function renderNet(){
+    var pill=$('online-pill'), dot=$('online-dot'), word=$('online-word'), block=$('netblock');
+    if(pill){ pill.hidden=false; dot.classList.remove('safe'); word.textContent='Checking\u2026'; }
+    if(block){ block.hidden=false; }
+    var online;
+    // Always probe; do not trust navigator.onLine alone (it lies on some mobile browsers).
+    // Fail closed: block if EITHER signal says online.
+    var probeResult = await probeOnline();
+    online = (navigator.onLine===true) || probeResult;
+    var wasBlocked=netBlocked;
+    netBlocked=online;
+    if(pill){ dot.classList.toggle('safe', !online); word.textContent=online?'Online':'Offline'; }
+    if(block){ block.hidden=!online; }
+    if(online && !wasBlocked){
+      clearAll();
+      $('valwords').value='';
+      $('results').innerHTML='';
     }
   }
-  return isFile;
+  window.addEventListener('online', renderNet);
+  window.addEventListener('offline', renderNet);
+  renderNet();
+  render();
 })();
 </script>
 </body>
