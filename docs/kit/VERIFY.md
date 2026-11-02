@@ -6,8 +6,8 @@ Do not trust this file because it was emailed or downloaded. Check the hash, the
 
 ```
 File:     bip39_dice_converter.py
-Size:     38940 bytes
-SHA-256:  c5b149a7d2f22b8dfa6fc8de7dd600cc664318a2960fcc9fbef9f719fdbaa035
+Size:     37896 bytes
+SHA-256:  fcef80062b6c0a36c47acefda246fab56f9405d9e75033b4479ad7f61799674a
 ```
 
 ## Wallet map tool
@@ -69,7 +69,7 @@ Get-FileHash .\bip39_dice_converter.py -Algorithm SHA256
 The hash must match exactly:
 
 ```
-c5b149a7d2f22b8dfa6fc8de7dd600cc664318a2960fcc9fbef9f719fdbaa035
+fcef80062b6c0a36c47acefda246fab56f9405d9e75033b4479ad7f61799674a
 ```
 
 If it does not match, stop. Do not run that copy.
@@ -130,8 +130,8 @@ The words must match.
 
 ```
 File:     verify_downloads.py
-Size:     406 bytes
-SHA-256:  83437d699ff4a00c72d39549baae95ebdcc85b5623ab35b6eeea1051602a45be
+Size:     356 bytes
+SHA-256:  8b819c8325cfb61e680de50cd04d37c04ad3c3d2bc3e46425ee732c54971cd45
 ```
 
 ```bash
@@ -139,7 +139,7 @@ sha256sum verify_downloads.py
 python3 verify_downloads.py
 ```
 
-It asks for each file and its official SHA-256 from the source website (tails.net, electrum.org, sparrowwallet.com), then checks the downloads in the current directory. No hashes are hardcoded in the script. A mismatch means delete that file.
+It checks Tails, Sparrow, Electrum, and the Ian Coleman page in the current directory. A mismatch means delete that file.
 
 ## 5. Extra bits note
 
@@ -168,18 +168,18 @@ as served:
 
 | File | Version | File SHA-256 | Content SHA-256 |
 | --- | --- | --- | --- |
-| 00_Project_Overview.pdf | 2026.10.21 | `2972a97e363a7cecf2318d8f37f3dfae6eb43c13323aaef3bbdb77b68cd89c06` | `bf8fac59b05e1186ac2d819fb4a9cf16d4f325a7b41e1e04a59950fec7a565c4` |
-| 02_Print_Packet.pdf | 2026.10.27 | `f970ab92eb8086dcbabbe44a7f4b39404250fa6b353a1cd58f7caa3cd002f511` | `84cb4efcc9d6cc1f8524c1b1e930d64e96fbce12e359b8791a8190da22a315b5` |
-| 03_Checklist.pdf | 2026.10.21 | `a2f0b13ba69db578f82da2a28dae07783b35e7fd2f859073237ad0113b160ff4` | `8a3bf59d0431bad69fd2d5b7412db9eaa6d8ca6f185d46068ae0e9d1dc096eb0` |
+| 00_Project_Overview.pdf | 2026.10.21 | `302559ce5fa92523d7c9741a9f6750bcebb63696d948480371748da7d3d5304a` | `bf8fac59b05e1186ac2d819fb4a9cf16d4f325a7b41e1e04a59950fec7a565c4` |
+| 02_Print_Packet.pdf | 2026.10.27 | `bab6a24ae54d06f804727a742ddd7f31afa68bd46e47dc3152d57d1264de39a8` | `84cb4efcc9d6cc1f8524c1b1e930d64e96fbce12e359b8791a8190da22a315b5` |
+| 03_Checklist.pdf | 2026.10.21 | `dbc4a4c9f13e9f85e3a010d8d7e864b044c7d4e02710f92bb85dc2c76c849674` | `8a3bf59d0431bad69fd2d5b7412db9eaa6d8ca6f185d46068ae0e9d1dc096eb0` |
 | 04_Airgap.pdf | 2026.10.21 | `fe0e1abb9d94b3250bf0ac34a1d2ecd38ada62b086b3dd49c3352184ad00d710` | `f3a0611b1d209b37709fde8f90fbe0bb78f1f4a3c5023064c1efa40326de5e74` |
-| 05_Verify.pdf | 2026.10.21 | `b5c36855913714ccf26ec9b96d8b4e682be94e9312861a4e1eb32f970e3aa4f9` | `6f95f6ac9efeefc1ae40c7066e561fda11de1e26928ae160fa7563c6298eef36` |
+| 05_Verify.pdf | 2026.10.21 | `2a92f82ec475090cd895e55a4428993f0f367ceb9cf1dc90eac2f4415045632b` | `6f95f6ac9efeefc1ae40c7066e561fda11de1e26928ae160fa7563c6298eef36` |
 | 06_Dice.pdf | 2026.10.27 | `fb742dc0c79c007981096eb7b101ae76e47c532c14b85faaf6cf86687ba1e05e` | `f5886c372356b029aac98aadaa44cc388a89c2bb9f7873fd7e6b47e472e83222` |
 | 07_Sparrow.pdf | 2026.10.21 | `458849618cd31e65b287a023e0ce2f51993197542adab0c5ac49ee20112ece04` | `3195ede4fd9dd1018b0bf6c7c33cc837fb8afabe3e2129d3a0e1e3f2d9f36b99` |
-| 08_Signing.pdf | 2026.10.21 | `c369d6028c0147bd32b79ae75f8a20fe914eef777619656c10660df01a9f5a98` | `ccff78d819eec20407abcb1b1b79132a371af848745fb94dfbd95a76d7eda22e` |
-| 09_Titanium.pdf | 2026.10.21 | `a8d71eda788b2cb811c29eee646b84be8955e46a81c9863ef116cd031d10e5f5` | `3756e087a22f915f33b4a46953ae0227316c35df7311dcdf59741e1d6563f2ba` |
+| 08_Signing.pdf | 2026.10.21 | `3d913660f02997fab1c4e1b15119f3c3af8dcbdbdaa6d2ce64dcfbcea9d94aab` | `ccff78d819eec20407abcb1b1b79132a371af848745fb94dfbd95a76d7eda22e` |
+| 09_Titanium.pdf | 2026.10.21 | `fa0e9f1f9e4385d21979ab6257ab39f1d95412ef23eb9d652434e60e7bd7412c` | `3756e087a22f915f33b4a46953ae0227316c35df7311dcdf59741e1d6563f2ba` |
 | 11_Encryption.pdf | 2026.10.25 | `a2d4a42c65e3c9dbf558669ff9b2beff720b711733de37ebaf9c7b17fb9a5f1e` | `1ca733cf74ddc3f3f308579dcd2d7a9a97c64be5b7c3132728f434e4a5789985` |
 | 12_Inheritance.pdf | 2026.10.21 | `bc6b6f093401aa61bf72c879816f4895a60ba100cd8f5178e0810ce2d94a55ea` | `620da36df5d5c9d50a1ca62fd2d2abc7e79df405d8edb4da549880eff0cd8af5` |
-| 13_FAQ.pdf | 2026.10.21 | `8d1ef0d08389066b83ce3b2cb53c04cbbc3c7d9f4729947549f8ab8c5c721065` | `fc5ba25be0c80a0624408103437ed86348c6cbc487f4084e1323ac13119da59d` |
+| 13_FAQ.pdf | 2026.10.21 | `d7ea94053b706f6ed68adbb4dc7ce529f5b49d7497a9d290eaa4abf9280d8493` | `fc5ba25be0c80a0624408103437ed86348c6cbc487f4084e1323ac13119da59d` |
 | 14_Speaker.pdf | 2026.10.21 | `1fe1670e66b87a43f109230a894cbfc8c7424ff2431d9f2f8ca29da5076a21fd` | `1b2cabb828b26d58cbb7e89a3ffd4a2784cddce6c5bcae842dc8be8adb72a62d` |
 | 15_Fire_Card.pdf | 2026.10.22 | `c7a148b74ee1d399c9f53d44ca8c26e450ad04383817230ee4b64dac55bc3673` | `6733a4881aa932acb01cd5a5b49fc86997b56f83a15c8f36be1d32d31445ab29` |
 | Handouts_No_Cover.pdf | 2026.10.27 | `47cc4ffa23a3c89010304cd24690f6b1efe71f3b2a00db4e60bdcbdb828bbb57` | `658321f1e3b3598dd8ed7d2075733f364b7266d01cbf38426ed8435011106d61` |
