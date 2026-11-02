@@ -221,50 +221,169 @@
 <li>Go straight to Step 4.</li>
 </ul>
 <h2 id="step-4-add-a-passphrase">Step 4 · Add a passphrase.</h2>
-<div class="eff-anim">
-<div class="stage">
 
-<div class="round r1">ROLL 1 OF 6</div>
-<div class="round r2">ROLL 2 OF 6</div>
-<div class="round r3">ROLL 3 OF 6</div>
-<div class="round r4">ROLL 4 OF 6</div>
-<div class="round r5">ROLL 5 OF 6</div>
-<div class="round r6">ROLL 6 OF 6</div>
-<div class="tray tray1"><div class="die d1"><i class=p-tl></i><i class=p-tr></i><i class=p-bl></i><i class=p-br></i></div><div class="die d2"><i class=p-tl></i><i class=p-c></i><i class=p-br></i></div><div class="die d3"><i class=p-tl></i><i class=p-tr></i><i class=p-bl></i><i class=p-br></i></div><div class="die d4"><i class=p-tl></i><i class=p-ml></i><i class=p-bl></i><i class=p-tr></i><i class=p-mr></i><i class=p-br></i></div><div class="die d5"><i class=p-tl></i><i class=p-c></i><i class=p-br></i></div></div>
-<div class="tray tray2"><div class="die d1"><i class=p-tl></i><i class=p-tr></i><i class=p-bl></i><i class=p-br></i></div><div class="die d2"><i class=p-tl></i><i class=p-br></i></div><div class="die d3"><i class=p-c></i></div><div class="die d4"><i class=p-tl></i><i class=p-br></i></div><div class="die d5"><i class=p-tl></i><i class=p-tr></i><i class=p-c></i><i class=p-bl></i><i class=p-br></i></div></div>
-<div class="tray tray3"><div class="die d1"><i class=p-tl></i><i class=p-tr></i><i class=p-bl></i><i class=p-br></i></div><div class="die d2"><i class=p-tl></i><i class=p-tr></i><i class=p-c></i><i class=p-bl></i><i class=p-br></i></div><div class="die d3"><i class=p-tl></i><i class=p-br></i></div><div class="die d4"><i class=p-c></i></div><div class="die d5"><i class=p-tl></i><i class=p-br></i></div></div>
-<div class="tray tray4"><div class="die d1"><i class=p-tl></i><i class=p-tr></i><i class=p-c></i><i class=p-bl></i><i class=p-br></i></div><div class="die d2"><i class=p-tl></i><i class=p-tr></i><i class=p-c></i><i class=p-bl></i><i class=p-br></i></div><div class="die d3"><i class=p-c></i></div><div class="die d4"><i class=p-tl></i><i class=p-ml></i><i class=p-bl></i><i class=p-tr></i><i class=p-mr></i><i class=p-br></i></div><div class="die d5"><i class=p-c></i></div></div>
-<div class="tray tray5"><div class="die d1"><i class=p-c></i></div><div class="die d2"><i class=p-tl></i><i class=p-c></i><i class=p-br></i></div><div class="die d3"><i class=p-tl></i><i class=p-br></i></div><div class="die d4"><i class=p-tl></i><i class=p-br></i></div><div class="die d5"><i class=p-tl></i><i class=p-br></i></div></div>
-<div class="tray tray6"><div class="die d1"><i class=p-tl></i><i class=p-c></i><i class=p-br></i></div><div class="die d2"><i class=p-tl></i><i class=p-c></i><i class=p-br></i></div><div class="die d3"><i class=p-tl></i><i class=p-c></i><i class=p-br></i></div><div class="die d4"><i class=p-tl></i><i class=p-br></i></div><div class="die d5"><i class=p-tl></i><i class=p-c></i><i class=p-br></i></div></div>
-<div class="num num1">4 3 4 6 3</div>
-<div class="num num2">4 2 1 2 5</div>
-<div class="num num3">4 5 2 1 2</div>
-<div class="num num4">5 5 1 6 1</div>
-<div class="num num5">1 3 2 2 2</div>
-<div class="num num6">3 3 3 2 3</div>
+<p class="lead">A passphrase is a second secret you memorize or write on paper. It is entered on the device after the seed words. Without it, the seed alone opens an empty wallet.</p>
 
-<div class="panel"><div class="phead">EFF WORDLIST</div><div class="wline w1">43463 panoramic</div>
-<div class="wline w2">42125 nectar</div>
-<div class="wline w3">45212 precut</div>
-<div class="wline w4">55161 smith</div>
-<div class="wline w5">13222 banana</div>
-<div class="wline w6">33323 handclap</div>
-
-<div class="pbar"><i></i></div><div class="pcount"><b>6</b> WORDS, ABOUT 77 BITS</div><div class="wstamp">6 WORDS</div></div>
+<div class="demo-wrap" style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:20px 0;">
+  <div style="padding:16px 20px;border-bottom:2px solid var(--copper);">
+    <div class="kicker">T · PLEBUM DOMINIUM</div>
+    <h3 style="font-family:'Newsreader',Georgia,serif;font-size:20px;margin-bottom:4px;">Diceware Passphrase Mapper</h3>
+    <div style="color:var(--muted);font-size:13px;">Fixed example. Roll real dice yourself.</div>
+  </div>
+  <div class="stage" id="pp-stage" style="position:relative;padding:24px 20px;min-height:380px;display:flex;flex-direction:column;align-items:center;">
+    <div id="pp-pointer" style="position:absolute;width:32px;height:32px;pointer-events:none;opacity:0;transition:opacity 0.3s;z-index:10;font-size:28px;">&#128070;</div>
+    <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;justify-content:center;min-height:44px;">
+      <div class="pp-slot" id="pp-ws0" style="min-width:80px;padding:8px 12px;border:2px dashed var(--border);border-radius:8px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);transition:all 0.3s;"><span style="display:block;font-size:10px;color:var(--muted);margin-bottom:2px;">WORD 1</span><span class="pp-w">—</span></div>
+      <div class="pp-slot" id="pp-ws1" style="min-width:80px;padding:8px 12px;border:2px dashed var(--border);border-radius:8px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);transition:all 0.3s;"><span style="display:block;font-size:10px;color:var(--muted);margin-bottom:2px;">WORD 2</span><span class="pp-w">—</span></div>
+      <div class="pp-slot" id="pp-ws2" style="min-width:80px;padding:8px 12px;border:2px dashed var(--border);border-radius:8px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);transition:all 0.3s;"><span style="display:block;font-size:10px;color:var(--muted);margin-bottom:2px;">WORD 3</span><span class="pp-w">—</span></div>
+      <div class="pp-slot" id="pp-ws3" style="min-width:80px;padding:8px 12px;border:2px dashed var(--border);border-radius:8px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);transition:all 0.3s;"><span style="display:block;font-size:10px;color:var(--muted);margin-bottom:2px;">WORD 4</span><span class="pp-w">—</span></div>
+      <div class="pp-slot" id="pp-ws4" style="min-width:80px;padding:8px 12px;border:2px dashed var(--border);border-radius:8px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);transition:all 0.3s;"><span style="display:block;font-size:10px;color:var(--muted);margin-bottom:2px;">WORD 5</span><span class="pp-w">—</span></div>
+      <div class="pp-slot" id="pp-ws5" style="min-width:80px;padding:8px 12px;border:2px dashed var(--border);border-radius:8px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted);transition:all 0.3s;"><span style="display:block;font-size:10px;color:var(--muted);margin-bottom:2px;">WORD 6</span><span class="pp-w">—</span></div>
+    </div>
+    <div style="display:flex;gap:12px;margin:16px 0;justify-content:center;">
+      <div class="pp-die" id="pp-d0" style="width:56px;height:56px;border-radius:10px;background:var(--die-bg,#efe9dc);color:var(--die-fg,#161410);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.3);">?</div>
+      <div class="pp-die" id="pp-d1" style="width:56px;height:56px;border-radius:10px;background:var(--die-bg,#efe9dc);color:var(--die-fg,#161410);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.3);">?</div>
+      <div class="pp-die" id="pp-d2" style="width:56px;height:56px;border-radius:10px;background:var(--die-bg,#efe9dc);color:var(--die-fg,#161410);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.3);">?</div>
+      <div class="pp-die" id="pp-d3" style="width:56px;height:56px;border-radius:10px;background:var(--die-bg,#efe9dc);color:var(--die-fg,#161410);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.3);">?</div>
+      <div class="pp-die" id="pp-d4" style="width:56px;height:56px;border-radius:10px;background:var(--die-bg,#efe9dc);color:var(--die-fg,#161410);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.3);">?</div>
+    </div>
+    <div style="margin:12px 0;text-align:center;min-height:60px;font-family:'IBM Plex Mono',monospace;">
+      <div id="pp-digits" style="font-size:24px;letter-spacing:4px;color:var(--copper-bright,#e4c6a4);margin-bottom:4px;"></div>
+      <div id="pp-arrow" style="font-size:20px;color:var(--muted);margin:4px 0;"></div>
+      <div id="pp-word" style="font-size:28px;font-weight:700;"></div>
+    </div>
+    <div id="pp-overlay" style="position:absolute;inset:0;background:rgba(14,13,11,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;cursor:pointer;" tabindex="0" role="button" aria-label="Play the passphrase demo">
+      <h3 style="font-family:'Newsreader',Georgia,serif;font-size:22px;margin-bottom:8px;">See how the passphrase works</h3>
+      <p style="color:var(--muted);margin-bottom:20px;text-align:center;max-width:400px;font-size:14px;">This is a fixed demo, not a generator. Roll five dice, look up the number, write the word. Repeat six times. For real words, use the downloaded file offline.</p>
+      <span style="background:var(--copper);color:#0e0d0b;padding:16px 40px;font-size:18px;font-weight:700;border-radius:10px;">Click to play</span>
+    </div>
+  </div>
+  <div style="border-top:2px solid var(--copper);padding:16px 20px;min-height:96px;background:var(--surface);">
+    <div id="pp-step-label" style="font-size:11px;letter-spacing:2px;color:var(--copper);font-weight:700;margin-bottom:6px;">READY</div>
+    <div id="pp-step-text" style="font-size:15px;line-height:1.5;">Click to play above.</div>
+  </div>
 </div>
-<p class="note">Fixed example. Roll real dice yourself. Faces 1 to 6 are all kept. No rerolls.</p>
+
+<p>Roll five dice. Read them left to right as a five-digit number. Find that number in the EFF wordlist and write down the word. Do this six times. Six words is about 77 bits.</p>
+
+<div style="border:2px solid var(--copper);border-radius:8px;padding:16px;margin:20px 0;">
+  <p style="margin:0 0 8px;font-weight:700;">&#9888; Use the mapper on a fresh Tails boot only.</p>
+  <p style="margin:0 0 12px;font-size:15px;">Do not type real dice rolls into this website. Download the file below to a <strong>clean USB stick</strong> (not your Tails USB, that holds Tails only, nothing else). Then boot Tails with networking disabled, plug in the clean USB, and open the file from there.</p>
+  <a href="/diceware-mapper.html" download="diceware-mapper.html" style="display:inline-block;background:var(--copper);color:#0e0d0b;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:16px;">Download the passphrase mapper</a>
+  <p style="margin:12px 0 0;font-size:13px;color:var(--muted);">Your Tails USB holds Tails and nothing else. The mapper goes on a separate clean USB. Boot Tails, disable networking, insert the clean USB, open the file. Confirm no network connection before you roll.</p>
 </div>
 
 <ul>
-<li>A passphrase is one more secret, not a word or short phrase you choose, entered on the device after the seed. Roll five dice, look the number up in the EFF Long Wordlist, write down the word, and repeat to at least six words.</li>
-<li>On this sheet it is required. One seed in one place is why: a plate found or stolen without the passphrase opens an empty wallet.</li>
-<li>Forgotten passphrase: the coins are gone, and nobody can reset it.</li>
-<li>Handed to a scammer along with the words: it stops nothing. Words and passphrase are never kept together and never given to anyone.</li>
-<li>Write the passphrase on paper. Keep that paper in a different place from the plate. Never write it on the plate.</li>
-<li>Keep a small spending balance in the wallet without the passphrase. A plate found under pressure has something to show, and it is not your savings.</li>
-<li>Prove it works: note the first receiving address of the passphrase wallet. The restore check in Step 5 must bring back that same address. If it does not, no real money moves.</li>
+  <li><strong>Write it on paper.</strong> Keep that paper in a different place from the plate. Never write the passphrase on the plate.</li>
+  <li><strong>If you forget it, the coins are gone.</strong> Nobody can reset a passphrase.</li>
+  <li><strong>Prove it works.</strong> Note the first receiving address of the passphrase wallet. The restore check in Step 5 must bring back that same address. If it does not, no real money moves.</li>
 </ul>
-<aside class="callout callout-note" role="note"><p class="callout-label">Note</p><p>The 2-of-3 build in this guide uses no passphrase, on purpose. Do not add one there. Three keys in three places already do the work. This sheet is one key, so the passphrase carries weight here that it never has to carry in the vault.</p></aside>
+
+
+<script>
+(function(){
+  var EXAMPLE = [
+    { dice: [4,3,4,6,3], digits: "43463", word: "panoramic" },
+    { dice: [4,2,1,2,5], digits: "42125", word: "nectar" },
+    { dice: [4,5,2,1,2], digits: "45212", word: "precut" },
+    { dice: [5,5,1,6,1], digits: "55161", word: "smith" },
+    { dice: [1,3,2,2,2], digits: "13222", word: "banana" },
+    { dice: [3,3,3,2,3], digits: "33323", word: "handclap" }
+  ];
+  var stage = document.getElementById('pp-stage');
+  var pointer = document.getElementById('pp-pointer');
+  var stepLabel = document.getElementById('pp-step-label');
+  var stepText = document.getElementById('pp-step-text');
+  var overlay = document.getElementById('pp-overlay');
+  if(!stage || !overlay) return;
+  var diceEls = [0,1,2,3,4].map(function(i){ return document.getElementById('pp-d'+i); });
+  var digitsEl = document.getElementById('pp-digits');
+  var arrowEl = document.getElementById('pp-arrow');
+  var wordEl = document.getElementById('pp-word');
+  var playing = false;
+
+  function setStep(l, t){ stepLabel.textContent = l; stepText.textContent = t; }
+  function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+  function rnd(){ return 1 + Math.floor(Math.random()*6); }
+  function movePtr(x, y){
+    var r = stage.getBoundingClientRect();
+    pointer.style.left = (x - r.left - 16) + 'px';
+    pointer.style.top = (y - r.top - 16) + 'px';
+    pointer.style.opacity = '1';
+  }
+  function hidePtr(){ pointer.style.opacity = '0'; }
+
+  // Add shake animation styles
+  var st = document.createElement('style');
+  st.textContent = '.pp-die.rolling{animation:pp-shake 0.5s ease-in-out infinite;}'
+    + '.pp-die.settled{animation:pp-settle 0.3s ease-out;border:3px solid var(--copper);}'
+    + '@keyframes pp-shake{0%,100%{transform:rotate(0deg) translateY(0);}25%{transform:rotate(-12deg) translateY(-6px);}50%{transform:rotate(10deg) translateY(4px);}75%{transform:rotate(-8deg) translateY(-3px);}}'
+    + '@keyframes pp-settle{0%{transform:scale(1.15);}100%{transform:scale(1);}}'
+    + '.pp-slot.filled{border-style:solid !important;border-color:var(--copper) !important;}';
+  document.head.appendChild(st);
+
+  async function rollDice(target){
+    diceEls.forEach(function(d){ d.classList.add('rolling'); d.classList.remove('settled'); });
+    for(var s=0; s<12; s++){
+      diceEls.forEach(function(d){ d.textContent = rnd(); });
+      await sleep(100);
+    }
+    diceEls.forEach(function(d,i){
+      d.classList.remove('rolling'); d.classList.add('settled'); d.textContent = target[i];
+    });
+    await sleep(1000);
+  }
+
+  async function play(){
+    if(playing) return;
+    playing = true;
+    overlay.style.display = 'none';
+    for(var w=0; w<6; w++){
+      var ex = EXAMPLE[w];
+      setStep('WORD '+(w+1)+' OF 6 \u00B7 ROLL', 'Roll five dice. All faces count.');
+      digitsEl.textContent=''; arrowEl.textContent=''; wordEl.textContent='';
+      var dr = diceEls[2].getBoundingClientRect();
+      movePtr(dr.left + dr.width/2, dr.top + dr.height/2);
+      await sleep(800);
+      await rollDice(ex.dice);
+      hidePtr();
+      await sleep(500);
+      setStep('WORD '+(w+1)+' OF 6 \u00B7 READ', 'Read left to right: '+ex.digits+'.');
+      digitsEl.textContent = ex.digits.split('').join(' ');
+      await sleep(1500);
+      setStep('WORD '+(w+1)+' OF 6 \u00B7 LOOK UP', 'Find '+ex.digits+' in the EFF wordlist.');
+      arrowEl.textContent = '\u2193';
+      await sleep(1000);
+      wordEl.textContent = ex.word;
+      var wr = wordEl.getBoundingClientRect();
+      movePtr(wr.left + wr.width/2, wr.top);
+      await sleep(1500);
+      hidePtr();
+      var slot = document.getElementById('pp-ws'+w);
+      slot.querySelector('.pp-w').textContent = ex.word;
+      slot.classList.add('filled');
+      slot.style.color = 'var(--fg)';
+      setStep('WORD '+(w+1)+' OF 6 \u00B7 DONE', '"'+ex.word+'" is word '+(w+1)+'.');
+      await sleep(1800);
+      if(w<5){
+        digitsEl.textContent=''; arrowEl.textContent=''; wordEl.textContent='';
+        diceEls.forEach(function(d){ d.textContent='?'; d.classList.remove('settled'); });
+        await sleep(500);
+      }
+    }
+    setStep('COMPLETE', 'Passphrase: "panoramic nectar precut smith banana handclap". Write it on paper, keep it apart from the plate.');
+    digitsEl.textContent=''; arrowEl.textContent=''; wordEl.textContent='';
+    hidePtr();
+    playing = false;
+  }
+
+  overlay.addEventListener('click', play);
+  overlay.addEventListener('keydown', function(e){
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); play(); }
+  });
+})();
+</script>
+
 <h2 id="step-5-stamp-it-in-metal">Step 5 · Stamp it in metal.</h2>
 <ul>
 <li>One seed, one plate, stamped the way  teaches.</li>
