@@ -201,18 +201,31 @@ if (!testContext.sha256) {
     console.log("  INFO: Site may use WebCrypto (crypto.subtle) which requires browser");
     // Don't fail - WebCrypto is async and browser-only
 } else {
-    // Test if it's a sync function
-    try {
-        const result = testContext.sha256(new Uint8Array([97, 98, 99])); // "abc"
-        // Convert to hex for comparison
-        let hex = '';
-        if (result instanceof Uint8Array) {
-            hex = Array.from(result).map(b => b.toString(16).padStart(2, '0')).join('');
+    // Test with multiple reference vectors
+    const vectors = [
+        { input: [], expected: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", name: "empty" },
+        { input: [97, 98, 99], expected: "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", name: "'abc'" },
+        { input: Array.from(Buffer.from("hello world")), expected: "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9", name: "'hello world'" },
+    ];
+    
+    for (const v of vectors) {
+        try {
+            const result = testContext.sha256(v.input);
+            // Accept both regular arrays and Uint8Array
+            let bytes;
+            if (Array.isArray(result)) {
+                bytes = result;
+            } else if (result instanceof Uint8Array) {
+                bytes = Array.from(result);
+            } else {
+                throw new Error(`Unexpected return type: ${typeof result}`);
+            }
+            test(`JS SHA-256 returns 32 bytes (${v.name})`, bytes.length === 32, `got ${bytes.length}`);
+            const hex = bytes.map(b => b.toString(16).padStart(2, '0')).join('');
+            test(`JS SHA-256(${v.name}) matches NIST`, hex === v.expected, `got ${hex.substring(0, 16)}...`);
+        } catch (e) {
+            console.log(`  INFO: JS sha256(${v.name}) skipped: ${e.message}`);
         }
-        const expected = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad";
-        test("JS SHA-256('abc') matches", hex === expected, `got ${hex.substring(0, 16)}...`);
-    } catch (e) {
-        console.log(`  INFO: JS sha256 test skipped: ${e.message}`);
     }
 }
 
