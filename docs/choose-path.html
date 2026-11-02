@@ -33,6 +33,14 @@
 /* set path before first paint, so the color reminder is right from the start */
 (function(){try{var p=localStorage.getItem('pd-path');if(p!=='one'&&p!=='full'){p='full';}document.documentElement.setAttribute('data-path',p);}catch(e){document.documentElement.setAttribute('data-path','full');}})();
 </script>
+
+<style>
+.path-desc.selected {
+  border-color: #c4a484 !important;
+  box-shadow: 0 0 0 3px rgba(196,164,132,.45), 0 4px 18px rgba(0,0,0,.35);
+}
+</style>
+
 </head>
 <body class="" id="top">
 <div class="splash" id="pd-splash" hidden aria-hidden="true">
@@ -123,13 +131,13 @@
 </div>
 <div class="path-ends"><span>&larr; Less work, more trust</span><span>More work, less trust &rarr;</span></div>
 <div class="path-descriptions" style="display:grid;gap:1rem;margin:1.5rem 0;">
-<div class="path-card path-card-one" style="border:1px solid var(--hatch-widget-border);border-radius:12px;padding:1.25rem;">
+<div id="desc-one" class="path-card path-card-one path-desc" style="border:1px solid var(--hatch-widget-border);border-radius:12px;padding:1.25rem;transition:box-shadow .2s,border-color .2s;">
 <h3 style="margin-top:0;">One key and a passphrase</h3>
 <p><strong>Trust:</strong> one key, one device, one passphrase. <strong>Work:</strong> medium.</p>
 <p>Roll dice for 24 words. Add a passphrase kept on paper apart from the plate. Stamp the words in titanium. Use a watch-only wallet.</p>
 <p><strong>Risk:</strong> one key and one passphrase. Lose the passphrase and the funds are locked.</p>
 </div>
-<div class="path-card path-card-full" style="border:1px solid var(--hatch-widget-border);border-radius:12px;padding:1.25rem;">
+<div id="desc-full" class="path-card path-card-full path-desc" style="border:1px solid var(--hatch-widget-border);border-radius:12px;padding:1.25rem;transition:box-shadow .2s,border-color .2s;">
 <h3 style="margin-top:0;">Three keys, three places</h3>
 <p><strong>Trust:</strong> no single key, device, or place. <strong>Work:</strong> highest.</p>
 <p>Roll three dice keys. Stamp three titanium plates. Keep them in three places. Build the 2-of-3. Practice spend first.</p>
@@ -218,5 +226,28 @@
     <p class="ask-foot">Search runs entirely in your browser. Nothing you type leaves this page unless you tap email. <span class="ask-keys">Up and down move, Enter opens, Esc closes.</span></p>
   </div>
 </div>
+
+<script>
+(function(){
+  function highlight(path){
+    var one = document.getElementById('desc-one');
+    var full = document.getElementById('desc-full');
+    if(one) one.classList.toggle('selected', path === 'one');
+    if(full) full.classList.toggle('selected', path === 'full');
+  }
+  // Hook into existing buttons
+  document.querySelectorAll('#path-chooser .path-seg button').forEach(function(b){
+    b.addEventListener('click', function(){
+      highlight(b.getAttribute('data-path'));
+    });
+  });
+  // Initial highlight based on saved path or default
+  try {
+    var saved = localStorage.getItem('pd-path');
+    highlight(saved === 'one' ? 'one' : 'full');
+  } catch(e) { highlight('full'); }
+})();
+</script>
+
 </body>
 </html>
