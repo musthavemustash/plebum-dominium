@@ -7,7 +7,7 @@ Do not trust this file because it was emailed or downloaded. Check the hash, the
 ```
 File:     bip39_dice_converter.py
 Size:     37896 bytes
-SHA-256:  fcef80062b6c0a36c47acefda246fab56f9405d9e75033b4479ad7f61799674a
+SHA-256:  7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330
 ```
 
 ## Wallet map tool
@@ -69,7 +69,7 @@ Get-FileHash .\bip39_dice_converter.py -Algorithm SHA256
 The hash must match exactly:
 
 ```
-fcef80062b6c0a36c47acefda246fab56f9405d9e75033b4479ad7f61799674a
+7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330
 ```
 
 If it does not match, stop. Do not run that copy.
@@ -168,23 +168,23 @@ as served:
 
 | File | Version | File SHA-256 | Content SHA-256 |
 | --- | --- | --- | --- |
-| 00_Project_Overview.pdf | 2026.10.21 | `302559ce5fa92523d7c9741a9f6750bcebb63696d948480371748da7d3d5304a` | `bf8fac59b05e1186ac2d819fb4a9cf16d4f325a7b41e1e04a59950fec7a565c4` |
-| 02_Print_Packet.pdf | 2026.10.27 | `bab6a24ae54d06f804727a742ddd7f31afa68bd46e47dc3152d57d1264de39a8` | `84cb4efcc9d6cc1f8524c1b1e930d64e96fbce12e359b8791a8190da22a315b5` |
-| 03_Checklist.pdf | 2026.10.21 | `dbc4a4c9f13e9f85e3a010d8d7e864b044c7d4e02710f92bb85dc2c76c849674` | `8a3bf59d0431bad69fd2d5b7412db9eaa6d8ca6f185d46068ae0e9d1dc096eb0` |
-| 04_Airgap.pdf | 2026.10.21 | `fe0e1abb9d94b3250bf0ac34a1d2ecd38ada62b086b3dd49c3352184ad00d710` | `f3a0611b1d209b37709fde8f90fbe0bb78f1f4a3c5023064c1efa40326de5e74` |
-| 05_Verify.pdf | 2026.10.21 | `2a92f82ec475090cd895e55a4428993f0f367ceb9cf1dc90eac2f4415045632b` | `6f95f6ac9efeefc1ae40c7066e561fda11de1e26928ae160fa7563c6298eef36` |
-| 06_Dice.pdf | 2026.10.27 | `fb742dc0c79c007981096eb7b101ae76e47c532c14b85faaf6cf86687ba1e05e` | `f5886c372356b029aac98aadaa44cc388a89c2bb9f7873fd7e6b47e472e83222` |
-| 07_Sparrow.pdf | 2026.10.21 | `458849618cd31e65b287a023e0ce2f51993197542adab0c5ac49ee20112ece04` | `3195ede4fd9dd1018b0bf6c7c33cc837fb8afabe3e2129d3a0e1e3f2d9f36b99` |
-| 08_Signing.pdf | 2026.10.21 | `3d913660f02997fab1c4e1b15119f3c3af8dcbdbdaa6d2ce64dcfbcea9d94aab` | `ccff78d819eec20407abcb1b1b79132a371af848745fb94dfbd95a76d7eda22e` |
-| 09_Titanium.pdf | 2026.10.21 | `fa0e9f1f9e4385d21979ab6257ab39f1d95412ef23eb9d652434e60e7bd7412c` | `3756e087a22f915f33b4a46953ae0227316c35df7311dcdf59741e1d6563f2ba` |
-| 11_Encryption.pdf | 2026.10.25 | `a2d4a42c65e3c9dbf558669ff9b2beff720b711733de37ebaf9c7b17fb9a5f1e` | `1ca733cf74ddc3f3f308579dcd2d7a9a97c64be5b7c3132728f434e4a5789985` |
-| 12_Inheritance.pdf | 2026.10.21 | `bc6b6f093401aa61bf72c879816f4895a60ba100cd8f5178e0810ce2d94a55ea` | `620da36df5d5c9d50a1ca62fd2d2abc7e79df405d8edb4da549880eff0cd8af5` |
-| 13_FAQ.pdf | 2026.10.21 | `d7ea94053b706f6ed68adbb4dc7ce529f5b49d7497a9d290eaa4abf9280d8493` | `fc5ba25be0c80a0624408103437ed86348c6cbc487f4084e1323ac13119da59d` |
-| 14_Speaker.pdf | 2026.10.21 | `1fe1670e66b87a43f109230a894cbfc8c7424ff2431d9f2f8ca29da5076a21fd` | `1b2cabb828b26d58cbb7e89a3ffd4a2784cddce6c5bcae842dc8be8adb72a62d` |
-| 15_Fire_Card.pdf | 2026.10.22 | `c7a148b74ee1d399c9f53d44ca8c26e450ad04383817230ee4b64dac55bc3673` | `6733a4881aa932acb01cd5a5b49fc86997b56f83a15c8f36be1d32d31445ab29` |
-| Handouts_No_Cover.pdf | 2026.10.27 | `47cc4ffa23a3c89010304cd24690f6b1efe71f3b2a00db4e60bdcbdb828bbb57` | `658321f1e3b3598dd8ed7d2075733f364b7266d01cbf38426ed8435011106d61` |
-| Presentation_Handouts.pdf | 2026.10.21 | `88107caaf87744f8915be38e9421075a51fc9e1533ed1537905721b6a4381659` | `65183c56fd85b2e15e20cdb655c037dfbefdca1727cdead8277f4992184f7bcd` |
-| Terms.pdf | 2026.10.21 | `a49eb0ac1c8cd59a71fe79e172afa18160a6b28f4019c99667a50a8136a7a2f8` | `054f08a39adce730c61c38c6a253f24a7660e9d71c4dff03d942837ff6058cba` |
+| 00_Project_Overview.pdf | 2026.10.21 | `2972a97e363a7cecf2318d8f37f3dfae6eb43c13323aaef3bbdb77b68cd89c06` | `2972a97e363a7cecf2318d8f37f3dfae6eb43c13323aaef3bbdb77b68cd89c06` |
+| 02_Print_Packet.pdf | 2026.10.27 | `f970ab92eb8086dcbabbe44a7f4b39404250fa6b353a1cd58f7caa3cd002f511` | `f970ab92eb8086dcbabbe44a7f4b39404250fa6b353a1cd58f7caa3cd002f511` |
+| 03_Checklist.pdf | 2026.10.21 | `a2f0b13ba69db578f82da2a28dae07783b35e7fd2f859073237ad0113b160ff4` | `a2f0b13ba69db578f82da2a28dae07783b35e7fd2f859073237ad0113b160ff4` |
+| 04_Airgap.pdf | 2026.10.21 | `fe0e1abb9d94b3250bf0ac34a1d2ecd38ada62b086b3dd49c3352184ad00d710` | `fe0e1abb9d94b3250bf0ac34a1d2ecd38ada62b086b3dd49c3352184ad00d710` |
+| 05_Verify.pdf | 2026.10.21 | `b5c36855913714ccf26ec9b96d8b4e682be94e9312861a4e1eb32f970e3aa4f9` | `b5c36855913714ccf26ec9b96d8b4e682be94e9312861a4e1eb32f970e3aa4f9` |
+| 06_Dice.pdf | 2026.10.27 | `fb742dc0c79c007981096eb7b101ae76e47c532c14b85faaf6cf86687ba1e05e` | `fb742dc0c79c007981096eb7b101ae76e47c532c14b85faaf6cf86687ba1e05e` |
+| 07_Sparrow.pdf | 2026.10.21 | `458849618cd31e65b287a023e0ce2f51993197542adab0c5ac49ee20112ece04` | `458849618cd31e65b287a023e0ce2f51993197542adab0c5ac49ee20112ece04` |
+| 08_Signing.pdf | 2026.10.21 | `c369d6028c0147bd32b79ae75f8a20fe914eef777619656c10660df01a9f5a98` | `c369d6028c0147bd32b79ae75f8a20fe914eef777619656c10660df01a9f5a98` |
+| 09_Titanium.pdf | 2026.10.21 | `a8d71eda788b2cb811c29eee646b84be8955e46a81c9863ef116cd031d10e5f5` | `a8d71eda788b2cb811c29eee646b84be8955e46a81c9863ef116cd031d10e5f5` |
+| 11_Encryption.pdf | 2026.10.25 | `a2d4a42c65e3c9dbf558669ff9b2beff720b711733de37ebaf9c7b17fb9a5f1e` | `a2d4a42c65e3c9dbf558669ff9b2beff720b711733de37ebaf9c7b17fb9a5f1e` |
+| 12_Inheritance.pdf | 2026.10.21 | `bc6b6f093401aa61bf72c879816f4895a60ba100cd8f5178e0810ce2d94a55ea` | `bc6b6f093401aa61bf72c879816f4895a60ba100cd8f5178e0810ce2d94a55ea` |
+| 13_FAQ.pdf | 2026.10.21 | `8d1ef0d08389066b83ce3b2cb53c04cbbc3c7d9f4729947549f8ab8c5c721065` | `8d1ef0d08389066b83ce3b2cb53c04cbbc3c7d9f4729947549f8ab8c5c721065` |
+| 14_Speaker.pdf | 2026.10.21 | `1fe1670e66b87a43f109230a894cbfc8c7424ff2431d9f2f8ca29da5076a21fd` | `1fe1670e66b87a43f109230a894cbfc8c7424ff2431d9f2f8ca29da5076a21fd` |
+| 15_Fire_Card.pdf | 2026.10.22 | `c7a148b74ee1d399c9f53d44ca8c26e450ad04383817230ee4b64dac55bc3673` | `c7a148b74ee1d399c9f53d44ca8c26e450ad04383817230ee4b64dac55bc3673` |
+| Handouts_No_Cover.pdf | 2026.10.27 | `47cc4ffa23a3c89010304cd24690f6b1efe71f3b2a00db4e60bdcbdb828bbb57` | `47cc4ffa23a3c89010304cd24690f6b1efe71f3b2a00db4e60bdcbdb828bbb57` |
+| Presentation_Handouts.pdf | 2026.10.21 | `88107caaf87744f8915be38e9421075a51fc9e1533ed1537905721b6a4381659` | `88107caaf87744f8915be38e9421075a51fc9e1533ed1537905721b6a4381659` |
+| Terms.pdf | 2026.10.21 | `a49eb0ac1c8cd59a71fe79e172afa18160a6b28f4019c99667a50a8136a7a2f8` | `a49eb0ac1c8cd59a71fe79e172afa18160a6b28f4019c99667a50a8136a7a2f8` |
 
 <!-- END GENERATED: PDF FINGERPRINTS -->
 
@@ -200,22 +200,22 @@ the sheet as published.
 
 | Sheet | Page | SHA-256 |
 | --- | --- | --- |
-| T · Terms | handouts/terms.html | `49da64e16d95706815ceea06962d66acb3c23a62b8d8ce0a4bce3b936a78954d` |
-| 02 · Before you begin | handouts/threat-model.html | `35437df2b89aac690c3fef5e7ddc34b3b5da3a41c587d89747cde8fa9ae68bdc` |
-| 03 · Checklist | handouts/checklist.html | `4a7d3a43aecc9dca20b5137f8fa5e7cc758bafb6fd9c3f7e99de70625ed3f349` |
-| 05 · Check the files | handouts/verify.html | `ee4368fcd91e2d1fa7655e94da00e5dc26cd9fb1c3cdeeed6a6149123be854f3` |
-| 04 · Two boots | handouts/airgap.html | `9b112f0e317547d79018044e5898ebbe28c5e79001264853f06de6c340209eaa` |
-| 06 · Make the three keys | handouts/dice.html | `a9552939ce200d19994536ee8379790fd738af570e275668371dff0f33eb291d` |
-| 07 · Build the 2-of-3 | handouts/sparrow.html | `c233a22ce4ca05f8f0e936749f6143bb03689eda1e66ae40a07559d366fbbff0` |
-| 10 · Rehearse on testnet | handouts/testnet.html | `001aac211888cfcf2e20b5927a82ddacfc4dfccd2029baf797a364487d1092cc` |
-| 08 · Practice spend | handouts/signing.html | `88ac333cb85a8883de95b925df9265d358441053367bb4d18f95d8a7ca4bca76` |
-| 09 · Metal and the map | handouts/titanium.html | `e9e19cc75067cdc4d2886fb989fda16d03dd3e6c81193ff4bb8ad5fa32676459` |
-| 11 · Hide the wallet map | handouts/encryption.html | `e7150fefcdf567028f50a038a30e4467464d130bce6f5c129e48602ddde00f83` |
-| 12 · If I am gone | handouts/inheritance.html | `45db9a52518535aa1dbe5153bce3ff883db0e325e16228cc4859051155bf22e3` |
-| 13 · If you get stuck | handouts/faq.html | `0739027e80e92554839ea936c7c32b6194074d2776e63abe32f65afd304f2565` |
-| 14 · Tough questions | handouts/briefing.html | `b543f80e025167342dce45f5f44b46f652d8bb71b37d01634484a1cb0079085a` |
-| 15 · Recovery card | handouts/fire-card.html | `d4230f3ed58045c168be869cb0b8b6113c20f0caf55f3fb7269506e8c0db3b25` |
-| 16 · One key, done right | handouts/single-sig.html | `0c51310be2b54f079fb880611d97681e3306b0b4ad6ebdf172c41fee8d5ab3f9` |
-| 17 · Two devices and one dice key | handouts/two-devices.html | `86207cc621107f27d5e18b2b46d682d290a2093a9874c83f68afbbcc8b48fa53` |
+| 01 · Before you begin | handouts/threat-model.html | `ff9ff8095a51f983eebe6424bff54cf2bb9c4dbab959f9eaaf9ff33f71f37409` |
+| 03 · Terms | handouts/terms.html | `4269bf3ad8f08ab0edfdb6c5fd0425d364e78278341ff38f1e9be895f65d380e` |
+| 04 · Checklist | handouts/checklist.html | `967eb35acb4ad9e561a0adfc1ddf868d5095277025f2592b81345e209f14eef5` |
+| 05 · Two boots | handouts/airgap.html | `2f1d2b1892833d035c0593d7905cc37bf27230e37920d5457ce11ce8bafe705d` |
+| 06 · Check the files | handouts/verify.html | `a8c7e5c2368170583cc48e0ed65d77a6811cf3c51d7122b6dabef01a608d80c2` |
+| 07 · Make the three keys | handouts/dice.html | `a90a17ce20580c10621b2b7af3898369ffeef25061eb266464353675a27e0c0d` |
+| 08 · Build the 2-of-3 | handouts/sparrow.html | `a2ddb8d0668f3f94fe4ce82018667943bf0f0c33ecbd3a82ab6e3e711f047e51` |
+| 09 · Practice spend | handouts/signing.html | `3d57ded0af8e05092b599a2d76752d96ccdc00a9511f72b9155e519f9f0fb521` |
+| 10 · Metal and the map | handouts/titanium.html | `ae1b32352ea13dbd9849e795df4f55bee811fb1a22babd8e0089d0db7e583225` |
+| 11 · Rehearse on testnet | handouts/testnet.html | `243e442908b0a2cc7b445908efa3b38f4b2af038fd201f1cab0ede3f6b4c2d58` |
+| 12 · Hide the wallet map | handouts/encryption.html | `f00ae8498b440f6d0245a714d1367b8d6cb2fc60e0eeaa288dd32205f5ba9160` |
+| 13 · If I am gone | handouts/inheritance.html | `cac0785bf13cb301a26ab82e30a9c3dbc62b1bc04634264437eea5435fd57d06` |
+| 14 · If you get stuck | handouts/faq.html | `e118711468121eb27abec4fabdbf2fd1b6da5bb19947d0693faae666bf9d94bf` |
+| 15 · Tough questions | handouts/briefing.html | `4e5f7021dc406a015b1e54f3614d509822c85699a996ad5a3c11718538e9f74d` |
+| 16 · Recovery card | handouts/fire-card.html | `6bab93689006f2805a4ebf1f06234b3164993129f8062f83ee9bf788a0f0f538` |
+| 17 · One key, done right | handouts/single-sig.html | `57ca85a49701c7220518a3bb4525cd0b307b17b0db82a33d5b5b3fd57422ba3e` |
+| 18 · Two devices and one dice key | handouts/two-devices.html | `10da4155e313a2e053f5d3d9899fe8dc9cee37d2970ded91c88dc4580f0dfc79` |
 
 <!-- END GENERATED: PAGE FINGERPRINTS -->
