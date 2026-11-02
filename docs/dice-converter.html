@@ -245,7 +245,20 @@ function bitsToBytes(bitstr){
   return out;
 }
 function cleanBinary(s){
-  return (s||'').replace(/[^01]/g,'');
+  s = s || '';
+  // Match Python clean_binary: reject non-binary chars (except whitespace)
+  // Do not silently discard unexpected characters in sensitive input.
+  var stripped = s.replace(/[ \n\t\r]/g, '');
+  var invalid = stripped.replace(/[01]/g, '');
+  if (invalid.length > 0) {
+    var unique = [...new Set(invalid.split(''))].join(', ');
+    throw new Error('Invalid characters found: ' + unique + '. Only 0, 1, and whitespace are allowed.');
+  }
+  var cleaned = stripped; // already only 0s and 1s
+  if (cleaned.length === 0) {
+    throw new Error('No valid binary digits (0 or 1) found.');
+  }
+  return cleaned;
 }
 /* The guide's face map: 1=00 2=01 3=10 4=11. 5 and 6 are not bits. */
 function faceToBits(face){
@@ -380,8 +393,12 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
     clearTimeout(pasteT);
     pasteT=setTimeout(function(){
       var raw=$('pastebits').value;
-      var r=wordsFromBitsInput(raw);
       var note=$('paste-note');
+      try {
+        var r=wordsFromBitsInput(raw);
+      } catch(e) {
+        pastedBits=null; $('words').innerHTML=''; note.textContent=e.message; return;
+      }
       if(!r.words){ pastedBits=null; $('words').innerHTML=''; note.textContent=r.note; return; }
       pastedBits=r.bits;
       note.textContent=r.note||('256 bits. Words generated.');
