@@ -1755,3 +1755,8 @@ html[data-path="one"] .kicker {
 html[data-path="full"] .kicker {
   color: #009E73;
 }
+
+/* Hide the inline path chooser on handout pages (chosen on choose-path page) */
+.mobile-path {
+  display: none;
+}
