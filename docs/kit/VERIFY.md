@@ -6,8 +6,8 @@ Do not trust this file because it was emailed or downloaded. Check the hash, the
 
 ```
 File:     bip39_dice_converter.py
-Size:     37896 bytes
-SHA-256:  7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330
+Size:     38940 bytes
+SHA-256:  c5b149a7d2f22b8dfa6fc8de7dd600cc664318a2960fcc9fbef9f719fdbaa035
 ```
 
 ## Wallet map tool
@@ -69,7 +69,7 @@ Get-FileHash .\bip39_dice_converter.py -Algorithm SHA256
 The hash must match exactly:
 
 ```
-7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330
+c5b149a7d2f22b8dfa6fc8de7dd600cc664318a2960fcc9fbef9f719fdbaa035
 ```
 
 If it does not match, stop. Do not run that copy.
@@ -130,8 +130,8 @@ The words must match.
 
 ```
 File:     verify_downloads.py
-Size:     356 bytes
-SHA-256:  8b819c8325cfb61e680de50cd04d37c04ad3c3d2bc3e46425ee732c54971cd45
+Size:     406 bytes
+SHA-256:  83437d699ff4a00c72d39549baae95ebdcc85b5623ab35b6eeea1051602a45be
 ```
 
 ```bash
@@ -139,7 +139,7 @@ sha256sum verify_downloads.py
 python3 verify_downloads.py
 ```
 
-It checks Tails, Sparrow, Electrum, and the Ian Coleman page in the current directory. A mismatch means delete that file.
+It asks for each file and its official SHA-256 from the source website (tails.net, electrum.org, sparrowwallet.com), then checks the downloads in the current directory. No hashes are hardcoded in the script. A mismatch means delete that file.
 
 ## 5. Extra bits note
 

@@ -2152,24 +2152,11 @@ def generate_mnemonic(raw_input: str):
     return words, original_length
 
 
-# Pinned 2026-09-27 from each project's own checksum.
-# A newer official file will not match. That is a failure.
-# Tails 7.13: tails.net latest.json
-# Sparrow 2.5.5: sparrow-2.5.5-manifest.txt
-# Electrum 4.8.2: download.electrum.org AppImage
-# Ian Coleman: bip39-standalone.html
-# Every name in OFFICIAL_HASHES must be present and match.
-# The two Tails images are alternatives: at least one must be present and match.
-# A Tails image that is present and wrong is still a failure.
-OFFICIAL_HASHES = {
-    "sparrowwallet-2.5.5-x86_64.tar.gz": "7e8a59bf7e7293bd924518dda8ea7747696634297de54878c1c5f5cdb528559d",
-    "electrum-4.8.2-x86_64.AppImage": "6310ebd0b7965196ecc3eb7e1bfead260cdc9033a8847204561b9762e62a87c0",
-    "bip39-standalone.html": "eb504a906b92db0af1790b52151a1a87f4e13821e6e228fdac889b6957af9779",
-}
-TAILS_ONE_OF = {
-    "tails-amd64-7.13.img": "8c4e63c7c47a000335bf2e66158c0d062c063619599e45d717759d8f1621f468",
-    "tails-amd64-7.13.iso": "cacb025f452ad010257dd5d3ba7bf7cb1bdfde50e8e583670d604d0bb6336682",
-}
+# No hardcoded software hashes. Get the official SHA-256 from the source
+# website (tails.net, electrum.org, sparrowwallet.com) and paste it when
+# prompted. A hardcoded table goes stale on every release; the source does not.
+# The verify_kit_integrity() function below still takes an explicit table for
+# programmatic use. Interactive --verify prompts for each file and hash.
 
 
 def clean_filename(filename):
@@ -2191,20 +2178,66 @@ def calculate_sha256(file_path):
         return "PERMISSION_DENIED"
 
 
+def prompt_official_hashes():
+    """Ask the user for each file and its official SHA-256.
+
+    The hashes come from the source website (tails.net, electrum.org,
+    sparrowwallet.com), not from this file. Nothing is trusted because
+    this guide said so.
+    """
+    print("\n" + "=" * 50)
+    print("  VERIFY A DOWNLOAD FROM ITS OFFICIAL SOURCE")
+    print("=" * 50)
+    print("\nGet the SHA-256 from the official website first:")
+    print("  Tails:      tails.net (verify the download page checksum)")
+    print("  Electrum:   electrum.org (signatures page)")
+    print("  Sparrow:    sparrowwallet.com (release manifest)")
+    print("\nThen tell this script what to check. Blank filename when done.\n")
+
+    expected = {}
+    while True:
+        try:
+            name = input("File to verify (blank to finish): ").strip().strip("'\"\\ ")
+        except (EOFError, KeyboardInterrupt):
+            print("\nCancelled.")
+            sys.exit(0)
+        name = clean_filename(name)
+        if not name:
+            break
+        try:
+            official = input("Official SHA-256 from the source website: ").strip().lower()
+        except (EOFError, KeyboardInterrupt):
+            print("\nCancelled.")
+            sys.exit(0)
+        if len(official) != 64 or any(c not in "0123456789abcdef" for c in official):
+            print("That does not look like a SHA-256 hash (64 hex characters). Try again.\n")
+            continue
+        expected[name] = official
+        print()
+
+    if not expected:
+        print("Nothing to verify.")
+        sys.exit(0)
+    return expected
+
+
+
 def verify_kit_integrity(directory_path=".", expected=None, one_of=None):
     """Audits required files. Missing files and hash mismatches both fail closed.
 
-    `expected` defaults to OFFICIAL_HASHES. Every name in it must exist and match.
-    `one_of` defaults to TAILS_ONE_OF when `expected` is omitted. At least one of
-    those names must exist and match. Pass one_of={} from tests that supply their
-    own required set.
+    `expected` is a dict of filename -> official SHA-256, supplied by the caller
+    (interactive --verify prompts the user; the hashes come from the official
+    source websites, not from this file). Every name in it must exist and match.
+    `one_of` is an optional dict of alternatives; at least one must exist and match.
     """
     print("\n" + "=" * 50)
     print("      PLEBUM DOMINIUM FILE INTEGRITY AUDIT      ")
     print("=" * 50)
 
-    table = OFFICIAL_HASHES if expected is None else expected
-    alternatives = TAILS_ONE_OF if one_of is None and expected is None else (one_of or {})
+    if expected is None:
+        raise ValueError("expected hashes must be supplied; get them from the official source website")
+    table = expected
+    alternatives = one_of or {}
     missing = []
     mismatches_detected = False
 
@@ -2323,6 +2356,6 @@ def main():
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--verify":
         target_dir = sys.argv[2] if len(sys.argv) > 2 else "."
-        verify_kit_integrity(clean_filename(target_dir))
+        verify_kit_integrity(clean_filename(target_dir), prompt_official_hashes())
     else:
         main()

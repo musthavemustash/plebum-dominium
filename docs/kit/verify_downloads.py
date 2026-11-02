@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from bip39_dice_converter import clean_filename, verify_kit_integrity
+from bip39_dice_converter import clean_filename, verify_kit_integrity, prompt_official_hashes
 
 target = sys.argv[1] if len(sys.argv) > 1 else "."
-verify_kit_integrity(clean_filename(target))
+verify_kit_integrity(clean_filename(target), prompt_official_hashes())
