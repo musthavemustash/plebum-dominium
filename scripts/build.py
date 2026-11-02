@@ -61,6 +61,28 @@ ONCHAIN_ADDRESS = "bc1qcmvj7c79gyjrcg3zu5pxnp4mav54846epktyma4n6v8jsud2fhqsczmng
 GOATCOUNTER_CODE = "plebumbtc"
 
 # (slug, number, title) in workflow order
+# question-style <title> tags for search: the question a searcher types.
+QUESTION_TITLES = {
+    "terms": "What do Bitcoin self-custody words like seed, multisig, and descriptor mean?",
+    "threat-model": "What threats does a DIY Bitcoin wallet need to survive?",
+    "checklist": "What do I need to build a DIY Bitcoin multisig wallet?",
+    "verify": "How do I verify Bitcoin software downloads before trusting them?",
+    "airgap": "How do I set up an airgapped computer for Bitcoin with Tails?",
+    "dice": "How do I roll dice to make a Bitcoin seed phrase?",
+    "sparrow": "How do I build a 2-of-3 Bitcoin multisig wallet in Sparrow?",
+    "testnet": "How do I practice Bitcoin multisig with testnet coins first?",
+    "signing": "How do I do a practice spend from a Bitcoin multisig wallet?",
+    "titanium": "How do I stamp a Bitcoin seed phrase into titanium?",
+    "encryption": "How do I encrypt a Bitcoin wallet descriptor?",
+    "inheritance": "How do I write a Bitcoin inheritance plan my family can follow?",
+    "faq": "Bitcoin self-custody questions, answered",
+    "briefing": "Tough questions about DIY Bitcoin self-custody",
+    "fire-card": "What goes on a Bitcoin wallet recovery card?",
+    "single-sig": "How do I make a single-key Bitcoin wallet with a passphrase?",
+    "two-devices": "How do I use two devices and one dice key for Bitcoin?",
+}
+
+
 SHEETS = [
     ("terms", "T", "Terms"),
     ("threat-model", "02", "Before you begin"),
@@ -798,7 +820,7 @@ def build_sheet(slug, num, title):
     tpl = load_template()
     prev_link, next_link = prev_next(slug)
     page = (
-        tpl.replace("{{title}}", f"{num} · {title} · {SITE_NAME}")
+        tpl.replace("{{title}}", f"{QUESTION_TITLES.get(slug, title)} · {SITE_NAME}")
         .replace("{{base}}", BASE)
         .replace("{{kicker}}", f"{num} · Plebum Dominium")
         .replace("{{heading}}", esc(title))
