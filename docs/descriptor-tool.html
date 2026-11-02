@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Descriptor tool (TEST ONLY)</title>
+<title>Descriptor tool</title>
 <style>
   body { background: #0e0d0b; color: #e8e0d0; font-family: Georgia, 'Times New Roman', serif; margin: 0; padding: 2rem 1rem; }
   main { max-width: 72ch; margin: 0 auto; }
@@ -33,9 +33,6 @@
   .online-pill[hidden]{display:none;}
   .online-dot{width:12px;height:12px;border-radius:50%;background:#e07856;flex-shrink:0;}
   .online-dot.safe{background:#3aa655;}
-  .netstatus{font-family:Arial,Helvetica,sans-serif;text-align:center;padding:12px;border-radius:8px;margin:0 0 1.25rem;font-weight:700;letter-spacing:0.04em;}
-  .netstatus.offline{background:#1a2e1a;color:#7fdb7f;}
-  .netstatus.online{background:#2e1a1a;color:#ff7f7f;}
   #netblock{position:fixed;inset:0;background:rgba(14,13,11,.97);z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;}
   #netblock[hidden]{display:none;}
   .stopcard{max-width:560px;background:#161310;border:1px solid #5a2a22;border-radius:14px;padding:28px;font-family:Arial,Helvetica,sans-serif;}
@@ -51,7 +48,6 @@
 <div class="topbar"><span class="online-pill" id="online-pill" role="status" hidden><span class="online-dot" id="online-dot"></span><span id="online-word">Online</span></span></div>
 
   <h1>Descriptor tool</h1>
-  <div id="netstatus" class="netstatus" role="status">Checking...</div>
   <noscript><div class="js-off"><strong>JavaScript is off.</strong> This tool needs JavaScript to run. In Tor Browser, set the security level to Standard and reload this page.</div></noscript>
   <p id="code-status">Code loading. If this line never changes, the code did not start.</p>
   <div class="banner"><strong>Offline use only.</strong> This page runs entirely in your browser. Nothing leaves this page. Nothing is stored. On Tails with networking disabled, open this file in Tor Browser. Use Tor Browser Standard security level. Safest disables the code this page needs. If the pill at the top ever says Online, stop and close the page.</div>
@@ -354,8 +350,6 @@ const Uh=BigInt(0),Ph=BigInt(1),xh=BigInt(2);function Qh(e){const t=(rc(r=e,{adj
   async function renderNet(){
     var pill=$('online-pill'),dot=$('online-dot'),word=$('online-word'),block=$('netblock');
     if(pill){pill.hidden=false;dot.classList.remove('safe');word.textContent='Checking…';}
-    var net0=$('netstatus');
-    if(net0){net0.textContent='Checking...';net0.className='netstatus';}
     if(block){block.hidden=false;}
     var online;
     var probeResult = await probeOnline();
@@ -363,11 +357,6 @@ const Uh=BigInt(0),Ph=BigInt(1),xh=BigInt(2);function Qh(e){const t=(rc(r=e,{adj
     var wasBlocked=netBlocked;
     netBlocked=online;
     if(pill){dot.classList.toggle('safe',!online);word.textContent=online?'Online':'Offline';}
-    var net=$('netstatus');
-    if(net){
-      net.textContent=online?'ONLINE - BLOCKED':'OFFLINE - Ready';
-      net.className='netstatus '+(online?'online':'offline');
-    }
     if(block){block.hidden=!online;}
     if(online&&!wasBlocked){wipe();}
   }
