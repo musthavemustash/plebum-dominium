@@ -209,23 +209,27 @@ if (!testContext.sha256) {
     ];
     
     for (const v of vectors) {
+        let result;
         try {
-            const result = testContext.sha256(v.input);
-            // Accept both regular arrays and Uint8Array
-            let bytes;
-            if (Array.isArray(result)) {
-                bytes = result;
-            } else if (result instanceof Uint8Array) {
-                bytes = Array.from(result);
-            } else {
-                throw new Error(`Unexpected return type: ${typeof result}`);
-            }
-            test(`JS SHA-256 returns 32 bytes (${v.name})`, bytes.length === 32, `got ${bytes.length}`);
-            const hex = bytes.map(b => b.toString(16).padStart(2, '0')).join('');
-            test(`JS SHA-256(${v.name}) matches NIST`, hex === v.expected, `got ${hex.substring(0, 16)}...`);
+            result = testContext.sha256(v.input);
         } catch (e) {
-            console.log(`  INFO: JS sha256(${v.name}) skipped: ${e.message}`);
+            // Fail closed: execution errors are failures, not skips
+            test(`JS SHA-256(${v.name}) executes without error`, false, e.message);
+            continue;
         }
+        // Accept both regular arrays and Uint8Array
+        let bytes;
+        if (Array.isArray(result)) {
+            bytes = result;
+        } else if (result instanceof Uint8Array) {
+            bytes = Array.from(result);
+        } else {
+            test(`JS SHA-256(${v.name}) returns byte array`, false, `got ${typeof result}`);
+            continue;
+        }
+        test(`JS SHA-256 returns 32 bytes (${v.name})`, bytes.length === 32, `got ${bytes.length}`);
+        const hex = bytes.map(b => b.toString(16).padStart(2, '0')).join('');
+        test(`JS SHA-256(${v.name}) matches NIST`, hex === v.expected, `got ${hex.substring(0, 16)}...`);
     }
 }
 
