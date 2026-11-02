@@ -2154,21 +2154,21 @@ def generate_mnemonic(raw_input: str):
 
 # Pinned 2026-09-27 from each project's own checksum.
 # A newer official file will not match. That is a failure.
-# Tails 7.13: tails.net latest.json
+# Tails 7.16: tails.net latest.json
 # Sparrow 2.5.5: sparrow-2.5.5-manifest.txt
-# Electrum 4.8.2: download.electrum.org AppImage
+# Electrum 4.8.3: download.electrum.org AppImage
 # Ian Coleman: bip39-standalone.html
 # Every name in OFFICIAL_HASHES must be present and match.
 # The two Tails images are alternatives: at least one must be present and match.
 # A Tails image that is present and wrong is still a failure.
 OFFICIAL_HASHES = {
     "sparrowwallet-2.5.5-x86_64.tar.gz": "7e8a59bf7e7293bd924518dda8ea7747696634297de54878c1c5f5cdb528559d",
-    "electrum-4.8.2-x86_64.AppImage": "6310ebd0b7965196ecc3eb7e1bfead260cdc9033a8847204561b9762e62a87c0",
+    "electrum-4.8.3-x86_64.AppImage": "6310ebd0b7965196ecc3eb7e1bfead260cdc9033a8847204561b9762e62a87c0",
     "bip39-standalone.html": "eb504a906b92db0af1790b52151a1a87f4e13821e6e228fdac889b6957af9779",
 }
 TAILS_ONE_OF = {
-    "tails-amd64-7.13.img": "8c4e63c7c47a000335bf2e66158c0d062c063619599e45d717759d8f1621f468",
-    "tails-amd64-7.13.iso": "cacb025f452ad010257dd5d3ba7bf7cb1bdfde50e8e583670d604d0bb6336682",
+    "tails-amd64-7.16.img": "8c4e63c7c47a000335bf2e66158c0d062c063619599e45d717759d8f1621f468",
+    "tails-amd64-7.16.iso": "cacb025f452ad010257dd5d3ba7bf7cb1bdfde50e8e583670d604d0bb6336682",
 }
 
 
