@@ -146,6 +146,18 @@
         <text x="230" y="152" fill="var(--tip)" font-size="13" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="700">EVERY CHARACTER MATCHES ✓ &nbsp;·&nbsp; ONE DIFFERS = DELETE</text>
       </svg></figure>
 <p>Windows: PowerShell → Get-FileHash. Mac: Terminal → shasum -a 256. Paste the result next to the fingerprint published on the project&#x27;s own site.</p>
+<div class="tool-box" style="border:2px solid #c4a484;border-radius:12px;padding:1.25rem;margin:1.5rem 0;background:rgba(196,164,132,.07);">
+<h3 style="margin:0 0 .75rem;">Fingerprint checker tool</h3>
+<p style="margin:0 0 1rem;">Compare a downloaded file against its published fingerprint without comparing every character by eye.</p>
+<p style="margin:0 0 .5rem;font-weight:700;">&#9888; Use the checker on a fresh Tails boot only.</p>
+<p style="margin:0 0 1rem;font-size:15px;">Download the file below to a <strong>clean USB stick</strong> (not your Tails USB, that holds Tails only, nothing else). Then boot Tails with networking disabled, plug in the clean USB, and open the file from there.</p>
+<p style="margin:0 0 1rem;">
+<a href="/fingerprint-checker.html" download="fingerprint-checker.html" class="btn" style="display:inline-block;padding:.75rem 1.5rem;background:#c4a484;color:#0e0d0b;border-radius:8px;text-decoration:none;font-weight:600;margin-right:.75rem;">Download fingerprint checker</a>
+</p>
+<p style="margin:0;font-size:14px;color:var(--muted);">Your Tails USB holds Tails and nothing else. The checker goes on a separate clean USB. Boot Tails, disable networking, insert the clean USB, open the file. The file you check never leaves your computer.</p>
+<p style="margin:1rem 0 0;font-size:15px;">This tool replaces the manual comparison in Step 2. <strong>Step 3 (the signature check) is still done by hand.</strong> That step teaches you what a signature means. Do not skip it.</p>
+</div>
+
 <h2 id="step-3-check-the-signature-want-good-signature">Step 3 · Check the signature. Want: &quot;Good signature&quot;.</h2>
 <figure class="step-fig"><svg width="460" height="150" viewBox="0 0 460 150" font-family="IBM Plex Mono, monospace">
         <rect x="20" y="15" width="420" height="120" rx="10" fill="var(--card)" stroke="var(--line)"/>

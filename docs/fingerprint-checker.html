@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fingerprint Checker · Plebum Dominium</title>
+<meta name="description" content="Compare a downloaded file's SHA-256 fingerprint against the expected value.">
+<style>
+  :root[data-theme="dark"] {
+    --bg: #0e0d0b; --surface: #161411; --fg: #efe9dc; --muted: #9b9384;
+    --border: #2a2722; --copper: #c4a484; --copper-bright: #e4c6a4;
+    --green: #4ade80; --red: #f87171;
+  }
+  :root[data-theme="light"] {
+    --bg: #f6f3ec; --surface: #ffffff; --fg: #161410; --muted: #5c564c;
+    --border: #e3d9cc; --copper: #8a5a2a; --copper-bright: #8a5a2a;
+    --green: #15803d; --red: #dc2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    background: var(--bg); color: var(--fg);
+    padding: 20px; max-width: 640px; margin: 0 auto; line-height: 1.6;
+  }
+  .kicker { font-size: 11px; letter-spacing: 2px; color: var(--copper); font-weight: 700; margin-bottom: 8px; }
+  h1 { font-family: 'Newsreader', Georgia, serif; font-size: 28px; margin-bottom: 8px; }
+  .sub { color: var(--muted); margin-bottom: 24px; font-size: 15px; }
+  .warn-box {
+    border: 2px solid var(--copper); border-radius: 8px; padding: 16px; margin-bottom: 24px;
+  }
+  .warn-box p { font-size: 14px; margin: 8px 0; }
+  .warn-box strong { color: var(--copper-bright); }
+  label { display: block; font-weight: 700; margin: 16px 0 8px; font-size: 15px; }
+  select, input[type="text"] {
+    width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;
+    background: var(--surface); color: var(--fg); font-size: 15px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  select { font-family: 'IBM Plex Sans', sans-serif; }
+  input[type="file"] {
+    width: 100%; padding: 12px; border: 2px dashed var(--border); border-radius: 8px;
+    background: var(--surface); color: var(--fg); font-size: 15px; cursor: pointer;
+  }
+  .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  button.check-btn {
+    width: 100%; padding: 16px; margin-top: 24px; border: none; border-radius: 8px;
+    background: var(--copper); color: #0e0d0b; font-size: 18px; font-weight: 700;
+    cursor: pointer; font-family: 'IBM Plex Sans', sans-serif;
+  }
+  button.check-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  button.check-btn:hover:not(:disabled) { filter: brightness(1.1); }
+  #result {
+    margin-top: 24px; padding: 20px; border-radius: 8px; display: none;
+    font-family: 'IBM Plex Mono', monospace; font-size: 14px; word-break: break-all;
+  }
+  #result.match { display: block; border: 2px solid var(--green); background: rgba(74,222,128,0.08); }
+  #result.mismatch { display: block; border: 2px solid var(--red); background: rgba(248,113,113,0.08); }
+  #result .verdict { font-family: 'IBM Plex Sans', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  #result.match .verdict { color: var(--green); }
+  #result.mismatch .verdict { color: var(--red); }
+  #result .hash-label { font-size: 12px; color: var(--muted); margin-top: 12px; margin-bottom: 4px; font-family: 'IBM Plex Sans', sans-serif; }
+  .note { margin-top: 24px; padding: 16px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; color: var(--muted); }
+  .note strong { color: var(--fg); }
+</style>
+</head>
+<body>
+
+<div class="kicker">T · PLEBUM DOMINIUM</div>
+<h1>Fingerprint Checker</h1>
+<p class="sub">Compare a downloaded file against its published SHA-256 fingerprint. Every character must match.</p>
+
+<div class="warn-box">
+  <p><strong>Use this on a fresh Tails boot only.</strong></p>
+  <p>Download this page to a clean USB stick (not your Tails USB, that holds Tails only). Boot Tails with networking disabled, open the file from the clean USB, then check your downloads.</p>
+  <p>Get the expected fingerprint from the project's own site, never from a link someone sent you. For this site's own tools, the fingerprints are pre-filled below from VERIFY.md.</p>
+</div>
+
+<label for="file-select">Which file are you checking?</label>
+<select id="file-select">
+  <option value="">Choose a file...</option>
+  <option value="tails">Tails 7.16 disk image</option>
+  <option value="sparrow">Sparrow 2.5.5</option>
+  <option value="electrum">Electrum 4.8.3</option>
+  <option value="coleman">Ian Coleman BIP39 page</option>
+  <option value="converter">Dice converter (this site)</option>
+  <option value="descriptor">Descriptor tool (this site)</option>
+  <option value="mapper">Passphrase mapper (this site)</option>
+  <option value="custom">Other file (paste fingerprint below)</option>
+</select>
+
+<label for="expected">Expected SHA-256 fingerprint</label>
+<input type="text" id="expected" placeholder="Paste the 64-character fingerprint here" spellcheck="false" autocomplete="off">
+<p class="hint">Get this from the project's own website. For Tails, Sparrow, and Electrum, copy it from their official download pages.</p>
+
+<label for="file-input">Select the downloaded file</label>
+<input type="file" id="file-input">
+<p class="hint">The file never leaves your computer. The hash is computed in your browser.</p>
+
+<button class="check-btn" id="check-btn" disabled>Select a file to begin</button>
+
+<div id="result">
+  <div class="verdict" id="verdict"></div>
+  <div class="hash-label">Computed from your file:</div>
+  <div id="computed"></div>
+  <div class="hash-label">Expected:</div>
+  <div id="expected-out"></div>
+</div>
+
+<div class="note">
+  <strong>A mismatch means stop.</strong> Delete the file and download again from the real site. Do not use a file that fails the fingerprint check for anything in this guide.<br><br>
+  <strong>This checks the fingerprint only.</strong> The signature check (Step 3 on the sheet) is still done by hand in the terminal. That step teaches you what a signature means. Do not skip it.
+</div>
+
+<script>
+// Pre-filled fingerprints for this site's own tools
+// Computed from the live files. Update when the tools change.
+const KNOWN = {
+  'converter': 'cb2f89aae1596e1dc644c58c9057b73c2c682fa2d93dd2b4fd7a6f6cb3de17d6',
+  'descriptor': '589157011ee333d9835bcdc829a8a00caae6b73d4f2dc796617f9167215b7bd9',
+  'mapper': '5a6d8c2ae3cd59d5d286a1578309202e19bc26f4f7a7defe61d6071bc61fb35f',
+};
+
+const fileSelect = document.getElementById('file-select');
+const expectedInput = document.getElementById('expected');
+const fileInput = document.getElementById('file-input');
+const checkBtn = document.getElementById('check-btn');
+const resultDiv = document.getElementById('result');
+const verdictDiv = document.getElementById('verdict');
+const computedDiv = document.getElementById('computed');
+const expectedOutDiv = document.getElementById('expected-out');
+
+let selectedFile = null;
+
+fileSelect.addEventListener('change', () => {
+  const val = fileSelect.value;
+  if (KNOWN[val]) {
+    expectedInput.value = KNOWN[val];
+  } else if (val !== 'custom') {
+    expectedInput.value = '';
+  }
+  updateButton();
+});
+
+expectedInput.addEventListener('input', updateButton);
+
+fileInput.addEventListener('change', (e) => {
+  selectedFile = e.target.files[0] || null;
+  resultDiv.className = '';
+  resultDiv.style.display = 'none';
+  updateButton();
+});
+
+function updateButton() {
+  const hasFile = !!selectedFile;
+  const hasExpected = expectedInput.value.trim().length === 64;
+  checkBtn.disabled = !(hasFile && hasExpected);
+  checkBtn.textContent = !hasFile ? 'Select a file to begin'
+    : !hasExpected ? 'Paste a 64-character fingerprint'
+    : 'Compute and compare';
+}
+
+async function sha256(buffer) {
+  const hash = await crypto.subtle.digest('SHA-256', buffer);
+  return Array.from(new Uint8Array(hash))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+checkBtn.addEventListener('click', async () => {
+  if (!selectedFile) return;
+  const expected = expectedInput.value.trim().toLowerCase().replace(/\s/g, '');
+
+  checkBtn.disabled = true;
+  checkBtn.textContent = 'Computing...';
+
+  try {
+    const buffer = await selectedFile.arrayBuffer();
+    const computed = await sha256(buffer);
+
+    computedDiv.textContent = computed;
+    expectedOutDiv.textContent = expected;
+
+    if (computed === expected) {
+      resultDiv.className = 'match';
+      verdictDiv.textContent = 'MATCH. Every character agrees.';
+    } else {
+      resultDiv.className = 'mismatch';
+      verdictDiv.textContent = 'MISMATCH. Do not use this file.';
+    }
+    resultDiv.style.display = 'block';
+  } catch (err) {
+    resultDiv.className = 'mismatch';
+    verdictDiv.textContent = 'Error reading the file.';
+    computedDiv.textContent = '';
+    expectedOutDiv.textContent = expected;
+    resultDiv.style.display = 'block';
+  }
+
+  updateButton();
+});
+
+// Theme
+(function() {
+  try {
+    const t = localStorage.getItem('pd-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+    else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+      document.documentElement.setAttribute('data-theme', 'light');
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>
