@@ -200,7 +200,10 @@ for rel_path in SENSITIVE_FILES:
     fpath = os.path.join(os.path.dirname(__file__), rel_path)
     fname = os.path.basename(fpath)
     if not os.path.exists(fpath):
-        print(f"  SKIP: {rel_path} not found (docs/ not in local repo)")
+        # Fail closed: missing sensitive files must not silently pass
+        print(f"  FAIL: {rel_path} not found (fail closed - file must exist)")
+        failed += 1
+        failures.append(f"{fname} exists")
         continue
     
     with open(fpath, encoding='utf-8') as f:
