@@ -111,7 +111,7 @@
         <p><a href="/path-risks.html">Risks of your path &rarr;</a></p>
       </div>
 <nav class="step-banner" aria-label="Sheet 11 of 17"><a class="step-nav" href="/handouts/testnet.html" rel="prev">&larr; 11 &middot; Rehearse on testnet</a><span class="step-pos"><strong>Step 11 of 17</strong> · Hide the wallet map</span><a class="step-nav" href="/handouts/inheritance.html" rel="next">13 &middot; If I am gone &rarr;</a></nav>
-<section class="guide-overview" aria-label="Sheet overview"><div class="guide-stat"><span>Time</span><strong>30 min</strong></div><div class="guide-stat"><span>Difficulty</span><strong>Careful</strong></div><div class="guide-stat"><span>Steps</span><strong>7 sections</strong></div></section><p class="guide-needs"><strong>You will need:</strong> descriptor-tool.html (verified) &middot; A dice passphrase</p>
+<section class="guide-overview" aria-label="Sheet overview"><div class="guide-stat"><span>Time</span><strong>30 min</strong></div><div class="guide-stat"><span>Difficulty</span><strong>Careful</strong></div><div class="guide-stat"><span>Steps</span><strong>5 steps</strong></div></section><p class="guide-needs"><strong>You will need:</strong> descriptor-tool.html (verified) &middot; A dice passphrase</p>
 <figure class="sheet-diagram"><div class="geo-fig" role="img" aria-label="Geography: 3 seeds, secured separately in 3 different locations. No single point of failure."><p class="geo-kicker">Geography</p><p class="geo-head">3 seeds, secured separately in 3 different locations</p><div class="geo-cards"><div class="geo-card"><p class="geo-house">HOUSE 1</p><p class="geo-plate">Plate A</p><p class="geo-detail">Seed 1 only</p><p class="geo-detail">Home safe / fire box</p><p class="geo-map">Wallet map lives here too</p><p class="geo-note">(the map is not a third seed)</p></div><div class="geo-card"><p class="geo-house">HOUSE 2</p><p class="geo-plate">Plate B</p><p class="geo-detail">Seed 2 only</p><p class="geo-detail">Different building, different risk</p><p class="geo-map">A copy of the map may sit here</p></div><div class="geo-card"><p class="geo-house">HOUSE 3</p><p class="geo-plate">Plate C</p><p class="geo-detail">Seed 3 only</p><p class="geo-detail">Another town or trusted party</p><p class="geo-map">Do not park Seed 1 or 2 here</p></div></div></div><figcaption>Geography: three plates in three places. No single point of failure.</figcaption></figure><p><strong>At a glance.</strong> Time: 30 minutes. Difficulty: Careful. Steps: 5.</p>
 <ol>
 <li>Boot Tails. Copy the tool and the map.</li>
@@ -157,13 +157,13 @@
         <text x="40" y="76" fill="var(--muted)" font-size="12">[E]ncrypt / [D]ecrypt? <tspan fill="var(--tip)" font-weight="700">E</tspan></text>
         <text x="40" y="102" fill="var(--muted)" font-size="12">Paste wallet map: <tspan fill="var(--muted)">wsh(sortedmulti(2,…))</tspan></text>
         <text x="40" y="128" fill="var(--muted)" font-size="12">Passphrase: <tspan fill="var(--muted)">••••••••••</tspan></text>
-        <text x="40" y="150" fill="var(--tip)" font-size="12">wrote map.txt.gpg ✓</text>
+        <text x="40" y="150" fill="var(--tip)" font-size="12">wrote map.txt.asc ✓</text>
       </svg></figure>
 <p>Open the tool page. It checks the computer is offline before it starts. Choose Encrypt a map. Drop map.txt on the page or paste the text. Enter your passphrase twice. Review, then Encrypt. Download map.txt.asc.</p>
 <h2 id="step-3-copy-the-locked-file-delete-the-plain-one">Step 3 · Copy the locked file. Delete the plain one.</h2>
 <figure class="step-fig"><svg width="460" height="160" viewBox="0 0 460 160" font-family="IBM Plex Sans, sans-serif">
         <rect x="20" y="30" width="110" height="70" rx="8" fill="var(--card)" stroke="var(--tip)"/>
-        <text x="75" y="58" fill="var(--tip)" font-size="11" font-weight="700" text-anchor="middle">map.txt.gpg</text>
+        <text x="75" y="58" fill="var(--tip)" font-size="11" font-weight="700" text-anchor="middle">map.txt.asc</text>
         <text x="75" y="80" fill="var(--muted)" font-size="10" text-anchor="middle">🔒 locked</text>
         <path d="M142 65 h25 m-8 -8 l8 8 l-8 8" stroke="var(--tip)" stroke-width="3" fill="none"/>
         <rect x="179" y="30" width="60" height="70" rx="6" fill="var(--card)" stroke="var(--line)"/>
