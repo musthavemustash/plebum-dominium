@@ -197,9 +197,7 @@ if (!testContext.bitsToWords) {
 console.log("\n=== JS SHA-256 ===");
 
 if (!testContext.sha256) {
-    console.log("  INFO: JS sha256() not found as standalone function");
-    console.log("  INFO: Site may use WebCrypto (crypto.subtle) which requires browser");
-    // Don't fail - WebCrypto is async and browser-only
+    test("JS sha256() exists as standalone function", false, "not found - site uses WebCrypto, test must cover that path");
 } else {
     // Test with multiple reference vectors
     const vectors = [
