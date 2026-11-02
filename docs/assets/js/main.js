@@ -586,19 +586,24 @@ document.querySelectorAll(".btn-onchain").forEach(function (btn) {
     });
     var banner = document.getElementById("path-banner");
     if (banner) {
-      var label = document.getElementById("path-banner-label");
-      var note = document.getElementById("path-banner-note");
-      if (label) label.textContent = info.label;
       var slug = currentSlug();
-      if (slug && info.sheets && info.sheets.indexOf(slug) < 0) {
-        banner.classList.add("path-banner-warn");
-        if (note) note.innerHTML = "This sheet is not on your " + info.label + " path. " + info.summary + " Switch to Full program in the sidebar to see all sheets, or pick a sheet on your path.";
+      // Before you begin is path-neutral: it helps you choose, so no "Your path" banner.
+      if (slug === "threat-model") {
+        banner.hidden = true;
       } else {
-        banner.classList.remove("path-banner-warn");
-        var n = slug && NOTES[slug] && NOTES[slug][path] ? NOTES[slug][path] : info.summary;
-        if (note) note.textContent = n;
+        var label = document.getElementById("path-banner-label");
+        var note = document.getElementById("path-banner-note");
+        if (label) label.textContent = info.label;
+        if (slug && info.sheets && info.sheets.indexOf(slug) < 0) {
+          banner.classList.add("path-banner-warn");
+          if (note) note.innerHTML = "This sheet is not on your " + info.label + " path. " + info.summary + " Switch to Full program in the sidebar to see all sheets, or pick a sheet on your path.";
+        } else {
+          banner.classList.remove("path-banner-warn");
+          var n = slug && NOTES[slug] && NOTES[slug][path] ? NOTES[slug][path] : info.summary;
+          if (note) note.textContent = n;
+        }
+        banner.hidden = false;
       }
-      banner.hidden = false;
     }
     var gate = document.getElementById("path-gate");
     var gateNote = document.getElementById("path-gate-note");
