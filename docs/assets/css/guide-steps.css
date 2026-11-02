@@ -235,3 +235,8 @@
 .tm-details-body ul{margin:.4rem 0;padding-left:1.2rem}
 @media (max-width:480px){.tm-cards{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.tm-card{transition:none}}
+
+/* Manual theme override (data-theme="dark") for warning colors */
+[data-theme="dark"] .guide-warning { background: #1a1410; }
+[data-theme="dark"] .guide-verify { background: #101a10; }
+[data-theme="dark"] .guide-stop { background: #1a1010; }
