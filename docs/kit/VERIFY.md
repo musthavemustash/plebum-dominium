@@ -141,24 +141,6 @@ python3 verify_downloads.py
 
 It checks Tails, Sparrow, Electrum, and the Ian Coleman page in the current directory. A mismatch means delete that file.
 
-
-## Offline guide ZIP
-
-The full guide with relative links for file:// use. No server needed.
-
-```
-File:     plebumbtc-offline.zip
-Size:     1363145 bytes
-SHA-256:  61e58a4eb5dfe1d629b15fa5d13c594abc0a3972d3d6778f770e3f4dd24e5d5c
-```
-
-```bash
-sha256sum plebumbtc-offline.zip
-```
-
-Unzip and open index.html in a browser. All pages, styles, and scripts work
-offline. Kit PDFs link to the live site.
-
 ## 5. Extra bits note
 
 If you paste **more than 256 bits**, this script hashes the bit-string-as-bytes with SHA-256 and uses that 256-bit digest.
