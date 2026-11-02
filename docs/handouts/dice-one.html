@@ -33,6 +33,45 @@
 /* set path before first paint, so the color reminder is right from the start */
 (function(){try{var p=localStorage.getItem('pd-path');if(p!=='easy'&&p!=='one'&&p!=='full'){p='full';}document.documentElement.setAttribute('data-path',p);}catch(e){document.documentElement.setAttribute('data-path','full');}})();
 </script>
+
+<style>
+.dice-anim .stage * {
+  animation-play-state: paused !important;
+}
+.dice-anim.playing .stage * {
+  animation-play-state: running !important;
+}
+.dice-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  background: rgba(14,13,11,.85);
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 10;
+}
+.dice-anim.playing .dice-play-overlay {
+  display: none;
+}
+.dice-play-btn {
+  padding: 1rem 2rem;
+  font-size: 1.1em;
+  font-weight: 600;
+  background: #c4a484;
+  color: #0e0d0b;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.dice-anim {
+  position: relative;
+}
+</style>
+
 </head>
 <body class="" id="top">
 <div class="splash" id="pd-splash" hidden aria-hidden="true">
@@ -118,7 +157,12 @@
       </div>
 <nav class="step-banner" aria-label="Sheet 6 of 17"><a class="step-nav" href="/handouts/airgap.html" rel="prev">&larr; 04 &middot; Two boots</a><span class="step-pos"><strong>Step 6 of 11</strong> · Make one key</span><a class="step-nav" href="/handouts/single-sig.html" rel="next">16 &middot; One key, done right &rarr;</a></nav>
 <section class="sheet-meta" aria-label="Sheet overview"><div class="meta-item"><span class="meta-label">Time</span><span class="meta-val">30-45 min</span></div><div class="meta-item"><span class="meta-label">Difficulty</span><span class="meta-val diff-moderate">Moderate</span></div><div class="meta-item"><span class="meta-label">Steps</span><span class="meta-val">4 sections</span></div><div class="meta-item meta-needs"><span class="meta-label">You will need</span><span class="meta-val"><a href="/handouts/checklist.html">5 dice</a> &middot; <a href="/handouts/checklist.html">Paper and pen</a> &middot; <a href="/downloads.html">The worksheet</a></span></div></section>
-<div class="dice-anim">
+<div class="dice-anim" id="dice-anim">
+<div class="dice-play-overlay" id="dice-play-overlay" role="button" tabindex="0" aria-label="Play the dice rolling demo">
+<p style="margin:0;color:#efe9dc;font-size:1.1em;">See how the dice rolls work</p>
+<button class="dice-play-btn" type="button">Click to play</button>
+<p style="margin:0;color:#9b9384;font-size:.9em;">The demo shows three shakes. Faces 1-4 count, 5 and 6 re-roll.</p>
+</div>
 <div class="stage">
       <div class="round r1l">SHAKE 1</div>
       <div class="round r2l">SHAKE 2</div>
@@ -211,49 +255,7 @@ $ cd ~/Desktop$ python3 bip39_dice_converter.py
 <h2 id="practice-grid">Practice grid</h2>
 <p>Use the printed recording grid in the bench sheet PDF. One key needs about 39 shakes for 256 bits. Count the pairs as you go and stop at 128.</p>
 <section class="path-toggle" id="path-toggle">
-<h2>What happens next</h2>
-<p>Once the words are made, the path forks. Pick what happens next.</p>
-<div class="path-seg" role="group" aria-label="Choose what happens next">
-<button type="button" data-path="one" aria-pressed="false">One key and a passphrase</button>
-<button type="button" data-path="full" aria-pressed="true">Three keys</button>
-</div>
-<div class="path-ends"><span>&larr; Less work, more trust</span><span>More work, less trust &rarr;</span></div>
-<div id="path-card-dice" class="path-card path-card-full"></div>
-<p>Why about 39 shakes: the <a href="/dice-rolls.html">How many dice rolls</a> page lists the old counts and the corrected math.</p>
-</section>
-<script>
-(function () {
-  var PATHS = {
-    easy: { cls: "path-card-easy", sel: "sel-easy", title: "Into one trusted device", trade: "Trust: one device and its maker. Work: lowest.", steps: ["Stamp the words in titanium first.", "Enter the words on the hardware wallet itself.", "Done. The device holds the wallet."], risk: "Risk: one device, one maker. If either fails you, the wallet fails.", go: "/handouts/single-sig.html", goText: "Go to the single-sig sheet" },
-    one: { cls: "path-card-one", sel: "sel-one", title: "One key and a passphrase", trade: "Trust: one key, one device, one passphrase. Work: medium.", steps: ["Add a passphrase, kept on paper apart from the plate.", "Stamp the words in titanium.", "Open a watch-only wallet. The device signs."], risk: "Risk: one key and one passphrase. Lose the passphrase and the wallet is gone.", go: "/handouts/single-sig.html", goText: "Go to the single-sig sheet" },
-    full: { cls: "path-card-full", sel: "sel-full", title: "Three keys, three places", trade: "Trust: no single key, device, or place. Work: highest.", steps: ["Shut down fully. Repeat for two more keys.", "Build the 2-of-3. Practice spend first.", "Stamp three plates. Hide the encrypted map."], risk: "Risk: the most steps to get right. Lose two keys and the map and the funds are locked.", go: "/handouts/sparrow.html", goText: "Go to Build the 2-of-3" }
-  };
-  var card = document.getElementById("path-card-dice");
-  var buttons = document.querySelectorAll("#path-toggle .path-seg button");
-  function show(path) {
-    var p = PATHS[path];
-    card.className = "path-card " + p.cls;
-    var html = "<h3>" + p.title + "</h3><p class=\"path-trade\">" + p.trade + "</p><ul>";
-    p.steps.forEach(function (s) { html += "<li>" + s + "</li>"; });
-    html += "</ul><p><strong>" + p.risk + "</strong></p><p><a class=\"path-go\" href=\"" + p.go + "\">" + p.goText + " &rarr;</a></p>";
-    card.innerHTML = html;
-    buttons.forEach(function (b) {
-      var on = b.getAttribute("data-path") === path;
-      b.setAttribute("aria-pressed", on ? "true" : "false");
-      b.className = on ? PATHS[b.getAttribute("data-path")].sel : "";
-    });
-  }
-  buttons.forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-path")); }); });
-  show("full");
-})();
-</script>
-
-      <nav class="prevnext-row" aria-label="Previous and next sheets">
-<a class="prevnext prev" href="/handouts/airgap.html"><span>← 04 &middot; Two boots</span></a>
-<span class="step-pos-bottom"><strong>Step 6 of 11</strong> · Make one key</span>
-<a class="prevnext next" href="/handouts/single-sig.html"><span>16 &middot; One key, done right &rarr;</span></a>
-      </nav>
-    </article>
+</article>
   </main>
 
   <aside class="toc-col">
@@ -289,5 +291,19 @@ $ cd ~/Desktop$ python3 bip39_dice_converter.py
     <p class="ask-foot">Search runs entirely in your browser. Nothing you type leaves this page unless you tap email. <span class="ask-keys">Up and down move, Enter opens, Esc closes.</span></p>
   </div>
 </div>
+
+<script>
+(function(){
+  var anim = document.getElementById('dice-anim');
+  var overlay = document.getElementById('dice-play-overlay');
+  if(!anim || !overlay) return;
+  function play(){ anim.classList.add('playing'); }
+  overlay.addEventListener('click', play);
+  overlay.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); play(); }
+  });
+})();
+</script>
+
 </body>
 </html>
