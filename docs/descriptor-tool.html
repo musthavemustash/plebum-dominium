@@ -338,7 +338,6 @@ const Uh=BigInt(0),Ph=BigInt(1),xh=BigInt(2);function Qh(e){const t=(rc(r=e,{adj
   function probeOnline(){
     return Promise.resolve(location.protocol === 'https:');
   }
-  }
   function wipe(){
     document.querySelectorAll('textarea').forEach(function(t){t.value='';});
     document.querySelectorAll('.pw').forEach(function(p){p.textContent='';});
@@ -348,13 +347,20 @@ const Uh=BigInt(0),Ph=BigInt(1),xh=BigInt(2);function Qh(e){const t=(rc(r=e,{adj
     var pill=$('online-pill'),dot=$('online-dot'),word=$('online-word'),block=$('netblock');
     if(pill){pill.hidden=false;dot.classList.remove('safe');word.textContent='Checking…';}
     if(block){block.hidden=false;}
-    var online;
-    var probeResult = await probeOnline();
-    online = (navigator.onLine===true) || probeResult;
+    // Conservative: we cannot prove air-gap status from the browser.
+    // file: means opened locally, not that networking is disabled.
+    // https: means served over network. User must disable and verify networking independently.
+    var servedOverNetwork = (location.protocol === 'https:' || location.protocol === 'http:');
+    var online = servedOverNetwork || (navigator.onLine===true);
     var wasBlocked=netBlocked;
     netBlocked=online;
-    if(pill){dot.classList.toggle('safe',!online);word.textContent=online?'Online':'Offline';}
-    if(block){block.hidden=!online;}
+    if(pill){dot.classList.toggle('safe',!online);word.textContent=online?'Network detected':'Local file';}
+    if(block){
+      block.hidden=!online;
+      if(online && servedOverNetwork){
+        block.innerHTML='<strong>Warning:</strong> This tool was loaded over the network ('+location.protocol+'). For real keys, download this file, disconnect from the network, verify networking is disabled, then open the local copy. This page cannot verify air-gap status for you.';
+      }
+    }
     if(online&&!wasBlocked){wipe();}
   }
   window.addEventListener('online',renderNet);

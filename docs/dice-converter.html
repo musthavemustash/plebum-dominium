@@ -244,7 +244,19 @@ function bitsToBytes(bitstr){
   return out;
 }
 function cleanBinary(s){
-  return (s||'').replace(/[^01]/g,'');
+  s = s || '';
+  // Remove ordinary whitespace, keep only 0s and 1s
+  var stripped = s.replace(/[ \n\t\r]/g, '');
+  if (!stripped) {
+    throw new Error('No valid binary digits (0 or 1) found');
+  }
+  var invalid = stripped.replace(/[01]/g, '');
+  if (invalid) {
+    var chars = {};
+    for (var i = 0; i < invalid.length; i++) chars[invalid[i]] = true;
+    throw new Error('Invalid characters found: ' + Object.keys(chars).join(', '));
+  }
+  return stripped;
 }
 /* The guide's face map: 1=00 2=01 3=10 4=11. 5 and 6 are not bits. */
 function faceToBits(face){
@@ -261,12 +273,17 @@ function bitsToWords(bits256){
 }
 /* Accept 256 bits or more, like the Python tool. Longer input is hashed down. */
 function wordsFromBitsInput(raw){
-  var bits=cleanBinary(raw);
+  var bits;
+  try {
+    bits = cleanBinary(raw);
+  } catch (e) {
+    return {words:null, note:e.message};
+  }
   var note='';
   if(bits.length<256) return {words:null, note:'Need 256 bits. Pasted text holds '+bits.length+'.'};
   if(bits.length>256){
     bits=bytesToBits(sha256(bitsToBytes(bits)));
-    note='Pasted '+cleanBinary(raw).length+' bits. Hashed down to 256, like the Python tool.';
+    note='Pasted '+bits.length+' bits. Hashed down to 256, like the Python tool.';
   }
   return {words:bitsToWords(bits), note:note, bits:bits};
 }
