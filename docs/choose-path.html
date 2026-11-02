@@ -129,7 +129,21 @@
 <button type="button" data-path="full" aria-pressed="true">Three keys</button>
 </div>
 <div class="path-ends"><span>&larr; Less work, more trust</span><span>More work, less trust &rarr;</span></div>
-<div id="path-card-sheet" class="path-card path-card-full"></div>
+<div style="display:grid;gap:1rem;margin:1rem 0;">
+<div id="desc-one" style="border:1px solid var(--hatch-widget-border);border-top:3px solid #0072B2;border-radius:0 0 12px 12px;padding:1.25rem;">
+<h3 style="margin:0 0 .5rem;color:#0072B2;">One key and a passphrase</h3>
+<p style="margin:0 0 .5rem;"><strong>Trust:</strong> one key, one device, one passphrase. <strong>Work:</strong> medium.</p>
+<p style="margin:0 0 .5rem;">Roll dice for 24 words. Add a passphrase kept on paper apart from the plate. Stamp the words in titanium. Use a watch-only wallet.</p>
+<p style="margin:0;"><strong>Risk:</strong> one key and one passphrase. Lose the passphrase and the funds are locked.</p>
+</div>
+<div id="desc-full" style="border:1px solid var(--hatch-widget-border);border-top:3px solid #009E73;border-radius:0 0 12px 12px;padding:1.25rem;">
+<h3 style="margin:0 0 .5rem;color:#009E73;">Three keys, three places</h3>
+<p style="margin:0 0 .5rem;"><strong>Trust:</strong> no single key, device, or place. <strong>Work:</strong> highest.</p>
+<p style="margin:0 0 .5rem;">Roll three dice keys. Stamp three titanium plates. Keep them in three places. Build the 2-of-3. Practice spend first.</p>
+<p style="margin:0;"><strong>Risk:</strong> the most steps to get right. Lose two keys and the map and the funds are locked.</p>
+</div>
+</div>
+<div id="path-card-sheet" class="path-card path-card-full" style="display:none;"></div>
 <nav class="prevnext-row" aria-label="Choose path navigation" style="margin-top:24px;">
 <a class="prevnext" href="/"><span>← Back to Home</span></a>
 <a class="prevnext next" href="/handouts/terms.html"><span>Next to 01 · Terms →</span></a>
