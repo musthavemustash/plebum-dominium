@@ -33,6 +33,45 @@
 /* set path before first paint, so the color reminder is right from the start */
 (function(){try{var p=localStorage.getItem('pd-path');if(p!=='easy'&&p!=='one'&&p!=='full'){p='full';}document.documentElement.setAttribute('data-path',p);}catch(e){document.documentElement.setAttribute('data-path','full');}})();
 </script>
+
+<style>
+.dice-anim .stage * {
+  animation-play-state: paused !important;
+}
+.dice-anim.playing .stage * {
+  animation-play-state: running !important;
+}
+.dice-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  background: rgba(14,13,11,.85);
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 10;
+}
+.dice-anim.playing .dice-play-overlay {
+  display: none;
+}
+.dice-play-btn {
+  padding: 1rem 2rem;
+  font-size: 1.1em;
+  font-weight: 600;
+  background: #c4a484;
+  color: #0e0d0b;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.dice-anim {
+  position: relative;
+}
+</style>
+
 </head>
 <body class="" id="top">
 <div class="splash" id="pd-splash" hidden aria-hidden="true">
@@ -128,7 +167,12 @@
       </div>
 <nav class="step-banner" aria-label="Sheet 6 of 17"><a class="step-nav" href="/handouts/airgap.html" rel="prev">&larr; 04 &middot; Two boots</a><span class="step-pos"><strong>Step 6 of 17</strong> · Make the three keys</span><a class="step-nav" href="/handouts/sparrow.html" rel="next">07 &middot; Build the 2-of-3 &rarr;</a></nav>
 <section class="sheet-meta" aria-label="Sheet overview"><div class="meta-item"><span class="meta-label">Time</span><span class="meta-val">30-45 min</span></div><div class="meta-item"><span class="meta-label">Difficulty</span><span class="meta-val diff-moderate">Moderate</span></div><div class="meta-item"><span class="meta-label">Steps</span><span class="meta-val">4 sections</span></div><div class="meta-item meta-needs"><span class="meta-label">You will need</span><span class="meta-val"><a href="/handouts/checklist.html">5 dice</a> &middot; <a href="/handouts/checklist.html">Paper and pen</a> &middot; <a href="/downloads.html">The worksheet</a></span></div></section>
-<div class="dice-anim">
+<div class="dice-anim" id="dice-anim">
+<div class="dice-play-overlay" id="dice-play-overlay" role="button" tabindex="0" aria-label="Play the dice rolling demo">
+<p style="margin:0;color:#efe9dc;font-size:1.1em;">See how the dice rolls work</p>
+<button class="dice-play-btn" type="button">Click to play</button>
+<p style="margin:0;color:#9b9384;font-size:.9em;">The demo shows three shakes. Faces 1-4 count, 5 and 6 re-roll.</p>
+</div>
 <div class="stage">
       <div class="round r1l">SHAKE 1</div>
       <div class="round r2l">SHAKE 2</div>
@@ -258,5 +302,21 @@ $ cd ~/Desktop$ python3 bip39_dice_converter.py
     <p class="ask-foot">Search runs entirely in your browser. Nothing you type leaves this page unless you tap email. <span class="ask-keys">Up and down move, Enter opens, Esc closes.</span></p>
   </div>
 </div>
+
+<script>
+(function(){
+  var anim = document.getElementById('dice-anim');
+  var overlay = document.getElementById('dice-play-overlay');
+  if(!anim || !overlay) return;
+  function play(){
+    anim.classList.add('playing');
+  }
+  overlay.addEventListener('click', play);
+  overlay.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); play(); }
+  });
+})();
+</script>
+
 </body>
 </html>
