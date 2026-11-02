@@ -7,7 +7,7 @@ Do not trust this file because it was emailed or downloaded. Check the hash, the
 ```
 File:     bip39_dice_converter.py
 Size:     37896 bytes
-SHA-256:  fcef80062b6c0a36c47acefda246fab56f9405d9e75033b4479ad7f61799674a
+SHA-256:  7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330
 ```
 
 ## Wallet map tool
@@ -69,7 +69,7 @@ Get-FileHash .\bip39_dice_converter.py -Algorithm SHA256
 The hash must match exactly:
 
 ```
-fcef80062b6c0a36c47acefda246fab56f9405d9e75033b4479ad7f61799674a
+7a14a2044eb90c45114336329e91fcdd9d98362fabdbdeadbc190b4478800330
 ```
 
 If it does not match, stop. Do not run that copy.
