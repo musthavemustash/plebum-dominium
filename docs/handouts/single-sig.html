@@ -126,7 +126,7 @@
         <p><a href="/path-risks.html">Risks of your path &rarr;</a></p>
       </div>
 <nav class="step-banner" aria-label="Sheet 16 of 17"><a class="step-nav" href="/handouts/fire-card.html" rel="prev">&larr; 15 &middot; Recovery card</a><span class="step-pos"><strong>Step 16 of 17</strong> · One key, done right</span><a class="step-nav" href="/handouts/two-devices.html" rel="next">17 &middot; Two devices and one dice key &rarr;</a></nav>
-<section class="sheet-meta" aria-label="Sheet overview"><div class="meta-item"><span class="meta-label">Time</span><span class="meta-val">1-2 hours</span></div><div class="meta-item"><span class="meta-label">Difficulty</span><span class="meta-val diff-careful">Careful</span></div><div class="meta-item"><span class="meta-label">Steps</span><span class="meta-val">8 sections</span></div><div class="meta-item meta-needs"><span class="meta-label">You will need</span><span class="meta-val">Your hardware wallet &middot; <a href="/handouts/checklist.html">Titanium plates</a> &middot; <a href="/handouts/checklist.html">Pen and paper</a></span></div></section>
+<section class="sheet-meta" aria-label="Sheet overview"><div class="meta-item"><span class="meta-label">Time</span><span class="meta-val">1-2 hours</span></div><div class="meta-item"><span class="meta-label">Difficulty</span><span class="meta-val diff-careful">Careful</span></div><div class="meta-item"><span class="meta-label">Steps</span><span class="meta-val">8 sections</span></div><div class="meta-item meta-needs"><span class="meta-label">You will need</span><span class="meta-val">Hardware wallet (optional) &middot; <a href="/handouts/checklist.html">Titanium plates</a> &middot; <a href="/handouts/checklist.html">Pen and paper</a></span></div></section>
 <p>The destination of this guide is the 2-of-3 build: three keys, three places, no single point of failure. In the full build, this sheet is also the spending wallet that lives on Plate A: Seed 1 plus a passphrase, for spending money while savings sit in the vault.</p>
 <p>Files used: Sparrow 2.5.5 for the watch-only wallet.</p>
 <figure class="step-fig"><svg width="360" height="296" viewBox="0 0 360 296" font-family="IBM Plex Sans, sans-serif">
@@ -142,7 +142,7 @@
         <text x="24" y="270" fill="var(--accent)" font-size="15" font-weight="700">→ UPGRADE IN PLACE · STEP 3</text>
       </svg></figure>
 <ul>
-<li><strong>The seed phrase is the wallet.</strong> The device only signs.</li>
+<li><strong>The words stamped in metal are the wallet.</strong> A hardware wallet is optional, for signing only.</li>
 <li><strong>One rule:</strong> the words go into the device itself, during recovery, and nowhere else. Never a website, never an app, never a form from an email. No hardware company will ever ask for your seed phrase. If a message asks, the message is the attack, no matter how official it looks.</li>
 </ul>
 <h2 id="step-1-grade-your-seed">Step 1 · Grade your seed.</h2>
@@ -183,7 +183,7 @@
 <li>Word 24 is a checksum. It is never invented. If the two tools disagree, stop.</li>
 <li>Write the 24 words on paper, then type them into the device on the device itself,* in its own restore menu, on its own screen. Then shut everything down.</li>
 <li>No program on a computer does the restore, not Sparrow, not Electrum, and not a text field in a companion app. If a device needs its companion app to start the restore (BitBox App for a BitBox02, Blockstream Green for a Jade), the app only opens the connection. The words still go in on the device, never typed into the computer.</li>
-<li>In the 2-of-3 build the airgapped boot signs, in Sparrow or Electrum. On this sheet the device signs. You boot your trusted online computer for Sparrow, and Sparrow meets the device afterward, in Step 6, as the watch-only wallet that builds transactions for the device to sign.</li>
+<li>In the 2-of-3 build the airgapped boot signs, in Sparrow or Electrum. On this sheet you can sign with a hardware wallet (optional), or sign in Sparrow/Electrum. You boot your trusted online computer for Sparrow, and Sparrow meets the device afterward, in Step 6, as the watch-only wallet that builds transactions for the device to sign.</li>
 <li>The fresh seed has now lived in exactly two places: the offline boot, which forgot it, and the device.</li>
 <li>Steps 4 and 5 come before any coins move.</li>
 <li>The old device stays on as the signer, and the old seed retires.</li>
