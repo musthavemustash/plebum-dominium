@@ -1734,3 +1734,16 @@ table.tier-chart{width:100%;min-width:640px;border-collapse:separate;border-spac
 /* Jake 2026-11-01: prevent page-level horizontal scroll on Pixel */
 body { overflow-x: clip; }
 .keyring { max-width: 100%; box-sizing: border-box; }
+
+/* Mobile: stack prev/next buttons vertically to avoid crowding */
+@media (max-width: 600px) {
+  .prevnext-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .prevnext-row .prevnext,
+  .prevnext-row .mark-done {
+    width: 100%;
+    text-align: center;
+  }
+}
