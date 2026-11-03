@@ -403,7 +403,6 @@ def stage_e(repo_root, stage, tools, pdf_info, bundle_zip):
     text_hashes = {}
     text_hash_file = root / "kit" / "VERIFY-text-hashes.json"
     if text_hash_file.exists():
-        import json
         text_hashes = json.loads(text_hash_file.read_text(encoding="utf-8"))
     for name, info in pdf_info.items():
         if info["content_sha256"] is None:
