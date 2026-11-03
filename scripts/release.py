@@ -308,8 +308,13 @@ def stage_c(repo_root, stage, skip_pdfs):
         return pdf_info
 
     # Rebuild unstamped PDFs, then stamp (stamp computes content hashes)
-    run([sys.executable, "scripts/build-kit-pdfs.py"], cwd=str(root))
-    run([sys.executable, "scripts/build-print-packet.py"], cwd=str(root))
+    # SOURCE_DATE_EPOCH=0 for deterministic builds (provenance verification
+    # requires byte-identical regeneration)
+    import os
+    pdf_env = os.environ.copy()
+    pdf_env["SOURCE_DATE_EPOCH"] = "0"
+    run([sys.executable, "scripts/build-kit-pdfs.py"], cwd=str(root), env=pdf_env)
+    run([sys.executable, "scripts/build-print-packet.py"], cwd=str(root), env=pdf_env)
 
     # stamp-pdfs.py needs reportlab/pypdf; try venv first, then system
     venv_py = Path("/tmp/pdfenv/bin/python")
