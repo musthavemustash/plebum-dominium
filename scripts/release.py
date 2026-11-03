@@ -315,6 +315,10 @@ def stage_c(repo_root, stage, skip_pdfs):
     pdf_env["SOURCE_DATE_EPOCH"] = "0"
     run([sys.executable, "scripts/build-kit-pdfs.py"], cwd=str(root), env=pdf_env)
     run([sys.executable, "scripts/build-print-packet.py"], cwd=str(root), env=pdf_env)
+    # Regenerate fire card from source (prevents double-stamping old card)
+    run([sys.executable, "scripts/build-fire-card.py",
+         "--out", str(root / "kit" / "15_Fire_Card.pdf")],
+        cwd=str(root), env=pdf_env)
 
     # stamp-pdfs.py needs reportlab/pypdf; try venv first, then system
     venv_py = Path("/tmp/pdfenv/bin/python")

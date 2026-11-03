@@ -212,14 +212,35 @@ def main():
         with open(text_hash_path, "w") as f:
             json.dump(text_hashes, f, indent=2, sort_keys=True)
         print(f"  kit/VERIFY-text-hashes.json written ({len(text_hashes)} entries)")
-        # Merge with rows for skipped files is not attempted: if some files
-        # were skipped, leave VERIFY's PDF table untouched and say so.
-        if skipped:
-            print("Some PDFs were already stamped; VERIFY PDF table NOT updated.")
-        else:
-            update_verify(rows)
+        # Update VERIFY.md: merge new rows with existing entries for skipped files.
+        # Parse existing table to preserve skipped files' rows.
+        existing_rows = {}
+        verify_path = "kit/VERIFY.md"
+        if os.path.exists(verify_path):
+            with open(verify_path) as f:
+                for line in f:
+                    m = re.match(
+                        r"\|\s*(\S+\.pdf)\s*\|\s*([^|]+)\|\s*`([0-9a-f]{64})`\s*\|\s*`([0-9a-f]{64})`\s*\|",
+                        line)
+                    if m:
+                        existing_rows[m.group(1)] = {
+                            "file": m.group(1),
+                            "version": m.group(2).strip(),
+                            "file_hash": m.group(3),
+                            "content_hash": m.group(4),
+                        }
+        # Merge: new rows override, skipped files retain existing entries
+        merged = dict(existing_rows)
+        for r in rows:
+            merged[r["file"]] = r
+        # Verify we have all 17 expected PDFs
+        if len(merged) == 17:
+            update_verify(list(merged.values()))
             refresh_b64("VERIFY.md")
             print("  kit/VERIFY.md (PDF fingerprints) + b64 snapshots refreshed")
+        else:
+            print(f"  WARNING: VERIFY.md not updated: have {len(merged)}/17 PDFs "
+                  f"(skipped: {skipped})", file=sys.stderr)
     print(f"done: {len(rows)} stamped, {len(skipped)} skipped")
     import subprocess
     checker = os.path.join(os.path.dirname(__file__), "check-pdf-qrs.py")
