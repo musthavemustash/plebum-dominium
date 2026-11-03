@@ -133,6 +133,42 @@ def main():
                   cs != info["file_sha256"],
                   "content hash equals file hash (fabricated)")
 
+    # PDF text extraction: security-critical wording must appear across the PDF set
+    # Uses pypdf (already a release dependency). Collection-level check:
+    # each canary must appear in at least one PDF (deletion detection).
+    try:
+        from pypdf import PdfReader
+        pdf_canaries = {
+            "2-of-3": "multisig threshold",
+            "descriptor": "descriptor concept",
+        }
+        # Extract text from all PDFs
+        all_pdf_text = ""
+        pdf_count = 0
+        for name in pdfs:
+            p = repo / "kit" / name
+            if not p.exists():
+                p = repo / "docs" / "kit" / name
+            if not p.exists():
+                continue
+            try:
+                reader = PdfReader(str(p))
+                for page in reader.pages:
+                    all_pdf_text += page.extract_text() or ""
+                pdf_count += 1
+            except Exception as e:
+                check(f"pdf text extraction: {name}", False, str(e)[:100])
+        if pdf_count > 0:
+            for needle, label in pdf_canaries.items():
+                found = needle in all_pdf_text
+                check(f"pdf collection text [{label}]",
+                      found,
+                      f"'{needle}' found in {pdf_count} PDFs" if found
+                      else f"'{needle}' MISSING from all {pdf_count} PDFs")
+    except ImportError:
+        check("pdf text extraction (pypdf available)", False,
+              "pypdf not installed; cannot verify PDF text")
+
     # --- 6. verify-file.html pins ---
     vpage = repo / "docs" / "verify-file.html"
     if vpage.exists():

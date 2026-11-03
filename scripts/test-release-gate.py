@@ -176,14 +176,19 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dist", required=True)
     ap.add_argument("--repo", required=True)
+    ap.add_argument("--tmpdir", default=None,
+                    help="Override temp dir for mutation workspaces "
+                         "(default: system temp; use when /tmp is small)")
     args = ap.parse_args()
     good_dist = Path(args.dist)
     good_repo = Path(args.repo)
     verifier = good_repo / "scripts" / "verify_release.py"
+    # Allow override via arg or NEGTEST_TMPDIR env (for small-/tmp hosts)
+    tmp_base = args.tmpdir or os.environ.get("NEGTEST_TMPDIR") or None
 
     passed = 0
     for name, fn in MUTATIONS:
-        work = Path(tempfile.mkdtemp(prefix="negtest-"))
+        work = Path(tempfile.mkdtemp(prefix="negtest-", dir=tmp_base))
         tdist = work / "dist"
         trepo = work / "repo"
         shutil.copytree(good_dist, tdist)
