@@ -189,8 +189,14 @@ def main():
         prestamp = Path(args.prestamp_dir)
         check("provenance: prestamp dir exists", prestamp.is_dir(),
               f"not found: {prestamp}")
+        # Presentation_Handouts.pdf is a static asset, not generated from source.
+        # Independent regeneration (Option A) does not apply; skip provenance.
+        # File hash verification still applies via the standard PDF checks.
+        PROVENANCE_SKIP = {"Presentation_Handouts.pdf"}
         if prestamp.is_dir():
             for name, info in pdfs.items():
+                if name in PROVENANCE_SKIP:
+                    continue
                 expected = info.get("content_sha256", "")
                 if expected in ("UNVERIFIED", None, ""):
                     # Skip UNVERIFIED in dev mode; production already rejected these

@@ -50,6 +50,17 @@ def main():
         print(r.stderr[-1000:], file=sys.stderr)
         sys.exit(1)
 
+    # Generate the fire card (15_Fire_Card.pdf)
+    # build-fire-card.py accepts --out
+    r = subprocess.run(
+        [sys.executable, "scripts/build-fire-card.py",
+         "--out", str(out / "15_Fire_Card.pdf")],
+        cwd=str(repo_root), env=env, capture_output=True, text=True)
+    if r.returncode != 0:
+        print(f"[regenerate] WARNING: build-fire-card.py failed", file=sys.stderr)
+        print(r.stderr[-500:], file=sys.stderr)
+        # Don't fail hard; fire card may have different requirements
+
     # Generate the print packet (02_Print_Packet.pdf)
     # build-print-packet.py accepts --out for the main variant
     r = subprocess.run(
@@ -60,6 +71,11 @@ def main():
         print(f"[regenerate] FATAL: build-print-packet.py failed", file=sys.stderr)
         print(r.stderr[-1000:], file=sys.stderr)
         sys.exit(1)
+
+    # NOTE: Presentation_Handouts.pdf is a static asset (not generated from
+    # source). It exists only as kit-b64/kit/Presentation_Handouts.pdf.b64.
+    # Independent regeneration (Option A) does not apply to it. The verifier
+    # skips provenance for this file; file hash verification still applies.
 
     # Verify we got the expected 17 PDFs
     pdfs = sorted(out.glob("*.pdf"))
