@@ -57,9 +57,9 @@ def main():
          "--out", str(out / "15_Fire_Card.pdf")],
         cwd=str(repo_root), env=env, capture_output=True, text=True)
     if r.returncode != 0:
-        print(f"[regenerate] WARNING: build-fire-card.py failed", file=sys.stderr)
-        print(r.stderr[-500:], file=sys.stderr)
-        # Don't fail hard; fire card may have different requirements
+        print(f"[regenerate] FATAL: build-fire-card.py failed", file=sys.stderr)
+        print(r.stderr[-1000:], file=sys.stderr)
+        sys.exit(1)
 
     # Generate the print packet (02_Print_Packet.pdf)
     # build-print-packet.py accepts --out for the main variant
