@@ -76,6 +76,10 @@ def main():
 
     # --- 0. Production-mode provenance gates (fail closed, run first) ---
     if production:
+        # a0. Production requires independent provenance input
+        check("production: --prestamp-dir required",
+              args.prestamp_dir is not None,
+              "production verifier requires --prestamp-dir for independent provenance")
         # a. Manifest must declare production build
         check("production: manifest declares production=true",
               manifest.get("production") is True,
@@ -88,7 +92,7 @@ def main():
                   cs not in ("UNVERIFIED", None, ""),
                   f"content_sha256={cs}")
             # Content-text hash for cross-runner provenance (skip static assets)
-            if pname not in ("Presentation_Handouts.pdf", "15_Fire_Card.pdf"):
+            if pname != "Presentation_Handouts.pdf":
                 cts = pinfo.get("content_text_sha256", "")
                 check(f"production: {pname} content-text hash verified",
                       cts not in ("UNVERIFIED", None, ""),
@@ -195,10 +199,9 @@ def main():
         check("provenance: prestamp dir exists", prestamp.is_dir(),
               f"not found: {prestamp}")
         # Presentation_Handouts.pdf is a static asset, not generated from source.
-        # 15_Fire_Card.pdf is also not rebuilt during release (pre-existing in kit/).
         # Independent regeneration (Option A) does not apply; skip provenance.
         # File hash verification still applies via the standard PDF checks.
-        PROVENANCE_SKIP = {"Presentation_Handouts.pdf", "15_Fire_Card.pdf"}
+        PROVENANCE_SKIP = {"Presentation_Handouts.pdf"}
         # Content-text hash: deterministic across runners. Extract text from
         # regenerated PDF, normalize, and hash. This verifies content integrity
         # without requiring byte-identical PDF generation.
