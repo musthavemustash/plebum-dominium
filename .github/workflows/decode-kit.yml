@@ -1,5 +1,13 @@
+# Decodes the kit binaries from their base64 text snapshots in kit-b64/.
+# The GitHub connector cannot transfer binary files, so binaries live in the
+# repo as .b64 text; this workflow materializes the real files.
+#
+# P0-4 FIX: This workflow no longer pushes directly to main. It opens a PR
+# so the release-gate check runs on the decoded binaries before merge.
+# Direct pushes to main bypass the gate (the decoded PDFs are release
+# artifacts that must be verified).
 name: Decode kit binaries
-"on":
+on:
   push:
     branches: [main]
     paths:
@@ -7,6 +15,7 @@ name: Decode kit binaries
       - '.github/workflows/decode-kit.yml'
 permissions:
   contents: write
+  pull-requests: write
 jobs:
   decode:
     runs-on: ubuntu-latest
@@ -24,10 +33,27 @@ jobs:
           mkdir -p docs/kit docs/assets/img
           cp kit/* docs/kit/ 2>/dev/null || true
           cp assets/img/*.png docs/assets/img/ 2>/dev/null || true
-      - name: Commit decoded binaries
+      - name: Verify decoded files
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add kit docs/kit assets/img docs/assets/img
-          git diff --cached --quiet || git commit -m "decode kit binaries from kit-b64 snapshots"
-          git push
+          set -e
+          # Round-trip check: re-encode and compare to source
+          for f in kit-b64/kit/*; do
+            name=$(basename "$f" .b64)
+            if ! cmp -s <(base64 -d "$f") "kit/$name"; then
+              echo "FAIL: kit/$name does not match kit-b64 source"
+              exit 1
+            fi
+          done
+          echo "All decoded files match their kit-b64 sources"
+      - name: Create PR with decoded binaries
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: decode-kit-binaries
+          delete-branch: true
+          title: "Decode kit binaries from kit-b64 snapshots"
+          body: |
+            Automated decode of kit-b64 snapshots to binary files.
+            
+            The release-gate check must pass before merge.
+            Do not merge if the gate fails.
