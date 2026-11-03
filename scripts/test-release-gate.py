@@ -130,6 +130,45 @@ def m8(dist, repo):
                 zf.writestr(zi, p.read_bytes())
     shutil.rmtree(tmp, ignore_errors=True)
 
+@mutation("content hash replaced with file hash (pre-stamp provenance lost)")
+def m9(dist, repo):
+    # Simulate the historical R-001 confusion: Content SHA-256 column
+    # silently replaced with the file hash. The verifier must detect
+    # that content hashes lack pre-stamp provenance.
+    vpath = repo / "docs" / "VERIFY.md"
+    if not vpath.exists():
+        return
+    lines = vpath.read_text(encoding="utf-8").splitlines()
+    out = []
+    for line in lines:
+        # PDF table rows have 4 columns; col 3 = File SHA-256, col 4 = Content SHA-256
+        if line.startswith("|") and line.count("|") >= 5 and ".pdf" in line:
+            parts = [p.strip() for p in line.split("|")]
+            # parts[0] is empty, parts[1]=File, parts[2]=Version, parts[3]=File SHA, parts[4]=Content SHA
+            if len(parts) >= 5 and len(parts[3]) == 64 and len(parts[4]) == 64:
+                parts[4] = parts[3]  # Replace content hash with file hash
+                line = "| " + " | ".join(parts[1:5]) + " |"
+        out.append(line)
+    vpath.write_text("\n".join(out) + "\n", encoding="utf-8")
+
+@mutation("release manifest declares wrong source commit")
+def m10(dist, repo):
+    # Simulate a release built from different source than declared.
+    # The manifest must tie artifacts to the exact commit.
+    mpath = dist / "release-manifest.json"
+    if not mpath.exists():
+        return
+    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    # Corrupt the declared commit
+    if "source_commit" in manifest:
+        manifest["source_commit"] = "0" * 40
+    elif "commit" in manifest:
+        manifest["commit"] = "0" * 40
+    else:
+        # Add a wrong commit field if none exists
+        manifest["source_commit"] = "0" * 40
+    mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dist", required=True)

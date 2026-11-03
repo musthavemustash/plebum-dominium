@@ -259,6 +259,13 @@ def main():
     check("dist offline hash stable",
           sha256_file(offline) == manifest["offline_zip"]["sha256"] if offline.exists() else False)
 
+    # --- Source-commit provenance: manifest must declare a real commit ---
+    declared = manifest.get("source_commit") or manifest.get("commit") or ""
+    # A 40-zero placeholder or empty value means the provenance was destroyed
+    check("source commit declared and non-trivial",
+          bool(declared) and declared != "0" * 40 and len(declared) >= 7,
+          f"declared commit: {declared[:12] if declared else '(missing)'}...")
+
     return finish()
 
 def finish():
