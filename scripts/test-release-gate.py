@@ -362,6 +362,10 @@ def main():
     ap.add_argument("--prestamp-dir", default=None,
                     help="Directory with independently regenerated pre-stamp PDFs. "
                          "Passed to verifier for provenance checks (m17).")
+    ap.add_argument("--production", action="store_true",
+                    help="Strict mode: require production manifest for baseline, "
+                         "and fail if any mutation is skipped (skipped>0 → exit 1). "
+                         "Use in CI.")
     args = ap.parse_args()
     good_dist = Path(args.dist)
     good_repo = Path(args.repo)
@@ -375,22 +379,27 @@ def main():
 
     # Baseline: verify the unmutated tree passes first.
     # If the baseline fails, mutations can't prove anything.
-    # Use the same strict mode CI requires: if manifest declares production
-    # and --prestamp-dir was supplied, baseline runs with --production and
-    # --prestamp-dir. Log the exact mode.
+    # Strict mode (--production): require the manifest to declare production;
+    # do not auto-downgrade to development.
     print("Running baseline verification on unmutated tree...")
     baseline_cmd = [sys.executable, str(verifier), "--dist", str(good_dist),
                     "--repo", str(good_repo)]
     baseline_mode = "development"
+    _is_prod_manifest = False
     try:
         _mpath = good_dist / "release-manifest.json"
         if _mpath.exists():
             _m = json.loads(_mpath.read_text(encoding="utf-8"))
-            if _m.get("production") is True:
-                baseline_cmd.append("--production")
-                baseline_mode = "production"
+            _is_prod_manifest = _m.get("production") is True
     except Exception:
         pass
+    if args.production and not _is_prod_manifest:
+        print("[FAIL] strict mode (--production) requires a production manifest "
+              "for the baseline; refusing to auto-downgrade.")
+        sys.exit(1)
+    if _is_prod_manifest:
+        baseline_cmd.append("--production")
+        baseline_mode = "production"
     if args.prestamp_dir:
         baseline_cmd.extend(["--prestamp-dir", args.prestamp_dir])
         baseline_mode += "+prestamp"
@@ -448,6 +457,7 @@ def main():
             if not psd.is_dir() or not list(psd.glob("*.pdf")):
                 print(f"[SKIP] negative test: {name} "
                       f"(prestamp dir empty or missing)")
+                skipped += 1
                 shutil.rmtree(work, ignore_errors=True)
                 continue
             verifier_cmd.extend(["--prestamp-dir", args.prestamp_dir])
@@ -484,6 +494,10 @@ def main():
 
     print(f"\n{passed}/{len(MUTATIONS)} mutations rejected "
           f"({failed} failed, {skipped} skipped)")
+    if args.production and skipped > 0:
+        print(f"[FAIL] strict mode: {skipped} mutation(s) skipped; "
+              f"full coverage required in CI.")
+        sys.exit(1)
     sys.exit(0 if failed == 0 else 1)
 
 if __name__ == "__main__":

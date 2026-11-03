@@ -182,6 +182,24 @@ def update_verify(rows):
 
 
 def main():
+    # Preflight: validate actual kit/*.pdf inventory BEFORE stamping anything.
+    # No PDF is modified when preflight fails.
+    EXPECTED_PDFS = {
+        "00_Project_Overview.pdf", "02_Print_Packet.pdf", "03_Checklist.pdf",
+        "04_Airgap.pdf", "05_Verify.pdf", "06_Dice.pdf", "07_Sparrow.pdf",
+        "08_Signing.pdf", "09_Titanium.pdf", "11_Encryption.pdf",
+        "12_Inheritance.pdf", "13_FAQ.pdf", "14_Speaker.pdf",
+        "15_Fire_Card.pdf", "Handouts_No_Cover.pdf",
+        "Presentation_Handouts.pdf", "Terms.pdf",
+    }
+    actual_files = {f for f in os.listdir("kit") if f.endswith(".pdf")}
+    if actual_files != EXPECTED_PDFS:
+        missing = EXPECTED_PDFS - actual_files
+        extra = actual_files - EXPECTED_PDFS
+        print(f"FATAL: kit/ PDF inventory mismatch before stamping. "
+              f"Missing: {sorted(missing)}. Extra: {sorted(extra)}.",
+              file=sys.stderr)
+        sys.exit(1)
     pdfs = sorted(f for f in os.listdir("kit") if f.endswith(".pdf"))
     rows, skipped = [], []
     for name in pdfs:
@@ -233,26 +251,11 @@ def main():
         merged = dict(existing_rows)
         for r in rows:
             merged[r["file"]] = r
-        # Exact inventory check: fail closed if set doesn't match expected 17.
+        # Exact inventory check on merged table keys: fail closed if the
+        # VERIFY.md row set doesn't match the expected 17.
         # Only the static Presentation_Handouts.pdf may be skipped.
-        EXPECTED_PDFS = {
-            "00_Project_Overview.pdf", "02_Print_Packet.pdf", "03_Checklist.pdf",
-            "04_Airgap.pdf", "05_Verify.pdf", "06_Dice.pdf", "07_Sparrow.pdf",
-            "08_Signing.pdf", "09_Titanium.pdf", "11_Encryption.pdf",
-            "12_Inheritance.pdf", "13_FAQ.pdf", "14_Speaker.pdf",
-            "15_Fire_Card.pdf", "Handouts_No_Cover.pdf",
-            "Presentation_Handouts.pdf", "Terms.pdf",
-        }
+        # (Actual kit/*.pdf files were already validated in preflight.)
         SKIPPED_ALLOWED = {"Presentation_Handouts.pdf"}
-        # Check actual kit/*.pdf files on disk, not just merged table keys.
-        # A stale preserved table row must not mask a missing file.
-        actual_files = {f for f in os.listdir("kit") if f.endswith(".pdf")}
-        if actual_files != EXPECTED_PDFS:
-            missing = EXPECTED_PDFS - actual_files
-            extra = actual_files - EXPECTED_PDFS
-            print(f"FATAL: kit/ PDF files mismatch. Missing: {sorted(missing)}. "
-                  f"Extra: {sorted(extra)}.", file=sys.stderr)
-            sys.exit(1)
         merged_names = set(merged.keys())
         if merged_names != EXPECTED_PDFS:
             missing = EXPECTED_PDFS - merged_names
