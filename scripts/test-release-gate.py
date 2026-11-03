@@ -135,19 +135,22 @@ def m9(dist, repo):
     # Simulate the historical R-001 confusion: Content SHA-256 column
     # silently replaced with the file hash. The verifier must detect
     # that content hashes lack pre-stamp provenance.
-    vpath = repo / "docs" / "VERIFY.md"
-    if not vpath.exists():
+    for vpath in [repo / "docs" / "kit" / "VERIFY.md", repo / "kit" / "VERIFY.md"]:
+        if vpath.exists():
+            break
+    else:
         return
     lines = vpath.read_text(encoding="utf-8").splitlines()
     out = []
     for line in lines:
-        # PDF table rows have 4 columns; col 3 = File SHA-256, col 4 = Content SHA-256
+        # PDF table rows: | file.pdf | version | `filehash` | `contenthash` |
         if line.startswith("|") and line.count("|") >= 5 and ".pdf" in line:
-            parts = [p.strip() for p in line.split("|")]
-            # parts[0] is empty, parts[1]=File, parts[2]=Version, parts[3]=File SHA, parts[4]=Content SHA
-            if len(parts) >= 5 and len(parts[3]) == 64 and len(parts[4]) == 64:
-                parts[4] = parts[3]  # Replace content hash with file hash
-                line = "| " + " | ".join(parts[1:5]) + " |"
+            # Extract hashes, handling backticks
+            import re
+            hashes = re.findall(r'`([0-9a-f]{64})`', line)
+            if len(hashes) >= 2:
+                # Replace content hash (2nd) with file hash (1st)
+                line = line.replace(f'`{hashes[1]}`', f'`{hashes[0]}`', 1)
         out.append(line)
     vpath.write_text("\n".join(out) + "\n", encoding="utf-8")
 
