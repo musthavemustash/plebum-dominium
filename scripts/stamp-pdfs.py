@@ -244,6 +244,15 @@ def main():
             "Presentation_Handouts.pdf", "Terms.pdf",
         }
         SKIPPED_ALLOWED = {"Presentation_Handouts.pdf"}
+        # Check actual kit/*.pdf files on disk, not just merged table keys.
+        # A stale preserved table row must not mask a missing file.
+        actual_files = {f for f in os.listdir("kit") if f.endswith(".pdf")}
+        if actual_files != EXPECTED_PDFS:
+            missing = EXPECTED_PDFS - actual_files
+            extra = actual_files - EXPECTED_PDFS
+            print(f"FATAL: kit/ PDF files mismatch. Missing: {sorted(missing)}. "
+                  f"Extra: {sorted(extra)}.", file=sys.stderr)
+            sys.exit(1)
         merged_names = set(merged.keys())
         if merged_names != EXPECTED_PDFS:
             missing = EXPECTED_PDFS - merged_names
