@@ -31,6 +31,7 @@ if "--base" in sys.argv:
 
 SITE_URL = "https://plebumbtc.io"
 SITE_NAME = "Plebum Dominium"
+SITE_VERSION = ""
 SITE_TAGLINE = "Independent At-Home Bitcoin Self-Custody"
 # Lightning address for the footer donate button.
 LIGHTNING_ADDRESS = "musthavemoresats@speed.app"
@@ -80,46 +81,47 @@ QUESTION_TITLES = {
     "fire-card": "What goes on a Bitcoin wallet recovery card?",
     "single-sig": "How do I make a single-key Bitcoin wallet with a passphrase?",
     "two-devices": "How do I use two devices and one dice key for Bitcoin?",
+    "choose-path": "Which Bitcoin self-custody setup is right for me?",
 }
 
 
 SHEETS = [
-    ("terms", "T", "Terms"),
-    ("threat-model", "02", "Before you begin"),
-    ("checklist", "03", "Checklist"),
-    ("verify", "05", "Check the files"),
-    ("airgap", "04", "Two boots"),
-    ("dice", "06", "Make the three keys"),
-    ("sparrow", "07", "Build the 2-of-3"),
-    ("testnet", "10", "Rehearse on testnet"),
-    ("signing", "08", "Practice spend"),
-    ("titanium", "09", "Metal and the map"),
-    ("encryption", "11", "Hide the wallet map"),
-    ("inheritance", "12", "If I am gone"),
-    ("faq", "13", "If you get stuck"),
-    ("briefing", "14", "Tough questions"),
-    ("fire-card", "15", "Recovery card"),
-    ("single-sig", "16", "One key, done right"),
-    ("two-devices", "17", "Two devices and one dice key"),
+    ("threat-model", "01", "Before you begin"),
+    ("terms", "03", "Terms"),
+    ("checklist", "04", "Checklist"),
+    ("airgap", "05", "Two boots"),
+    ("verify", "06", "Check the files"),
+    ("dice", "07", "Make the three keys"),
+    ("sparrow", "08", "Build the 2-of-3"),
+    ("signing", "09", "Practice spend"),
+    ("titanium", "10", "Metal and the map"),
+    ("testnet", "11", "Rehearse on testnet"),
+    ("encryption", "12", "Hide the wallet map"),
+    ("inheritance", "13", "If I am gone"),
+    ("faq", "14", "If you get stuck"),
+    ("briefing", "15", "Tough questions"),
+    ("fire-card", "16", "Recovery card"),
+    ("single-sig", "17", "One key, done right"),
+    ("two-devices", "18", "Two devices and one dice key"),
 ]
 SLUG_TO_IDX = {slug: i for i, (slug, _, _) in enumerate(SHEETS)}
 
-# which paths include each sheet. easy = words into one trusted
+# which paths include each sheet.
 # device, one = one key plus a passphrase, full = the 2-of-3 program as written.
 SHEET_PATHS = {
-    "terms": ["easy", "one", "full"],
-    "threat-model": ["easy", "one", "full"],
-    "checklist": ["easy", "one", "full"],
-    "verify": ["easy", "one", "full"],
-    "airgap": ["easy", "one", "full"],
-    "dice": ["easy", "one", "full"],
+    "terms": ["one", "full"],
+    "threat-model": ["one", "full"],
+    "checklist": ["one", "full"],
+    "verify": ["one", "full"],
+    "airgap": ["one", "full"],
+    "dice": ["one", "full"],
     "sparrow": ["full"],
     "testnet": ["full"],
     "signing": ["full"],
-    "titanium": ["easy", "one", "full"],
+    "titanium": ["one", "full"],
     "encryption": ["full"],
-    "inheritance": ["easy", "one", "full"],
-    "faq": ["easy", "one", "full"],
+    "inheritance": ["one", "full"],
+    "faq": ["one", "full"],
     "briefing": ["full"],
     "fire-card": ["one", "full"],
     "single-sig": ["one", "full"],
@@ -131,7 +133,7 @@ SHEET_PATHS = {
 # (time, difficulty, needs, steps) for the iFixit-style overview card on each sheet
 SHEET_META = {
     "terms":        ("10 min", "Easy", ["Nothing, just read"], "10 terms"),
-    "threat-model": ("15 min", "Easy", ["Pen and paper"], "1 worksheet"),
+    "threat-model": ("5 min", "Easy", ["Pen and paper"], "1 worksheet"),
     "checklist":    ("30 min + shopping", "Moderate", ["This sheet", "A budget for the kit"], "11 items"),
     "verify":       ("30 min", "Careful", ["The downloaded files", "Two verification tools"], "7 sections"),
     "airgap":       ("45 min", "Careful", ["Everyday computer", "Tails USB"], "4 sections"),
@@ -140,7 +142,7 @@ SHEET_META = {
     "testnet":      ("30 min", "Moderate", ["Sparrow", "Free testnet coins"], "2 sections"),
     "signing":      ("45 min", "Careful", ["Two seeds", "Tails USB", "A small test amount"], "5 sections"),
     "titanium":     ("1-2 hours", "Moderate", ["Titanium plates", "Metal stamp set", "The paper keys"], "4 sections"),
-    "encryption":   ("30 min", "Careful", ["descriptor_obfuscator.py (verified)", "A dice passphrase"], "7 sections"),
+    "encryption":   ("30 min", "Careful", ["descriptor-tool.html (verified)", "A dice passphrase"], "5 steps"),
     "inheritance":  ("1 hour", "Moderate", ["Your finished kit", "Your trusted person"], "6 sections"),
     "faq":          ("10 min", "Easy", ["Nothing, find your question"], "7 questions"),
     "briefing":     ("15 min", "Easy", ["Nothing, read and discuss"], "6 questions"),
@@ -221,21 +223,16 @@ def step_pos_html(slug):
 
 
 def header_card_html(slug):
-    """iFixit-style overview card: time, difficulty, steps, you-will-need."""
+    """Overview card: time, difficulty, steps, you-will-need. Uses guide-* styles."""
     time, diff, needs, steps = SHEET_META[slug]
-    diff_cls = {"Easy": "diff-easy", "Moderate": "diff-moderate", "Careful": "diff-careful"}[diff]
     needs_html = " &middot; ".join(need_html(x, slug) for x in needs)
     return (
-        '<section class="sheet-meta" aria-label="Sheet overview">'
-        f'<div class="meta-item"><span class="meta-label">Time</span>'
-        f'<span class="meta-val">{esc(time)}</span></div>'
-        f'<div class="meta-item"><span class="meta-label">Difficulty</span>'
-        f'<span class="meta-val {diff_cls}">{diff}</span></div>'
-        f'<div class="meta-item"><span class="meta-label">Steps</span>'
-        f'<span class="meta-val">{esc(steps)}</span></div>'
-        f'<div class="meta-item meta-needs"><span class="meta-label">You will need</span>'
-        f'<span class="meta-val">{needs_html}</span></div>'
+        '<section class="guide-overview" aria-label="Sheet overview">'
+        f'<div class="guide-stat"><span>Time</span><strong>{esc(time)}</strong></div>'
+        f'<div class="guide-stat"><span>Difficulty</span><strong>{esc(diff)}</strong></div>'
+        f'<div class="guide-stat"><span>Steps</span><strong>{esc(steps)}</strong></div>'
         "</section>"
+        f'<p class="guide-needs"><strong>You will need:</strong> {needs_html}</p>'
     )
 
 
@@ -253,7 +250,7 @@ def inline(md):
     md = re.sub(r"!\[([^\]]*)\]\(([^)]+)\)", r'<img src="\2" alt="\1" loading="lazy">', md)
     md = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', md)
     # site-absolute paths must respect the base path (project pages live under a subpath)
-    md = re.sub(r'(href|src)="/(?!/)', rf"\1=\"{BASE}", md)
+    md = re.sub(r'(href|src)="/(?!/)', rf'\1="{BASE}', md)
     return md
 
 
@@ -400,6 +397,18 @@ def render_markdown(src):
             out.append(f"<li>{inline(m.group(2))}</li>")
             i += 1
             continue
+        # Raw HTML passthrough: lines starting with < pass through unescaped.
+        # Used for guide-* components (guide-overview, guide-section, etc.)
+        if stripped.startswith("<") and not stripped.startswith("<!--"):
+            close_list(); close_callout()
+            # Gather consecutive HTML lines
+            html_lines = [line]
+            i += 1
+            while i < len(lines) and lines[i].strip().startswith("<") and not lines[i].strip().startswith("<!--"):
+                html_lines.append(lines[i])
+                i += 1
+            out.append("\n".join(html_lines))
+            continue
         if stripped.startswith("> "):
             close_list()
             out.append(f"<blockquote><p>{inline(stripped[2:])}</p></blockquote>")
@@ -445,24 +454,46 @@ def post_process(html):
         r'<h2 id="what-is-required">What is required</h2>\s*((?:<ul>.*?</ul>|<p>.*?</p>\s*)+)',
         need_repl, html, flags=re.S,
     )
-    # Tails terminal demo in encryption Step 2: iframe on screen, Step 2 figure print only.
+    # Descriptor tool demo in encryption Step 2: iframe on screen, Step 2 figure print only.
     def demo_repl(m):
         return (
             m.group(1)
             + '\n<div class="demo-embed"><iframe src="'
             + BASE
-            + 'tails-demo.html" title="Tails terminal demo" loading="lazy"></iframe>'
+            + 'descriptor-demo.html" title="Descriptor tool demo" loading="lazy"></iframe>'
             + '<p class="demo-fullscreen"><a href="'
             + BASE
-            + 'tails-demo.html">Open the demo full screen</a></p></div>'
+            + 'descriptor-demo.html">Open the demo full screen</a></p></div>'
             + '\n<figure class="step-fig print-only">'
             + m.group(2)
             + '</figure>'
         )
     html = re.sub(
-        r'(<h2 id="step-2-run-the-tool-choose-e-enter-the-passphrase">.*?</h2>)\s*<figure class="step-fig">(.*?)</figure>',
+        r'(<h2 id="step-2-open-the-tool-encrypt-the-map">.*?</h2>)\s*<figure class="step-fig">(.*?)</figure>',
         demo_repl, html, flags=re.S,
     )
+    # Passphrase mapper demo in encryption passphrase section and single-sig Step 4.
+    _demo_html = (
+        '<div class="demo-embed"><iframe src="'
+        + BASE
+        + 'passphrase-demo.html" title="Passphrase mapper demo" loading="lazy"></iframe>'
+        + '<p class="demo-fullscreen"><a href="'
+        + BASE
+        + 'passphrase-demo.html">Open the demo full screen</a></p></div>'
+    )
+    html = html.replace('&lt;!-- PASSPHRASE_DEMO --&gt;', _demo_html)
+    # Fix p/div nesting: if the comment was wrapped in <p>, remove the wrapping.
+    html = html.replace('<p>' + _demo_html + '</p>', _demo_html)
+    # Dice animation in dice Step 2 (moved from top of page per maintainer).
+    if '<!-- DICE_ANIMATION -->' in html or '&lt;!-- DICE_ANIMATION --&gt;' in html:
+        html = html.replace(
+            '&lt;!-- DICE_ANIMATION --&gt;',
+            dice_animation(),
+        )
+        html = html.replace(
+            '<!-- DICE_ANIMATION -->',
+            dice_animation(),
+        )
     # Step 1 networking demo in encryption Step 1: iframe on screen, Step 1 figure stays on screen too.
     def step1_demo_repl(m):
         return (
@@ -481,13 +512,34 @@ def post_process(html):
         r'(<h2 id="step-1-boot-tails-copy-the-tool-and-the-map">.*?</h2>)\s*<figure class="step-fig">(.*?)</figure>',
         step1_demo_repl, html, flags=re.S,
     )
-    # path toggle at the end of Before you begin and the dice sheet.
-    if 'id="where-are-your-coins-right-now"' in html:
-        with open("templates/path-toggle-before.html") as f:
-            html += "\n" + f.read().replace("{BASE}", BASE)
-    if 'id="practice-grid"' in html:
-        with open("templates/path-toggle-dice.html") as f:
-            html += "\n" + f.read().replace("{BASE}", BASE)
+    # Verify bundle demo in verify Step 2: iframe on screen, Step 2 figure print only.
+    def verify_demo_repl(m):
+        return (
+            m.group(1)
+            + '\n<div class="demo-embed"><iframe src="'
+            + BASE
+            + 'verify-bundle-demo.html" title="Verify the bundle demo" loading="lazy"></iframe>'
+            + '<p class="demo-fullscreen"><a href="'
+            + BASE
+            + 'verify-bundle-demo.html">Open the demo full screen</a></p></div>'
+            + '\n<figure class="step-fig print-only">'
+            + m.group(2)
+            + '</figure>'
+        )
+    html = re.sub(
+        r'(<h2 id="step-2-download-the-bundle-verify-the-bundle">.*?</h2>)\s*<figure class="step-fig">(.*?)</figure>',
+        verify_demo_repl, html, flags=re.S,
+    )
+    return html
+
+
+def inject_house_rules(html, slug):
+    """Append the house rules at the end of the airgap sheet: the last stop
+    before the work actually begins on the dice sheet."""
+    if slug == "airgap":
+        with open("templates/home-rules.html") as f:
+            rules = f.read().replace("{BASE}", BASE)
+        html = html + "\n" + rules
     return html
 
 
@@ -516,6 +568,8 @@ DESCRIPTIONS = {
     "single-sig": "The spending wallet that lives on Plate A: Seed 1 plus a passphrase, for spending money while savings sit in the vault.",
     "two-devices": "A 2-of-3 wallet built from two hardware devices and one dice key. No one device, one maker, or one place moves the fund alone.",
     "downloads": "Download the Plebum Dominium kit: every handout as a printable PDF, the full print packet, the recovery card, and the file fingerprints to verify them.",
+    "new-to-bitcoin": "New to Bitcoin? Start with these independent educators, then come back and build your self-custody wallet.",
+    "choose-path": "Choose your path: two Bitcoin self-custody setups that differ in difficulty and trust. Pick the one that fits your situation, then work its steps.",
     "beyond": "Beyond the kit: what to do once your DIY 2-of-3 multisig wallet is built, rehearsed, and funded: maintenance, reviews, and further reading.",
     "news": "News that makes the case for holding your own Bitcoin keys: exchange freezes, closed off-ramps, and custody failures, collected as they happen.",
 }
@@ -664,6 +718,9 @@ def analytics_html():
 
 def sidebar_html(active_slug):
     items = []
+    _cp_cls = "active" if active_slug == "__choosepath__" else ""
+    # Order: Before you begin (01), Choose your path (02), Terms (03), then the rest.
+    # SHEETS is ordered with threat-model first, terms second.
     for slug, num, title in SHEETS:
         cls = "active" if slug == active_slug else ""
         items.append(
@@ -673,6 +730,14 @@ def sidebar_html(active_slug):
             f'<span class="sheet-check" aria-hidden="true">✓</span>'
             f"</a></li>"
         )
+        # Insert Choose your path after Before you begin (threat-model)
+        if slug == "threat-model":
+            items.append(
+                f'<li><a href="{BASE}choose-path.html" class="{_cp_cls}">'
+                f'<span class="sheet-num">02</span>'
+                f'<span class="sheet-title">{esc("Choose your path")}</span>'
+                f"</a></li>"
+            )
     return "\n".join(items)
 
 
@@ -690,12 +755,24 @@ def toc_html(rendered):
 def prev_next(active_slug):
     idx = SLUG_TO_IDX[active_slug]
     prev_link, next_link = "", ""
-    if idx > 0:
-        s, n, t = SHEETS[idx - 1]
-        prev_link = f'<a class="prevnext prev" href="{BASE}handouts/{s}.html"><span>← {n} · {esc(t)}</span></a>'
-    if idx < len(SHEETS) - 1:
-        s, n, t = SHEETS[idx + 1]
-        next_link = f'<a class="prevnext next" href="{BASE}handouts/{s}.html"><span>{n} · {esc(t)} →</span></a>'
+    # Special case: threat-model -> choose-path -> terms
+    if active_slug == "threat-model":
+        next_link = f'<a class="prevnext next" href="{BASE}choose-path.html"><span>02 · Choose your path →</span></a>'
+    elif active_slug == "terms":
+        prev_link = f'<a class="prevnext prev" href="{BASE}choose-path.html"><span>← 02 · Choose your path</span></a>'
+        # Next is checklist (idx 2)
+        if idx < len(SHEETS) - 1:
+            s, n, t = SHEETS[idx + 1]
+            next_link = f'<a class="prevnext next" href="{BASE}handouts/{s}.html"><span>{n} · {esc(t)} →</span></a>'
+    else:
+        if idx > 0:
+            s, n, t = SHEETS[idx - 1]
+            # Skip terms when going back from checklist (terms is idx 1, but choose-path is between)
+            # Actually, for idx 2 (checklist), prev should be terms
+            prev_link = f'<a class="prevnext prev" href="{BASE}handouts/{s}.html"><span>← {n} · {esc(t)}</span></a>'
+        if idx < len(SHEETS) - 1:
+            s, n, t = SHEETS[idx + 1]
+            next_link = f'<a class="prevnext next" href="{BASE}handouts/{s}.html"><span>{n} · {esc(t)} →</span></a>'
     return prev_link, next_link
 
 
@@ -787,8 +864,6 @@ def sheet_diagram(slug):
         return airgap_animation()
     if slug == "signing":
         return signing_animation()
-    if slug == "dice":
-        return dice_animation()
     if slug == "titanium":
         return titanium_animation()
     if slug not in SHEET_DIAGRAMS:
@@ -817,6 +892,8 @@ def build_sheet(slug, num, title):
         src = re.sub(r"\[.+?\]\((/handouts/[^)]+)\)\[.+?\]\((/handouts/[^)]+)\)\s*$", "", src)
         src = re.sub(r"\[[^\]]+\]\(/handouts/[^)]+\)", "", src)
         rendered = post_process(render_markdown(src))
+    # sheet-level injections: path chooser (threat-model) and house rules (airgap)
+    rendered = inject_house_rules(rendered, slug)
     tpl = load_template()
     prev_link, next_link = prev_next(slug)
     page = (
@@ -839,7 +916,7 @@ def build_sheet(slug, num, title):
         .replace("{{canonical}}", f"https://plebumbtc.io/handouts/{slug}.html")
         .replace("{{description}}", DESCRIPTIONS[slug])
         .replace("{{schema}}", sheet_schema(slug, title, rendered))
-        .replace("{{last_updated}}", LAST_UPDATED)
+        .replace("{{last_updated}}", LAST_UPDATED).replace("{{site_version}}", SITE_VERSION)
         .replace("{{analytics}}", analytics_html())
     )
     fp_src = header_card_html(slug) + sheet_diagram(slug) + rendered
@@ -875,7 +952,37 @@ def build_downloads():
         .replace("{{canonical}}", "https://plebumbtc.io/downloads.html")
         .replace("{{description}}", DESCRIPTIONS["downloads"])
         .replace("{{schema}}", "")
-        .replace("{{last_updated}}", LAST_UPDATED)
+        .replace("{{last_updated}}", LAST_UPDATED).replace("{{site_version}}", SITE_VERSION)
+        .replace("{{analytics}}", analytics_html())
+    )
+    return page
+
+
+def build_choose_path():
+    tpl = load_template()
+    with open("templates/choose-path.html") as f:
+        rendered = f.read().replace("{BASE}", BASE)
+    _cp_title = QUESTION_TITLES["choose-path"]
+    page = (
+        tpl.replace("{{title}}", f"{_cp_title} · {SITE_NAME}")
+        .replace("{{base}}", BASE)
+        .replace("{{kicker}}", "Plebum Dominium")
+        .replace("{{heading}}", "Choose your path")
+        .replace("{{sidebar}}", sidebar_html("__choosepath__"))
+        .replace("{{toc}}", "")
+        .replace("{{content}}", rendered)
+        .replace("{{prev}}", "")
+        .replace("{{next}}", "")
+        .replace("{{stepbanner}}", "")
+        .replace("{{steppos}}", "")
+        .replace("{{headercard}}", "")
+        .replace("{{is_home}}", "")
+        .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
+        .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
+        .replace("{{canonical}}", "https://plebumbtc.io/choose-path.html")
+        .replace("{{description}}", DESCRIPTIONS["choose-path"])
+        .replace("{{schema}}", "")
+        .replace("{{last_updated}}", LAST_UPDATED).replace("{{site_version}}", SITE_VERSION)
         .replace("{{analytics}}", analytics_html())
     )
     return page
@@ -904,7 +1011,36 @@ def build_beyond():
         .replace("{{canonical}}", "https://plebumbtc.io/beyond.html")
         .replace("{{description}}", DESCRIPTIONS["beyond"])
         .replace("{{schema}}", "")
-        .replace("{{last_updated}}", LAST_UPDATED)
+        .replace("{{last_updated}}", LAST_UPDATED).replace("{{site_version}}", SITE_VERSION)
+        .replace("{{analytics}}", analytics_html())
+    )
+    return page
+
+
+def build_new_to_bitcoin():
+    tpl = load_template()
+    with open("templates/new-to-bitcoin.html") as f:
+        rendered = f.read().replace("{BASE}", BASE)
+    page = (
+        tpl.replace("{{title}}", f"New to Bitcoin? · {SITE_NAME}")
+        .replace("{{base}}", BASE)
+        .replace("{{kicker}}", "Plebum Dominium")
+        .replace("{{heading}}", "New to Bitcoin?")
+        .replace("{{sidebar}}", sidebar_html("__newtobitcoin__"))
+        .replace("{{toc}}", "")
+        .replace("{{content}}", rendered)
+        .replace("{{prev}}", "")
+        .replace("{{next}}", "")
+        .replace("{{stepbanner}}", "")
+        .replace("{{steppos}}", "")
+        .replace("{{headercard}}", "")
+        .replace("{{is_home}}", "")
+        .replace("{{lightning_address}}", LIGHTNING_ADDRESS)
+        .replace("{{onchain_address}}", ONCHAIN_ADDRESS)
+        .replace("{{canonical}}", "https://plebumbtc.io/new-to-bitcoin.html")
+        .replace("{{description}}", DESCRIPTIONS["new-to-bitcoin"])
+        .replace("{{schema}}", "")
+        .replace("{{last_updated}}", LAST_UPDATED).replace("{{site_version}}", SITE_VERSION)
         .replace("{{analytics}}", analytics_html())
     )
     return page
@@ -943,7 +1079,7 @@ def build_news():
         .replace("{{canonical}}", "https://plebumbtc.io/news.html")
         .replace("{{description}}", DESCRIPTIONS["news"])
         .replace("{{schema}}", "")
-        .replace("{{last_updated}}", LAST_UPDATED)
+        .replace("{{last_updated}}", LAST_UPDATED).replace("{{site_version}}", SITE_VERSION)
         .replace("{{analytics}}", analytics_html())
     )
     return page
@@ -973,7 +1109,7 @@ def build_path_risks():
         .replace("{{canonical}}", "https://plebumbtc.io/path-risks.html")
         .replace("{{description}}", "The risks of the path you picked: One device, One key and a passphrase, or Three keys.")
         .replace("{{schema}}", "")
-        .replace("{{last_updated}}", LAST_UPDATED)
+        .replace("{{last_updated}}", LAST_UPDATED).replace("{{site_version}}", SITE_VERSION)
         .replace("{{analytics}}", analytics_html())
     )
     return page
@@ -1020,47 +1156,20 @@ def build_home():
         "This site is for the Bitcoiner who wants to build a secure, self-custody Bitcoin wallet from the ground up, "
         "bypassing the need for a company, an app, or a custodian to manage or store access to their funds.</p>"
         "<p>This guide shows you how to generate entropy with dice, import it into verified software, "
-        "and stamp a 2-of-3 multisig wallet into titanium. Hardware wallets are completely optional.</p>"
-        '<p><a class="btn" href="{BASE}handouts/terms.html">Start with the terms</a> '
-        '<a class="btn btn-ghost" href="{BASE}kit/02_Print_Packet.pdf">Download the print packet</a> '
-        '<a class="btn btn-ghost" href="{BASE}downloads.html">All downloads</a></p>'
-        '<div class="keyring path-hidden" id="keyring-easy" aria-label="Tap the key to open the lock">'
-        '<p class="keyring-try">Try it: tap the key.</p>'
-        '<div class="keys">'
-        '<button type="button" class="key key-easy" aria-pressed="false">Key</button>'
-        "</div>"
-        '<div class="lockwrap" id="keyring-easy-lock"><div class="shackle"></div><div class="lockbody">1 key</div></div>'
-        '<p class="keyring-caption" id="keyring-easy-caption"><strong>One key</strong> opens it. That key is the whole wallet.</p>'
-        '<p class="keyring-caption" id="keyring-easy-desc">Tap the key to see it open.</p>'
-        '<button type="button" class="keyring-reset" id="keyring-easy-reset" hidden>Reset</button>'
-        "</div>"
-        '<div class="keyring path-hidden" id="keyring-one" aria-label="Tap the key and the paper to open the lock">'
-        '<p class="keyring-try">Try it: tap the key, then tap the paper.</p>'
-        '<div class="keys">'
-        '<button type="button" class="key key-one" aria-pressed="false">Key</button><button type="button" class="paper paper-one" aria-pressed="false">Paper</button>'
-        "</div>"
-        '<div class="lockwrap" id="keyring-one-lock"><div class="shackle"></div><div class="lockbody">Key + paper</div></div>'
-        '<p class="keyring-caption" id="keyring-one-caption"><strong>Key plus paper</strong> open it. Neither alone can.</p>'
-        '<p class="keyring-caption" id="keyring-one-desc">Select the key and the paper to see what opens.</p>'
-        '<button type="button" class="keyring-reset" id="keyring-one-reset" hidden>Reset</button>'
-        "</div>"
-        '<div class="keyring" id="keyring-full" aria-label="Tap any two of the three keys to open the lock">'
+        "and stamp a 2-of-3 multisig wallet into titanium. It teaches you how to spend, view, and secure Bitcoin at various custody levels, with a hardware wallet completely optional.</p>"
+        '<div class="keyring" id="keyring" aria-label="Tap any two of the three keys to open the lock">'
         '<p class="keyring-try">Try it: tap a key, then tap a second key.</p>'
         '<div class="keys">'
         '<button type="button" class="key key-a" aria-pressed="false">A</button><button type="button" class="key key-b" aria-pressed="false">B</button><button type="button" class="key key-c" aria-pressed="false">C</button>'
         "</div>"
-        '<div class="lockwrap" id="keyring-full-lock"><div class="shackle"></div><div class="lockbody">2-of-3</div></div>'
-        '<p class="keyring-caption" id="keyring-full-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
-        '<p class="keyring-caption" id="keyring-full-desc">Select keys to see if the descriptor is needed.</p>'
-        '<button type="button" class="keyring-reset" id="keyring-full-reset" hidden>Reset</button>'
+        '<div class="lockwrap" id="keyring-lock"><div class="shackle"></div><div class="lockbody">2-of-3</div></div>'
+        '<p class="keyring-caption" id="keyring-caption"><strong>Any two keys</strong> open it. One alone cannot.</p>'
+        '<p class="keyring-caption" id="keyring-descriptor">Select keys to see if the descriptor is needed.</p>'
+        '<button type="button" class="keyring-reset" id="keyring-reset" hidden>Reset</button>'
         "</div></div>"
         .replace("{BASE}", BASE)
+        + home_section("home-what")
         + home_section("home-why")
-        + home_section("home-process")
-        + home_section("path-toggle-home")
-        + "\n".join(cards)
-        + home_section("home-rules")
-        + home_section("home-resources")
     )
     page = (
         tpl.replace("{{title}}", f"{SITE_NAME} · {SITE_TAGLINE}")
@@ -1081,9 +1190,16 @@ def build_home():
         .replace("{{canonical}}", "https://plebumbtc.io/")
         .replace("{{description}}", HOME_DESCRIPTION)
         .replace("{{schema}}", website_schema())
-        .replace("{{last_updated}}", LAST_UPDATED)
+        .replace("{{last_updated}}", LAST_UPDATED).replace("{{site_version}}", SITE_VERSION)
         .replace("{{analytics}}", analytics_html())
     )
+    # Homepage is path-neutral: no mode is named or shown until Before you begin.
+    page = re.sub(
+        r'\s*<div class="path-banner" id="path-banner" hidden>.*?</div>',
+        "", page, flags=re.S)
+    page = re.sub(
+        r'\s*<div class="path-gate" id="path-gate" hidden>.*?</div>',
+        "", page, flags=re.S)
     return page
 
 
@@ -1155,6 +1271,14 @@ def main():
     with open("docs/downloads.html", "w") as f:
         f.write(build_downloads())
     print("  downloads.html")
+    # new to bitcoin
+    with open("docs/new-to-bitcoin.html", "w") as f:
+        f.write(build_new_to_bitcoin())
+    print("  new-to-bitcoin.html")
+    # choose your path
+    with open("docs/choose-path.html", "w") as f:
+        f.write(build_choose_path())
+    print("  choose-path.html")
     # beyond the kit
     with open("docs/beyond.html", "w") as f:
         f.write(build_beyond())
@@ -1172,6 +1296,8 @@ def main():
     print("  diceware.html")
     shutil.copy("tools/tails-python-demo.html", "docs/tails-demo.html")
     print("  tails-demo.html")
+    shutil.copy("tools/descriptor-html-demo.html", "docs/descriptor-demo.html")
+    print("  descriptor-demo.html")
     shutil.copy("tools/step1-networking-demo.html", "docs/step1-demo.html")
     print("  step1-demo.html")
     shutil.copy("tools/quorum-demo.html", "docs/quorum-demo.html")
@@ -1190,7 +1316,7 @@ def main():
     from datetime import date as _date
     _today = _date.today().isoformat()
     _site = "https://plebumbtc.io"
-    _pages = ["/", "/downloads.html", "/beyond.html", "/news.html", "/diceware.html"] + [
+    _pages = ["/", "/downloads.html", "/new-to-bitcoin.html", "/choose-path.html", "/beyond.html", "/news.html", "/diceware.html"] + [
         f"/handouts/{slug}.html" for slug, _, _ in SHEETS
     ]
     with open("docs/robots.txt", "w") as f:

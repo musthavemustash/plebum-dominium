@@ -102,7 +102,12 @@ def page2(c):
 
 
 def main():
-    out = "kit/15_Fire_Card.pdf"
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", default=None,
+                    help="Output path (default: kit/15_Fire_Card.pdf)")
+    args = ap.parse_args()
+    out = args.out or "kit/15_Fire_Card.pdf"
     c = canvas.Canvas(out, pagesize=(W, H))
     page1(c)
     page2(c)
