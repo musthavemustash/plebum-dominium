@@ -59,6 +59,10 @@ def main():
     ap.add_argument("--production", action="store_true",
                     help="Production mode: reject UNVERIFIED hashes, non-40-char "
                          "commits, and commits not matching git HEAD. Fail closed.")
+    ap.add_argument("--prestamp-dir", default=None,
+                    help="Directory with independently regenerated pre-stamp PDFs. "
+                         "When provided, verifier hashes each PDF itself and compares "
+                         "against manifest content_sha256 (Option A provenance).")
     args = ap.parse_args()
     dist = Path(args.dist)
     repo = Path(args.repo)
@@ -169,6 +173,28 @@ def main():
           set(pdfs.keys()) == EXPECTED_PDFS,
           f"missing={EXPECTED_PDFS - set(pdfs.keys())} "
           f"extra={set(pdfs.keys()) - EXPECTED_PDFS}")
+
+    # --- 3b. Provenance: independently regenerated pre-stamp hashes (Option A) ---
+    # When --prestamp-dir is provided, the verifier hashes each regenerated
+    # PDF ITSELF (not trusting any hash value from another script) and
+    # compares against the manifest's content_sha256.
+    if args.prestamp_dir:
+        prestamp = Path(args.prestamp_dir)
+        check("provenance: prestamp dir exists", prestamp.is_dir(),
+              f"not found: {prestamp}")
+        if prestamp.is_dir():
+            for name, info in pdfs.items():
+                expected = info.get("content_sha256", "")
+                if expected in ("UNVERIFIED", None, ""):
+                    # Skip UNVERIFIED in dev mode; production already rejected these
+                    continue
+                ppath = prestamp / name
+                check(f"provenance: regenerated {name} exists", ppath.exists())
+                if ppath.exists():
+                    actual = sha256_file(ppath)
+                    check(f"provenance: {name} content hash matches regenerated",
+                          actual == expected,
+                          f"manifest={expected[:12]} regenerated={actual[:12]}")
     for name, info in pdfs.items():
         p = repo / "kit" / name
         if not p.exists():
