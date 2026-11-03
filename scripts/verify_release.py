@@ -179,12 +179,10 @@ def main():
     # PDF ITSELF (not trusting any hash value from another script) and
     # compares against the manifest's content_sha256.
     #
-    # ADVISORY MODE (2026-11-03): Provenance mismatches are warnings, not
-    # failures, until the first deterministic release is built with
-    # SOURCE_DATE_EPOCH=0. The check correctly identifies non-determinism
-    # in pre-existing builds. Once a deterministic release exists, flip
-    # PROVENANCE_STRICT to True to make mismatches fail the gate.
-    PROVENANCE_STRICT = False
+    # STRICT MODE (2026-11-03): Both the release pipeline and the regenerate
+    # script set SOURCE_DATE_EPOCH=0, making PDF builds deterministic.
+    # Mismatches now fail the gate.
+    PROVENANCE_STRICT = True
     if args.prestamp_dir:
         prestamp = Path(args.prestamp_dir)
         check("provenance: prestamp dir exists", prestamp.is_dir(),
@@ -205,17 +203,9 @@ def main():
                 check(f"provenance: regenerated {name} exists", ppath.exists())
                 if ppath.exists():
                     actual = sha256_file(ppath)
-                    if PROVENANCE_STRICT:
-                        check(f"provenance: {name} content hash matches regenerated",
-                              actual == expected,
-                              f"manifest={expected[:12]} regenerated={actual[:12]}")
-                    elif actual != expected:
-                        # Advisory: log but don't fail
-                        print(f"[ADVISORY] provenance: {name} content hash "
-                              f"mismatch (manifest={expected[:12]} "
-                              f"regenerated={actual[:12]}). "
-                              f"Pre-deterministic build; will be strict after "
-                              f"next release.", flush=True)
+                    check(f"provenance: {name} content hash matches regenerated",
+                          actual == expected,
+                          f"manifest={expected[:12]} regenerated={actual[:12]}")
     for name, info in pdfs.items():
         p = repo / "kit" / name
         if not p.exists():
