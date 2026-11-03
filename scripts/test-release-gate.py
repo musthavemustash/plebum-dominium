@@ -190,6 +190,82 @@ def m10(dist, repo):
         manifest["source_commit"] = "0" * 40
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
+@mutation("manifest omits one required PDF (inventory bypass)")
+def m11(dist, repo):
+    # P0-3: delete one PDF from manifest inventory, keep the file.
+    # Verifier must detect the missing entry.
+    mpath = dist / "release-manifest.json"
+    if not mpath.exists():
+        return
+    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    pdfs = manifest.get("pdfs", {})
+    if pdfs:
+        # Remove the first PDF entry
+        first = next(iter(pdfs))
+        del pdfs[first]
+    mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+@mutation("production: WORKTREE source commit rejected")
+def m12(dist, repo):
+    # P0-1: production verifier must reject WORKTREE sentinel.
+    # This mutation marks the manifest as production with WORKTREE commit.
+    mpath = dist / "release-manifest.json"
+    if not mpath.exists():
+        return
+    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    manifest["production"] = True
+    manifest["source_commit"] = "WORKTREE"
+    mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+@mutation("production: UNVERIFIED content hash rejected")
+def m13(dist, repo):
+    # P0-1: production verifier must reject UNVERIFIED content hashes.
+    mpath = dist / "release-manifest.json"
+    if not mpath.exists():
+        return
+    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    manifest["production"] = True
+    pdfs = manifest.get("pdfs", {})
+    for name, info in pdfs.items():
+        info["content_sha256"] = "UNVERIFIED"
+        break  # Just corrupt one
+    mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+@mutation("production: malformed commit identifier rejected")
+def m14(dist, repo):
+    # P0-1: production verifier must reject non-40-char commits.
+    mpath = dist / "release-manifest.json"
+    if not mpath.exists():
+        return
+    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    manifest["production"] = True
+    manifest["source_commit"] = "abc123"  # Too short, not hex-40
+    mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+@mutation("production: valid-but-wrong 40-char commit rejected")
+def m15(dist, repo):
+    # P0-1: production verifier must reject a well-formed but incorrect commit.
+    # Uses a valid 40-char hex string that is not the actual HEAD.
+    mpath = dist / "release-manifest.json"
+    if not mpath.exists():
+        return
+    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    manifest["production"] = True
+    # Valid hex-40 but wrong (all 'a's is unlikely to be real HEAD)
+    manifest["source_commit"] = "a" * 40
+    mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+@mutation("production: non-production manifest rejected in production mode")
+def m16(dist, repo):
+    # P0-1: production verifier must reject manifests not built with --production.
+    mpath = dist / "release-manifest.json"
+    if not mpath.exists():
+        return
+    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    # Ensure production flag is False/missing (dev build)
+    manifest["production"] = False
+    mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dist", required=True)
@@ -218,10 +294,19 @@ def main():
             print(f"[ERROR] mutation {name} raised during setup: {e}")
             shutil.rmtree(work, ignore_errors=True)
             continue
-        r = subprocess.run(
-            [sys.executable, str(verifier), "--dist", str(tdist),
-             "--repo", str(trepo)],
-            capture_output=True, text=True)
+        # Production mutations (m12-m16) need --production flag on verifier
+        prod_mutations = {
+            "production: WORKTREE source commit rejected",
+            "production: UNVERIFIED content hash rejected",
+            "production: malformed commit identifier rejected",
+            "production: valid-but-wrong 40-char commit rejected",
+            "production: non-production manifest rejected in production mode",
+        }
+        verifier_cmd = [sys.executable, str(verifier), "--dist", str(tdist),
+                        "--repo", str(trepo)]
+        if name in prod_mutations:
+            verifier_cmd.append("--production")
+        r = subprocess.run(verifier_cmd, capture_output=True, text=True)
         rejected = r.returncode != 0
         names_file = "FAILURES" in r.stdout or "FAIL" in r.stdout
         status = "PASS" if rejected else "FAIL"
