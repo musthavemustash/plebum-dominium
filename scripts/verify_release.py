@@ -72,7 +72,6 @@ def main():
 
     # --- 0. Production-mode provenance gates (fail closed, run first) ---
     if production:
-        import re
         # a. Manifest must declare production build
         check("production: manifest declares production=true",
               manifest.get("production") is True,
