@@ -1,0 +1,95 @@
+# Release gate for plebumbtc.io.
+#
+# Runs the deterministic release pipeline (scripts/release.py) on the exact
+# event commit, then the independent fail-closed verifier
+# (scripts/verify_release.py), including negative/mutation tests that prove
+# the gate rejects bad releases.
+#
+# IMPORTANT: This workflow alone does not block direct pushes. The maintainer
+# must enable branch protection on `main` requiring the `release-gate`
+# status check before merging. Without branch protection, a direct push
+# bypasses this gate.
+#
+# NOTE: This file cannot be pushed via the GitHub API connector used by the
+# coding agent (403 on .github/workflows/*). The maintainer must add it via
+# the GitHub web UI or a local git push.
+
+name: Release gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  release-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact event commit
+        uses: actions/checkout@v4
+        with:
+          # The SHA being tested, not a mutable branch ref
+          ref: ${{ github.sha }}
+
+      - name: Record commit SHA
+        id: sha
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git status --porcelain && echo "TREE CLEAN" || echo "TREE DIRTY"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install PDF deps
+        run: |
+          python3 -m pip install --quiet reportlab pypdf
+
+      - name: Run release pipeline
+        run: |
+          python3 scripts/release.py \
+            --commit "${{ steps.sha.outputs.sha }}" \
+            --out dist \
+            ${{ vars.SKIP_PDFS == '1' && '--skip-pdfs' || '' }}
+        # To skip the slow PDF rebuild on every PR, set the SKIP_PDFS=1
+        # repository variable. Release branches should run the full build.
+
+      - name: Run independent verifier
+        run: |
+          python3 scripts/verify_release.py \
+            --dist dist \
+            --repo "$GITHUB_WORKSPACE"
+
+      - name: Run negative/mutation tests
+        run: |
+          python3 scripts/test-release-gate.py \
+            --dist dist \
+            --repo "$GITHUB_WORKSPACE"
+
+      - name: Upload release artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-dist-${{ steps.sha.outputs.sha }}
+          path: |
+            dist/
+          retention-days: 30
+
+      - name: Upload verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-report-${{ steps.sha.outputs.sha }}
+          path: |
+            dist/release-manifest.json
+          retention-days: 90
