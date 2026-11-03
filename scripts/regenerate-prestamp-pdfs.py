@@ -41,6 +41,32 @@ def main():
 
     print(f"[regenerate] Generating pre-stamp PDFs to {out}", flush=True)
 
+    # 0. Rebuild docs/ from content/ to ensure input parity with release.py
+    # Stage B. The release job rebuilds docs/ before generating PDFs; the
+    # regenerate job must do the same, otherwise PDFs are built from
+    # different HTML inputs and hashes will not match.
+    # (Simplified Stage B: build.py + restore verify-file.html)
+    import shutil
+    verify_path = repo_root / "docs" / "verify-file.html"
+    verify_backup = None
+    if verify_path.exists():
+        verify_backup = out / "verify-file.html.bak"
+        shutil.copy2(verify_path, verify_backup)
+        print(f"[regenerate] backed up docs/verify-file.html", flush=True)
+
+    print(f"[regenerate] Rebuilding docs/ via build.py...", flush=True)
+    r = subprocess.run(
+        [sys.executable, "scripts/build.py", "--base", "/"],
+        cwd=str(repo_root), env=env, capture_output=True, text=True)
+    if r.returncode != 0:
+        print(f"[regenerate] FATAL: build.py failed", file=sys.stderr)
+        print(r.stderr[-1000:], file=sys.stderr)
+        sys.exit(1)
+
+    if verify_backup and not verify_path.exists():
+        shutil.copy2(verify_backup, verify_path)
+        print(f"[regenerate] restored docs/verify-file.html", flush=True)
+
     # Generate the 16 sheet PDFs (build-kit-pdfs.py outputs to KIT_PDF_OUT)
     r = subprocess.run(
         [sys.executable, "scripts/build-kit-pdfs.py"],
@@ -77,15 +103,30 @@ def main():
     # Independent regeneration (Option A) does not apply to it. The verifier
     # skips provenance for this file; file hash verification still applies.
 
-    # Verify we got the expected 17 PDFs
+    # Verify we got the expected 16 PDFs (17 total minus static Presentation_Handouts.pdf)
     pdfs = sorted(out.glob("*.pdf"))
     print(f"[regenerate] Generated {len(pdfs)} PDFs", flush=True)
     for p in pdfs:
         print(f"  {p.name} ({p.stat().st_size} bytes)")
 
-    if len(pdfs) != 17:
-        print(f"[regenerate] WARNING: expected 17 PDFs, got {len(pdfs)}",
-              file=sys.stderr)
+    # Define exact expected set of 16 regenerable PDFs
+    EXPECTED_REGENERABLE = {
+        "00_Project_Overview.pdf", "02_Print_Packet.pdf", "03_Checklist.pdf",
+        "04_Airgap.pdf", "05_Verify.pdf", "06_Dice.pdf", "07_Sparrow.pdf",
+        "08_Signing.pdf", "09_Titanium.pdf", "11_Encryption.pdf",
+        "12_Inheritance.pdf", "13_FAQ.pdf", "14_Speaker.pdf",
+        "15_Fire_Card.pdf", "Handouts_No_Cover.pdf", "Terms.pdf",
+    }
+    actual_names = {p.name for p in pdfs}
+    missing = EXPECTED_REGENERABLE - actual_names
+    extra = actual_names - EXPECTED_REGENERABLE
+    if missing or extra:
+        print(f"[regenerate] FATAL: PDF inventory mismatch", file=sys.stderr)
+        if missing:
+            print(f"  Missing: {sorted(missing)}", file=sys.stderr)
+        if extra:
+            print(f"  Extra: {sorted(extra)}", file=sys.stderr)
+        sys.exit(1)
 
     print("[regenerate] DONE", flush=True)
 
