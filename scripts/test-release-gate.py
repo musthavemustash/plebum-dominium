@@ -264,29 +264,38 @@ def m14(dist, repo):
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
 @mutation("production: valid-but-wrong 40-char commit rejected",
-           expects="production: git HEAD available")
+           expects="production: declared commit matches git HEAD")
 def m15(dist, repo):
-    # P0-1: production verifier must reject a well-formed but incorrect commit.
-    # In the test harness (no .git), this fails closed at "git HEAD available".
-    # In real CI with git, it would fail at "declared commit matches git HEAD".
-    # Either way, production mode rejects it.
+    # P0-1: production verifier must reject a well-formed but incorrect commit
+    # when run against a real Git checkout. Create a real git repo in the
+    # mutation workspace, then set manifest source_commit to a different SHA.
+    import subprocess
+    # Init git repo in the test workspace
+    subprocess.run(["git", "init", "-q"], cwd=str(repo), check=True,
+                   capture_output=True)
+    subprocess.run(["git", "config", "user.email", "test@test.com"],
+                   cwd=str(repo), check=True, capture_output=True)
+    subprocess.run(["git", "config", "user.name", "Test"],
+                   cwd=str(repo), check=True, capture_output=True)
+    subprocess.run(["git", "add", "-A"], cwd=str(repo), check=True,
+                   capture_output=True)
+    subprocess.run(["git", "commit", "-qm", "test"],
+                   cwd=str(repo), check=True, capture_output=True)
+    # Get the real HEAD
+    r = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(repo),
+                       check=True, capture_output=True, text=True)
+    real_head = r.stdout.strip()
+    # Set manifest to a different valid SHA
     mpath = dist / "release-manifest.json"
     if not mpath.exists():
         return
     manifest = json.loads(mpath.read_text(encoding="utf-8"))
     manifest["production"] = True
-    # Valid hex-40 but wrong (all 'a's is unlikely to be real HEAD)
-    manifest["source_commit"] = "a" * 40
-    mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-    # P0-1: production verifier must reject a well-formed but incorrect commit.
-    # Uses a valid 40-char hex string that is not the actual HEAD.
-    mpath = dist / "release-manifest.json"
-    if not mpath.exists():
-        return
-    manifest = json.loads(mpath.read_text(encoding="utf-8"))
-    manifest["production"] = True
-    # Valid hex-40 but wrong (all 'a's is unlikely to be real HEAD)
-    manifest["source_commit"] = "a" * 40
+    # Use all 'b's, guaranteed different from real_head (which is hex)
+    wrong_sha = "b" * 40
+    if wrong_sha == real_head:
+        wrong_sha = "c" * 40
+    manifest["source_commit"] = wrong_sha
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
 @mutation("production: non-production manifest rejected in production mode",
@@ -362,14 +371,31 @@ def main():
 
     passed = 0
     failed = 0
+    skipped = 0
 
     # Baseline: verify the unmutated tree passes first.
     # If the baseline fails, mutations can't prove anything.
+    # Use the same strict mode CI requires: if manifest declares production
+    # and --prestamp-dir was supplied, baseline runs with --production and
+    # --prestamp-dir. Log the exact mode.
     print("Running baseline verification on unmutated tree...")
-    baseline = subprocess.run(
-        [sys.executable, str(verifier), "--dist", str(good_dist),
-         "--repo", str(good_repo)],
-        capture_output=True, text=True)
+    baseline_cmd = [sys.executable, str(verifier), "--dist", str(good_dist),
+                    "--repo", str(good_repo)]
+    baseline_mode = "development"
+    try:
+        _mpath = good_dist / "release-manifest.json"
+        if _mpath.exists():
+            _m = json.loads(_mpath.read_text(encoding="utf-8"))
+            if _m.get("production") is True:
+                baseline_cmd.append("--production")
+                baseline_mode = "production"
+    except Exception:
+        pass
+    if args.prestamp_dir:
+        baseline_cmd.extend(["--prestamp-dir", args.prestamp_dir])
+        baseline_mode += "+prestamp"
+    print(f"  baseline mode: {baseline_mode}")
+    baseline = subprocess.run(baseline_cmd, capture_output=True, text=True)
     if baseline.returncode != 0:
         print(f"[FAIL] baseline verification failed (exit={baseline.returncode})")
         print("  Cannot trust mutation results without a clean baseline.")
@@ -412,6 +438,7 @@ def main():
             if not args.prestamp_dir:
                 print(f"[SKIP] negative test: {name} "
                       f"(requires --prestamp-dir)")
+                skipped += 1
                 shutil.rmtree(work, ignore_errors=True)
                 continue
             # Verify prestamp dir actually has PDFs; if not, skip
@@ -456,7 +483,7 @@ def main():
         shutil.rmtree(work, ignore_errors=True)
 
     print(f"\n{passed}/{len(MUTATIONS)} mutations rejected "
-          f"({failed} failed)")
+          f"({failed} failed, {skipped} skipped)")
     sys.exit(0 if failed == 0 else 1)
 
 if __name__ == "__main__":
