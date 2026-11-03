@@ -174,6 +174,7 @@ def stage_b(repo_root, stage):
     restores = [
         ("docs/dice-rolls.html", _bsrc / "live-dice-rolls-source.html"),
         ("docs/passphrase-demo.html", _bsrc / "passphrase-demo-source.html"),
+        ("docs/descriptor-demo.html", root / "tools" / "descriptor-html-demo.html"),
         ("docs/assets/css/guide-steps.css", _bsrc / "css" / "guide-steps.css"),
         ("docs/assets/js/guide-demos.js", _bsrc / "js" / "guide-demos.js"),
     ]
