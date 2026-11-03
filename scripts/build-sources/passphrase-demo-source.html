@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Passphrase mapper demo · Plebum Dominium</title>
+<style>
+:root {
+  --paper: #f6f3ec; --ink: #161410; --muted: #5c564c; --line: #e3d9cc;
+  --accent: #8a5a2a; --card: #ffffff; --copper: #c4a484; --good: #3aa655;
+  --toolbg: #0e0d0b; --toolink: #ece5d8; --toolmuted: #a89c88;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper: #0e0d0b; --ink: #efe9dc; --muted: #9b9384; --line: #2a2722; --accent: #c4a484; --card: #161411; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'IBM Plex Sans', system-ui, sans-serif; background: var(--paper); color: var(--ink); }
+.demo-wrap { max-width: 560px; margin: 0 auto; padding: 1rem; }
+.tool-body { position: relative; background: var(--toolbg); color: var(--toolink); border-radius: 12px; padding: 1.25rem; min-height: 380px; }
+.tool-body h3 { margin: 0 0 .25rem; font-family: Newsreader, Georgia, serif; }
+.tsub { color: var(--toolmuted); font-size: 13px; margin: 0 0 1rem; }
+.pill { display: inline-block; font-size: 12px; padding: .2rem .6rem; border: 1px solid var(--good); border-radius: 20px; color: var(--good); }
+.pill .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--good); margin-right: 6px; }
+.dice-row { display: flex; gap: .5rem; margin: 1rem 0; justify-content: center; }
+.die { width: 52px; height: 52px; border: 2px solid var(--copper); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: var(--toolink); background: #1a1712; }
+.digits { text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 20px; letter-spacing: .3em; margin: .75rem 0; color: var(--copper); min-height: 28px; }
+.word-out { text-align: center; font-size: 22px; font-weight: 600; margin: .5rem 0; min-height: 32px; color: var(--toolink); }
+.words-list { display: flex; flex-wrap: wrap; gap: .4rem; justify-content: center; margin: 1rem 0; min-height: 36px; }
+.words-list span { background: #1a1712; border: 1px solid var(--copper); border-radius: 6px; padding: .3rem .7rem; font-family: 'IBM Plex Mono', monospace; font-size: 14px; }
+.step-box { margin-top: 1rem; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; min-height: 90px; }
+.step-box h4 { margin: 0 0 .4rem; font-size: 14px; }
+.step-box p { margin: 0; font-size: 13px; color: var(--muted); }
+#pointer { position: absolute; width: 22px; height: 22px; margin: -11px 0 0 -11px; pointer-events: none; transition: left .3s, top .3s; z-index: 10; }
+#pointer::before { content: ''; position: absolute; width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid var(--copper); transform: rotate(45deg); }
+.controls { text-align: center; margin-top: .75rem; }
+.controls button { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: .5rem 1.25rem; font-size: 14px; cursor: pointer; margin: 0 .25rem; }
+.demo-note { text-align: center; font-size: 12px; color: var(--muted); margin-top: .5rem; }
+</style>
+</head>
+<body>
+<div class="demo-wrap">
+<div class="tool-body" id="tool-body">
+<div id="pointer"></div>
+<h3>Diceware Passphrase Mapper</h3>
+<p class="tsub">Demo with test words only. Never roll a real passphrase here.</p>
+<p><span class="pill"><span class="dot"></span>Offline</span></p>
+<div class="dice-row" id="dice-row"></div>
+<div class="digits" id="digits"></div>
+<div class="word-out" id="word-out"></div>
+<div class="words-list" id="words-list"></div>
+</div>
+<div class="step-box" id="step-box">
+<h4 id="step-title">Ready</h4>
+<p id="step-note">Press Play to watch the demo.</p>
+</div>
+<div class="controls">
+<button id="play-btn">Play</button>
+<button id="reset-btn">Reset</button>
+</div>
+<p class="demo-note">Test words only. On the real page, you roll physical dice.</p>
+</div>
+<script>
+(function () {
+  'use strict';
+  var DUMMY_WORDS = ['demoword-one', 'demoword-two', 'demoword-three'];
+  var DUMMY_ROLLS = [[3,1,4,1,5], [2,6,2,6,2], [5,5,1,3,2]];
+  var diceRow = document.getElementById('dice-row');
+  var digitsEl = document.getElementById('digits');
+  var wordOut = document.getElementById('word-out');
+  var wordsList = document.getElementById('words-list');
+  var stepTitle = document.getElementById('step-title');
+  var stepNote = document.getElementById('step-note');
+  var pointer = document.getElementById('pointer');
+  var toolBody = document.getElementById('tool-body');
+  var playing = false;
+
+  for (var i = 0; i < 5; i++) {
+    var d = document.createElement('div');
+    d.className = 'die'; d.textContent = '·';
+    diceRow.appendChild(d);
+  }
+  var dice = diceRow.children;
+
+  function movePointer(el) {
+    if (!el) return;
+    var br = el.getBoundingClientRect(), pr = toolBody.getBoundingClientRect();
+    pointer.style.left = (br.left - pr.left + br.width / 2) + 'px';
+    pointer.style.top = (br.top - pr.top + br.height / 2) + 'px';
+  }
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function setStep(t, n) { stepTitle.textContent = t; stepNote.textContent = n; }
+
+  async function play() {
+    if (playing) return;
+    playing = true;
+    document.getElementById('play-btn').textContent = 'Playing…';
+    wordsList.innerHTML = ''; wordOut.textContent = ''; digitsEl.textContent = '';
+
+    for (var w = 0; w < 3; w++) {
+      setStep('Word ' + (w+1) + ' of 3: Roll five dice.',
+        'Roll five dice at once. Read the faces left to right. All six faces count. No rerolls.');
+      movePointer(diceRow);
+      for (var r = 0; r < 8; r++) {
+        for (var i = 0; i < 5; i++) dice[i].textContent = 1 + Math.floor(Math.random() * 6);
+        await sleep(120);
+      }
+      for (var i = 0; i < 5; i++) dice[i].textContent = DUMMY_ROLLS[w][i];
+      await sleep(800);
+
+      setStep('Word ' + (w+1) + ' of 3: Read the number.',
+        'The five faces make a five-digit number. Look it up in the EFF word list.');
+      digitsEl.textContent = DUMMY_ROLLS[w].join('');
+      movePointer(digitsEl);
+      await sleep(1500);
+
+      setStep('Word ' + (w+1) + ' of 3: Write the word.',
+        'The list gives one word for that number. Write it down. This is a demo word, not a real one.');
+      wordOut.textContent = DUMMY_WORDS[w];
+      movePointer(wordOut);
+      await sleep(1500);
+
+      var s = document.createElement('span');
+      s.textContent = (w+1) + '. ' + DUMMY_WORDS[w];
+      wordsList.appendChild(s);
+      wordOut.textContent = '';
+      digitsEl.textContent = '';
+      for (var i = 0; i < 5; i++) dice[i].textContent = '·';
+      await sleep(600);
+    }
+
+    setStep('Done: three demo words.',
+      'Repeat to six words for a real passphrase. Six words give about 77 bits. Write them on paper, in two places.');
+    movePointer(wordsList);
+    playing = false;
+    document.getElementById('play-btn').textContent = 'Play again';
+  }
+
+  document.getElementById('play-btn').addEventListener('click', function () {
+    if (!playing) { play(); }
+  });
+  document.getElementById('reset-btn').addEventListener('click', function () {
+    playing = false;
+    document.getElementById('play-btn').textContent = 'Play';
+    wordsList.innerHTML = ''; wordOut.textContent = ''; digitsEl.textContent = '';
+    for (var i = 0; i < 5; i++) dice[i].textContent = '·';
+    setStep('Ready', 'Press Play to watch the demo.');
+  });
+})();
+</script>
+</body>
+</html>

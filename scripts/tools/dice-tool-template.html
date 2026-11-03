@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dice converter · Plebum Dominium</title>
+<style>
+:root{
+  --bg:#0e0d0b; --panel:#161310; --panel2:#1c1814; --ink:#ece5d8; --muted:#a89c88;
+  --copper:#c4a484; --copper-dim:#7a5a34; --line:#2b251c; --good:#7fb069; --bad:#c46a5a;
+}
+*{box-sizing:border-box}
+.topbar{max-width:760px;margin:0 auto;padding:18px 20px 0;display:flex;justify-content:flex-end}
+.online-pill{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);white-space:nowrap}
+.online-pill[hidden]{display:none}
+.online-dot{width:12px;height:12px;border-radius:50%;background:#e07856;flex-shrink:0}
+.online-dot.safe{background:#3aa655}
+#netblock{position:fixed;inset:0;background:rgba(14,13,11,.97);z-index:50;
+  display:flex;align-items:center;justify-content:center;padding:24px}
+#netblock[hidden]{display:none}
+.stopcard{max-width:560px;background:var(--panel);border:1px solid #5a2a22;border-radius:14px;padding:28px}
+.stopcard h2{font-family:Newsreader,Georgia,serif;color:#e0a396;margin:0 0 10px;font-size:28px;font-weight:600}
+.stopcard p{color:var(--muted);margin:10px 0}
+.stopcard .prow{margin-bottom:6px}
+.dl-guide{margin-top:18px;padding-top:16px;border-top:1px solid #3a2f28}
+.dl-guide p{margin:8px 0}
+a.dl-btn{display:inline-block;background:var(--copper);color:#14100b;border-radius:10px;
+  padding:10px 20px;font-size:15px;font-weight:700;text-decoration:none}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}
+.top{max-width:760px;margin:0 auto;padding:40px 20px 8px}
+.kicker{color:var(--copper);letter-spacing:.18em;text-transform:uppercase;font-size:12px;margin:0 0 8px}
+h1{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:40px;margin:0 0 8px}
+.sub{color:var(--muted);margin:0}
+main{max-width:760px;margin:0 auto;padding:8px 20px 40px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:22px 22px 24px;margin:22px 0}
+.panel h2{font-family:Newsreader,Georgia,serif;font-weight:600;font-size:24px;margin:0 0 6px}
+.step{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border:1px solid var(--copper-dim);border-radius:50%;color:var(--copper);
+  font-size:15px;margin-right:10px;vertical-align:2px}
+.panel p{color:var(--muted);margin:8px 0}
+.panel p strong{color:var(--ink)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0 4px;font-size:14px;color:var(--muted)}
+.legend b{color:var(--copper);font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:600}
+.diebtns{display:flex;gap:10px;margin:14px 0;flex-wrap:wrap}
+.diebtn{width:64px;height:64px;font-size:26px;font-weight:700;border-radius:12px;cursor:pointer;
+  background:var(--panel2);color:var(--ink);border:1px solid var(--copper-dim);
+  transition:transform .12s ease, border-color .12s ease}
+.diebtn:hover{border-color:var(--copper);transform:translateY(-2px)}
+.diebtn:active{transform:translateY(1px) scale(.97)}
+.meters{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin:6px 0 4px;font-size:15px;color:var(--muted)}
+.meters strong{color:var(--ink);font-size:19px;font-variant-numeric:tabular-nums}
+.bar{flex:1 1 160px;height:10px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+#barfill{height:100%;width:0%;background:linear-gradient(90deg,var(--copper-dim),var(--copper));
+  border-radius:6px;transition:width .35s ease}
+.strip{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;min-height:58px}
+.tile{width:52px;height:58px;border:1px solid var(--copper-dim);border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--panel2);animation:pop .38s ease}
+.tile .face{font-size:22px;font-weight:700;line-height:1}
+.tile .tb{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--copper);margin-top:2px}
+.tile.skip{opacity:.38;border-style:dashed}
+.tile.skip .tb{color:var(--muted)}
+@keyframes pop{0%{transform:scale(.4) rotate(-8deg);opacity:0}60%{transform:scale(1.08) rotate(2deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+.bits{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;color:var(--muted);
+  background:#0b0a08;border:1px solid var(--line);border-radius:10px;padding:12px 14px;
+  min-height:66px;max-height:150px;overflow-y:auto;overflow-wrap:anywhere;line-height:1.7}
+.bits:empty::before{content:"The bits appear here as you enter the rolls.";color:#5c5347}
+.row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+button.act{background:var(--copper);color:#14100b;border:none;border-radius:10px;
+  padding:10px 20px;font-size:15px;font-weight:700;cursor:pointer}
+button.ghost{background:transparent;color:var(--ink);border:1px solid var(--copper-dim);
+  border-radius:10px;padding:10px 18px;font-size:15px;cursor:pointer}
+button.quiet{background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;text-decoration:underline}
+.done{background:#12200f;border:1px solid #2c4a24;color:#b8d9a6;border-radius:10px;
+  padding:10px 14px;margin-top:14px}
+.words{list-style:none;margin:16px 0 0;padding:0;display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;counter-reset:w}
+.words li{background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+  padding:8px 10px;font-size:16px;opacity:0;transform:translateY(8px);animation:rise .5s ease forwards}
+.words li .n{color:var(--copper-dim);font-size:12px;margin-right:8px;font-variant-numeric:tabular-nums}
+.words li.check{border-color:var(--copper)}
+.words li.check .tag{display:inline-block;font-size:11px;color:var(--copper);border:1px solid var(--copper-dim);
+  border-radius:20px;padding:1px 8px;margin-left:8px;letter-spacing:.06em}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+details{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+summary{cursor:pointer;color:var(--copper);font-size:15px}
+textarea{width:100%;min-height:88px;background:#0b0a08;color:var(--ink);
+  border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;margin-top:10px}
+textarea::placeholder{color:#5c5347}
+.note{font-size:14px;color:var(--muted);margin:8px 0 0}
+.results{list-style:none;margin:14px 0 0;padding:0}
+.results li{padding:10px 14px;border-radius:10px;margin:8px 0;font-size:15px;
+  opacity:0;transform:translateY(6px);animation:rise .45s ease forwards}
+.results li.good{background:#12200f;border:1px solid #2c4a24;color:#b8d9a6}
+.results li.bad{background:#22100d;border:1px solid #5a2a22;color:#e0a396}
+footer{max-width:760px;margin:0 auto;padding:0 20px 48px;color:var(--muted);font-size:14px}
+footer p{margin:6px 0}
+@media (prefers-reduced-motion:reduce){
+  .tile,.words li,.results li{animation:none;opacity:1;transform:none}
+  #barfill{transition:none}
+  .diebtn{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><span class="online-pill" id="online-pill" role="status" hidden><span class="online-dot" id="online-dot"></span><span id="online-word">Online</span></span></div>
+<header class="top">
+  <p class="kicker">Plebum Dominium</p>
+  <h1>Dice converter</h1>
+  <p class="sub">Dice rolls become 24 words. Everything happens in this page, offline. Nothing you type leaves it.</p>
+</header>
+<main>
+  <section class="panel" aria-label="Record the rolls">
+    <h2><span class="step">1</span>Record the rolls</h2>
+    <p>Roll five dice. Enter each face left to right, the same way every shake. Faces 1 to 4 are kept as bits. Faces 5 and 6 are skipped, roll those dice again. Stop at 128 pairs.</p>
+    <div class="legend" aria-label="Face values">
+      <span><b>1</b> = 00</span><span><b>2</b> = 01</span><span><b>3</b> = 10</span><span><b>4</b> = 11</span><span><b>5 6</b> = skipped</span>
+    </div>
+    <div class="diebtns" role="group" aria-label="Enter a die face">
+      <button class="diebtn" data-face="1">1</button>
+      <button class="diebtn" data-face="2">2</button>
+      <button class="diebtn" data-face="3">3</button>
+      <button class="diebtn" data-face="4">4</button>
+      <button class="diebtn" data-face="5">5</button>
+      <button class="diebtn" data-face="6">6</button>
+    </div>
+    <div class="meters">
+      <div>Pairs <strong id="m-pairs">0</strong> / 128</div>
+      <div>Bits <strong id="m-bits">0</strong> / 256</div>
+      <div class="bar" aria-hidden="true"><div id="barfill"></div></div>
+    </div>
+    <div class="strip" id="strip" aria-label="Recorded rolls"></div>
+    <div class="bits" id="bits" aria-label="Binary as recorded"></div>
+    <div class="row">
+      <button class="ghost" id="undo">Undo last</button>
+      <button class="ghost" id="clear">Clear all</button>
+      <button class="quiet" id="testfill">Try with test rolls</button>
+    </div>
+    <p class="done" id="done256" hidden>256 bits recorded. The 24 words are below.</p>
+  </section>
+
+  <section class="panel" aria-label="The 24 words">
+    <h2><span class="step">2</span>The 24 words</h2>
+    <p id="words-hint">The words appear when 256 bits are recorded. Word 24 is the check. It is not chosen, and it is never fixed by hand.</p>
+    <ol class="words" id="words"></ol>
+    <details>
+      <summary>Or paste a binary string</summary>
+      <p class="note">The offline Python tool accepts 256 bits or more. Longer input is hashed down to 256. This box does the same.</p>
+      <textarea id="pastebits" placeholder="010011..." spellcheck="false"></textarea>
+      <p class="note" id="paste-note"></p>
+    </details>
+  </section>
+
+  <section class="panel" aria-label="Validate">
+    <h2><span class="step">3</span>Validate</h2>
+    <p>Paste the 24 words from the other tool. Two tools, same bits, same 24 words. The check has to pass and every word has to match. If anything differs, stop.</p>
+    <textarea id="valwords" placeholder="word word word ..." spellcheck="false"></textarea>
+    <div class="row"><button class="act" id="validate">Check these words</button></div>
+    <ul class="results" id="results"></ul>
+  </section>
+</main>
+<div id="netblock" hidden>
+  <div class="stopcard" role="alert">
+    <p class="prow"><span class="online-pill"><span class="online-dot"></span><span>Online</span></span></p>
+    <h2>Stop. This computer is online.</h2>
+    <p>Seed words are never typed on a computer that can reach the network. A connected machine can leak every keystroke to malware, a bad extension, or the network itself. One leak burns the words, and burned words mean new dice, new words, new plates.</p>
+    <p>Close this page. Boot Tails with networking set to Disabled, or disconnect this machine from the network, then open the file again. If this page still says Online on a machine you believe is offline, trust the page. Something is still connected.</p>
+    <div class="dl-guide">
+      <p><strong>Get this file onto your offline machine.</strong></p>
+      <p><a class="dl-btn" href="dice-converter.html" download="dice-converter.html">Download dice-converter.html</a></p>
+      <p>Then check its fingerprint on the verify page, copy it to your data USB, and open it on Tails with networking disabled.</p>
+    </div>
+  </div>
+</div>
+<footer>
+  <p>Before trusting a copy of this file, check its fingerprint against VERIFY.md.</p>
+  <p>Use it offline. Tails with networking disabled is the way this guide does it.</p>
+</footer>
+<script>
+/*__CORE__*/
+</script>
+<script>
+(function(){
+  "use strict";
+  var rolls=[]; // {face, bits|null}
+  var pastedBits=null;
+  function $(id){return document.getElementById(id);}
+  function bits(){return rolls.filter(function(r){return r.bits;}).map(function(r){return r.bits;}).join('');}
+  function pairs(){return rolls.filter(function(r){return r.bits;}).length;}
+
+  function render(){
+    var b=bits(), p=pairs();
+    $('m-pairs').textContent=p;
+    $('m-bits').textContent=b.length;
+    $('barfill').style.width=(b.length/256*100)+'%';
+    var strip=$('strip'); strip.innerHTML='';
+    rolls.forEach(function(r){
+      var t=document.createElement('div');
+      t.className='tile'+(r.bits?'':' skip');
+      var f=document.createElement('span'); f.className='face'; f.textContent=r.face;
+      var tb=document.createElement('span'); tb.className='tb'; tb.textContent=r.bits||'skip';
+      t.appendChild(f); t.appendChild(tb); strip.appendChild(t);
+    });
+    var grouped='';
+    for(var i=0;i<b.length;i+=8) grouped+=b.slice(i,i+8)+' ';
+    $('bits').textContent=grouped.trim();
+    var done=b.length>=256;
+    $('done256').hidden=!done;
+    if(done && !pastedBits) showWords(bitsToWords(b));
+  }
+  function showWords(words){
+    var ol=$('words'); ol.innerHTML='';
+    words.forEach(function(w,i){
+      var li=document.createElement('li');
+      li.style.animationDelay=(i*0.045)+'s';
+      var n=document.createElement('span'); n.className='n'; n.textContent=(i+1);
+      li.appendChild(n);
+      li.appendChild(document.createTextNode(w));
+      if(i===23){ li.className='check'; var tag=document.createElement('span'); tag.className='tag'; tag.textContent='check'; li.appendChild(tag); }
+      ol.appendChild(li);
+    });
+  }
+  async function addDie(face){
+    if(netBlocked){
+      // Re-probe on tap: the offline event may not have fired.
+      await renderNet();
+      if(netBlocked) return;
+    }
+    if(bits().length>=256 && !pastedBits) return;
+    if(pastedBits){ clearAll(); }
+    rolls.push({face:face, bits:faceToBits(face)});
+    render();
+  }
+  function clearAll(){
+    rolls=[]; pastedBits=null;
+    $('words').innerHTML=''; $('pastebits').value=''; $('paste-note').textContent='';
+    render();
+  }
+  var diebtns=document.querySelectorAll('.diebtn');
+  for(var bi=0; bi<diebtns.length; bi++){
+    (function(btn){
+      btn.addEventListener('click', function(){ addDie(parseInt(btn.getAttribute('data-face'),10)); });
+    })(diebtns[bi]);
+  }
+  document.addEventListener('keydown', function(e){
+    if(netBlocked) return;
+    if(/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    if(e.key>='1'&&e.key<='6') addDie(parseInt(e.key,10));
+    else if(e.key==='Backspace'){ rolls.pop(); render(); e.preventDefault(); }
+  });
+  $('undo').addEventListener('click', function(){ rolls.pop(); render(); });
+  $('clear').addEventListener('click', clearAll);
+  $('testfill').addEventListener('click', function(){
+    clearAll();
+    var seed=123456789;
+    function rnd(){ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; }
+    while(bits().length<256){
+      var f=1+Math.floor(rnd()*4);
+      rolls.push({face:f, bits:faceToBits(f)});
+    }
+    render();
+  });
+  var pasteT=null;
+  $('pastebits').addEventListener('input', function(){
+    clearTimeout(pasteT);
+    pasteT=setTimeout(function(){
+      var raw=$('pastebits').value;
+      var r=wordsFromBitsInput(raw);
+      var note=$('paste-note');
+      if(!r.words){ pastedBits=null; $('words').innerHTML=''; note.textContent=r.note; return; }
+      pastedBits=r.bits;
+      note.textContent=r.note||('256 bits. Words generated.');
+      showWords(r.words);
+    },350);
+  });
+  $('validate').addEventListener('click', function(){
+    if(netBlocked) return;
+    var raw=$('valwords').value.trim().split(/\s+/).filter(function(w){return w.length;});
+    var ul=$('results'); ul.innerHTML='';
+    function li(cls,text,delay){
+      var el=document.createElement('li'); el.className=cls; el.textContent=text;
+      el.style.animationDelay=delay+'s'; ul.appendChild(el);
+    }
+    if(raw.length!==24){ li('bad','Need 24 words. Found '+raw.length+'.',0); return; }
+    var v=validateWords(raw);
+    li(v.ok?'good':'bad', v.ok?'Check passes. All 24 words are in the list and word 24 matches the other 23.':'Check fails. '+v.reason, 0);
+    if(!v.ok) return;
+    var mine=null;
+    if(pastedBits) mine=bitsToWords(pastedBits);
+    else if(bits().length>=256) mine=bitsToWords(bits());
+    if(mine){
+      var c=compareLists(mine, raw);
+      li(c.ok?'good':'bad', c.ok?'24 of 24 match the words above. The two tools agree.':'The lists differ at positions: '+c.mismatches.join(', ')+'. Stop here.', .18);
+    } else {
+      li('good','No words recorded above to compare against. This list stands on its own check.', .18);
+    }
+  });
+  netBlocked=true; // fail closed until the probe confirms offline
+  function probeOnline(){
+    // Simple and reliable: if loaded via https://, we're online.
+    // On Tails, the file is opened from USB via file://, so we're offline.
+    // This avoids fragile network probes that hang on mobile browsers.
+    return Promise.resolve(location.protocol === 'https:');
+  }
+  async function renderNet(){
+    var pill=$('online-pill'), dot=$('online-dot'), word=$('online-word'), block=$('netblock');
+    if(pill){ pill.hidden=false; dot.classList.remove('safe'); word.textContent='Checking\u2026'; }
+    if(block){ block.hidden=false; }
+    // Protocol-only status. navigator.onLine is not consulted: it is unreliable
+    // and must never block a local file or certify an air gap.
+    // file: = opened as a local file (does NOT prove networking is disabled).
+    // http(s): = served over the network; secrets are blocked.
+    var servedOverNetwork = (location.protocol === 'https:' || location.protocol === 'http:');
+    var wasBlocked=netBlocked;
+    netBlocked=servedOverNetwork;
+    if(pill){ dot.classList.toggle('safe', !servedOverNetwork); word.textContent=servedOverNetwork?'Network detected':'Local file'; }
+    if(block){
+      block.hidden=false;
+      if(servedOverNetwork){
+        block.innerHTML='<strong>Blocked:</strong> This tool was loaded over the network ('+location.protocol+'). For real keys, download this file, disconnect from the network, verify networking is disabled, then open the local copy. This page cannot verify air-gap status for you.';
+      } else {
+        block.innerHTML='<strong>Note:</strong> Opened as a local file. This does not prove networking is disabled. Before entering real secrets, disable networking on this computer and verify it stays disabled.';
+      }
+    }
+    if(servedOverNetwork && !wasBlocked){
+      clearAll();
+      $('valwords').value='';
+      $('results').innerHTML='';
+    }
+  }
+  window.addEventListener('online', renderNet);
+  window.addEventListener('offline', renderNet);
+  renderNet();
+  render();
+})();
+</script>
+</body>
+</html>
