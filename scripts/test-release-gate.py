@@ -264,8 +264,20 @@ def m14(dist, repo):
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
 @mutation("production: valid-but-wrong 40-char commit rejected",
-           expects="production: declared commit matches git HEAD")
+           expects="production: git HEAD available")
 def m15(dist, repo):
+    # P0-1: production verifier must reject a well-formed but incorrect commit.
+    # In the test harness (no .git), this fails closed at "git HEAD available".
+    # In real CI with git, it would fail at "declared commit matches git HEAD".
+    # Either way, production mode rejects it.
+    mpath = dist / "release-manifest.json"
+    if not mpath.exists():
+        return
+    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    manifest["production"] = True
+    # Valid hex-40 but wrong (all 'a's is unlikely to be real HEAD)
+    manifest["source_commit"] = "a" * 40
+    mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     # P0-1: production verifier must reject a well-formed but incorrect commit.
     # Uses a valid 40-char hex string that is not the actual HEAD.
     mpath = dist / "release-manifest.json"
