@@ -516,39 +516,7 @@ pre code { background: none; color: inherit; padding: 0; }
 .keyring button.key { cursor: pointer; font-family: inherit; }
 .keyring.tapped .key-a, .keyring.tapped .key-b, .keyring.tapped .key-c,
 .keyring.tapped .shackle, .keyring.tapped .lockbody { animation: none; }
-.keyring.tapped .key-easy, .keyring.tapped .key-one, .keyring.tapped .paper-one { animation: none; }
-#keyring-easy.tapped .shackle, #keyring-easy.tapped .lockbody,
-#keyring-one.tapped .shackle, #keyring-one.tapped .lockbody { animation: none; }
 .key.sel { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
-/* ---------- keyring: the passphrase paper piece, and the One device / One key and a passphrase pulse ---------- */
-.paper {
-  width: 5rem; height: 3.2rem; border-radius: 10px;
-  border: 2px solid var(--line); background: var(--paper);
-  display: inline-flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: 0.85rem; color: var(--muted);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15); cursor: pointer; font-family: inherit;
-}
-.paper:hover { border-color: var(--accent); color: var(--accent); }
-.paper:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.paper.sel { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
-@media (prefers-reduced-motion: no-preference) {
-  /* One device and One key and a passphrase pulse as one piece, in step with their locks, until a tap takes over */
-  .key-easy, .key-one, .paper-one { animation: easyPiece 5s ease-in-out infinite; }
-  #keyring-easy .shackle, #keyring-one .shackle { animation: easyUnlock 5s ease-in-out infinite; }
-  #keyring-easy .lockbody, #keyring-one .lockbody { animation: easyLockbody 5s ease-in-out infinite; }
-  @keyframes easyPiece {
-    0%, 55% { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
-    60%, 100% { border-color: var(--line); color: var(--muted); box-shadow: none; }
-  }
-  @keyframes easyUnlock {
-    0%, 55% { transform: translateY(-7px); border-color: var(--accent); }
-    60%, 100% { transform: translateY(0); border-color: var(--muted); }
-  }
-  @keyframes easyLockbody {
-    0%, 55% { border-color: var(--accent); color: var(--accent); }
-    60%, 100% { border-color: var(--muted); color: var(--muted); }
-  }
-}
 .lockwrap.open .shackle { transform: translateY(-7px); border-color: var(--accent); }
 .lockwrap.open .lockbody { border-color: var(--accent); color: var(--accent); }
 .lockwrap { display: flex; flex-direction: column; align-items: center; }
@@ -602,16 +570,16 @@ pre code { background: none; color: inherit; padding: 0; }
 .sheet-diagram figcaption {
   margin-top: 0.6rem; font-size: 0.88rem; color: var(--muted);
 }
-/* Geography figure on the encryption sheet: always dark, real text, so it
+/* Geography figure on the encryption sheet: theme-aware card, real text, so it
    stays readable on a phone instead of shrinking like the old wide image. */
 .geo-fig {
-  background: #0e0d0b; color: #efe9dc;
-  border: 1px solid #2a2722; border-radius: 12px;
+  background: var(--card); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 12px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
   padding: 1.5rem;
 }
 .geo-kicker {
-  margin: 0 0 0.4rem; color: #c4a484;
+  margin: 0 0 0.4rem; color: var(--accent);
   font-size: 0.8rem; letter-spacing: 0.35em; text-transform: uppercase;
 }
 .geo-head {
@@ -620,20 +588,20 @@ pre code { background: none; color: inherit; padding: 0; }
 }
 .geo-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .geo-card {
-  background: #161411; border: 1px solid #2a2722; border-radius: 12px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 12px;
   padding: 1.1rem 1.2rem;
 }
 .geo-house {
-  margin: 0 0 0.6rem; color: #c4a484;
+  margin: 0 0 0.6rem; color: var(--accent);
   font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase;
 }
 .geo-plate {
   margin: 0 0 0.7rem; font-family: Newsreader, Georgia, serif;
   font-size: 1.6rem; line-height: 1.1;
 }
-.geo-detail { margin: 0 0 0.5rem; color: #9b9384; font-size: 0.95rem; }
-.geo-map { margin: 0.9rem 0 0; color: #c4a484; font-size: 0.95rem; }
-.geo-note { margin: 0.3rem 0 0; color: #9b9384; font-size: 0.9rem; }
+.geo-detail { margin: 0 0 0.5rem; color: var(--muted); font-size: 0.95rem; }
+.geo-map { margin: 0.9rem 0 0; color: var(--accent); font-size: 0.95rem; }
+.geo-note { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.9rem; }
 @media (max-width: 640px) {
   .geo-cards { grid-template-columns: 1fr; }
   .geo-fig { padding: 1.1rem; }
@@ -730,15 +698,15 @@ pre code { background: none; color: inherit; padding: 0; }
   .boots-anim .then { justify-self: center; }
 }
 
-/* ---------- signing sheet: the filling file (always dark) ---------- */
+/* ---------- signing sheet: the filling file (theme-aware) ---------- */
   .sign-anim .stage {
     position: relative; height: 380px;
     border: 1px solid var(--line); border-radius: 12px;
-    background: #0e0c09; overflow: hidden;
+    background: var(--card); overflow: hidden;
     font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif;
   }
-  .sign-anim .zone-on { position: absolute; top: 0; left: 0; right: 0; height: 34%; background: #12100c; border-bottom: 2px dashed var(--accent); }
-  .sign-anim .zone-off { position: absolute; bottom: 0; left: 0; right: 0; height: 66%; background: #0e0c09; }
+  .sign-anim .zone-on { position: absolute; top: 0; left: 0; right: 0; height: 34%; background: var(--tip-bg); border-bottom: 2px dashed var(--accent); }
+  .sign-anim .zone-off { position: absolute; bottom: 0; left: 0; right: 0; height: 66%; background: var(--card); }
   .sign-anim .gaplabel { position: absolute; left: 50%; top: 34%; transform: translate(-50%, -50%); background: var(--paper); border: 1px solid var(--accent); color: var(--accent); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; padding: 3px 12px; border-radius: 999px; z-index: 3; }
   .sign-anim .redline {
     position: absolute; left: 50%; top: calc(34% + 82px); bottom: 0; width: 3px;
@@ -892,8 +860,8 @@ pre code { background: none; color: inherit; padding: 0; }
     font-size: 0.80rem; font-weight: 800; letter-spacing: 0.16em;
     padding: 7px 18px 7px 11px; border-radius: 0 10px 10px 0; white-space: nowrap;
   }
-  .sign-anim .st-on { top: calc(34% - 36px); background: #12100c; border: 1px solid var(--line); border-left: 0; color: var(--muted); }
-  .sign-anim .st-off { top: calc(34% + 10px); background: #0e0c09; border: 1px solid var(--accent); border-left: 0; color: var(--accent); }
+  .sign-anim .st-on { top: calc(34% - 36px); background: var(--tip-bg); border: 1px solid var(--line); border-left: 0; color: var(--muted); }
+  .sign-anim .st-off { top: calc(34% + 10px); background: var(--card); border: 1px solid var(--accent); border-left: 0; color: var(--accent); }
 
   
   @media (max-width: 640px) {
@@ -914,10 +882,10 @@ pre code { background: none; color: inherit; padding: 0; }
     .sign-anim .ct-label, .sign-anim .bc-label { opacity: 1; }
     .sign-anim .stamp2 { opacity: 1; }
   }
-/* ---------- dice sheet: three shakes (always dark) ---------- */
+/* ---------- dice sheet: three shakes (theme-aware) ---------- */
   .dice-anim .stage {
     position: relative; height: 380px; border: 1px solid var(--line); border-radius: 12px;
-    background: #0e0c09; overflow: hidden;
+    background: var(--card); overflow: hidden;
     font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif;
   }
   .dice-anim .round {
@@ -1070,11 +1038,11 @@ pre code { background: none; color: inherit; padding: 0; }
     .dice-anim .pbits .sg { opacity: 1 !important; }
   }
 
-/* ---------- titanium sheet: three plates, three places (always dark) ---------- */
+/* ---------- titanium sheet: three plates, three places (theme-aware) ---------- */
   .metal-anim .stage {
     position: relative; height: 340px;
     border: 1px solid var(--line); border-radius: 12px;
-    background: #0e0c09; overflow: hidden;
+    background: var(--card); overflow: hidden;
     font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Inter, sans-serif;
   }
   .metal-anim .plate {
@@ -1115,7 +1083,7 @@ pre code { background: none; color: inherit; padding: 0; }
   
 /* ---------- inline step figures (sparrow sheet) ---------- */
 .step-fig {
-  border: 1px solid var(--line); border-radius: 12px; background: #0e0c09;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--card);
   margin: 1.25rem 0; padding: 1.5rem; display: flex; justify-content: center;
 }
 .step-fig svg { max-width: 100%; height: auto; display: block; }
@@ -1156,22 +1124,6 @@ pre code { background: none; color: inherit; padding: 0; }
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 1rem;
 }
-/* ---------- why: path markers (green check stands, red X gone) ---------- */
-/* The base ring above never renders: --red is not defined anywhere, so its
-   border and color declarations are dropped. These rules set the marker
-   colors outright and keep the border off, so the approved plain-glyph
-   look holds even if --red is ever defined. */
-.mk-stands { color: #46a758; }
-.mk-gone { color: #e5484d; }
-.threats li span.mk-stands { color: #46a758; border: none; }
-.threats li span.mk-gone { color: #e5484d; border: none; }
-.threats li span.why-tag {
-  flex: none; height: auto; border: none;
-  color: var(--muted); font-size: 0.82rem; font-weight: 400;
-  font-family: "IBM Plex Sans", system-ui, sans-serif; font-style: normal;
-}
-.why-legend { color: var(--muted); font-size: 0.82rem; margin: 0.5rem 0 0; font-family: "IBM Plex Sans", system-ui, sans-serif; }
-.why-note { color: var(--muted); font-size: 0.92rem; margin: 0.75rem 0 0; line-height: 1.55; }
 @media (max-width: 640px) { .why { padding: 1.5rem 1.25rem 1.25rem; } .why h2 { font-size: 1.4rem; } }
 
 /* ---------- homepage: process / house rules / resources ---------- */
@@ -1449,7 +1401,7 @@ body.news article h1 { text-align: center; font-size: 3.4rem; line-height: 1; ma
 /* ---------- first-visit splash (homepage, once per visitor) ---------- */
 .splash {
   position: fixed; inset: 0; z-index: 200;
-  background: #0e0d0b;
+  background: var(--paper);
   display: flex; flex-direction: column; align-items: center;
   padding: 6vh 1.25rem 4vh; box-sizing: border-box;
   opacity: 1; transition: opacity 0.45s ease;
@@ -1457,13 +1409,17 @@ body.news article h1 { text-align: center; font-size: 3.4rem; line-height: 1; ma
 .splash[hidden] { display: none; }
 .splash.bye { opacity: 0; pointer-events: none; }
 .splash-title {
-  font-family: Newsreader, Georgia, serif; color: #efe9dc;
+  font-family: Newsreader, Georgia, serif; color: var(--ink);
   font-size: clamp(1.35rem, 4.6vmin, 2.1rem); line-height: 1.3;
   text-align: center; margin: 0; max-width: 34ch;
 }
 .splash-logo {
   width: min(94vw, 72vh, 640px); height: auto; display: block;
   margin: auto 0; transform: scale(1.25);
+}
+.splash-updated {
+  font-family: "IBM Plex Sans", system-ui, sans-serif; color: var(--muted);
+  font-size: 0.85rem; text-align: center; margin: 0;
 }
 body.splash-lock { overflow: hidden; }
 
@@ -1596,7 +1552,7 @@ html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="
 }
 html[data-motion="off"] .ticker-track { transform: none; }
 html[data-motion="off"] .coin-inner { transform: none; }
-html[data-motion="off"] .keyring .key, html[data-motion="off"] .keyring .paper, html[data-motion="off"] .keyring .shackle, html[data-motion="off"] .keyring .lockbody {
+html[data-motion="off"] .keyring .key, html[data-motion="off"] .keyring .shackle, html[data-motion="off"] .keyring .lockbody {
   border-color: var(--line); color: var(--muted); box-shadow: none; transform: none;
 }
 html[data-motion="off"] .boots-anim .boot, html[data-motion="off"] .boots-anim .then { opacity: 1; transform: none; }
@@ -1628,9 +1584,13 @@ html[data-motion="off"] .metal-anim .plate { transform: none; opacity: 1; }
 /* ---------- path toggle (TEST SITE ONLY, revamped version) ---------- */
 .path-toggle { margin: 2.5rem 0; }
 .path-toggle h2 { margin-bottom: 0.5rem; }
+.entropy-details { margin: 1rem 0; padding: 0.8rem 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--card); font-size: 0.9rem; }
+.entropy-details summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+.entropy-details ul { margin: 0.5rem 0 0; padding-left: 1.2rem; }
+.entropy-details li { margin-bottom: 0.5rem; }
+.entropy-details li:last-child { margin-bottom: 0; }
 .path-seg { display: flex; gap: 8px; margin: 1rem 0 0.4rem; }
 .path-seg button { flex: 1; padding: 0.8rem 0.4rem; font-family: "IBM Plex Sans", sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; }
-.path-seg button.sel-easy { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
 .path-seg button.sel-one { background: #0072B2; color: #ffffff; border-color: #0072B2; }
 .path-seg button.sel-full { background: #009E73; color: #0e0d0b; border-color: #009E73; }
 .path-ends { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; }
@@ -1647,7 +1607,6 @@ html[data-motion="off"] .metal-anim .plate { transform: none; opacity: 1; }
 .sidebar-path-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin: 0 0 0.5rem 0.25rem; font-family: "IBM Plex Sans", sans-serif; }
 .sidebar-path-seg, .path-risks-switch { display: flex; gap: 6px; margin: 0 0 0.4rem; }
 .sidebar-path-seg button, .path-risks-switch button, .mobile-path-seg button { flex: 1; padding: 0.55rem 0.25rem; font-family: "IBM Plex Sans", sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; }
-.sidebar-path-seg button.sel-easy, .path-risks-switch button.sel-easy, .mobile-path-seg button.sel-easy { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
 .sidebar-path-seg button.sel-one, .path-risks-switch button.sel-one, .mobile-path-seg button.sel-one { background: #0072B2; color: #ffffff; border-color: #0072B2; }
 .sidebar-path-seg button.sel-full, .path-risks-switch button.sel-full, .mobile-path-seg button.sel-full { background: #009E73; color: #0e0d0b; border-color: #009E73; }
 .mobile-path { display: none; }
@@ -1687,120 +1646,74 @@ body.path-gated .toc-col { display: none !important; }
 .risks-easy { border-top-color: #E69F00; }
 .risks-one { border-top-color: #0072B2; }
 .risks-full { border-top-color: #009E73; }
-/* in-site toggle: One device naming, with old Quick classes kept as aliases */
-.path-seg button.sel-easy { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
+/* in-site toggle: Easy naming, with old Quick classes kept as aliases */
 .path-card-easy { border-top-color: #E69F00; }
 .path-seg button.sel-quick { background: #E69F00; color: #0e0d0b; border-color: #E69F00; }
 .path-card-quick { border-top-color: #E69F00; }
 
-/* Signing sheet: reduced-motion static fallback. Visitors with Reduce motion on otherwise see an empty stage, because the file, labels, and stamps start at opacity 0 and only appear through animation. This freezes the Seed 2 signs, 2 of 2 frame. */
-@media (prefers-reduced-motion: reduce) {
-  .sign-anim .filebox { left: 65%; top: 62%; transform: translate(-50%, -50%); opacity: 1; }
-  .sign-anim .filebox .outline rect { stroke-dashoffset: 0; }
-  .sign-anim .filebox .fill { width: 100%; }
-  .sign-anim .ct-label, .sign-anim .bc-label { opacity: 1; }
-  .sign-anim .stamp2 { opacity: 1; }
+.tier-switch{display:none;gap:.5rem;margin:1rem 0 .2rem;align-items:center}
+.tier-view-label{font-size:.82rem;font-weight:700;color:var(--muted);white-space:nowrap}
+.tier-switch button{flex:1;font:inherit;font-size:.8rem;font-weight:700;color:var(--muted);
+  background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.45rem .3rem;cursor:pointer}
+.tier-switch button.on{color:var(--bg);background:var(--accent);border-color:var(--accent)}
+
+/* --- Why section: tier comparison table --- */
+:root{ --tier-hl: rgba(196,164,132,.09); --tier-yes:#009E73; --tier-no:#c0392b; }
+@media (prefers-color-scheme: light){
+  :root{ --tier-hl: rgba(138,90,42,.07); --tier-yes:#007a5a; --tier-no:#a93226; }
+}
+.tier-scroll{overflow-x:auto;margin:1.2rem -1rem;padding:0 1rem}
+table.tier-chart{width:100%;min-width:640px;border-collapse:separate;border-spacing:0;
+  font-size:.92rem;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tier-chart th,.tier-chart td{padding:.7rem .8rem;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--line)}
+.tier-chart thead th{background:var(--paper);font-size:1rem;border-bottom:2px solid var(--line)}
+.tier-chart tbody tr:last-child th,.tier-chart tbody tr:last-child td{border-bottom:none}
+.tier-chart tbody th{font-weight:700;width:26%;background:var(--card)}
+.tier-sub{display:block;font-weight:400;font-size:.78rem;color:var(--muted);margin-top:.15rem}
+.tier-chart th.hl,.tier-chart td.hl{background:var(--tier-hl)}
+.tier-chart thead th.hl{box-shadow:inset 0 3px 0 var(--tier-yes)}
+.tier-badge{display:inline-block;font-size:.72rem;font-weight:700;color:var(--bg);
+  background:var(--tier-yes);border-radius:999px;padding:.1rem .6rem;margin-left:.5rem;vertical-align:middle}
+.tier-chart tr.group th,.tier-chart tr.group td{background:var(--paper);font-size:.78rem;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:.45rem .8rem}
+.tier-chart .pill{display:inline-block;font-weight:700;font-size:.85rem;width:1.6em;height:1.6em;
+  line-height:1.55em;text-align:center;border-radius:50%;margin-right:.45em;vertical-align:middle}
+.tier-chart .pill.yes{color:var(--tier-yes);border:1.5px solid var(--tier-yes)}
+.tier-chart .pill.no{color:var(--tier-no);border:1.5px solid var(--tier-no)}
+.tier-chart .cell-note{color:var(--muted);font-size:.85rem}
+.tier-cta{margin-top:1.4rem}
+.tier-note{color:var(--muted);font-size:.85rem}
+@media (max-width:640px){
+  .tier-switch{display:flex}
+  .tier-scroll{overflow:visible;margin:0;padding:0}
+  table.tier-chart{min-width:0}
+  .tier-chart tbody th{width:38%}
+  .tier-chart[data-tier="0"] .t1{display:none}
+  .tier-chart[data-tier="1"] .t0{display:none}
 }
 
+/* --- Why section CTA: big centered button --- */
+.tier-cta{margin:2.2rem 0 .6rem;text-align:center}
+.btn-big{font-size:1.12rem;padding:1rem 2.4rem}
 
-/* EFF passphrase dice animation, single-sig Step 4 */
-.eff-anim .stage{position:relative;height:380px;border:1px solid var(--line);border-radius:12px;background:#0e0c09;overflow:hidden}
-.eff-anim .round{position:absolute;left:4%;top:14px;z-index:5;font-size:.72rem;font-weight:800;letter-spacing:.22em;color:var(--accent)}
-.eff-anim .tray{position:absolute;left:4%;top:46%;width:46%;height:120px;opacity:0}
-.eff-anim .die{position:absolute;top:0;width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,#e8e2d4,#c9c2b0);box-shadow:0 4px 10px rgba(0,0,0,.55),inset 0 1px 2px rgba(255,255,255,.7)}
-.eff-anim .d1{left:0}
-.eff-anim .d2{left:54px}
-.eff-anim .d3{left:108px}
-.eff-anim .d4{left:162px}
-.eff-anim .d5{left:216px}
-.eff-anim .die i{position:absolute;width:8px;height:8px;border-radius:50%;background:#2b251b}
-.eff-anim .p-tl{left:8px;top:8px}
-.eff-anim .p-tr{right:8px;top:8px}
-.eff-anim .p-ml{left:8px;top:18px}
-.eff-anim .p-mr{right:8px;top:18px}
-.eff-anim .p-bl{left:8px;bottom:8px}
-.eff-anim .p-br{right:8px;bottom:8px}
-.eff-anim .p-c{left:18px;top:18px}
-.eff-anim .num{position:absolute;left:4%;top:68%;font-family:"IBM Plex Mono",monospace;font-size:1.1rem;letter-spacing:.3em;color:#efe9dc;opacity:0}
-.eff-anim .panel{position:absolute;right:4%;top:12%;bottom:12%;width:40%;background:#12100c;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:hidden}
-.eff-anim .phead{font-size:.66rem;font-weight:800;letter-spacing:.24em;color:#9b9384;margin-bottom:10px}
-.eff-anim .wline{font-family:"IBM Plex Mono",monospace;font-size:.82rem;line-height:1.9;color:#efe9dc;opacity:0}
-.eff-anim .pbar{position:absolute;left:16px;right:16px;bottom:52px;height:8px;background:#1d1812;border-radius:5px;border:1px solid var(--line)}
-.eff-anim .pbar i{display:block;height:100%;width:0;border-radius:5px;background:var(--accent);animation:effPbar 24s linear infinite}
-.eff-anim .pcount{position:absolute;left:16px;bottom:26px;font-size:.7rem;letter-spacing:.18em;color:#9b9384}
-.eff-anim .pcount b{color:#e4c6a4}
-.eff-anim .wstamp{position:absolute;right:16px;bottom:20px;font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--accent);border:2px solid var(--accent);border-radius:6px;padding:4px 10px;transform:rotate(-6deg);opacity:0;background:rgba(11,10,8,.9);animation:effStamp 24s linear infinite}
-.eff-anim .stepbox{border-top:4px solid var(--accent);background:#161411;padding:12px 16px}
-.eff-anim .stepbox b{font-family:Newsreader,serif;font-size:17px}
-.eff-anim .stepbox p{margin:6px 0 0;font-size:15px;line-height:1.5}
-@media (max-width:640px){.eff-anim .stage{height:560px}.eff-anim .tray{left:6%;top:14%;width:88%}.eff-anim .num{left:6%;top:32%}.eff-anim .panel{left:6%;right:6%;top:auto;bottom:5%;width:auto;height:46%}.eff-anim .round{left:6%}}
-@media (prefers-reduced-motion:reduce){.eff-anim .tray,.eff-anim .die,.eff-anim .num,.eff-anim .wline,.eff-anim .pbar i,.eff-anim .wstamp{animation:none!important}.eff-anim .tray1,.eff-anim .tray2,.eff-anim .tray3,.eff-anim .tray4,.eff-anim .tray5{opacity:0!important}.eff-anim .tray6,.eff-anim .num6,.eff-anim .wline,.eff-anim .wstamp{opacity:1!important}.eff-anim .pbar i{width:100%!important}}
-.eff-anim .tray1{animation:effWin1 24s linear infinite}
-@keyframes effWin1{0%,0%{opacity:0}0.5%,14.6%{opacity:1}15.1%,100%{opacity:0}}
-.eff-anim .tray1 .die{animation:effDie1 24s linear infinite}
-@keyframes effDie1{0%,0%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}4.173%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}7.303%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}10.433%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
-.eff-anim .num1{animation:effNum1 24s linear infinite}
-@keyframes effNum1{0%,10.430%{opacity:0}10.930%,25.030%{opacity:1}25.530%,100%{opacity:0}}
-.eff-anim .w1{animation:effW1 24s linear infinite}
-@keyframes effW1{0%,10.433%{opacity:0}10.933%,100%{opacity:1}}
-.eff-anim .r1{animation:effR1 24s linear infinite;opacity:0}
-@keyframes effR1{0%,0%{opacity:0}0.5%,14.6%{opacity:1}15.1%,100%{opacity:0}}
-.eff-anim .tray2{animation:effWin2 24s linear infinite}
-@keyframes effWin2{0%,14.6%{opacity:0}15.1%,29.2%{opacity:1}29.7%,100%{opacity:0}}
-.eff-anim .tray2 .die{animation:effDie2 24s linear infinite}
-@keyframes effDie2{0%,14.6%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}18.773%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}21.903%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}25.033%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
-.eff-anim .num2{animation:effNum2 24s linear infinite}
-@keyframes effNum2{0%,25.030%{opacity:0}25.530%,39.630%{opacity:1}40.130%,100%{opacity:0}}
-.eff-anim .w2{animation:effW2 24s linear infinite}
-@keyframes effW2{0%,25.033%{opacity:0}25.533%,100%{opacity:1}}
-.eff-anim .r2{animation:effR2 24s linear infinite;opacity:0}
-@keyframes effR2{0%,14.6%{opacity:0}15.1%,29.2%{opacity:1}29.7%,100%{opacity:0}}
-.eff-anim .tray3{animation:effWin3 24s linear infinite}
-@keyframes effWin3{0%,29.2%{opacity:0}29.7%,43.8%{opacity:1}44.3%,100%{opacity:0}}
-.eff-anim .tray3 .die{animation:effDie3 24s linear infinite}
-@keyframes effDie3{0%,29.2%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}33.373%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}36.503%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}39.633%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
-.eff-anim .num3{animation:effNum3 24s linear infinite}
-@keyframes effNum3{0%,39.630%{opacity:0}40.130%,54.130%{opacity:1}54.630%,100%{opacity:0}}
-.eff-anim .w3{animation:effW3 24s linear infinite}
-@keyframes effW3{0%,39.633%{opacity:0}40.133%,100%{opacity:1}}
-.eff-anim .r3{animation:effR3 24s linear infinite;opacity:0}
-@keyframes effR3{0%,29.2%{opacity:0}29.7%,43.8%{opacity:1}44.3%,100%{opacity:0}}
-.eff-anim .tray4{animation:effWin4 24s linear infinite}
-@keyframes effWin4{0%,43.8%{opacity:0}44.3%,58.3%{opacity:1}58.8%,100%{opacity:0}}
-.eff-anim .tray4 .die{animation:effDie4 24s linear infinite}
-@keyframes effDie4{0%,43.8%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}47.933%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}51.033%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}54.133%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
-.eff-anim .num4{animation:effNum4 24s linear infinite}
-@keyframes effNum4{0%,54.130%{opacity:0}54.630%,68.730%{opacity:1}69.230%,100%{opacity:0}}
-.eff-anim .w4{animation:effW4 24s linear infinite}
-@keyframes effW4{0%,54.133%{opacity:0}54.633%,100%{opacity:1}}
-.eff-anim .r4{animation:effR4 24s linear infinite;opacity:0}
-@keyframes effR4{0%,43.8%{opacity:0}44.3%,58.3%{opacity:1}58.8%,100%{opacity:0}}
-.eff-anim .tray5{animation:effWin5 24s linear infinite}
-@keyframes effWin5{0%,58.3%{opacity:0}58.8%,72.9%{opacity:1}73.4%,100%{opacity:0}}
-.eff-anim .tray5 .die{animation:effDie5 24s linear infinite}
-@keyframes effDie5{0%,58.3%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}62.473%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}65.603%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}68.733%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
-.eff-anim .num5{animation:effNum5 24s linear infinite}
-@keyframes effNum5{0%,68.730%{opacity:0}69.230%,83.330%{opacity:1}83.830%,100%{opacity:0}}
-.eff-anim .w5{animation:effW5 24s linear infinite}
-@keyframes effW5{0%,68.733%{opacity:0}69.233%,100%{opacity:1}}
-.eff-anim .r5{animation:effR5 24s linear infinite;opacity:0}
-@keyframes effR5{0%,58.3%{opacity:0}58.8%,72.9%{opacity:1}73.4%,100%{opacity:0}}
-.eff-anim .tray6{animation:effWin6 24s linear infinite}
-@keyframes effWin6{0%,72.9%{opacity:0}73.4%,100%{opacity:1}}
-.eff-anim .tray6 .die{animation:effDie6 24s linear infinite}
-@keyframes effDie6{0%,72.9%{transform:translate(-190px,-52px) rotate(-400deg);opacity:0}77.073%{transform:translate(-120px,-20px) rotate(-260deg);opacity:1}80.203%{transform:translate(-52px,-6px) rotate(-115deg);opacity:1}83.333%,100%{transform:translate(0,0) rotate(0deg);opacity:1}}
-.eff-anim .num6{animation:effNum6 24s linear infinite}
-@keyframes effNum6{0%,83.333%{opacity:0}83.833%,100%{opacity:1}}
-.eff-anim .w6{animation:effW6 24s linear infinite}
-@keyframes effW6{0%,83.333%{opacity:0}83.833%,100%{opacity:1}}
-.eff-anim .r6{animation:effR6 24s linear infinite;opacity:0}
-@keyframes effR6{0%,72.9%{opacity:0}73.4%,100%{opacity:1}}
-@keyframes effPbar{0%,10.433%{width:0}10.933%,25.033%{width:16.7%}25.533%,39.633%{width:33.3%}40.133%,54.133%{width:50%}54.633%,68.733%{width:66.7%}69.233%,83.333%{width:83.3%}83.833%,100%{width:100%}}
-@keyframes effStamp{0%,90%{opacity:0;transform:rotate(-6deg) scale(1.4)}94%,100%{opacity:1;transform:rotate(-6deg) scale(1)}}
-html[data-motion="off"] .eff-anim .die, html[data-motion="off"] .eff-anim .tray, html[data-motion="off"] .eff-anim .num, html[data-motion="off"] .eff-anim .wline, html[data-motion="off"] .eff-anim .pbar i, html[data-motion="off"] .eff-anim .wstamp { animation: none !important; }
-html[data-motion="off"] .eff-anim .tray1, html[data-motion="off"] .eff-anim .tray2, html[data-motion="off"] .eff-anim .tray3, html[data-motion="off"] .eff-anim .tray4, html[data-motion="off"] .eff-anim .tray5 { opacity: 0 !important; }
-html[data-motion="off"] .eff-anim .tray6, html[data-motion="off"] .eff-anim .num6, html[data-motion="off"] .eff-anim .wline, html[data-motion="off"] .eff-anim .wstamp { opacity: 1 !important; }
-html[data-motion="off"] .eff-anim .pbar i { width: 100% !important; }
+/* ---------- keyring paper piece (passphrase slip) ---------- */
+.paper {
+  min-width: 3.2rem; height: 3.2rem; border-radius: 10px;
+  border: 2px dashed var(--line); background: var(--paper);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.78rem; color: var(--muted); padding: 0 0.6rem;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15); cursor: pointer; font-family: inherit;
+}
+.paper:hover { border-color: var(--accent); color: var(--accent); }
+.paper:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.paper.sel { border-color: var(--accent); border-style: solid; color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
+.keyring.tapped .paper-one { animation: none; }
 
-/* News page: no path chooser. News is not a bench sheet, so the sidebar, mobile, and banner path controls are hidden here only. */
-body.news .sidebar-path, body.news .mobile-path, body.news .path-banner { display: none !important; }
+/* ---------- quorum trio: the three setups before the path CTA ---------- */
+.quorum-trio { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 1.8rem 0 0.6rem; }
+.qtrio { flex: 1 1 160px; max-width: 220px; background: var(--card); border: 1px solid var(--line);
+  border-radius: 12px; padding: 1.1rem 0.7rem 0.9rem; text-align: center; }
+.qtrio .lockwrap { transform: scale(0.82); transform-origin: top center; margin-bottom: -0.5rem; }
+.qtrio-name { font-weight: 700; margin: 0.55rem 0 0.15rem; font-size: 0.92rem; }
+.qtrio-rule { color: var(--muted); font-size: 0.85rem; margin: 0; }
