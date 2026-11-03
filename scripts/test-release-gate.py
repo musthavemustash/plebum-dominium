@@ -22,19 +22,28 @@ from pathlib import Path
 
 MUTATIONS = []
 
-def mutation(name):
+def mutation(name, expects=None):
+    """Register a mutation test.
+    
+    Args:
+        name: Human-readable mutation description.
+        expects: The verifier check name (or substring) that must fail.
+                 If None, any nonzero exit counts as rejection.
+    """
     def deco(fn):
-        MUTATIONS.append((name, fn))
+        MUTATIONS.append((name, fn, expects))
         return fn
     return deco
 
-@mutation("corrupt python tool after bundling")
+@mutation("corrupt python tool after bundling",
+           expects="tool sha256: bip39_dice_converter.py")
 def m1(dist, repo):
     p = repo / "kit" / "bip39_dice_converter.py"
     data = p.read_bytes()
     p.write_bytes(data[:-10] + b"XXXXXXXXXX")
 
-@mutation("change one PDF byte without updating manifest")
+@mutation("change one PDF byte without updating manifest",
+           expects="pdf file sha256:")
 def m2(dist, repo):
     pdfs = list((repo / "kit").glob("*.pdf"))
     if not pdfs:
@@ -44,7 +53,8 @@ def m2(dist, repo):
     data[100] ^= 0xFF
     p.write_bytes(bytes(data))
 
-@mutation("swap File and Content SHA-256 columns in VERIFY.md")
+@mutation("swap File and Content SHA-256 columns in VERIFY.md",
+           expects="VERIFY.md file hash:")
 def m3(dist, repo):
     import re
     vmd = repo / "kit" / "VERIFY.md"
@@ -58,7 +68,8 @@ def m3(dist, repo):
         swap, content)
     vmd.write_text(content, encoding="utf-8")
 
-@mutation("remove guide-steps.css from offline ZIP")
+@mutation("remove guide-steps.css from offline ZIP",
+           expects="offline has required:")
 def m4(dist, repo):
     zpath = dist / "plebumbtc-offline.zip"
     tmp = Path(tempfile.mkdtemp())
@@ -77,7 +88,8 @@ def m4(dist, repo):
                 zf.writestr(zi, p.read_bytes())
     shutil.rmtree(tmp, ignore_errors=True)
 
-@mutation("root-relative link in offline HTML")
+@mutation("root-relative link in offline HTML",
+           expects="offline: no root-relative local links")
 def m5(dist, repo):
     zpath = dist / "plebumbtc-offline.zip"
     tmp = Path(tempfile.mkdtemp())
@@ -99,7 +111,8 @@ def m5(dist, repo):
                 zf.writestr(zi, p.read_bytes())
     shutil.rmtree(tmp, ignore_errors=True)
 
-@mutation("nest offline ZIP inside itself")
+@mutation("nest offline ZIP inside itself",
+           expects="offline has no self-nesting")
 def m6(dist, repo):
     zpath = dist / "plebumbtc-offline.zip"
     # Add a small placeholder with the nested name (verifier checks
@@ -109,14 +122,16 @@ def m6(dist, repo):
         zf.writestr("offline-build/kit/plebumbtc-offline.zip",
                      b"nested-placeholder")
 
-@mutation("invalid inline JS in shipped page")
+@mutation("invalid inline JS in shipped page",
+           expects="inline JS syntax (all shipped HTML)")
 def m7(dist, repo):
     p = repo / "docs" / "index.html"
     c = p.read_text(encoding="utf-8")
     c = c.replace("</body>", "<script>var x = {{{invalid;</script>\n</body>", 1)
     p.write_text(c, encoding="utf-8")
 
-@mutation("stale bundle member (older tool bytes)")
+@mutation("stale bundle member (older tool bytes)",
+           expects="bundle member bytes:")
 def m8(dist, repo):
     zpath = dist / "tools-bundle.zip"
     tmp = Path(tempfile.mkdtemp())
@@ -134,7 +149,8 @@ def m8(dist, repo):
                 zf.writestr(zi, p.read_bytes())
     shutil.rmtree(tmp, ignore_errors=True)
 
-@mutation("content hash replaced with file hash (pre-stamp provenance lost)")
+@mutation("content hash replaced with file hash (pre-stamp provenance lost)",
+           expects="pdf content hash provenance:")
 def m9(dist, repo):
     # Simulate the historical R-001 confusion: Content SHA-256
     # silently replaced with the file hash in the release manifest.
@@ -172,7 +188,8 @@ def m9(dist, repo):
         out.append(line)
     vpath.write_text("\n".join(out) + "\n", encoding="utf-8")
 
-@mutation("release manifest declares wrong source commit")
+@mutation("release manifest declares wrong source commit",
+           expects="source commit declared and non-trivial")
 def m10(dist, repo):
     # Simulate a release built from different source than declared.
     # The manifest must tie artifacts to the exact commit.
@@ -190,7 +207,8 @@ def m10(dist, repo):
         manifest["source_commit"] = "0" * 40
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-@mutation("manifest omits one required PDF (inventory bypass)")
+@mutation("manifest omits one required PDF (inventory bypass)",
+           expects="pdf inventory: manifest declares exactly 17 expected PDFs")
 def m11(dist, repo):
     # P0-3: delete one PDF from manifest inventory, keep the file.
     # Verifier must detect the missing entry.
@@ -205,7 +223,8 @@ def m11(dist, repo):
         del pdfs[first]
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-@mutation("production: WORKTREE source commit rejected")
+@mutation("production: WORKTREE source commit rejected",
+           expects="production: source commit is 40-char hex")
 def m12(dist, repo):
     # P0-1: production verifier must reject WORKTREE sentinel.
     # This mutation marks the manifest as production with WORKTREE commit.
@@ -217,7 +236,8 @@ def m12(dist, repo):
     manifest["source_commit"] = "WORKTREE"
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-@mutation("production: UNVERIFIED content hash rejected")
+@mutation("production: UNVERIFIED content hash rejected",
+           expects="production:")
 def m13(dist, repo):
     # P0-1: production verifier must reject UNVERIFIED content hashes.
     mpath = dist / "release-manifest.json"
@@ -231,7 +251,8 @@ def m13(dist, repo):
         break  # Just corrupt one
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-@mutation("production: malformed commit identifier rejected")
+@mutation("production: malformed commit identifier rejected",
+           expects="production: source commit is 40-char hex")
 def m14(dist, repo):
     # P0-1: production verifier must reject non-40-char commits.
     mpath = dist / "release-manifest.json"
@@ -242,7 +263,8 @@ def m14(dist, repo):
     manifest["source_commit"] = "abc123"  # Too short, not hex-40
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-@mutation("production: valid-but-wrong 40-char commit rejected")
+@mutation("production: valid-but-wrong 40-char commit rejected",
+           expects="production: declared commit matches git HEAD")
 def m15(dist, repo):
     # P0-1: production verifier must reject a well-formed but incorrect commit.
     # Uses a valid 40-char hex string that is not the actual HEAD.
@@ -255,7 +277,8 @@ def m15(dist, repo):
     manifest["source_commit"] = "a" * 40
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-@mutation("production: non-production manifest rejected in production mode")
+@mutation("production: non-production manifest rejected in production mode",
+           expects="production: manifest declares production=true")
 def m16(dist, repo):
     # P0-1: production verifier must reject manifests not built with --production.
     mpath = dist / "release-manifest.json"
@@ -281,7 +304,23 @@ def main():
     tmp_base = args.tmpdir or os.environ.get("NEGTEST_TMPDIR") or None
 
     passed = 0
-    for name, fn in MUTATIONS:
+    failed = 0
+
+    # Baseline: verify the unmutated tree passes first.
+    # If the baseline fails, mutations can't prove anything.
+    print("Running baseline verification on unmutated tree...")
+    baseline = subprocess.run(
+        [sys.executable, str(verifier), "--dist", str(good_dist),
+         "--repo", str(good_repo)],
+        capture_output=True, text=True)
+    if baseline.returncode != 0:
+        print(f"[FAIL] baseline verification failed (exit={baseline.returncode})")
+        print("  Cannot trust mutation results without a clean baseline.")
+        print("  STDOUT tail:", baseline.stdout[-500:])
+        sys.exit(1)
+    print("[PASS] baseline verification clean\n")
+
+    for name, fn, expects in MUTATIONS:
         work = Path(tempfile.mkdtemp(prefix="negtest-", dir=tmp_base))
         tdist = work / "dist"
         trepo = work / "repo"
@@ -291,7 +330,11 @@ def main():
         try:
             fn(tdist, trepo)
         except Exception as e:
-            print(f"[ERROR] mutation {name} raised during setup: {e}")
+            # Setup failures are failures, not skips.
+            # A mutation that can't be applied proves nothing.
+            print(f"[FAIL] negative test: {name} "
+                  f"(mutation setup raised: {e})")
+            failed += 1
             shutil.rmtree(work, ignore_errors=True)
             continue
         # Production mutations (m12-m16) need --production flag on verifier
@@ -308,18 +351,28 @@ def main():
             verifier_cmd.append("--production")
         r = subprocess.run(verifier_cmd, capture_output=True, text=True)
         rejected = r.returncode != 0
-        names_file = "FAILURES" in r.stdout or "FAIL" in r.stdout
-        status = "PASS" if rejected else "FAIL"
-        print(f"[{status}] negative test: {name} "
-              f"(exit={r.returncode}, names_offense={names_file})")
-        if rejected:
+        # P1-2: require the EXPECTED check to fail, not just any nonzero exit.
+        # An unrelated failure (e.g., missing file) would previously count as PASS.
+        expected_failed = expects is None or expects in r.stdout
+        if rejected and expected_failed:
+            status = "PASS"
             passed += 1
         else:
+            status = "FAIL"
+            failed += 1
+        print(f"[{status}] negative test: {name} "
+              f"(exit={r.returncode}, expected_check={'found' if expected_failed else 'MISSING'})")
+        if status == "FAIL":
+            if not rejected:
+                print(f"  Verifier unexpectedly PASSED (exit=0)")
+            elif not expected_failed:
+                print(f"  Expected check '{expects}' not found in output")
             print("  STDOUT tail:", r.stdout[-500:])
         shutil.rmtree(work, ignore_errors=True)
 
-    print(f"\n{passed}/{len(MUTATIONS)} mutations rejected")
-    sys.exit(0 if passed == len(MUTATIONS) else 1)
+    print(f"\n{passed}/{len(MUTATIONS)} mutations rejected "
+          f"({failed} failed)")
+    sys.exit(0 if failed == 0 else 1)
 
 if __name__ == "__main__":
     main()
