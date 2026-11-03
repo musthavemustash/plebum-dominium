@@ -102,8 +102,12 @@ def m5(dist, repo):
 @mutation("nest offline ZIP inside itself")
 def m6(dist, repo):
     zpath = dist / "plebumbtc-offline.zip"
+    # Add a small placeholder with the nested name (verifier checks
+    # filename only, not content). Avoids disk exhaustion from
+    # duplicating the full archive.
     with zipfile.ZipFile(zpath, "a", zipfile.ZIP_DEFLATED) as zf:
-        zf.write(zpath, "offline-build/kit/plebumbtc-offline.zip")
+        zf.writestr("offline-build/kit/plebumbtc-offline.zip",
+                     b"nested-placeholder")
 
 @mutation("invalid inline JS in shipped page")
 def m7(dist, repo):
@@ -132,9 +136,23 @@ def m8(dist, repo):
 
 @mutation("content hash replaced with file hash (pre-stamp provenance lost)")
 def m9(dist, repo):
-    # Simulate the historical R-001 confusion: Content SHA-256 column
-    # silently replaced with the file hash. The verifier must detect
-    # that content hashes lack pre-stamp provenance.
+    # Simulate the historical R-001 confusion: Content SHA-256
+    # silently replaced with the file hash in the release manifest.
+    # The verifier must detect that content hashes lack pre-stamp provenance.
+    import json
+    mpath = dist / "release-manifest.json"
+    if not mpath.exists():
+        return
+    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    pdfs = manifest.get("pdfs", {})
+    mutated = 0
+    for name, info in pdfs.items():
+        if "content_sha256" in info and "file_sha256" in info:
+            if info["content_sha256"] != info["file_sha256"]:
+                info["content_sha256"] = info["file_sha256"]
+                mutated += 1
+    mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    # Also mutate VERIFY.md for consistency
     for vpath in [repo / "docs" / "kit" / "VERIFY.md", repo / "kit" / "VERIFY.md"]:
         if vpath.exists():
             break
