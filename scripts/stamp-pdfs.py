@@ -94,6 +94,17 @@ def stamp(path):
         raw = f.read()
     content_hash = sha256_bytes(raw)
     reader = PdfReader(io.BytesIO(raw))
+    # Content-text hash: deterministic across runners (ignores PDF metadata
+    # differences like timestamps, document IDs, object ordering). Extract
+    # text from all pages, normalize whitespace, and hash.
+    full_text = "\n".join(
+        (page.extract_text() or "") for page in reader.pages
+    )
+    # Normalize: strip trailing whitespace per line, drop empty lines
+    normalized = "\n".join(
+        line.rstrip() for line in full_text.split("\n") if line.strip()
+    )
+    content_text_hash = sha256_bytes(normalized.encode("utf-8"))
     first_text = reader.pages[0].extract_text() or ""
     if "Content SHA-256:" in first_text or f"Version {VERSION}" in first_text:
         return None  # already stamped
@@ -124,6 +135,7 @@ def stamp(path):
         "version": VERSION,
         "file_hash": sha256_bytes(stamped),
         "content_hash": content_hash,
+        "content_text_hash": content_text_hash,
     }
 
 
@@ -192,6 +204,12 @@ def main():
             update_verify(rows)
             refresh_b64("VERIFY.md")
             print("  kit/VERIFY.md (PDF fingerprints) + b64 snapshots refreshed")
+            # Write content-text hashes for release.py manifest (provenance)
+            import json
+            text_hashes = {r["file"]: r["content_text_hash"] for r in rows}
+            with open("kit/VERIFY-text-hashes.json", "w") as f:
+                json.dump(text_hashes, f, indent=2, sort_keys=True)
+            print("  kit/VERIFY-text-hashes.json written")
     print(f"done: {len(rows)} stamped, {len(skipped)} skipped")
     import subprocess
     checker = os.path.join(os.path.dirname(__file__), "check-pdf-qrs.py")

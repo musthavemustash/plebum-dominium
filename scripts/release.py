@@ -399,9 +399,17 @@ def stage_e(repo_root, stage, tools, pdf_info, bundle_zip):
             if m:
                 # header is: File | Version | File SHA-256 | Content SHA-256
                 content_hashes[m.group(1)] = m.group(3)
+    # Read back content-text hashes for provenance (deterministic across runners)
+    text_hashes = {}
+    text_hash_file = root / "kit" / "VERIFY-text-hashes.json"
+    if text_hash_file.exists():
+        import json
+        text_hashes = json.loads(text_hash_file.read_text(encoding="utf-8"))
     for name, info in pdf_info.items():
         if info["content_sha256"] is None:
             info["content_sha256"] = content_hashes.get(name, "UNVERIFIED")
+        # Content-text hash for cross-runner provenance verification
+        info["content_text_sha256"] = text_hashes.get(name, "UNVERIFIED")
 
     manifest = {
         "tools": tools,
