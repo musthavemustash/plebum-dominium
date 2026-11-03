@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap">
+<title>Descriptor tool demo · Plebum Dominium</title>
+<style>
+:root {
+  --paper: #f6f3ec;
+  --ink: #161410;
+  --muted: #5c564c;
+  --line: #e3d9cc;
+  --accent: #8a5a2a;
+  --btn-ink: #ffffff;
+  --card: #ffffff;
+  --toolbg: #0e0d0b;
+  --toolink: #ece5d8;
+  --toolmuted: #a89c88;
+  --toolline: #2b251c;
+  --copper: #c4a484;
+  --good: #3aa655;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0e0d0b;
+    --ink: #efe9dc;
+    --muted: #9b9384;
+    --line: #2a2722;
+    --accent: #c4a484;
+    --btn-ink: #0e0d0b;
+    --card: #161411;
+  }
+}
+:root[data-theme="light"] {
+  --paper: #f6f3ec;
+  --ink: #161410;
+  --muted: #5c564c;
+  --line: #e3d9cc;
+  --accent: #8a5a2a;
+  --btn-ink: #ffffff;
+  --card: #ffffff;
+}
+:root[data-theme="dark"] {
+  --paper: #0e0d0b;
+  --ink: #efe9dc;
+  --muted: #9b9384;
+  --line: #2a2722;
+  --accent: #c4a484;
+  --btn-ink: #0e0d0b;
+  --card: #161411;
+}
+html, body { margin: 0; padding: 0; height: 100%; background: var(--paper); }
+body { font-family: "Newsreader", Georgia, "Iowan Old Style", "Times New Roman", serif; color: var(--ink); }
+main { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; }
+#demo-header { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.5rem; border-bottom: 1px solid var(--line); flex: 0 0 auto; }
+#demo-bar { font-size: 12px; color: var(--muted); font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif; }
+#demo-bar strong { color: var(--accent); }
+#demo-controls, #demo-controls2 { display: flex; gap: 0.5rem; }
+#demo-controls2 #speed-btn { flex: 2; }
+#demo-controls button, #demo-controls2 button { flex: 1; font-size: 13px; padding: 4px 8px; margin: 0; background: var(--paper); color: var(--accent); border: 1px solid var(--accent); border-radius: 6px; cursor: pointer; font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif; }
+#demo-controls button.active, #demo-controls2 button.active { background: var(--accent); color: var(--btn-ink); }
+#demo-stage { flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 0; padding: 12px; }
+#browser { position: relative; width: 420px; max-width: 100%; height: 480px; max-height: 100%; background: var(--toolbg); border: 1px solid var(--toolline); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; color: var(--toolink); font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+#browser-bar { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #161311; border-bottom: 1px solid var(--toolline); font-size: 11px; color: var(--toolmuted); flex: 0 0 auto; }
+#browser-bar .dots span { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #3a332b; margin-right: 5px; }
+#browser-url { flex: 1; background: #0b0a08; border: 1px solid var(--toolline); border-radius: 6px; padding: 3px 8px; font-family: "IBM Plex Mono", monospace; font-size: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#tool-body { flex: 1; overflow: hidden; padding: 14px; position: relative; }
+#tool-body h3 { font-family: Newsreader, Georgia, serif; font-size: 19px; margin: 0 0 4px; color: var(--toolink); }
+#tool-body .tsub { font-size: 12px; color: var(--toolmuted); margin: 0 0 10px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--toolmuted); }
+.pill .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--good); }
+.mode-row { display: flex; gap: 8px; margin: 10px 0; }
+.mode-btn { flex: 1; padding: 8px; border-radius: 8px; border: 1px solid #7a5a34; background: transparent; color: var(--toolink); font-size: 13px; cursor: default; }
+.mode-btn.on { background: var(--copper); color: #14100b; font-weight: 700; border-color: var(--copper); }
+.drop { border: 1px dashed #7a5a34; border-radius: 8px; padding: 14px; text-align: center; font-size: 12px; color: var(--toolmuted); margin: 8px 0; }
+.drop .filechip { display: inline-block; background: #1c1814; border: 1px solid var(--copper); color: var(--copper); border-radius: 20px; padding: 2px 10px; font-size: 11px; margin-top: 6px; }
+.ta { width: 100%; box-sizing: border-box; background: #0b0a08; border: 1px solid var(--toolline); border-radius: 8px; color: var(--toolink); font-family: "IBM Plex Mono", monospace; font-size: 10.5px; padding: 8px; min-height: 64px; resize: none; }
+.fld { margin: 8px 0; }
+.fld label { display: block; font-size: 11px; color: var(--toolmuted); margin-bottom: 4px; }
+.pw { background: #0b0a08; border: 1px solid var(--toolline); border-radius: 8px; padding: 8px 10px; font-size: 14px; letter-spacing: 2px; min-height: 20px; color: var(--toolink); }
+.review { background: #1c1814; border: 1px solid var(--toolline); border-radius: 8px; padding: 8px 10px; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; margin: 8px 0; }
+.bigbtn { display: block; width: 100%; margin: 10px 0 0; padding: 10px; border-radius: 10px; border: none; background: var(--copper); color: #14100b; font-weight: 700; font-size: 14px; cursor: default; }
+.checklist { font-size: 12px; color: var(--toolmuted); margin: 8px 0 0; padding-left: 18px; }
+.checklist li { margin: 3px 0; }
+.addr-hl { background: #2a3a1e; border: 1px solid #4a6a34; border-radius: 6px; padding: 6px 8px; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; margin-top: 8px; }
+#pointer { position: absolute; z-index: 20; width: 0; height: 0; transition: left 0.6s ease, top 0.6s ease; pointer-events: none; }
+#pointer .arrow { width: 22px; height: 22px; transform: translate(-2px, -2px); }
+#pointer .pulse { position: absolute; left: -11px; top: -11px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--copper); opacity: 0; }
+#pointer.click .pulse { animation: ppulse 0.5s ease; }
+@keyframes ppulse { 0% { transform: scale(0.4); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+#demo-bottom { height: 132px; flex: 0 0 auto; padding: 0.75rem 1rem; box-sizing: border-box; border-top: 1px solid var(--line); overflow: hidden; position: relative; background: var(--paper); }
+#demo-progress { position: absolute; top: 0; left: 0; height: 4px; background: var(--accent); width: 25%; transition: width 0.3s ease; }
+#step-title { margin: 0 0 0.4rem 0; font-size: 17px; color: var(--ink); font-weight: 700; font-family: "Newsreader", Georgia, "Iowan Old Style", "Times New Roman", serif; }
+#demo-explain { margin: 0; font-size: 15px; line-height: 1.45; color: var(--ink); font-family: "Newsreader", Georgia, "Iowan Old Style", "Times New Roman", serif; }
+#demo-still{display:none;list-style:none;margin:0;padding:0;font-size:15px;line-height:1.45}
+#demo-still li{margin:6px 0}
+#demo-still li b{color:var(--accent)}
+body.still #demo-still{display:block}
+body.still #step-title, body.still #demo-explain{display:none}
+body.still #demo-bottom{height:auto;max-height:320px;overflow:auto}
+body.large-text #demo-bottom { height: 156px; }
+body.large-text #step-title { font-size: 20px; }
+body.large-text #demo-explain { font-size: 18px; line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) {
+  #pointer { transition: none; }
+  #demo-progress { transition: none; }
+}
+</style>
+</head>
+<body>
+<main>
+<div id="demo-header"><span id="demo-bar"><strong>DEMO.</strong> Dummy data only. Not the tool file.</span><div id="demo-controls"><button type="button" id="flow-enc-btn">Encrypt demo</button><button type="button" id="flow-dec-btn">Decrypt demo</button><button type="button" id="play-btn">Pause</button><button type="button" id="restart-btn">Restart</button></div><div id="demo-controls2"><button type="button" id="back-btn">Back</button><button type="button" id="next-btn">Next</button><button type="button" id="speed-btn">Speed: Slow</button><button type="button" id="text-btn">Aa</button></div></div>
+<div id="demo-stage"><div id="browser"><div id="browser-bar"><span class="dots"><span></span><span></span><span></span></span><span id="browser-url">file:///home/amnesia/Desktop/descriptor-tool.html</span></div><div id="tool-body"></div><div id="pointer"><svg class="arrow" viewBox="0 0 24 24"><path d="M5 3l14 7-6 2-3 6z" fill="#ece5d8" stroke="#0e0d0b" stroke-width="1.5"/></svg><span class="pulse"></span></div></div></div>
+<div id="demo-bottom"><div id="demo-progress"></div><p id="step-title"></p><p id="demo-explain"></p><ol id="demo-still">
+<li><b>Encrypt 1.</b> Open the tool, check offline. Tor Browser opens the tool page from the Desktop. The green pill says Offline. Two modes at the top: Encrypt a map, Decrypt a map.</li>
+<li><b>Encrypt 2.</b> Drop the map. Drop map.txt anywhere on the page, or paste the text. The page reads it locally. Nothing is uploaded.</li>
+<li><b>Encrypt 3.</b> Passphrase twice. Choose a passphrase and type it twice. One dot shows per character. The words never appear. Typed twice, so a typo is caught.</li>
+<li><b>Encrypt 4.</b> Review, encrypt, download. The review shows the map that will be locked. Encrypt runs in the page. Download map.txt.asc. Copy it to two USB drives. Delete the plain map. Empty the trash.</li>
+<li><b>Decrypt 1.</b> Later boot, open the tool. On a later offline boot, open the same page. The layout is the same. This proves the locked file opens.</li>
+<li><b>Decrypt 2.</b> Choose Decrypt, paste the armor. Decrypt a map is the mode. Paste the full armor, through the END PGP MESSAGE line.</li>
+<li><b>Decrypt 3.</b> Passphrase once, map restored. Decrypt asks once, not twice. The restored map appears. It must match the original.</li>
+<li><b>Decrypt 4.</b> Check the first address. The first address is highlighted. It must match what was written down. Then close the page.</li>
+</ol></div>
+</main>
+<script>
+(function () {
+  'use strict';
+  function $(id) { return document.getElementById(id); }
+  function syncTheme() {
+    try {
+      var t = window.parent.document.documentElement.getAttribute('data-theme');
+      if (t) { document.documentElement.setAttribute('data-theme', t); }
+      else { document.documentElement.removeAttribute('data-theme'); }
+    } catch (e) {}
+  }
+  syncTheme();
+  try {
+    var themeObs = new MutationObserver(syncTheme);
+    themeObs.observe(window.parent.document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  } catch (e) {}
+
+  var DUMMY_MAP = 'TEST-DESCRIPTOR-ONLY-NOT-REAL:\nwsh(multi(2,\nxpubTESTAAA,\nxpubTESTBBB,\nxpubTESTCCC))';
+  var DUMMY_ADDR = 'bc1qtestaddress0000000000000000000000000000';
+  var ARMOR = ['-----BEGIN PGP MESSAGE-----', '', 'wV4DTESTDATA00000000000000000000000000000000', 'wV4DTESTDATA11111111111111111111111111111111', '=T3sT', '-----END PGP MESSAGE-----'].join('\n');
+
+  var screens = {
+    e1: '<h3>Descriptor tool</h3><p class="tsub">The wallet map, encrypted in this page. Nothing leaves it.</p>'
+      + '<p><span class="pill"><span class="dot"></span>Offline</span></p>'
+      + '<div class="mode-row"><button class="mode-btn on" data-k="encbtn">Encrypt a map</button><button class="mode-btn" data-k="decbtn">Decrypt a map</button></div>',
+    e2: '<h3>Descriptor tool</h3><p class="tsub">Step 1 of 3: the map.</p>'
+      + '<p><span class="pill"><span class="dot"></span>Offline</span></p>'
+      + '<div class="drop" data-k="drop">Drop the map file anywhere on this page, or click here to choose a file.<br><span class="filechip" data-k="chip" hidden>map.txt</span></div>'
+      + '<textarea class="ta" data-k="mapta" readonly></textarea>',
+    e3: '<h3>Descriptor tool</h3><p class="tsub">Step 2 of 3: the passphrase.</p>'
+      + '<div class="fld"><label>Passphrase (one dot per character, words never appear)</label><div class="pw" data-k="pw1"></div></div>'
+      + '<div class="fld"><label>Passphrase again</label><div class="pw" data-k="pw2"></div></div>'
+      + '<p class="tsub">Six or more diceware words. Never a seed.</p>',
+    e4: '<h3>Descriptor tool</h3><p class="tsub">Step 3 of 3: review.</p>'
+      + '<div class="review" data-k="review">Map to encrypt:\nTEST-DESCRIPTOR-ONLY-NOT-REAL</div>'
+      + '<button class="bigbtn" data-k="encgo">Encrypt</button>'
+      + '<div data-k="armorout" hidden><textarea class="ta" data-k="armorta" readonly></textarea>'
+      + '<button class="bigbtn" data-k="dl">Download map.txt.asc</button>'
+      + '<ul class="checklist"><li>Save the download.</li><li>Delete the plain map.</li><li>Close the page.</li></ul></div>',
+    d1: '<h3>Descriptor tool</h3><p class="tsub">The wallet map, encrypted in this page. Nothing leaves it.</p>'
+      + '<p><span class="pill"><span class="dot"></span>Offline</span></p>'
+      + '<div class="mode-row"><button class="mode-btn" data-k="encbtn">Encrypt a map</button><button class="mode-btn on" data-k="decbtn">Decrypt a map</button></div>',
+    d2: '<h3>Descriptor tool</h3><p class="tsub">Step 1 of 3: the locked file.</p>'
+      + '<label style="font-size:11px;color:var(--toolmuted)">Paste the armored text, through the END PGP MESSAGE line</label>'
+      + '<textarea class="ta" data-k="armorta2" readonly style="min-height:110px"></textarea>',
+    d3: '<h3>Descriptor tool</h3><p class="tsub">Step 2 of 3: the passphrase.</p>'
+      + '<div class="fld"><label>Passphrase</label><div class="pw" data-k="pw3"></div></div>'
+      + '<button class="bigbtn" data-k="decgo">Decrypt</button>'
+      + '<div data-k="mapout" hidden><div class="review" data-k="restored"></div></div>',
+    d4: '<h3>Descriptor tool</h3><p class="tsub">Step 3 of 3: check.</p>'
+      + '<div class="review">Restored map matches the original.</div>'
+      + '<div class="addr-hl" data-k="addr">First address: ' + DUMMY_ADDR + ' &#10003; matches</div>'
+      + '<p class="tsub">Close the page. The plain map never touches the disk.</p>'
+  };
+
+  var encSteps = [
+    { title: 'Encrypt, step 1 of 4: Open the tool, check offline.', note: 'Tor Browser opens the tool page from the Desktop. The green pill says Offline. Two modes at the top: Encrypt a map, Decrypt a map.', screen: 'e1',
+      acts: [['move', 'encbtn'], ['click']] },
+    { title: 'Encrypt, step 2 of 4: Drop the map.', note: 'Drop map.txt anywhere on the page, or paste the text. The page reads it locally. Nothing is uploaded.', screen: 'e2',
+      acts: [['move', 'drop'], ['click'], ['show', 'chip'], ['fill', 'mapta', DUMMY_MAP]] },
+    { title: 'Encrypt, step 3 of 4: Passphrase twice.', note: 'Choose a passphrase and type it twice. One dot shows per character. The words never appear. Typed twice, so a typo is caught.', screen: 'e3',
+      acts: [['move', 'pw1'], ['dots', 'pw1', 24], ['move', 'pw2'], ['dots', 'pw2', 24]] },
+    { title: 'Encrypt, step 4 of 4: Review, encrypt, download.', note: 'The review shows the map that will be locked. Encrypt runs in the page. Download map.txt.asc. Copy it to two USB drives. Delete the plain map. Empty the trash.', screen: 'e4',
+      acts: [['move', 'review'], ['move', 'encgo'], ['click'], ['show', 'armorout'], ['fill', 'armorta', ARMOR], ['move', 'dl'], ['click']] }
+  ];
+  var decSteps = [
+    { title: 'Decrypt, step 1 of 4: Later boot, open the tool.', note: 'On a later offline boot, open the same page. The layout is the same. This proves the locked file opens.', screen: 'd1',
+      acts: [['move', 'decbtn'], ['click']] },
+    { title: 'Decrypt, step 2 of 4: Choose Decrypt, paste the armor.', note: 'Decrypt a map is the mode. Paste the full armor, through the END PGP MESSAGE line.', screen: 'd2',
+      acts: [['move', 'armorta2'], ['fill', 'armorta2', ARMOR]] },
+    { title: 'Decrypt, step 3 of 4: Passphrase once, map restored.', note: 'Decrypt asks once, not twice. The restored map appears. It must match the original.', screen: 'd3',
+      acts: [['move', 'pw3'], ['dots', 'pw3', 24], ['move', 'decgo'], ['click'], ['show', 'mapout'], ['filltext', 'restored', DUMMY_MAP]] },
+    { title: 'Decrypt, step 4 of 4: Check the first address.', note: 'The first address is highlighted. It must match what was written down. Then close the page.', screen: 'd4',
+      acts: [['move', 'addr']] }
+  ];
+
+  var HOLD_MS = 3600, speedFactor = 2.0, playing = true, runId = 0;
+  var currentFlow = 'enc', currentStep = 0, suppressClick = false;
+  var body = $('tool-body'), pointer = $('pointer');
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) { speedFactor = 0.5; }
+
+  function el(k) { return body.querySelector('[data-k="' + k + '"]'); }
+  function pSleep(ms, myId) {
+    return new Promise(function (resolve) {
+      var remaining = ms * speedFactor, last = Date.now();
+      (function tick() {
+        if (runId !== myId) { resolve(false); return; }
+        if (!playing) { last = Date.now(); setTimeout(tick, 120); return; }
+        var now = Date.now();
+        remaining -= (now - last); last = now;
+        if (remaining <= 0) { resolve(true); return; }
+        setTimeout(tick, 60);
+      })();
+    });
+  }
+  function movePointer(k, myId) {
+    return pSleep(150, myId).then(function (ok) {
+      if (!ok) return false;
+      var t = el(k); if (!t) return true;
+      var br = t.getBoundingClientRect(), pr = body.getBoundingClientRect();
+      pointer.style.left = (br.left - pr.left + br.width / 2) + 'px';
+      pointer.style.top = (br.top - pr.top + br.height / 2) + 'px';
+      return pSleep(650, myId);
+    });
+  }
+  function clickPulse(myId) {
+    pointer.classList.remove('click'); void pointer.offsetWidth;
+    pointer.classList.add('click');
+    return pSleep(600, myId);
+  }
+  function fillDots(k, n, myId) {
+    var t = el(k); if (!t) return Promise.resolve(true);
+    var i = 0;
+    function tick() {
+      if (runId !== myId) return Promise.resolve(false);
+      if (i >= n) return Promise.resolve(true);
+      if (!playing) return pSleep(120, myId).then(tick);
+      t.textContent += '\u2022';
+      i++;
+      return pSleep(90, myId).then(tick);
+    }
+    return tick();
+  }
+  function fillArea(k, text, myId) {
+    var t = el(k); if (!t) return Promise.resolve(true);
+    t.value = ''; var i = 0;
+    function tick() {
+      if (runId !== myId) return Promise.resolve(false);
+      if (i >= text.length) return Promise.resolve(true);
+      if (!playing) return pSleep(120, myId).then(tick);
+      t.value += text[i]; i++;
+      if (i % 3 === 0) t.scrollTop = t.scrollHeight;
+      return pSleep(28, myId).then(tick);
+    }
+    return tick();
+  }
+  function fillText(k, text, myId) {
+    var t = el(k); if (!t) return Promise.resolve(true);
+    t.textContent = '';
+    return fillAreaLike(t, text, myId);
+  }
+  function fillAreaLike(t, text, myId) {
+    var i = 0;
+    function tick() {
+      if (runId !== myId) return Promise.resolve(false);
+      if (i >= text.length) return Promise.resolve(true);
+      if (!playing) return pSleep(120, myId).then(tick);
+      t.textContent += text[i]; i++;
+      return pSleep(20, myId).then(tick);
+    }
+    return tick();
+  }
+  function setProgress() {
+    var total = 8, idx = currentFlow === 'enc' ? currentStep : 4 + currentStep;
+    $('demo-progress').style.width = ((idx + 1) / total * 100) + '%';
+  }
+  function showStep() {
+    var steps = currentFlow === 'enc' ? encSteps : decSteps;
+    var s = steps[currentStep];
+    $('step-title').textContent = s.title;
+    $('demo-explain').textContent = s.note;
+    setProgress();
+    $('flow-enc-btn').classList.toggle('active', currentFlow === 'enc');
+    $('flow-dec-btn').classList.toggle('active', currentFlow === 'dec');
+  }
+  function runStep(myId) {
+    var steps = currentFlow === 'enc' ? encSteps : decSteps;
+    var s = steps[currentStep];
+    body.innerHTML = screens[s.screen];
+    pointer.style.left = '-40px'; pointer.style.top = '-40px';
+    showStep();
+    var chain = Promise.resolve(true);
+    s.acts.forEach(function (a) {
+      chain = chain.then(function (ok) {
+        if (!ok) return false;
+        var k = a[1];
+        switch (a[0]) {
+          case 'move': return movePointer(k, myId);
+          case 'click': return clickPulse(myId);
+          case 'show': { var t = el(k); if (t) t.hidden = false; return pSleep(400, myId); }
+          case 'dots': return fillDots(k, a[2], myId);
+          case 'fill': return fillArea(k, a[2], myId);
+          case 'filltext': return fillText(k, a[2], myId);
+          default: return pSleep(300, myId);
+        }
+      });
+    });
+    return chain.then(function (ok) {
+      if (!ok || runId !== myId) return;
+      return pSleep(HOLD_MS, myId).then(function (ok2) {
+        if (!ok2 || runId !== myId) return;
+        if (currentStep < steps.length - 1) { currentStep++; runStep(myId); }
+        else if (!suppressClick) { /* hold on last step */ }
+      });
+    });
+  }
+  function startFlow(flow) {
+    runId++;
+    currentFlow = flow; currentStep = 0;
+    runStep(runId);
+  }
+  $('flow-enc-btn').addEventListener('click', function () { startFlow('enc'); });
+  $('flow-dec-btn').addEventListener('click', function () { startFlow('dec'); });
+  $('restart-btn').addEventListener('click', function () { startFlow(currentFlow); });
+  $('play-btn').addEventListener('click', function () {
+    playing = !playing;
+    $('play-btn').textContent = playing ? 'Pause' : 'Play';
+  });
+  $('back-btn').addEventListener('click', function () {
+    runId++; suppressClick = true;
+    var steps = currentFlow === 'enc' ? encSteps : decSteps;
+    if (currentStep > 0) currentStep--;
+    body.innerHTML = screens[steps[currentStep].screen];
+    showStep(); suppressClick = false;
+  });
+  $('next-btn').addEventListener('click', function () {
+    runId++; suppressClick = true;
+    var steps = currentFlow === 'enc' ? encSteps : decSteps;
+    if (currentStep < steps.length - 1) currentStep++;
+    body.innerHTML = screens[steps[currentStep].screen];
+    showStep(); suppressClick = false;
+  });
+  var speeds = [['Slow', 2.0], ['Normal', 1.0], ['Fast', 0.5]], si = 0;
+  $('speed-btn').addEventListener('click', function () {
+    si = (si + 1) % speeds.length;
+    speedFactor = speeds[si][1];
+    $('speed-btn').textContent = 'Speed: ' + speeds[si][0];
+  });
+  $('text-btn').addEventListener('click', function () {
+    document.body.classList.toggle('large-text');
+  });
+  try {
+    if (window.frameElement) {
+      window.frameElement.addEventListener('click', function () {});
+    }
+  } catch (e) {}
+  startFlow('enc');
+})();
+</script>
+</body>
+</html>
