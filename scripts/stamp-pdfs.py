@@ -94,6 +94,17 @@ def stamp(path):
         raw = f.read()
     content_hash = sha256_bytes(raw)
     reader = PdfReader(io.BytesIO(raw))
+    # Content-text hash: deterministic across runners (ignores PDF metadata
+    # differences like timestamps, document IDs, object ordering). Extract
+    # text from all pages, normalize whitespace, and hash.
+    full_text = "\n".join(
+        (page.extract_text() or "") for page in reader.pages
+    )
+    # Normalize: strip trailing whitespace per line, drop empty lines
+    normalized = "\n".join(
+        line.rstrip() for line in full_text.split("\n") if line.strip()
+    )
+    content_text_hash = sha256_bytes(normalized.encode("utf-8"))
     first_text = reader.pages[0].extract_text() or ""
     if "Content SHA-256:" in first_text or f"Version {VERSION}" in first_text:
         return None  # already stamped
@@ -124,6 +135,7 @@ def stamp(path):
         "version": VERSION,
         "file_hash": sha256_bytes(stamped),
         "content_hash": content_hash,
+        "content_text_hash": content_text_hash,
     }
 
 
@@ -184,6 +196,22 @@ def main():
             refresh_b64(name)
             print(f"  stamped {name}: content {r['content_hash'][:12]}…")
     if rows:
+        # Write content-text hashes for release.py manifest (provenance).
+        # Merge with existing file to preserve hashes for skipped PDFs.
+        import json
+        text_hash_path = "kit/VERIFY-text-hashes.json"
+        text_hashes = {}
+        if os.path.exists(text_hash_path):
+            try:
+                with open(text_hash_path) as f:
+                    text_hashes = json.load(f)
+            except (json.JSONDecodeError, OSError):
+                pass
+        for r in rows:
+            text_hashes[r["file"]] = r["content_text_hash"]
+        with open(text_hash_path, "w") as f:
+            json.dump(text_hashes, f, indent=2, sort_keys=True)
+        print(f"  kit/VERIFY-text-hashes.json written ({len(text_hashes)} entries)")
         # Merge with rows for skipped files is not attempted: if some files
         # were skipped, leave VERIFY's PDF table untouched and say so.
         if skipped:

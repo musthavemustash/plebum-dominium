@@ -80,13 +80,19 @@ def main():
         check("production: manifest declares production=true",
               manifest.get("production") is True,
               "release was not built in production mode")
-        # b. No UNVERIFIED content hashes allowed
+        # b. No UNVERIFIED content hashes allowed (both file and text hashes)
         pdfs_p = manifest.get("pdfs", {})
         for pname, pinfo in pdfs_p.items():
             cs = pinfo.get("content_sha256", "")
             check(f"production: {pname} content hash verified",
                   cs not in ("UNVERIFIED", None, ""),
                   f"content_sha256={cs}")
+            # Content-text hash for cross-runner provenance (skip static assets)
+            if pname not in ("Presentation_Handouts.pdf", "15_Fire_Card.pdf"):
+                cts = pinfo.get("content_text_sha256", "")
+                check(f"production: {pname} content-text hash verified",
+                      cts not in ("UNVERIFIED", None, ""),
+                      f"content_text_sha256={cts}")
         # c. Source commit must be 40-char hex
         declared = manifest.get("source_commit") or ""
         check("production: source commit is 40-char hex",
@@ -175,43 +181,56 @@ def main():
           f"extra={set(pdfs.keys()) - EXPECTED_PDFS}")
 
     # --- 3b. Provenance: independently regenerated pre-stamp hashes (Option A) ---
-    # When --prestamp-dir is provided, the verifier hashes each regenerated
-    # PDF ITSELF (not trusting any hash value from another script) and
-    # compares against the manifest's content_sha256.
+    # When --prestamp-dir is provided, the verifier extracts text from each
+    # regenerated PDF ITSELF and compares the text hash against the manifest's
+    # content_text_sha256. Text hashes are deterministic across runners,
+    # unlike full PDF file hashes (which differ due to metadata).
     #
-    # ADVISORY MODE (2026-11-03): Provenance mismatches are warnings, not
-    # failures. Even with SOURCE_DATE_EPOCH=0, PDFs built on different CI
-    # runners produce different bytes (likely file ordering or library
-    # differences). True deterministic builds across runners require
-    # deeper investigation. The check correctly identifies this limitation.
-    PROVENANCE_STRICT = False
+    # STRICT MODE (2026-11-03): Text-hash comparison is deterministic, so
+    # mismatches fail the gate. This verifies content integrity without
+    # requiring byte-identical PDF generation.
+    PROVENANCE_STRICT = True
     if args.prestamp_dir:
         prestamp = Path(args.prestamp_dir)
         check("provenance: prestamp dir exists", prestamp.is_dir(),
               f"not found: {prestamp}")
         # Presentation_Handouts.pdf is a static asset, not generated from source.
+        # 15_Fire_Card.pdf is also not rebuilt during release (pre-existing in kit/).
         # Independent regeneration (Option A) does not apply; skip provenance.
         # File hash verification still applies via the standard PDF checks.
-        PROVENANCE_SKIP = {"Presentation_Handouts.pdf"}
+        PROVENANCE_SKIP = {"Presentation_Handouts.pdf", "15_Fire_Card.pdf"}
+        # Content-text hash: deterministic across runners. Extract text from
+        # regenerated PDF, normalize, and hash. This verifies content integrity
+        # without requiring byte-identical PDF generation.
+        def _text_hash(pdf_path):
+            from pypdf import PdfReader
+            reader = PdfReader(str(pdf_path))
+            full_text = "\n".join(
+                (page.extract_text() or "") for page in reader.pages
+            )
+            normalized = "\n".join(
+                line.rstrip() for line in full_text.split("\n") if line.strip()
+            )
+            return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
         if prestamp.is_dir():
             for name, info in pdfs.items():
                 if name in PROVENANCE_SKIP:
                     continue
-                expected = info.get("content_sha256", "")
+                expected = info.get("content_text_sha256", "")
                 if expected in ("UNVERIFIED", None, ""):
                     # Skip UNVERIFIED in dev mode; production already rejected these
                     continue
                 ppath = prestamp / name
                 check(f"provenance: regenerated {name} exists", ppath.exists())
                 if ppath.exists():
-                    actual = sha256_file(ppath)
+                    actual = _text_hash(ppath)
                     if PROVENANCE_STRICT:
-                        check(f"provenance: {name} content hash matches regenerated",
+                        check(f"provenance: {name} content-text hash matches regenerated",
                               actual == expected,
                               f"manifest={expected[:12]} regenerated={actual[:12]}")
                     elif actual != expected:
                         # Advisory: log but don't fail
-                        print(f"[ADVISORY] provenance: {name} content hash "
+                        print(f"[ADVISORY] provenance: {name} content-text hash "
                               f"mismatch (manifest={expected[:12]} "
                               f"regenerated={actual[:12]}).", flush=True)
     for name, info in pdfs.items():
