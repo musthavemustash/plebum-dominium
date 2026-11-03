@@ -237,7 +237,7 @@ def m12(dist, repo):
     mpath.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
 @mutation("production: UNVERIFIED content hash rejected",
-           expects="production:")
+           expects="content hash verified")
 def m13(dist, repo):
     # P0-1: production verifier must reject UNVERIFIED content hashes.
     mpath = dist / "release-manifest.json"
@@ -424,12 +424,22 @@ def main():
             verifier_cmd.extend(["--prestamp-dir", args.prestamp_dir])
         r = subprocess.run(verifier_cmd, capture_output=True, text=True)
         rejected = r.returncode != 0
-        # P1-2: require the EXPECTED check to fail, not just any nonzero exit.
-        # An unrelated failure (e.g., missing file) would previously count as PASS.
-        expected_found = expects is None or expects in r.stdout
+        # P1-2: require the EXPECTED check to FAIL, not just appear in output.
+        # Match [FAIL] lines specifically to avoid false credit from a substring
+        # appearing in a [PASS] line while an unrelated check causes exit 1.
+        # For m17 (advisory detection), match the ADVISORY marker instead.
+        is_detection_test = "advisory mode" in name
+        if is_detection_test:
+            expected_found = expects is None or expects in r.stdout
+        elif expects is None:
+            expected_found = True
+        else:
+            expected_found = any(
+                line.strip().startswith("[FAIL]") and expects in line
+                for line in r.stdout.split("\n")
+            )
         # m17 is a detection test (advisory mode), not a rejection test.
         # It passes if the advisory message appears, regardless of exit code.
-        is_detection_test = "advisory mode" in name
         if is_detection_test:
             if expected_found:
                 status = "PASS"
