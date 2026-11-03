@@ -1,0 +1,6 @@
+---
+description: Standing Plebumbtc.io project instructions
+alwaysApply: true
+---
+
+The standing project documents for this repository are `AGENTS.md`, `PROJECT_VISION.md`, `SATCHEL_WORK_PROTOCOL.md`, `RELEASE_POLICY.md`, and `REGRESSION_LEDGER.md`. Contributors consult them at the start of every task and treat them as standing constraints. No audited final artifact and passing deployment-blocking release gate means no release. The repository files are the authoritative reference; chat memory is not silently substituted.
