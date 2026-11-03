@@ -61,8 +61,10 @@ def main():
                          "commits, and commits not matching git HEAD. Fail closed.")
     ap.add_argument("--prestamp-dir", default=None,
                     help="Directory with independently regenerated pre-stamp PDFs. "
-                         "When provided, verifier hashes each PDF itself and compares "
-                         "against manifest content_sha256 (Option A provenance).")
+                         "When provided, verifier hashes each PDF itself: raw "
+                         "SHA-256 of bytes compared against manifest content_sha256, "
+                         "and normalized text hash compared against manifest "
+                         "content_text_sha256 (Option A provenance).")
     args = ap.parse_args()
     dist = Path(args.dist)
     repo = Path(args.repo)
@@ -219,23 +221,36 @@ def main():
             for name, info in pdfs.items():
                 if name in PROVENANCE_SKIP:
                     continue
+                ppath = prestamp / name
+                check(f"provenance: regenerated {name} exists", ppath.exists())
+                if not ppath.exists():
+                    continue
+                # Raw byte hash: SHA-256 of regenerated pre-stamp PDF bytes.
+                # This authenticates the published content_sha256 (the hash printed
+                # in the PDF footer). Requires byte-identical regeneration.
+                expected_raw = info.get("content_sha256", "")
+                if expected_raw not in ("UNVERIFIED", None, ""):
+                    actual_raw = sha256_file(ppath)
+                    check(f"provenance: {name} raw content hash matches regenerated",
+                          actual_raw == expected_raw,
+                          f"manifest={expected_raw[:12]} regenerated={actual_raw[:12]}")
+                # Content-text hash: deterministic across runners. Extract text from
+                # regenerated PDF, normalize, and hash. This verifies content
+                # semantics as an additional diagnostic check.
                 expected = info.get("content_text_sha256", "")
                 if expected in ("UNVERIFIED", None, ""):
                     # Skip UNVERIFIED in dev mode; production already rejected these
                     continue
-                ppath = prestamp / name
-                check(f"provenance: regenerated {name} exists", ppath.exists())
-                if ppath.exists():
-                    actual = _text_hash(ppath)
-                    if PROVENANCE_STRICT:
-                        check(f"provenance: {name} content-text hash matches regenerated",
-                              actual == expected,
-                              f"manifest={expected[:12]} regenerated={actual[:12]}")
-                    elif actual != expected:
-                        # Advisory: log but don't fail
-                        print(f"[ADVISORY] provenance: {name} content-text hash "
-                              f"mismatch (manifest={expected[:12]} "
-                              f"regenerated={actual[:12]}).", flush=True)
+                actual = _text_hash(ppath)
+                if PROVENANCE_STRICT:
+                    check(f"provenance: {name} content-text hash matches regenerated",
+                          actual == expected,
+                          f"manifest={expected[:12]} regenerated={actual[:12]}")
+                elif actual != expected:
+                    # Advisory: log but don't fail
+                    print(f"[ADVISORY] provenance: {name} content-text hash "
+                          f"mismatch (manifest={expected[:12]} "
+                          f"regenerated={actual[:12]}).", flush=True)
     for name, info in pdfs.items():
         p = repo / "kit" / name
         if not p.exists():

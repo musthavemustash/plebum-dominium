@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """Regenerate pre-stamp PDFs for independent provenance verification.
 
-This script regenerates the 17 kit PDFs WITHOUT stamping, for use in
-CI provenance verification (Option A). The verifier hashes these
-regenerated PDFs itself and compares against the manifest's
-content_sha256 values.
+This script regenerates the 16 regenerable kit PDFs WITHOUT stamping, for
+use in CI provenance verification (Option A). The verifier hashes these
+regenerated PDFs itself (raw SHA-256 of bytes, compared against manifest
+content_sha256) and also compares normalized text hashes (against manifest
+content_text_sha256).
+
+The 17th PDF, Presentation_Handouts.pdf, is a static asset not generated
+from source and is excluded from independent regeneration.
 
 Usage:
     python3 scripts/regenerate-prestamp-pdfs.py --out <dir>
 
-The output directory will contain the 17 unstamped PDFs.
+The output directory will contain the 16 unstamped PDFs.
 Does NOT modify kit/ or require stamping tools.
 
 This is the same generation logic used by release.py Stage C,

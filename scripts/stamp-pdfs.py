@@ -233,14 +233,33 @@ def main():
         merged = dict(existing_rows)
         for r in rows:
             merged[r["file"]] = r
-        # Verify we have all 17 expected PDFs
-        if len(merged) == 17:
-            update_verify(list(merged.values()))
-            refresh_b64("VERIFY.md")
-            print("  kit/VERIFY.md (PDF fingerprints) + b64 snapshots refreshed")
-        else:
-            print(f"  WARNING: VERIFY.md not updated: have {len(merged)}/17 PDFs "
-                  f"(skipped: {skipped})", file=sys.stderr)
+        # Exact inventory check: fail closed if set doesn't match expected 17.
+        # Only the static Presentation_Handouts.pdf may be skipped.
+        EXPECTED_PDFS = {
+            "00_Project_Overview.pdf", "02_Print_Packet.pdf", "03_Checklist.pdf",
+            "04_Airgap.pdf", "05_Verify.pdf", "06_Dice.pdf", "07_Sparrow.pdf",
+            "08_Signing.pdf", "09_Titanium.pdf", "11_Encryption.pdf",
+            "12_Inheritance.pdf", "13_FAQ.pdf", "14_Speaker.pdf",
+            "15_Fire_Card.pdf", "Handouts_No_Cover.pdf",
+            "Presentation_Handouts.pdf", "Terms.pdf",
+        }
+        SKIPPED_ALLOWED = {"Presentation_Handouts.pdf"}
+        merged_names = set(merged.keys())
+        if merged_names != EXPECTED_PDFS:
+            missing = EXPECTED_PDFS - merged_names
+            extra = merged_names - EXPECTED_PDFS
+            print(f"FATAL: PDF inventory mismatch. Missing: {sorted(missing)}. "
+                  f"Extra: {sorted(extra)}.", file=sys.stderr)
+            sys.exit(1)
+        unexpected_skipped = set(skipped) - SKIPPED_ALLOWED
+        if unexpected_skipped:
+            print(f"FATAL: Unexpected PDFs skipped (only {SKIPPED_ALLOWED} "
+                  f"may be skipped): {sorted(unexpected_skipped)}.",
+                  file=sys.stderr)
+            sys.exit(1)
+        update_verify(list(merged.values()))
+        refresh_b64("VERIFY.md")
+        print("  kit/VERIFY.md (PDF fingerprints) + b64 snapshots refreshed")
     print(f"done: {len(rows)} stamped, {len(skipped)} skipped")
     import subprocess
     checker = os.path.join(os.path.dirname(__file__), "check-pdf-qrs.py")
