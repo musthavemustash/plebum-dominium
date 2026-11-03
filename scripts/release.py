@@ -184,7 +184,7 @@ def stage_b(repo_root, stage):
             shutil.copy2(src, dest)
             log(f"restored {dest_rel}")
         else:
-            log(f"WARNING: restore source missing: {src_abs}; skipping")
+            log(f"WARNING: restore source missing: {src}; skipping")
 
     # 2b. Ensure docs/diceware-mapper.html exists (test expects it;
     # build.py only creates docs/diceware.html from tools/diceware-mapper.html)
