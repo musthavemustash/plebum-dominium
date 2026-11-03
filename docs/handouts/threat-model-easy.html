@@ -181,7 +181,7 @@
   function show(path) {
     var p = PATHS[path];
     card.className = "path-card " + p.cls;
-    var html = "<h3>" + p.title + "</h3><p class="path-trade">" + p.trade + "</p><ul>";
+    var html = "<h3>" + p.title + "</h3><p class='path-trade'>" + p.trade + "</p><ul>";
     p.steps.forEach(function (s) { html += "<li>" + s + "</li>"; });
     html += "</ul><p><strong>" + p.risk + "</strong></p><p><strong>" + p.next + "</strong></p><p><a class="path-go" href="" + p.go + "">" + p.goText + " &rarr;</a></p>";
     card.innerHTML = html;
