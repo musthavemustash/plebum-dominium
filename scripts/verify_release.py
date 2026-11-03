@@ -56,15 +56,55 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dist", required=True, help="Release dist/ dir from release.py")
     ap.add_argument("--repo", required=True, help="Repo root the release was built from")
+    ap.add_argument("--production", action="store_true",
+                    help="Production mode: reject UNVERIFIED hashes, non-40-char "
+                         "commits, and commits not matching git HEAD. Fail closed.")
     args = ap.parse_args()
     dist = Path(args.dist)
     repo = Path(args.repo)
+    production = args.production
 
     manifest_path = dist / "release-manifest.json"
     check("release-manifest.json exists", manifest_path.exists())
     if FAILURES:
         return finish()
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+    # --- 0. Production-mode provenance gates (fail closed, run first) ---
+    if production:
+        # a. Manifest must declare production build
+        check("production: manifest declares production=true",
+              manifest.get("production") is True,
+              "release was not built in production mode")
+        # b. No UNVERIFIED content hashes allowed
+        pdfs_p = manifest.get("pdfs", {})
+        for pname, pinfo in pdfs_p.items():
+            cs = pinfo.get("content_sha256", "")
+            check(f"production: {pname} content hash verified",
+                  cs not in ("UNVERIFIED", None, ""),
+                  f"content_sha256={cs}")
+        # c. Source commit must be 40-char hex
+        declared = manifest.get("source_commit") or ""
+        check("production: source commit is 40-char hex",
+              bool(re.fullmatch(r"[0-9a-f]{40}", declared.lower())),
+              f"got '{declared[:20]}...'")
+        # d. Declared commit must match checked-out HEAD
+        try:
+            head = subprocess.run(
+                ["git", "rev-parse", "HEAD"], cwd=str(repo),
+                capture_output=True, text=True)
+            if head.returncode != 0:
+                check("production: git HEAD available", False,
+                      "cannot determine git HEAD")
+            else:
+                actual = head.stdout.strip().lower()
+                check("production: declared commit matches git HEAD",
+                      actual == declared.lower(),
+                      f"declared={declared[:12]} head={actual[:12]}")
+        except FileNotFoundError:
+            check("production: git available", False, "git not found")
+        if FAILURES:
+            return finish()
 
     # --- 1. Crypto suites (exit status, not just text) ---
     rc, out, err = run([sys.executable, "tests/test-crypto.py"], cwd=str(repo))
@@ -115,7 +155,20 @@ def main():
                       "member differs from canonical source")
 
     # --- 3. PDFs ---
+    # P0-3: exact 17-PDF inventory, independent of manifest entries
+    EXPECTED_PDFS = {
+        "00_Project_Overview.pdf", "02_Print_Packet.pdf", "03_Checklist.pdf",
+        "04_Airgap.pdf", "05_Verify.pdf", "06_Dice.pdf", "07_Sparrow.pdf",
+        "08_Signing.pdf", "09_Titanium.pdf", "11_Encryption.pdf",
+        "12_Inheritance.pdf", "13_FAQ.pdf", "14_Speaker.pdf",
+        "15_Fire_Card.pdf", "Handouts_No_Cover.pdf",
+        "Presentation_Handouts.pdf", "Terms.pdf",
+    }
     pdfs = manifest.get("pdfs", {})
+    check("pdf inventory: manifest declares exactly 17 expected PDFs",
+          set(pdfs.keys()) == EXPECTED_PDFS,
+          f"missing={EXPECTED_PDFS - set(pdfs.keys())} "
+          f"extra={set(pdfs.keys()) - EXPECTED_PDFS}")
     for name, info in pdfs.items():
         p = repo / "kit" / name
         if not p.exists():

@@ -48,6 +48,46 @@ def fail(msg):
     print(f"[release] FATAL: {msg}", file=sys.stderr, flush=True)
     sys.exit(1)
 
+def enforce_production_prereqs(repo_root, args):
+    """Fail closed on any production-mode violation. Called before Stage A."""
+    import re
+    # 1. --skip-pdfs is forbidden in production
+    if args.skip_pdfs:
+        fail("production mode: --skip-pdfs is not allowed; "
+             "content hashes must be verified")
+    # 2. WORKTREE is forbidden in production
+    if args.commit == "WORKTREE":
+        fail("production mode: --commit WORKTREE is not allowed; "
+             "must be a 40-char git SHA")
+    # 3. Commit must be 40-char hex
+    if not re.fullmatch(r"[0-9a-f]{40}", args.commit.lower()):
+        fail(f"production mode: --commit must be a 40-char hex SHA, "
+             f"got '{args.commit[:20]}...'")
+    # 4. Git must be available and commit must resolve to HEAD
+    try:
+        head = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=repo_root,
+            capture_output=True, text=True)
+        if head.returncode != 0:
+            fail("production mode: cannot determine git HEAD "
+                 "(not a git repo or git unavailable)")
+        actual_head = head.stdout.strip().lower()
+        if actual_head != args.commit.lower():
+            fail(f"production mode: declared commit {args.commit[:12]} "
+                 f"does not match checked-out HEAD {actual_head[:12]}")
+        # 5. Working tree must be clean
+        dirty = subprocess.run(
+            ["git", "status", "--porcelain"], cwd=repo_root,
+            capture_output=True, text=True)
+        if dirty.returncode != 0:
+            fail("production mode: cannot check git status")
+        if dirty.stdout.strip():
+            fail("production mode: working tree is dirty; "
+                 "commit all changes before production build")
+    except FileNotFoundError:
+        fail("production mode: git not available; cannot verify provenance")
+    log("production mode: all prerequisites satisfied")
+
 def run(cmd, cwd, env=None):
     """Run a command, fail on nonzero exit. Returns stdout."""
     log(f"$ {' '.join(cmd)} (cwd={cwd})")
@@ -88,7 +128,7 @@ def deterministic_zip(zip_path, source_dir, prefix=""):
 # Stage A - Clean/frozen inputs
 # ---------------------------------------------------------------------------
 
-def stage_a(repo_root, commit, out_dir):
+def stage_a(repo_root, commit, out_dir, production=False):
     log("=== Stage A: frozen inputs ===")
     out = Path(out_dir)
     if out.exists() and any(out.iterdir()):
@@ -100,6 +140,7 @@ def stage_a(repo_root, commit, out_dir):
         "source_commit": commit,
         "build_time_utc": datetime.now(timezone.utc).isoformat(),
         "builder": "scripts/release.py",
+        "production": production,
     }
     if commit != "WORKTREE":
         # Verify the commit exists in the local repo if we have git
@@ -539,10 +580,15 @@ def main():
     ap.add_argument("--out", required=True, help="Output directory (must be empty)")
     ap.add_argument("--skip-pdfs", action="store_true",
                     help="Reuse existing kit/*.pdf (content hashes UNVERIFIED)")
+    ap.add_argument("--production", action="store_true",
+                    help="Production mode: reject --skip-pdfs, WORKTREE, dirty "
+                         "trees, and unverifiable commits. Fail closed.")
     args = ap.parse_args()
 
     repo_root = str(Path(__file__).resolve().parent.parent)
-    manifest, stage = stage_a(repo_root, args.commit, args.out)
+    if args.production:
+        enforce_production_prereqs(repo_root, args)
+    manifest, stage = stage_a(repo_root, args.commit, args.out, args.production)
     try:
         tools = stage_b(repo_root, stage)
         pdf_info = stage_c(repo_root, stage, args.skip_pdfs)
