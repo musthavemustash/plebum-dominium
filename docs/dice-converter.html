@@ -440,21 +440,23 @@ if(typeof module!=='undefined') module.exports={sha256:sha256,bytesToBits:bytesT
     var pill=$('online-pill'), dot=$('online-dot'), word=$('online-word'), block=$('netblock');
     if(pill){ pill.hidden=false; dot.classList.remove('safe'); word.textContent='Checking\u2026'; }
     if(block){ block.hidden=false; }
-    // Conservative: we cannot prove air-gap status from the browser.
-    // file: means opened locally, not that networking is disabled.
-    // https: means served over network. User must disable and verify networking independently.
+    // Protocol-only status. navigator.onLine is not consulted: it is unreliable
+    // and must never block a local file or certify an air gap.
+    // file: = opened as a local file (does NOT prove networking is disabled).
+    // http(s): = served over the network; secrets are blocked.
     var servedOverNetwork = (location.protocol === 'https:' || location.protocol === 'http:');
-    var online = servedOverNetwork || (navigator.onLine===true);
     var wasBlocked=netBlocked;
-    netBlocked=online;
-    if(pill){ dot.classList.toggle('safe', !online); word.textContent=online?'Network detected':'Local file'; }
+    netBlocked=servedOverNetwork;
+    if(pill){ dot.classList.toggle('safe', !servedOverNetwork); word.textContent=servedOverNetwork?'Network detected':'Local file'; }
     if(block){
-      block.hidden=!online;
-      if(online && servedOverNetwork){
-        block.innerHTML='<strong>Warning:</strong> This tool was loaded over the network ('+location.protocol+'). For real keys, download this file, disconnect from the network, verify networking is disabled, then open the local copy. This page cannot verify air-gap status for you.';
+      block.hidden=false;
+      if(servedOverNetwork){
+        block.innerHTML='<strong>Blocked:</strong> This tool was loaded over the network ('+location.protocol+'). For real keys, download this file, disconnect from the network, verify networking is disabled, then open the local copy. This page cannot verify air-gap status for you.';
+      } else {
+        block.innerHTML='<strong>Note:</strong> Opened as a local file. This does not prove networking is disabled. Before entering real secrets, disable networking on this computer and verify it stays disabled.';
       }
     }
-    if(online && !wasBlocked){
+    if(servedOverNetwork && !wasBlocked){
       clearAll();
       $('valwords').value='';
       $('results').innerHTML='';

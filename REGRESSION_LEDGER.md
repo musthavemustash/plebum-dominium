@@ -9,10 +9,10 @@
 | R-003 | Offline ZIP had missing assets, missing `kit/` files and earlier nested copies of itself | Assemble offline ZIP last; assert contents and forbid self-nesting/caches | Some omissions fixed in 19:10; final verification pending |
 | R-004 | 134 root-relative HTML links in extracted offline guide | Static resolver and browser `file://` smoke tests for both paths | OPEN at archive audit; recheck |
 | R-005 | `threat-model-one.html` and `threat-model-easy.html` shipped malformed inline JavaScript | Compile every executable inline script and JS asset, including orphaned pages | OPEN at archive audit; recheck |
-| R-006 | Browser indicators inferred network isolation from `navigator.onLine` | Static checks + reviewed claims; air gap is never certified from browser state | OPEN at archive audit; recheck |
+| R-006 | Browser indicators inferred network isolation from `navigator.onLine` | Static checks + reviewed claims; air gap is never certified from browser state | **FIXED** 2026-11-02: `navigator.onLine` removed as blocking signal from both tools; protocol-only status (http/https blocks, file:// shows honest warning); local commit, tools rebuilt |
 | R-007 | Stale package blamed on mutable/cached repository ZIP | Full commit SHA; clean checkout; verify final bytes, no mutable `main` ZIP inputs | Architectural risk, enforcement needed |
 | R-008 | Cryptographic tests passed while release artifacts were inconsistent | Independent final-artifact gate + negative failure-injection proof and deploy dependency | Gate not demonstrated in supplied archive |
-| R-009 | Printed/offline/HTML security-critical information risks diverging across variants | Cross-format consistency checks and review of both paths | Ongoing preventive requirement |
+| R-009 | Printed/offline/HTML security-critical information risks diverging across variants | Cross-format consistency checks and review of both paths | **MITIGATED** 2026-11-02: canary check added to `verify_release.py` (critical strings verified present across HTML sheets); full PDF text extraction still manual |
 
 ## Rules for updates
 

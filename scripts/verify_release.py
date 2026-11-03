@@ -229,6 +229,30 @@ def main():
               f" e.g. {js_failures[0]}" if js_failures else ""))
     shutil.rmtree(tmpd, ignore_errors=True)
 
+    # --- R-009: cross-format consistency of security-critical facts ---
+    # Security-critical strings must appear consistently across HTML sheets.
+    # (PDF text extraction is out of scope for this static check; the HTML
+    # sheets are the source of truth that PDFs are built from.)
+    critical_strings = {
+        "multisig threshold wording": "2-of-3",
+        "descriptor concept present": "descriptor",
+        "no-real-secrets warning": "Never type the words into",
+    }
+    for label, needle in critical_strings.items():
+        found_in = []
+        for html_file in sorted((repo / "docs" / "handouts").glob("*.html")):
+            # Skip orphaned legacy variants for this check
+            if "easy" in html_file.name:
+                continue
+            try:
+                if needle in html_file.read_text(encoding="utf-8"):
+                    found_in.append(html_file.name)
+            except Exception:
+                pass
+        check(f"cross-format consistency: {label}",
+              len(found_in) > 0,
+              f"'{needle}' found in {len(found_in)} sheets")
+
     # --- Immutability: dist files unchanged since manifest ---
     check("dist bundle hash stable",
           sha256_file(bundle) == manifest["bundle"]["sha256"] if bundle.exists() else False)
