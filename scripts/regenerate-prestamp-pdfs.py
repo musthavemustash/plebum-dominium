@@ -35,6 +35,9 @@ def main():
     env = os.environ.copy()
     # build-kit-pdfs.py respects KIT_PDF_OUT for output directory
     env["KIT_PDF_OUT"] = str(out)
+    # Deterministic builds: fixed timestamp for reproducible PDFs.
+    # Must match the value used in release.py Stage C and CI.
+    env["SOURCE_DATE_EPOCH"] = "0"
 
     print(f"[regenerate] Generating pre-stamp PDFs to {out}", flush=True)
 
