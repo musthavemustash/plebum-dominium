@@ -87,8 +87,8 @@ def main():
             check(f"production: {pname} content hash verified",
                   cs not in ("UNVERIFIED", None, ""),
                   f"content_sha256={cs}")
-            # Content-text hash for cross-runner provenance (skip static asset)
-            if pname != "Presentation_Handouts.pdf":
+            # Content-text hash for cross-runner provenance (skip static assets)
+            if pname not in ("Presentation_Handouts.pdf", "15_Fire_Card.pdf"):
                 cts = pinfo.get("content_text_sha256", "")
                 check(f"production: {pname} content-text hash verified",
                       cts not in ("UNVERIFIED", None, ""),
@@ -195,9 +195,10 @@ def main():
         check("provenance: prestamp dir exists", prestamp.is_dir(),
               f"not found: {prestamp}")
         # Presentation_Handouts.pdf is a static asset, not generated from source.
+        # 15_Fire_Card.pdf is also not rebuilt during release (pre-existing in kit/).
         # Independent regeneration (Option A) does not apply; skip provenance.
         # File hash verification still applies via the standard PDF checks.
-        PROVENANCE_SKIP = {"Presentation_Handouts.pdf"}
+        PROVENANCE_SKIP = {"Presentation_Handouts.pdf", "15_Fire_Card.pdf"}
         # Content-text hash: deterministic across runners. Extract text from
         # regenerated PDF, normalize, and hash. This verifies content integrity
         # without requiring byte-identical PDF generation.
