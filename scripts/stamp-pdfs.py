@@ -196,6 +196,22 @@ def main():
             refresh_b64(name)
             print(f"  stamped {name}: content {r['content_hash'][:12]}…")
     if rows:
+        # Write content-text hashes for release.py manifest (provenance).
+        # Merge with existing file to preserve hashes for skipped PDFs.
+        import json
+        text_hash_path = "kit/VERIFY-text-hashes.json"
+        text_hashes = {}
+        if os.path.exists(text_hash_path):
+            try:
+                with open(text_hash_path) as f:
+                    text_hashes = json.load(f)
+            except (json.JSONDecodeError, OSError):
+                pass
+        for r in rows:
+            text_hashes[r["file"]] = r["content_text_hash"]
+        with open(text_hash_path, "w") as f:
+            json.dump(text_hashes, f, indent=2, sort_keys=True)
+        print(f"  kit/VERIFY-text-hashes.json written ({len(text_hashes)} entries)")
         # Merge with rows for skipped files is not attempted: if some files
         # were skipped, leave VERIFY's PDF table untouched and say so.
         if skipped:
@@ -204,12 +220,6 @@ def main():
             update_verify(rows)
             refresh_b64("VERIFY.md")
             print("  kit/VERIFY.md (PDF fingerprints) + b64 snapshots refreshed")
-            # Write content-text hashes for release.py manifest (provenance)
-            import json
-            text_hashes = {r["file"]: r["content_text_hash"] for r in rows}
-            with open("kit/VERIFY-text-hashes.json", "w") as f:
-                json.dump(text_hashes, f, indent=2, sort_keys=True)
-            print("  kit/VERIFY-text-hashes.json written")
     print(f"done: {len(rows)} stamped, {len(skipped)} skipped")
     import subprocess
     checker = os.path.join(os.path.dirname(__file__), "check-pdf-qrs.py")
