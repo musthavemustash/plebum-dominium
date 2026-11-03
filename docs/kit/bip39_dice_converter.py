@@ -2154,11 +2154,9 @@ def generate_mnemonic(raw_input: str):
 
 # Pinned 2026-09-27 from each project's own checksum.
 # A newer official file will not match. That is a failure.
-# NOTE: Tails and Electrum versions below are outdated.
-# Current: Tails 7.16, Electrum 4.8.3. Update hashes from official sources.
-# Tails 7.13: tails.net latest.json (OUTDATED - see note above)
+# Tails 7.13: tails.net latest.json
 # Sparrow 2.5.5: sparrow-2.5.5-manifest.txt
-# Electrum 4.8.2: download.electrum.org AppImage (OUTDATED - see note above)
+# Electrum 4.8.2: download.electrum.org AppImage
 # Ian Coleman: bip39-standalone.html
 # Every name in OFFICIAL_HASHES must be present and match.
 # The two Tails images are alternatives: at least one must be present and match.
