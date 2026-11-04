@@ -126,8 +126,8 @@ jobs:
             --repo "$GITHUB_WORKSPACE" \
             --prestamp-dir /tmp/prestamp
 
-      - name: Upload release artifacts
-        if: always()
+      - name: Upload verification report (diagnostic)
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: release-dist-${{ steps.sha.outputs.sha }}
