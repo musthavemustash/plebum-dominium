@@ -617,6 +617,12 @@ def stage_g(stage, manifest, bundle_zip, offline_zip, out_dir):
     shutil.copytree(Path(__file__).resolve().parent.parent / "docs", site)
     public_kit = site / "kit"
     public_kit.mkdir(parents=True, exist_ok=True)
+    # Stage C stamps the final PDF bytes into kit/. build.py copied the
+    # pre-stamp versions into docs/kit/ before that step. Replace those
+    # published copies with the exact finalized files.
+    for pdf_name in manifest["pdfs"]:
+        shutil.copy2(Path(__file__).resolve().parent.parent / "kit" / pdf_name,
+                     public_kit / pdf_name)
     shutil.copy2(bundle_zip, public_kit / "tools-bundle.zip")
     shutil.copy2(offline_zip, public_kit / "plebumbtc-offline.zip")
     shutil.copy2(stage / "release-manifest.json",
