@@ -388,7 +388,7 @@ def stage_d(repo_root, stage, tools):
 # Stage E - Manifests from one manifest object
 # ---------------------------------------------------------------------------
 
-def stage_e(repo_root, stage, tools, pdf_info, bundle_zip):
+def stage_e(repo_root, stage, tools, pdf_info, bundle_zip, production=False):
     log("=== Stage E: manifests ===")
     root = Path(repo_root)
 
@@ -408,11 +408,19 @@ def stage_e(repo_root, stage, tools, pdf_info, bundle_zip):
     text_hash_file = root / "kit" / "VERIFY-text-hashes.json"
     if text_hash_file.exists():
         text_hashes = json.loads(text_hash_file.read_text(encoding="utf-8"))
+    elif production:
+        # Fail closed: production must have pre-stamp text hashes from
+        # stamp-pdfs.py. The stamped-PDF fallback below is approximate
+        # (strips lines containing "SHA-256", which can remove legitimate
+        # instructional text) and does not prove pre-stamp origin.
+        fail("production mode: kit/VERIFY-text-hashes.json missing; "
+             "stamp-pdfs.py must generate it before Stage E")
     else:
         # Fallback: compute from current kit/ PDFs (stamped). Strip footer
         # lines containing version/hash markers to approximate pre-stamp text.
         # This is less precise than stamp-pdfs.py's pre-stamp hash but ensures
         # the manifest is not UNVERIFIED when the JSON is missing.
+        # DEV ONLY: production fails closed above.
         try:
             from pypdf import PdfReader
             for pdf_path in sorted((root / "kit").glob("*.pdf")):
@@ -637,7 +645,8 @@ def main():
         tools = stage_b(repo_root, stage)
         pdf_info = stage_c(repo_root, stage, args.skip_pdfs)
         bundle_zip = stage_d(repo_root, stage, tools)
-        manifest_obj = stage_e(repo_root, stage, tools, pdf_info, bundle_zip)
+        manifest_obj = stage_e(repo_root, stage, tools, pdf_info, bundle_zip,
+                             args.production)
         # Merge stage-A identity into the manifest object
         manifest_obj.update(manifest)
         offline_zip = stage_f(repo_root, stage)
