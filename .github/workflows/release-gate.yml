@@ -35,7 +35,7 @@ jobs:
   # Job 1: Independently regenerate pre-stamp PDFs from source.
   # The verifier (Job 2) will hash these itself and compare to the manifest.
   regenerate-prestamp:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out exact event commit
         uses: actions/checkout@v4
@@ -50,7 +50,7 @@ jobs:
       - name: Install PDF deps
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
-          python3 -m pip install --quiet reportlab pypdf
+          python3 -m pip install --quiet "reportlab==4.2.5" "pypdf==5.9.0"
 
       - name: Regenerate pre-stamp PDFs
         run: |
@@ -65,7 +65,7 @@ jobs:
           retention-days: 7
 
   release-gate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: regenerate-prestamp
     steps:
       - name: Check out exact event commit
@@ -93,7 +93,7 @@ jobs:
       - name: Install PDF deps
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
-          python3 -m pip install --quiet reportlab pypdf numpy zxing-cpp Pillow
+          python3 -m pip install --quiet "reportlab==4.2.5" "pypdf==5.9.0" "numpy==1.26.4" "zxing-cpp==2.1.0" "Pillow==10.4.0"
 
       - name: Run release pipeline (production)
         run: |
@@ -121,6 +121,7 @@ jobs:
       - name: Run negative/mutation tests
         run: |
           python3 scripts/test-release-gate.py \
+            --production \
             --dist dist \
             --repo "$GITHUB_WORKSPACE" \
             --prestamp-dir /tmp/prestamp
@@ -142,3 +143,4 @@ jobs:
           path: |
             dist/release-manifest.json
           retention-days: 90
+          
