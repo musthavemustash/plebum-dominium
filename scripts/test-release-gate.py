@@ -270,17 +270,19 @@ def m15(dist, repo):
     # when run against a real Git checkout. Create a real git repo in the
     # mutation workspace, then set manifest source_commit to a different SHA.
     import subprocess
-    # Init git repo in the test workspace
-    subprocess.run(["git", "init", "-q"], cwd=str(repo), check=True,
-                   capture_output=True)
-    subprocess.run(["git", "config", "user.email", "test@test.com"],
-                   cwd=str(repo), check=True, capture_output=True)
-    subprocess.run(["git", "config", "user.name", "Test"],
-                   cwd=str(repo), check=True, capture_output=True)
-    subprocess.run(["git", "add", "-A"], cwd=str(repo), check=True,
-                   capture_output=True)
-    subprocess.run(["git", "commit", "-qm", "test"],
-                   cwd=str(repo), check=True, capture_output=True)
+    # Strict-mode workspaces already have a real Git HEAD via git worktree.
+    # Retain standalone development-mode support for copied source trees.
+    if not (repo / ".git").exists():
+        subprocess.run(["git", "init", "-q"], cwd=str(repo), check=True,
+                       capture_output=True)
+        subprocess.run(["git", "config", "user.email", "test@test.com"],
+                       cwd=str(repo), check=True, capture_output=True)
+        subprocess.run(["git", "config", "user.name", "Test"],
+                       cwd=str(repo), check=True, capture_output=True)
+        subprocess.run(["git", "add", "-A"], cwd=str(repo), check=True,
+                       capture_output=True)
+        subprocess.run(["git", "commit", "-qm", "test"],
+                       cwd=str(repo), check=True, capture_output=True)
     # Get the real HEAD
     r = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(repo),
                        check=True, capture_output=True, text=True)
@@ -417,8 +419,43 @@ def main():
         tdist = work / "dist"
         trepo = work / "repo"
         shutil.copytree(good_dist, tdist)
-        shutil.copytree(good_repo, trepo,
-                        ignore=shutil.ignore_patterns(".git", "__pycache__"))
+        worktree_added = False
+        if args.production:
+            # A real HEAD is required by the production verifier. A linked
+            # worktree preserves the exact source commit without copying .git
+            # or creating a new commit with a mismatching SHA.
+            try:
+                head = subprocess.run(
+                    ["git", "-C", str(good_repo), "rev-parse", "HEAD"],
+                    check=True, capture_output=True, text=True).stdout.strip()
+                subprocess.run(
+                    ["git", "-C", str(good_repo), "worktree", "add",
+                     "--detach", str(trepo), head],
+                    check=True, capture_output=True, text=True)
+                worktree_added = True
+                # Include generated/untracked release inputs from the source
+                # checkout while keeping the linked worktree Git metadata.
+                shutil.copytree(good_repo, trepo, dirs_exist_ok=True,
+                                ignore=shutil.ignore_patterns(".git", "__pycache__"))
+            except (OSError, subprocess.CalledProcessError) as e:
+                print(f"[FAIL] negative test: {name} "
+                      f"(production worktree setup failed: {e})")
+                failed += 1
+                if worktree_added:
+                    subprocess.run(["git", "-C", str(good_repo), "worktree",
+                                    "remove", "--force", str(trepo)],
+                                   capture_output=True)
+                shutil.rmtree(work, ignore_errors=True)
+                continue
+        else:
+            shutil.copytree(good_repo, trepo,
+                            ignore=shutil.ignore_patterns(".git", "__pycache__"))
+        def cleanup():
+            if worktree_added:
+                subprocess.run(["git", "-C", str(good_repo), "worktree",
+                                "remove", "--force", str(trepo)],
+                               capture_output=True)
+            shutil.rmtree(work, ignore_errors=True)
         try:
             fn(tdist, trepo)
         except Exception as e:
@@ -427,7 +464,7 @@ def main():
             print(f"[FAIL] negative test: {name} "
                   f"(mutation setup raised: {e})")
             failed += 1
-            shutil.rmtree(work, ignore_errors=True)
+            cleanup()
             continue
         # Production mutations (m12-m16) need --production flag on verifier
         prod_mutations = {
@@ -439,8 +476,11 @@ def main():
         }
         verifier_cmd = [sys.executable, str(verifier), "--dist", str(tdist),
                         "--repo", str(trepo)]
-        if name in prod_mutations:
+        if args.production or name in prod_mutations:
             verifier_cmd.append("--production")
+        # A zeroed commit is rejected by the earlier production format gate.
+        if args.production and name == "release manifest declares wrong source commit":
+            expects = "production: source commit is 40-char hex"
         # m17/m18 (provenance) need --prestamp-dir; skip if not provided
         if name in ("provenance: forged content-text hash rejected by regenerated bytes",
                     "provenance: forged raw content hash rejected by regenerated bytes"):
@@ -448,7 +488,7 @@ def main():
                 print(f"[SKIP] negative test: {name} "
                       f"(requires --prestamp-dir)")
                 skipped += 1
-                shutil.rmtree(work, ignore_errors=True)
+                cleanup()
                 continue
             # Verify prestamp dir actually has PDFs; if not, skip
             # (artifact download may have failed)
@@ -458,7 +498,7 @@ def main():
                 print(f"[SKIP] negative test: {name} "
                       f"(prestamp dir empty or missing)")
                 skipped += 1
-                shutil.rmtree(work, ignore_errors=True)
+                cleanup()
                 continue
             verifier_cmd.extend(["--prestamp-dir", args.prestamp_dir])
         elif args.prestamp_dir:
@@ -490,7 +530,7 @@ def main():
             elif not expected_found:
                 print(f"  Expected '{expects}' not found in output")
             print("  STDOUT tail:", r.stdout[-500:])
-        shutil.rmtree(work, ignore_errors=True)
+        cleanup()
 
     print(f"\n{passed}/{len(MUTATIONS)} mutations rejected "
           f"({failed} failed, {skipped} skipped)")
