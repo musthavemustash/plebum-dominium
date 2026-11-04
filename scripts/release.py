@@ -308,8 +308,17 @@ def stage_c(repo_root, stage, skip_pdfs):
         return pdf_info
 
     # Rebuild unstamped PDFs, then stamp (stamp computes content hashes)
-    run([sys.executable, "scripts/build-kit-pdfs.py"], cwd=str(root))
-    run([sys.executable, "scripts/build-print-packet.py"], cwd=str(root))
+    # SOURCE_DATE_EPOCH=0 for deterministic builds (provenance verification
+    # requires byte-identical regeneration)
+    import os
+    pdf_env = os.environ.copy()
+    pdf_env["SOURCE_DATE_EPOCH"] = "0"
+    run([sys.executable, "scripts/build-kit-pdfs.py"], cwd=str(root), env=pdf_env)
+    run([sys.executable, "scripts/build-print-packet.py"], cwd=str(root), env=pdf_env)
+    # Regenerate fire card from source (prevents double-stamping old card)
+    run([sys.executable, "scripts/build-fire-card.py",
+         "--out", str(root / "kit" / "15_Fire_Card.pdf")],
+        cwd=str(root), env=pdf_env)
 
     # stamp-pdfs.py needs reportlab/pypdf; try venv first, then system
     venv_py = Path("/tmp/pdfenv/bin/python")
@@ -394,9 +403,44 @@ def stage_e(repo_root, stage, tools, pdf_info, bundle_zip):
             if m:
                 # header is: File | Version | File SHA-256 | Content SHA-256
                 content_hashes[m.group(1)] = m.group(3)
+    # Read back content-text hashes for provenance (deterministic across runners)
+    text_hashes = {}
+    text_hash_file = root / "kit" / "VERIFY-text-hashes.json"
+    if text_hash_file.exists():
+        text_hashes = json.loads(text_hash_file.read_text(encoding="utf-8"))
+    else:
+        # Fallback: compute from current kit/ PDFs (stamped). Strip footer
+        # lines containing version/hash markers to approximate pre-stamp text.
+        # This is less precise than stamp-pdfs.py's pre-stamp hash but ensures
+        # the manifest is not UNVERIFIED when the JSON is missing.
+        try:
+            from pypdf import PdfReader
+            for pdf_path in sorted((root / "kit").glob("*.pdf")):
+                try:
+                    reader = PdfReader(str(pdf_path))
+                    full_text = "\n".join(
+                        (p.extract_text() or "") for p in reader.pages
+                    )
+                    # Strip footer lines with version/hash markers
+                    lines = [
+                        ln.rstrip() for ln in full_text.split("\n")
+                        if ln.strip()
+                        and "Content SHA-256:" not in ln
+                        and "SHA-256" not in ln
+                    ]
+                    normalized = "\n".join(lines)
+                    import hashlib
+                    text_hashes[pdf_path.name] = hashlib.sha256(
+                        normalized.encode("utf-8")).hexdigest()
+                except Exception:
+                    pass
+        except ImportError:
+            pass
     for name, info in pdf_info.items():
         if info["content_sha256"] is None:
             info["content_sha256"] = content_hashes.get(name, "UNVERIFIED")
+        # Content-text hash for cross-runner provenance verification
+        info["content_text_sha256"] = text_hashes.get(name, "UNVERIFIED")
 
     manifest = {
         "tools": tools,

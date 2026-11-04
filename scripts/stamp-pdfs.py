@@ -94,6 +94,17 @@ def stamp(path):
         raw = f.read()
     content_hash = sha256_bytes(raw)
     reader = PdfReader(io.BytesIO(raw))
+    # Content-text hash: deterministic across runners (ignores PDF metadata
+    # differences like timestamps, document IDs, object ordering). Extract
+    # text from all pages, normalize whitespace, and hash.
+    full_text = "\n".join(
+        (page.extract_text() or "") for page in reader.pages
+    )
+    # Normalize: strip trailing whitespace per line, drop empty lines
+    normalized = "\n".join(
+        line.rstrip() for line in full_text.split("\n") if line.strip()
+    )
+    content_text_hash = sha256_bytes(normalized.encode("utf-8"))
     first_text = reader.pages[0].extract_text() or ""
     if "Content SHA-256:" in first_text or f"Version {VERSION}" in first_text:
         return None  # already stamped
@@ -124,6 +135,7 @@ def stamp(path):
         "version": VERSION,
         "file_hash": sha256_bytes(stamped),
         "content_hash": content_hash,
+        "content_text_hash": content_text_hash,
     }
 
 
@@ -170,6 +182,24 @@ def update_verify(rows):
 
 
 def main():
+    # Preflight: validate actual kit/*.pdf inventory BEFORE stamping anything.
+    # No PDF is modified when preflight fails.
+    EXPECTED_PDFS = {
+        "00_Project_Overview.pdf", "02_Print_Packet.pdf", "03_Checklist.pdf",
+        "04_Airgap.pdf", "05_Verify.pdf", "06_Dice.pdf", "07_Sparrow.pdf",
+        "08_Signing.pdf", "09_Titanium.pdf", "11_Encryption.pdf",
+        "12_Inheritance.pdf", "13_FAQ.pdf", "14_Speaker.pdf",
+        "15_Fire_Card.pdf", "Handouts_No_Cover.pdf",
+        "Presentation_Handouts.pdf", "Terms.pdf",
+    }
+    actual_files = {f for f in os.listdir("kit") if f.endswith(".pdf")}
+    if actual_files != EXPECTED_PDFS:
+        missing = EXPECTED_PDFS - actual_files
+        extra = actual_files - EXPECTED_PDFS
+        print(f"FATAL: kit/ PDF inventory mismatch before stamping. "
+              f"Missing: {sorted(missing)}. Extra: {sorted(extra)}.",
+              file=sys.stderr)
+        sys.exit(1)
     pdfs = sorted(f for f in os.listdir("kit") if f.endswith(".pdf"))
     rows, skipped = [], []
     for name in pdfs:
@@ -184,14 +214,64 @@ def main():
             refresh_b64(name)
             print(f"  stamped {name}: content {r['content_hash'][:12]}…")
     if rows:
-        # Merge with rows for skipped files is not attempted: if some files
-        # were skipped, leave VERIFY's PDF table untouched and say so.
-        if skipped:
-            print("Some PDFs were already stamped; VERIFY PDF table NOT updated.")
-        else:
-            update_verify(rows)
-            refresh_b64("VERIFY.md")
-            print("  kit/VERIFY.md (PDF fingerprints) + b64 snapshots refreshed")
+        # Write content-text hashes for release.py manifest (provenance).
+        # Merge with existing file to preserve hashes for skipped PDFs.
+        import json
+        text_hash_path = "kit/VERIFY-text-hashes.json"
+        text_hashes = {}
+        if os.path.exists(text_hash_path):
+            try:
+                with open(text_hash_path) as f:
+                    text_hashes = json.load(f)
+            except (json.JSONDecodeError, OSError):
+                pass
+        for r in rows:
+            text_hashes[r["file"]] = r["content_text_hash"]
+        with open(text_hash_path, "w") as f:
+            json.dump(text_hashes, f, indent=2, sort_keys=True)
+        print(f"  kit/VERIFY-text-hashes.json written ({len(text_hashes)} entries)")
+        # Update VERIFY.md: merge new rows with existing entries for skipped files.
+        # Parse existing table to preserve skipped files' rows.
+        existing_rows = {}
+        verify_path = "kit/VERIFY.md"
+        if os.path.exists(verify_path):
+            with open(verify_path) as f:
+                for line in f:
+                    m = re.match(
+                        r"\|\s*(\S+\.pdf)\s*\|\s*([^|]+)\|\s*`([0-9a-f]{64})`\s*\|\s*`([0-9a-f]{64})`\s*\|",
+                        line)
+                    if m:
+                        existing_rows[m.group(1)] = {
+                            "file": m.group(1),
+                            "version": m.group(2).strip(),
+                            "file_hash": m.group(3),
+                            "content_hash": m.group(4),
+                        }
+        # Merge: new rows override, skipped files retain existing entries
+        merged = dict(existing_rows)
+        for r in rows:
+            merged[r["file"]] = r
+        # Exact inventory check on merged table keys: fail closed if the
+        # VERIFY.md row set doesn't match the expected 17.
+        # Only the static Presentation_Handouts.pdf may be skipped.
+        # (Actual kit/*.pdf files were already validated in preflight.)
+        SKIPPED_ALLOWED = {"Presentation_Handouts.pdf"}
+        merged_names = set(merged.keys())
+        if merged_names != EXPECTED_PDFS:
+            missing = EXPECTED_PDFS - merged_names
+            extra = merged_names - EXPECTED_PDFS
+            print(f"FATAL: PDF inventory mismatch. Missing: {sorted(missing)}. "
+                  f"Extra: {sorted(extra)}.", file=sys.stderr)
+            sys.exit(1)
+        unexpected_skipped = set(skipped) - SKIPPED_ALLOWED
+        if unexpected_skipped:
+            print(f"FATAL: Unexpected PDFs skipped (only {SKIPPED_ALLOWED} "
+                  f"may be skipped): {sorted(unexpected_skipped)}.",
+                  file=sys.stderr)
+            sys.exit(1)
+        update_verify(list(merged.values()))
+        refresh_b64("VERIFY.md")
+        print("  kit/VERIFY.md (PDF fingerprints) + b64 snapshots refreshed")
     print(f"done: {len(rows)} stamped, {len(skipped)} skipped")
     import subprocess
     checker = os.path.join(os.path.dirname(__file__), "check-pdf-qrs.py")
