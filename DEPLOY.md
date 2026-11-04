@@ -1,5 +1,19 @@
 # Deploying plebumbtc.io from GitHub
 
+> **Release safety notice (November 2026):** The legacy "Deploy from a branch"
+> instructions below publish tracked `docs/`, which is **not** the
+> verified release output. The release pipeline now builds a separate
+> `dist/site/` tree, with a manifest and verified ZIPs, but the current
+> GitHub Actions workflow does **not** deploy that tree. Do not describe
+> the public site as release-verified until a GitHub Pages artifact
+> deployment job is added and validated. The required job must depend on
+> `release-gate`, upload **only** `dist/site/` using
+> `actions/upload-pages-artifact`, then deploy with `actions/deploy-pages`.
+> Switch Pages Source to **GitHub Actions** only as part of that tested
+> migration. Keep the existing deployment running until the replacement
+> is proven. Verify served downloads against `kit/release-manifest.json`
+> after deployment; a successful build alone is not proof of served bytes.
+>
 GitHub Pages hosts the site for free, straight from this repo. One-time setup,
 about 10 minutes.
 

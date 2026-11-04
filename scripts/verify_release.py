@@ -335,6 +335,54 @@ def main():
     else:
         check("kit/VERIFY.md exists", False)
 
+    # --- Publishable site: exact artifact bytes, not stale tracked docs/ ---
+    site = dist / "site"
+    check("publishable site exists", site.is_dir())
+    if site.is_dir():
+        for name, info in tools.items():
+            relative = Path(info["path"])
+            published = site / relative.relative_to("docs") if relative.parts[0] == "docs" else site / relative
+            check(f"published tool: {name}", published.is_file())
+            if published.is_file():
+                check(f"published tool size: {name}",
+                      published.stat().st_size == info["size"])
+                check(f"published tool hash: {name}",
+                      sha256_file(published) == info["sha256"])
+        for name, info in pdfs.items():
+            published = site / "kit" / name
+            check(f"published PDF: {name}", published.is_file())
+            if published.is_file():
+                check(f"published PDF hash: {name}",
+                      sha256_file(published) == info["file_sha256"])
+        for filename, entry in [
+            ("tools-bundle.zip", bman),
+            ("plebumbtc-offline.zip", manifest.get("offline_zip", {})),
+        ]:
+            published = site / "kit" / filename
+            check(f"published archive: {filename}", published.is_file())
+            if published.is_file():
+                check(f"published archive hash: {filename}",
+                      sha256_file(published) == entry.get("sha256"))
+        published_manifest = site / "kit" / "release-manifest.json"
+        check("published release manifest exists", published_manifest.is_file())
+        if published_manifest.is_file():
+            check("published release manifest exact bytes",
+                  published_manifest.read_bytes() == manifest_path.read_bytes())
+        published_page = site / "verify-file.html"
+        check("published verification page exists", published_page.is_file())
+        if published_page.is_file():
+            html = published_page.read_text(encoding="utf-8")
+            for name, info in tools.items():
+                check(f"published pin: {name}", info["sha256"] in html)
+            check("published bundle pin", bman.get("sha256", "") in html)
+        published_verify = site / "kit" / "VERIFY.md"
+        check("published VERIFY.md exists", published_verify.is_file())
+        if published_verify.is_file():
+            content = published_verify.read_text(encoding="utf-8")
+            for name, info in pdfs.items():
+                check(f"published PDF fingerprint: {name}",
+                      info["file_sha256"] in content)
+
     # --- 5. Offline ZIP ---
     offline = dist / "plebumbtc-offline.zip"
     check("offline ZIP exists in dist", offline.exists())
