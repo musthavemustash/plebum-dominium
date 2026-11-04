@@ -501,4 +501,5 @@ def main():
     sys.exit(0 if failed == 0 else 1)
 
 if __name__ == "__main__":
-    main()
+    print("[FAIL] INTENTIONAL CI BLOCKING PROBE — DO NOT MERGE")
+    sys.exit(1)
