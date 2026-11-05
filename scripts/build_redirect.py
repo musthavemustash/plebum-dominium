@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""Build and verify the temporary production redirect site."""
+"""Build and verify the temporary production maintenance site."""
 import html
-import json
 from pathlib import Path
 import shutil
 
@@ -15,19 +14,18 @@ def page(destination):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Plebum Dominium · Public test site</title>
+<title>Plebum Dominium · Maintenance</title>
 <meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="0;url={escaped}">
 <link rel="canonical" href="{escaped}">
-<meta property="og:title" content="Plebum Dominium · Public test site">
-<meta property="og:description" content="Review the guides and help test the site. Use public test data only.">
+<meta property="og:title" content="Plebum Dominium · Maintenance">
+<meta property="og:description" content="Plebum Dominium is undergoing maintenance. Visit the test site to preview the updates.">
 <meta property="og:image" content="{TARGET}assets/img/staging-review-card-v1.png">
 <meta name="twitter:card" content="summary_large_image">
-<style>body{{max-width:40rem;margin:12vh auto;padding:1rem;background:#f6f3ec;color:#35251b;font:18px/1.6 system-ui}}a{{color:#70411f}}</style>
-</head><body><h1>Continue to the public test site</h1>
-<p>Public review is in progress. Use public test data only.</p>
-<p><a href="{escaped}">Open the test site →</a></p>
-<script>location.replace({json.dumps(destination)});</script>
+<style>body{{max-width:40rem;margin:12vh auto;padding:1rem;background:#f6f3ec;color:#35251b;font:18px/1.6 system-ui}}a{{color:#70411f}}.visit{{display:inline-block;padding:.7rem 1rem;background:#8a5a2a;color:#fff;text-decoration:none;border-radius:8px}}.visit:focus-visible{{outline:3px solid #35251b;outline-offset:4px}}.note{{font-size:.9rem;color:#594739}}</style>
+</head><body><h1>Plebum Dominium is undergoing maintenance.</h1>
+<p>We’re updating the site. You can preview the changes and share feedback on the test site.</p>
+<p><a class="visit" href="{escaped}">Visit the test site →</a></p>
+<p class="note">The test site is for public review. Use public test data only.</p>
 </body></html>'''
 
 def main():
@@ -49,13 +47,14 @@ def main():
             continue
         if path.suffix == ".html":
             source = path.read_text()
-            assert '<meta http-equiv="refresh"' in source
-            assert 'location.replace(' in source
-            assert '<a href="' + TARGET in source
+            assert '<meta http-equiv="refresh"' not in source
+            assert 'location.replace(' not in source
+            assert 'href="' + TARGET in source
+            assert 'Plebum Dominium is undergoing maintenance.' in source
             assert "<input" not in source and "<form" not in source
         else:
             assert path.relative_to(OUTPUT).as_posix() in {"CNAME", ".nojekyll", "robots.txt"}
-    print("Validated", len(paths), "redirect pages. No production tools or downloads in artifact.")
+    print("Validated", len(paths), "maintenance pages. No production tools or downloads in artifact.")
 
 if __name__ == "__main__":
     main()
