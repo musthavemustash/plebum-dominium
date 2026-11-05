@@ -1,3 +1,28 @@
+# Temporary redirect to the test site
+
+plebumbtc.io currently publishes only redirect pages to
+https://musthavemustash.github.io/plebum-dominium-test/ .
+
+The maintainer requested this on November 5, 2026 while the original site
+and fingerprint-checker availability were under review. This is an explicit
+temporary retirement of the production guide and its downloads.
+
+GitHub Pages publishes the artifact built by scripts/build_redirect.py.
+It contains redirect HTML, the custom-domain CNAME, robots.txt and .nojekyll.
+Matching guide and tool paths go to their staging counterparts. Unknown paths
+go through 404.html to the staging homepage. Historical kit files, scripts and
+archives are excluded from the deployed artifact.
+
+These are immediate HTML/JavaScript redirects because GitHub Pages does not
+provide per-site HTTP redirect rules here. Visitors without JavaScript also
+get a meta refresh and a direct link.
+
+Production source files remain in Git for review. Restoring the previous
+release deployment requires a separate maintainer-approved change. The last
+production commit before retirement was 353cc62a7c0f685dd199e4e89dc486ff230111ae.
+
+The historical deployment instructions follow.
+
 # Deploying plebumbtc.io from GitHub
 
 > **Release safety notice (November 2026):** The legacy "Deploy from a branch"
