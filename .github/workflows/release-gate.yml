@@ -124,13 +124,16 @@ jobs:
             dist/release-manifest.json
           retention-days: 90
 
-      # Upload only the bytes that were independently verified above.
-      # Never upload tracked docs/ or rebuild the site in a separate job.
-      - name: Upload verified site for GitHub Pages
+      # The maintainer has temporarily retired production in favor of staging.
+      # Preserve all required release checks, then validate the redirect-only artifact.
+      - name: Build and verify temporary redirect-only site
+        run: python3 scripts/build_redirect.py
+
+      - name: Upload temporary redirect site for GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/site
+          path: dist/redirect-site
 
   deploy-pages:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -143,7 +146,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy verified site to GitHub Pages
+      - name: Deploy temporary redirect site to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
         
