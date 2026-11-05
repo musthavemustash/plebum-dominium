@@ -1,25 +1,21 @@
-# Temporary redirect to the test site
+# Temporary maintenance page
 
-plebumbtc.io currently publishes only redirect pages to
+plebumbtc.io currently publishes a maintenance notice with an explicit
+"Visit the test site" link. Visitors choose when to continue to
 https://musthavemustash.github.io/plebum-dominium-test/ .
 
-The maintainer requested this on November 5, 2026 while the original site
-and fingerprint-checker availability were under review. This is an explicit
-temporary retirement of the production guide and its downloads.
+The maintainer requested this on November 5, 2026, replacing the automatic
+redirect. Matching old page paths offer links to staging equivalents. Unknown
+paths show the maintenance notice through 404.html.
 
-GitHub Pages publishes the artifact built by scripts/build_redirect.py.
-It contains redirect HTML, the custom-domain CNAME, robots.txt and .nojekyll.
-Matching guide and tool paths go to their staging counterparts. Unknown paths
-go through 404.html to the staging homepage. Historical kit files, scripts and
-archives are excluded from the deployed artifact.
+The existing required release checks still run before deployment. Pages
+publishes only the validated maintenance artifact from scripts/build_redirect.py.
+It contains notice HTML and hosting metadata. Production tools and download
+bundles are excluded from the published artifact.
 
-These are immediate HTML/JavaScript redirects because GitHub Pages does not
-provide per-site HTTP redirect rules here. Visitors without JavaScript also
-get a meta refresh and a direct link.
-
-Production source files remain in Git for review. Restoring the previous
-release deployment requires a separate maintainer-approved change. The last
-production commit before retirement was 353cc62a7c0f685dd199e4e89dc486ff230111ae.
+Restoring production content requires a separate maintainer-approved change.
+The production source before the temporary retirement is preserved at
+353cc62a7c0f685dd199e4e89dc486ff230111ae.
 
 The historical deployment instructions follow.
 
