@@ -1009,6 +1009,11 @@ def build_home():
         )
         cards.append(f'<section class="stage"><h2>{stage}</h2><div class="cards">{items}</div></section>')
     content = (
+        '<aside class="callout callout-warning" aria-label="Test site preview">'
+        '<p><strong><a href="https://musthavemustash.github.io/plebum-dominium-test/">'
+        'Preview the test site &rarr;</a></strong></p>'
+        '<p>Explore the updated guide and share feedback. Testing is ongoing; '
+        'do not use real wallet secrets or funds during review.</p></aside>'
         '<div class="hero"><p class="hero-kicker">Independent At-Home Bitcoin Self-Custody</p>'
         '<div class="hero-title-row">'
         '<div class="coin" aria-hidden="true"><div class="coin-inner"><span class="coin-face coin-front">\u20bf</span><span class="coin-face coin-back"><img src="{BASE}assets/img/logo-pleb-key-coin.svg" alt=""></span></div></div>'
